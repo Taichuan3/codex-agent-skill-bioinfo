@@ -1,0 +1,4 @@
+interface:
+  display_name: "Literature Search Workflow"
+  short_description: "Plan literature search and evidence tables"
+  default_prompt: "Use $literature-search-workflow to design a literature search strategy and evidence table."

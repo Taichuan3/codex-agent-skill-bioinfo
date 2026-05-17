@@ -1,0 +1,4 @@
+interface:
+  display_name: "Submission Readiness Audit"
+  short_description: "Audit manuscript readiness before submission"
+  default_prompt: "Use $submission-readiness-audit to audit whether this manuscript package is ready for submission."

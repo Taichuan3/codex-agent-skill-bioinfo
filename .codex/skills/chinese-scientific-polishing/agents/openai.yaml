@@ -1,0 +1,4 @@
+interface:
+  display_name: "Chinese Scientific Polishing"
+  short_description: "Chinese scientific text polishing and structure"
+  default_prompt: "Use $chinese-scientific-polishing to polish this Chinese scientific paragraph without overclaiming."

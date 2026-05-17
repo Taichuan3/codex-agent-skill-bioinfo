@@ -1,0 +1,4 @@
+interface:
+  display_name: "Citation Verifier"
+  short_description: "Verify citations metadata and claim support"
+  default_prompt: "Use $citation-verifier to verify these references and whether they support the claims."

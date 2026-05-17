@@ -1,0 +1,4 @@
+interface:
+  display_name: "Environment and Tool Adoption"
+  short_description: "Adopt tools and record reproducible environments"
+  default_prompt: "Use $environment-and-tool-adoption to evaluate and install the right tool for this bioinformatics task."

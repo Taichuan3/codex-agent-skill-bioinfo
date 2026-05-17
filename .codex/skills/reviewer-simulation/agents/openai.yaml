@@ -1,0 +1,4 @@
+interface:
+  display_name: "Reviewer Simulation"
+  short_description: "Simulate reviewers and response priorities"
+  default_prompt: "Use $reviewer-simulation to identify likely reviewer concerns and priority fixes."
