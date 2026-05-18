@@ -20,6 +20,7 @@ journal_codex_AGENT/
       literature-search-workflow/
       manuscript-consistency-audit/
       paper-reader/
+      project-environment-bootstrap/
       project-guide-maintainer/
       publication-plotting/
       research-data-organization/
@@ -71,11 +72,12 @@ journal_codex_AGENT/
 2. `research-project-planner` 设计研究路线。
 3. `project-guide-maintainer` 创建轻量 `PROJECT_GUIDE.md`。
 
-## v1.2 合规状态
+## v1.3 合规状态
 
-- 25 个通用 skill 均通过官方 `quick_validate.py`。
-- 25 个通用 skill 均已补充 `agents/openai.yaml`。
+- 26 个通用 skill 均通过官方 `quick_validate.py`。
+- 26 个通用 skill 均已补充 `agents/openai.yaml`。
 - 根 `AGENTS.md` 保持短入口，不包含候选扩展功能。
 - 详细审计见 `docs/SKILL_AUDIT.md`。
 
 v1.2 新增文献/引用、投稿一致性、真实审稿回复、证据缺口和验证策略相关 skills。生信专项包仍按真实项目需求后续增补。
+v1.3 新增项目环境启动检查 skill：`project-environment-bootstrap`，用于新项目、切换机器/目录或环境未知时初始化本地私有 `PROJECT_ENVIRONMENT.md`。

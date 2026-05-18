@@ -59,6 +59,7 @@ Skill 触发必须基于语义理解，不依赖单一关键词。用户不需�
 | 用户任务 | 默认 skill |
 |---|---|
 | 研究前期背景调查、技术路线、figure skeleton、证据包 | `research-project-planner` |
+| 新项目启动、切换机器或工作目录、环境不明、缺少 `PROJECT_ENVIRONMENT.md`、conda/Jupyter/VS Code/GitHub 同步检查 | `project-environment-bootstrap` |
 | 用户原始想法整理成短 research brief | `research-question-brief` |
 | 项目总指导文件、轻量背景、研究主线、当前进度和论文骨架维护 | `project-guide-maintainer` |
 | 阅读用户指定论文、PDF、全文或网页论文 | `paper-reader` |
@@ -102,6 +103,7 @@ Exploratory 和 Speculative 结论不得写成 Results 的最终强结论。若�
 - 不静默改变过滤标准、样本集合、参考版本、工具版本或执行环境。
 - 执行任务所需的 Python/R/命令行包或软件本地缺失时，可以主动安装或建立临时环境；安装前先判断必要性、来源可信度、版本兼容性和对当前项目的影响，安装后记录包名、版本、来源和环境。
 - 避免重复造轮子：遇到已有成熟 GitHub 工具、论文代码、官方 protocol 或领域标准软件可以解决的问题，优先评估并采用成熟方案；涉及复杂依赖、license、重型安装或外部代码适配时再调用 `environment-and-tool-adoption` 做专项评估。
+- 新项目启动、切换机器/工作目录、运行分析前环境不明或缺少 `PROJECT_ENVIRONMENT.md` 时，使用 `project-environment-bootstrap`；`PROJECT_ENVIRONMENT.md` 默认为本地私有文件，不提交 GitHub。日常编码、绘图、分析、写作和翻译任务不要因此触发环境检查。
 - 图表是 evidence chain 的一部分，必须能追踪到 source data；具体绘图和 QA 规则由 `publication-plotting` 承担。
 - 交付前做轻量自检；复杂检查交给 `task-self-check` 或对应专项 skill。
 

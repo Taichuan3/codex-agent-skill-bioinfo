@@ -65,6 +65,7 @@
 | `[done]` | 真实审稿回复模块 | 真实 reviewer comments 与模拟审稿风险应拆开处理 | v1.2 已新增 `reviewer-response-builder` |
 | `[done]` | 证据缺口模块 | 需要从已有结果中找最小补分析集合，而不是无限扩展项目 | v1.2 已新增 `evidence-gap-finder` |
 | `[done]` | 验证策略模块 | 探索性发现需要计算验证、外部数据验证、统计敏感性或降级写法 | v1.2 已新增 `validation-strategy-planner` |
+| `[done]` | 项目环境启动模块 | 新项目、切换机器/目录、环境未知或缺少 `PROJECT_ENVIRONMENT.md` 时需要一次性检查环境，但日常任务不应触发以免占用上下文 | v1.3 已新增 `project-environment-bootstrap` |
 | `[done]` | 建设性反对增强模块 | 当前反对原则偏短，未来需要更明确的证据、逻辑、成本和替代方案框架 | 已新增 `research-decision-review` |
 
 ## 新增能力待办
@@ -74,6 +75,7 @@
 | `[done]` | 允许在本地安装任务所需包或软件 | 实际分析经常依赖缺失包；agent 应能主动安装并记录环境变化，而不是等用户指定 skill | v1.2 根 AGENTS 默认原则 + `environment-and-tool-adoption` 专项评估 |
 | `[done]` | 安装前优先判断是否已有环境、包管理器或项目约束 | 避免污染环境、重复安装或破坏项目可复现性 | `environment-and-tool-adoption` |
 | `[done]` | 使用成熟 GitHub 工具、论文代码或官方 protocol 前先做来源审查 | 避免直接运行不可信代码，也避免自己重写已有成熟工具 | v1.2 根 AGENTS 默认原则 + `environment-and-tool-adoption` |
+| `[done]` | `PROJECT_ENVIRONMENT.md` 默认本地私有且不上传 GitHub | 环境文件可能包含本机路径、hostname、服务器信息和同步策略；应在项目启动时保护 | `project-environment-bootstrap` + `.gitignore` 检查 |
 | `[done]` | 对外部工具记录版本、来源、license、输入输出和适配改动 | 方便复现、引用和后续维护 | `environment-and-tool-adoption` + `source-data-audit` / `bioinfo-analysis-code` |
 | `[done]` | 对“论文里已有方法”和“本地重写实现”做取舍 | 成熟工具优先，但需要能解释为什么不用或为什么改写 | `research-decision-review` + `environment-and-tool-adoption/references/tool-adoption-rubric.md` |
 

@@ -1,15 +1,16 @@
 # 通用生信 AGENT 与 Skill 使用说明
 
-更新日期：2026-05-17
+更新日期：2026-05-19
 
 本文件用于人工审阅当前 `journal_codex_AGENT` 打包版中的通用生信研究 AGENT 与本地 skills。它不是新的规则源，不替代 `AGENTS.md` 或 `.codex/skills/*/SKILL.md`；它的作用是帮助用户理解当前体系已经完成到什么程度、每个模块负责什么、未来使用时应该如何触发。
 
-v1.2 打包状态：
+v1.3 打包状态：
 
-- 包内包含 1 个根 `AGENTS.md` 和 25 个通用 skill。
+- 包内包含 1 个根 `AGENTS.md` 和 26 个通用 skill。
 - 每个 skill 均包含 `SKILL.md` 和 Codex UI 元数据 `agents/openai.yaml`。
 - 合规审计见 `docs/SKILL_AUDIT.md`。
 - v1.2 已新增文献/引用、投稿一致性、真实审稿回复、证据缺口和验证策略 skills；后续候选能力见 `docs/REFERENCE_CANDIDATES.md`。
+- v1.3 已新增 `project-environment-bootstrap`，用于新项目启动、切换机器/目录、环境未知或缺少 `PROJECT_ENVIRONMENT.md` 时检查本地环境；日常编码、绘图、分析、写作和翻译不触发。
 
 ## 1. 当前设计目标
 

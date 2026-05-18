@@ -1,11 +1,11 @@
-# journal_codex_AGENT v1.2 Skill 合规审计
+# journal_codex_AGENT v1.3 Skill 合规审计
 
-审计日期：2026-05-17
+审计日期：2026-05-19
 
 ## 结论
 
-- 25 个通用 skill 均通过官方 `quick_validate.py`。
-- 25 个 skill 均已补充 `agents/openai.yaml`，用于 Codex UI 元数据展示。
+- 26 个通用 skill 均通过官方 `quick_validate.py`。
+- 26 个 skill 均已补充 `agents/openai.yaml`，用于 Codex UI 元数据展示。
 - 每个 skill 均包含 `SKILL.md`、frontmatter `name` 和 `description`。
 - skill 文件夹名与 frontmatter `name` 完全一致。
 - 未发现阻断发布的 P0 合规问题。
@@ -31,7 +31,7 @@ done
 ~/.codex/skills/.system/skill-creator/scripts/generate_openai_yaml.py
 ```
 
-## 25 个 Skill 审计表
+## 26 个 Skill 审计表
 
 | Skill | Trigger precision | Context efficiency | Progressive disclosure | Research integrity | Maintainability | Hard gate | 后续改进 |
 |---|---|---|---|---|---|---|---|
@@ -45,6 +45,7 @@ done
 | `literature-search-workflow` | Good：限定系统文献检索和证据表，不读单篇论文 | Good | Good：已有 references | Excellent：要求检索式、筛选标准和证据表 | Good | Pass | 可补 PubMed/CrossRef 查询脚本 |
 | `manuscript-consistency-audit` | Good：限定数字、术语、图号、样本集合一致性 | Good | Good：已有 references | Excellent：以 source data/locked table 为权威 | Good | Pass | 可补 number extraction 辅助脚本 |
 | `paper-reader` | Good：限定用户指定论文阅读，不做开放式检索 | Good | Good：已有 references | Good：区分作者结论、证据和可借鉴方法 | Good | Pass | 可补 PDF extraction workflow |
+| `project-environment-bootstrap` | Good：限定新项目、切换机器/目录、环境未知或缺少环境文件；明确日常任务不触发 | Good：正文短，细节放入 references | Good：已有 references | Good：保护本地环境文件和 GitHub 同步隐私边界 | Good | Pass | 可补不同平台自动检测脚本 |
 | `project-guide-maintainer` | Good：限定轻量 `PROJECT_GUIDE.md` 维护 | Good | Good：已有 references | Good：避免长上下文，保留主线和证据状态 | Good | Pass | 可加入“摘要优先读取”示例 |
 | `publication-plotting` | Good：限定 manuscript-ready/PPT 可读图和 QA | Good | Good：已有 references | Good：figure contract、source data、遮挡检查 | Good | Pass | 可补不同图型的字号和导出 preset |
 | `research-data-organization` | Good：限定结果分散、latest/priority、manifest 和投稿数据整理 | Good | Good：已有 references | Good：关注可追踪和当前有效版本 | Good | Pass | 可补一级目录索引模板 |
