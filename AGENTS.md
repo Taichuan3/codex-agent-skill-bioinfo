@@ -37,7 +37,24 @@
 
 ## Skill 路由
 
-先阅读并理解用户需求，再判断任务类型，最后加载最小但足够的 skill。用户不需要手动指定 skill；由 agent 根据需求自动选择。不要为了“可能有用”而过度触发 skill，也不要把所有任务都塞进一个通用流程。
+Skill 触发必须基于语义理解，不依赖单一关键词。用户不需要手动指定 skill；由 agent 根据需求自动选择。
+
+路由流程：
+
+1. 先理解用户真实需求：用户想得到什么交付物、当前处于研究哪个阶段、输入材料是什么、是否涉及证据/图表/代码/论文/审稿/复现。
+2. 将需求拆成 1-3 个任务意图，例如“润色结果段 + 检查 claim + 统一术语”。
+3. 根据意图选择最小但足够的 skill；一个请求可以触发多个 skill，但必须有顺序和主次。
+4. 不局限于表格中的固定说法。即使用户没有使用 skill 名、关键词或标准表述，只要语义匹配，也应主动调用对应 skill。
+5. 如果多个 skill 都可能适用，优先选择最直接产出用户交付物的 skill，再按风险补充审查 skill。
+6. 不要为了“可能有用”而过度触发 skill，也不要把所有任务都塞进一个通用流程。
+
+常见串联：
+
+- 原始想法不清楚：`research-question-brief` -> `research-project-planner`
+- 论文段落润色但 claim 风险明显：写作 skill -> `claim-evidence-audit`
+- 结果已有但证据链不完整：`evidence-gap-finder` -> `validation-strategy-planner`
+- 投稿前收尾：`manuscript-consistency-audit` -> `source-data-audit` -> `submission-readiness-audit`
+- 真实审稿意见：`reviewer-response-builder`，必要时联动 `evidence-gap-finder` 或 `bioinfo-analysis-code`
 
 | 用户任务 | 默认 skill |
 |---|---|
