@@ -52,3 +52,4 @@ description: 用于中文科研文本润色、结构优化和可读性提升，�
 
 - 需要判断摘要、引言、结果、讨论、方法或图注的章节功能时，读取 `references/section-responsibilities.md`。
 - 需要进一步检查数据密度、段落结构和过强措辞时，读取 `references/polishing-checklist.md`。
+- 需要按 Nature/Science/Cell 等高影响期刊常见作者指南维护中文论文结构、摘要、结果、讨论、方法、图注和标题功能时，读取 `references/high-impact-journal-writing.md`。

@@ -43,3 +43,4 @@ description: 用于将中文科研文本翻译为英文，或将中文草稿转�
 ## 按需读取
 
 需要在忠实翻译、精炼翻译和 Nature-leaning 翻译之间选择时，读取 `references/translation-stance.md`。
+需要将中文论文段落翻译成符合高影响期刊 section function 的英文表达，或检查摘要、引言、结果、讨论、方法、图注的英文职责时，读取 `references/high-impact-journal-translation.md`。

@@ -41,3 +41,4 @@ description: 用于已有英文科研文本的润色、压缩、段落重构、N
 ## 按需读取
 
 需要检查英文过强措辞、section stance、style guardrails 或 Nature/CNS-leaning academic style 时，读取 `references/style-guardrails.md`。
+需要按高影响期刊作者指南检查英文 manuscript section function、title/abstract/results/discussion/methods/figure legend 写作职责时，读取 `references/high-impact-journal-writing.md`。
