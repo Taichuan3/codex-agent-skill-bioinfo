@@ -8,6 +8,21 @@
 4. Improve clarity and flow.
 5. Add journal-leaning style only when safe.
 
+## Terminology map
+
+Before translating complex manuscript text, identify key terms that must stay stable.
+
+| Chinese source term | Preferred English term | Avoid / only use if distinct | Note |
+|---|---|---|---|
+|  |  |  |  |
+
+Rules:
+
+- One concept should map to one English term.
+- Do not introduce synonym variation for readability if it changes the apparent object.
+- If the Chinese source uses multiple words for the same concept, choose one preferred English term and flag the Chinese inconsistency in `Risk notes`.
+- If two English terms are both needed, define the distinction first. For example, use `element` for the repeat unit and `copy` for an occurrence only if that distinction is explicit and stable.
+
 ## Do not upgrade
 
 - 相关性 -> 因果

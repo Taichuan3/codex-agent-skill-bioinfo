@@ -15,15 +15,18 @@ description: 用于已有英文科研文本的润色、压缩、段落重构、N
 - 不为了语言更强而把 association 写成 causation。
 - 不把 exploratory、candidate、putative、suggestive 结果写成 demonstrated、established、required。
 - 保留项目 profile 中定义的术语和禁止性表达。
+- 保持 scientific terminology 一致性。同一概念、对象或结构层级必须使用同一英文术语；不要为了 stylistic variation 把同一对象在相邻句中改写为不同名词，例如未定义差异时不要在 `element`、`copy`、`unit`、`locus`、`sequence` 之间来回切换。
+- 只有在不同术语代表不同层级或不同对象时才并用，并应在文本中明确边界。
 - 能压缩就压缩，但不能删除关键 caveat、样本范围、数据类型和统计限定。
 
 ## 工作流程
 
 1. 读取根 `AGENTS.md`、当前项目 profile 和用户给定文本。
 2. 标出文本中的核心 claim、证据等级和必须保留的 caveat。
-3. 先修正结构和过强 claim，再进行句子层面润色。
-4. 对高风险表达给出替代表述，而不是直接强化。
-5. 如发现证据不足，明确说明不建议使用的英文表达。
+3. 建立或保留 terminology map，检查同一概念是否被多个英文词替换、代词是否指代不清。
+4. 先修正结构、术语歧义和过强 claim，再进行句子层面润色。
+5. 对高风险表达给出替代表述，而不是直接强化。
+6. 如发现证据不足，明确说明不建议使用的英文表达。
 
 ## 输出格式
 
@@ -33,6 +36,7 @@ description: 用于已有英文科研文本的润色、压缩、段落重构、N
 - `More concise version`：需要压缩时提供。
 - `Risk notes`：列出可能过度解释的词或句子。
 - `Terms preserved`：列出按项目 profile 保留的术语。
+- `Terminology notes`：列出已统一的术语、仍有歧义的词，以及不应混用的近义表达。
 
 ## 按需读取
 
