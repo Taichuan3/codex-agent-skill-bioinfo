@@ -18,6 +18,7 @@ description: 用于将中文科研文本翻译为英文，或将中文草稿转�
 - `element`、`copy`、`unit`、`locus`、`sequence` 等术语只有在对应不同层级或不同对象时才可并存；否则应选择一个 preferred term 并保持全文一致。
 - 翻译按文本部分调整语气：摘要更紧，结果更具体，讨论更有边界。
 - 不发明数据、文献、样本数、统计结果或机制。
+- 翻译完成后先自检再输出。风险说明、术语表和精炼版本只在任务需要或发现问题时提供，不默认增加冗余说明。
 
 ## 工作流程
 
@@ -26,15 +27,16 @@ description: 用于将中文科研文本翻译为英文，或将中文草稿转�
 3. 建立或沿用 terminology map，统一同一概念的英文表达。
 4. 给出忠实英文版。
 5. 如用户需要，再给出更精炼或 Nature-leaning 版本。
-6. 标出不建议使用的过强英文词和容易造成歧义的术语替换。
+6. 交付前自检：检查英文是否忠实、claim 是否升级、术语是否一一对应、section function 是否正确、是否引入英文歧义。
+7. 如发现问题，标出不建议使用的过强英文词和容易造成歧义的术语替换。
 
 ## 输出格式
 
 - `English version`
-- `Optional concise version`
-- `Risk notes`
-- `Terms preserved`
-- `Terminology map`
+- `Optional concise version`：可选；仅在用户要求精炼、投稿语气或原文明显冗长时提供。
+- `Risk notes`：可选；仅在存在过强表达、翻译歧义、证据边界或 section function 风险时提供。
+- `Terms preserved`：可选；仅在有必须保留的项目术语时提供。
+- `Terminology map`：可选；复杂文本、术语不稳定或用户要求术语统一时提供。
 
 ## 风格参考
 
