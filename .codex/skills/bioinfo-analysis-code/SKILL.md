@@ -20,23 +20,49 @@ description: 用于生物信息学分析脚本、表格整理、轻量统计、J
 - 探索阶段可以写轻量脚本，但仍要记录关键命令和输入输出。
 - 收尾或投稿阶段要整理为可读、可复现、可提交的代码，补充必要注释、参数说明和 README 片段。
 - 注释应解释非显然逻辑、输入输出和关键参数，不写无意义逐行注释。
+- 多步骤分析必须使用阶段编号组织脚本和产物，例如 `00_`, `01_`, `02_`。编号应反映处理顺序，而不是随意命名。
+- 脚本、notebook、结果目录和关键输出文件应共享同一阶段编号，便于从结果反查生成步骤。
+- notebook 可用于探索和记录，但稳定流程应整理成编号脚本或 workflow；不要把正式分析变成一堆无法按顺序重跑的 notebook。
+- 当分析超过少数几个步骤，或需要反复重跑时，应考虑 `run_all.sh`、Snakemake、Nextflow 或类似 pipeline 入口。
 
 ## 推荐输出结构
 
 ```text
-scripts/
-results/
+03_code/
+  00_setup/
+  01_preprocessing/
+  02_qc/
+  03_analysis/
+  04_visualization/
+04_workflows/
+  run_all.sh
+  environment.yml
+05_results/
+  01_preprocessing/
+  02_qc/
+  03_analysis/
+  04_visualization/
   tables/
   figures/
   source_data/
-jobs/
-summary.md
+  logs/
+```
+
+轻量项目也可以保持简单，但仍建议脚本按顺序编号：
+
+```text
+01_download_data.R
+02_qc_filtering.R
+03_normalization.R
+04_differential_analysis.R
+05_make_figures.R
 ```
 
 ## 输出格式
 
 完成任务时说明：
 
+- Step ID / workflow order
 - Script
 - Inputs
 - Outputs
@@ -49,3 +75,4 @@ summary.md
 ## 按需读取
 
 需要判断代码整理深度、探索阶段和投稿阶段的注释/README/环境要求时，读取 `references/reproducibility-levels.md`。
+需要设计编号脚本、阶段产物、pipeline 入口或可复现项目结构时，读取 `references/workflow-numbering.md`。

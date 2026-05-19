@@ -14,6 +14,8 @@ description: 用于组织生物信息学项目的数据、表格、结果、图�
 - 数据要可追踪，也要容易读取。
 - 原始数据保持只读；已确认结论的关键表格和高频文件要有清晰入口。
 - 重要文件可以通过 `latest`、`priority`、`manifest` 或一级目录索引暴露出来。
+- 多步骤分析结果应使用阶段编号组织，例如 `01_preprocessing`、`02_qc`、`03_analysis`、`04_visualization`。编号应与脚本或 workflow step 对应。
+- 关键结果文件名可包含阶段编号，便于判断产物来源和处理顺序，例如 `03_differential_expression.tsv`、`04_main_figure.svg`。
 - 错误旧文件不需要永久保留在工作路径；可覆盖修正后的图表和派生表，但要保证最终 manifest 指向当前有效版本。
 - 不用深层目录隐藏关键论文表格。
 
@@ -21,6 +23,10 @@ description: 用于组织生物信息学项目的数据、表格、结果、图�
 
 ```text
 results/
+  01_preprocessing/
+  02_qc/
+  03_analysis/
+  04_visualization/
   priority_tables/
   priority_figures/
   source_data/
@@ -46,13 +52,15 @@ results/
 
 1. 扫描或读取用户指定目录，不默认全盘读取。
 2. 识别高频文件、已确认结论文件、投稿相关文件和过期文件。
-3. 建议一个浅层入口：priority tables、priority figures、source data、manifest。
-4. 对需要覆盖的修正图表或派生表，确认它们是错误修正还是新版本分支。
-5. 输出整理计划或 manifest 草案。
+3. 识别分析阶段顺序，给目录和关键文件补齐稳定编号。
+4. 建议一个浅层入口：priority tables、priority figures、source data、manifest。
+5. 对需要覆盖的修正图表或派生表，确认它们是错误修正还是新版本分支。
+6. 输出整理计划或 manifest 草案。
 
 ## 输出格式
 
 - `Recommended layout`
+- `Stage numbering`
 - `Priority files`
 - `Manifest fields`
 - `Overwrite / archive decisions`
@@ -61,3 +69,4 @@ results/
 ## 按需读取
 
 需要设计目录、latest/priority 入口、manifest 字段或投稿前数据整理策略时，读取 `references/layout-and-manifest.md`。
+需要把多步骤分析产物按处理顺序编号，或设计 stage-to-output 映射时，读取 `references/numbered-output-layout.md`。
