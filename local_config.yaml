@@ -1,6 +1,6 @@
 package:
   name: journal_codex_AGENT
-  version: "1.3"
+  version: "1.4"
   scope: generic_bioinformatics_research
   default_language: zh-CN
   description: >
@@ -86,6 +86,8 @@ docs:
   summary: docs/AGENT_SKILL_SUMMARY.md
   skeleton_todo: docs/AGENT_SKELETON_TODO.md
   audit: docs/SKILL_AUDIT.md
+  rigorous_workflow_guide: docs/RIGOROUS_COMPUTATIONAL_RESEARCH_WORKFLOW_GUIDE.md
+  workflow_coverage_audit: docs/WORKFLOW_COVERAGE_AUDIT.md
   reference_candidates: docs/REFERENCE_CANDIDATES.md
 
 validation:

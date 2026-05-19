@@ -39,7 +39,9 @@ journal_codex_AGENT/
   docs/
     AGENT_SKILL_SUMMARY.md
     AGENT_SKELETON_TODO.md
+    RIGOROUS_COMPUTATIONAL_RESEARCH_WORKFLOW_GUIDE.md
     SKILL_AUDIT.md
+    WORKFLOW_COVERAGE_AUDIT.md
     REFERENCE_CANDIDATES.md
 ```
 
@@ -56,6 +58,7 @@ journal_codex_AGENT/
 - 不包含项目数据、分析结果、论文草稿或操作日志。
 - `PROJECT_GUIDE.md` 不在包内创建；它应由具体项目根据 `project-guide-maintainer` skill 生成。
 - `docs/REFERENCE_CANDIDATES.md` 只记录后续可选扩展，不代表已经安装或启用这些候选 skill。
+- `docs/RIGOROUS_COMPUTATIONAL_RESEARCH_WORKFLOW_GUIDE.md` 是包级科研流程指导文件，不应在日常任务中默认全文读取。
 - `local_config.yaml` 是本地打包配置清单，只用于人工审阅、迁移和校验，不替代 `AGENTS.md` 或 skill 触发逻辑。
 
 ## 使用方式
@@ -72,12 +75,14 @@ journal_codex_AGENT/
 2. `research-project-planner` 设计研究路线。
 3. `project-guide-maintainer` 创建轻量 `PROJECT_GUIDE.md`。
 
-## v1.3 合规状态
+## v1.4 合规状态
 
 - 26 个通用 skill 均通过官方 `quick_validate.py`。
 - 26 个通用 skill 均已补充 `agents/openai.yaml`。
 - 根 `AGENTS.md` 保持短入口，不包含候选扩展功能。
+- 已新增包级科研流程指导文件和 workflow 覆盖审计，不作为日常任务默认读取内容。
 - 详细审计见 `docs/SKILL_AUDIT.md`。
 
 v1.2 新增文献/引用、投稿一致性、真实审稿回复、证据缺口和验证策略相关 skills。生信专项包仍按真实项目需求后续增补。
 v1.3 新增项目环境启动检查 skill：`project-environment-bootstrap`，用于新项目、切换机器/目录或环境未知时初始化本地私有 `PROJECT_ENVIRONMENT.md`。
+v1.4 补充从问题到论文的计算生物学流程指导文件，并将选题卡、五句话框架、阶段自检、reviewer attack list 和可复现 workflow 要点下沉到相关 references。

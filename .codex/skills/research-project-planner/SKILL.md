@@ -14,6 +14,8 @@ description: 用于生物信息学或计算生物学项目启动前的背景调�
 - 从科学问题开始，不从“我会什么分析”开始。
 - 先找知识缺口，再设计证据链。
 - 把用户的方向压缩成可检验假设、预期主张和 figure skeleton。
+- 用重要性、新颖性、可行性、证据路径、风险和产出形态评估方向，而不是凭直觉开题。
+- 用 `Known / Unknown / Question / Finding / Advance` 五句话检查故事是否能收敛。
 - 区分 `exploration`、`confirmation`、`validation`，避免探索结果直接变成强结论。
 - 只读取用户指定材料和必要 skill，不默认读取长项目记录。
 
@@ -27,6 +29,7 @@ description: 用于生物信息学或计算生物学项目启动前的背景调�
 6. 画 figure skeleton：每张主图回答什么问题。
 7. 给出 technical route：数据来源、分析模块、工具选择、验证路线和风险节点。
 8. 给出 stop / pivot criteria：什么结果继续，什么结果转向，什么结果停止。
+9. 建议如何把输出压缩进 `PROJECT_GUIDE.md`，而不是写成长记录。
 
 ## 必要输出
 
@@ -37,6 +40,8 @@ description: 用于生物信息学或计算生物学项目启动前的背景调�
 - `Knowledge gap`
 - `Hypothesis`
 - `Expected claim`
+- `Topic scorecard`
+- `Known / Unknown / Question / Finding / Advance`
 - `Evidence package`
 - `Figure skeleton`
 - `Technical route`

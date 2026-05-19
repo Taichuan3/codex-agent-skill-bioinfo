@@ -17,6 +17,14 @@ Last updated:
 
 本项目最终要回答的科学问题。
 
+## Known / Unknown / Question / Finding / Advance
+
+- Known:
+- Unknown:
+- Question:
+- Finding:
+- Advance:
+
 ## Working hypothesis / model
 
 当前工作假说或解释模型。未确认内容必须标注为 hypothesis、model 或 assumption。
@@ -35,6 +43,16 @@ Last updated:
 |---|---|---|---|---|---|
 | R1 / Fig. 1 |  |  |  |  |  |
 
+## Evidence package
+
+| Claim | Required evidence | Current evidence | Missing evidence | Next action |
+|---|---|---|---|---|
+
+## Exploration / confirmation / validation status
+
+| Result | Stage | Locked parameters? | Independent validation? | Status note |
+|---|---|---|---|---|
+
 ## Current progress
 
 - Done:
@@ -45,6 +63,11 @@ Last updated:
 ## Key evidence and caveats
 
 | Claim | Evidence pointer | Level | Caveat |
+|---|---|---|---|
+
+## Reviewer attack list
+
+| Attack | Risk type | Current response | Needed fix |
 |---|---|---|---|
 
 ## Open questions
@@ -70,3 +93,5 @@ Last updated:
 - 操作命令、运行日志和详细输出路径放到 `PROJECT_PLAN.md` 或对应 summary。
 - 如果某个 result 已经很成熟，可以把它写成论文结果段骨架。
 - 如果某个 result 仍是探索性，只保留为候选路线并标注证据等级。
+- 如果五句话写不清楚，优先维护研究主线，不要急着扩写正文。
+- 如果 reviewer attack list 出现 blocking risk，优先转给 `evidence-gap-finder`、`validation-strategy-planner` 或 `submission-readiness-audit`。

@@ -55,6 +55,7 @@
 | `[done]` | 论文润色模块 | 英文和中文写作需要保护证据边界，同时提升可读性 | 已拆成 3 个 writing skills，并补 references |
 | `[done]` | 项目指导文件维护模块 | 需要一个比 `PROJECT_PLAN.md` 更短、更适合默认读取的背景和主线入口 | 已新增 `project-guide-maintainer`，用于维护 `PROJECT_GUIDE.md` |
 | `[done]` | source data 与复现检查模块 | 论文图表和关键数字必须可追踪 | 已写入 `source-data-audit` |
+| `[done]` | 数据结果编号与浅层入口模块 | 多步骤分析产物需要按处理顺序编号，并让高频表格/图表容易找到 | 已补强 `research-data-organization` 的 `numbered-output-layout.md` 和 manifest 字段 |
 | `[done]` | 包/软件安装模块 | 任务可能需要 pandas、R 包、绘图包、命令行工具或生信软件；安装不应完全依赖被动 skill 触发 | v1.2 已提升为根 AGENTS 默认原则；复杂安装和 license 风险再调用 `environment-and-tool-adoption` |
 | `[done]` | 外部工具借鉴模块 | 避免重复造轮子，优先评估 GitHub、论文代码和成熟工具 | v1.2 已提升为根 AGENTS 默认原则；复杂外部工具采用再调用 `environment-and-tool-adoption` |
 | `[done]` | 文献阅读模块 | 需要阅读用户指定论文并抽取 figure-grounded evidence | v1.2 已新增 `paper-reader` |
@@ -66,6 +67,7 @@
 | `[done]` | 证据缺口模块 | 需要从已有结果中找最小补分析集合，而不是无限扩展项目 | v1.2 已新增 `evidence-gap-finder` |
 | `[done]` | 验证策略模块 | 探索性发现需要计算验证、外部数据验证、统计敏感性或降级写法 | v1.2 已新增 `validation-strategy-planner` |
 | `[done]` | 项目环境启动模块 | 新项目、切换机器/目录、环境未知或缺少 `PROJECT_ENVIRONMENT.md` 时需要一次性检查环境，但日常任务不应触发以免占用上下文 | v1.3 已新增 `project-environment-bootstrap` |
+| `[done]` | 包级科研流程指导文件 | 原 `rigorous_research_workflow_computational_biology.md` 不应只产出 planner skill，而应成为从问题到论文的总指导骨架 | v1.4 已新增 `docs/RIGOROUS_COMPUTATIONAL_RESEARCH_WORKFLOW_GUIDE.md` 和 `docs/WORKFLOW_COVERAGE_AUDIT.md` |
 | `[done]` | 建设性反对增强模块 | 当前反对原则偏短，未来需要更明确的证据、逻辑、成本和替代方案框架 | 已新增 `research-decision-review` |
 
 ## 新增能力待办

@@ -20,6 +20,9 @@ description: 用于创建、更新或压缩生物信息学项目的轻量 PROJEC
 - 每一步做到哪里了。
 - 哪些结果可以支撑论文主体框架。
 - 哪些 caveat、open question 和下一步最重要。
+- 当前项目处于 exploration、confirmation 还是 validation 阶段。
+- 五句话 `Known / Unknown / Question / Finding / Advance` 是否已经能说清。
+- 哪些 reviewer attack 已经被证据、验证或降级写法处理。
 
 `PROJECT_PLAN.md` 或类似文件只记录操作、运行结果和复盘，不应承担项目背景和论文主线。
 
@@ -40,11 +43,15 @@ description: 用于创建、更新或压缩生物信息学项目的轻量 PROJEC
 ## One-line summary
 ## Background
 ## Central question
+## Known / Unknown / Question / Finding / Advance
 ## Working hypothesis / model
 ## Current story chain
 ## Result / figure skeleton
+## Evidence package
+## Exploration / confirmation / validation status
 ## Current progress
 ## Key evidence and caveats
+## Reviewer attack list
 ## Open questions
 ## Next decisions
 ## Pointers
@@ -57,7 +64,8 @@ description: 用于创建、更新或压缩生物信息学项目的轻量 PROJEC
 3. 删除流水账式运行记录，把操作细节移交给 `PROJECT_PLAN.md` 或 summary。
 4. 将结果路线组织成可支持论文主体的 result / figure skeleton。
 5. 对每个主要 claim 标注证据等级或缺口。
-6. 输出可直接写入或替换的 `PROJECT_GUIDE.md` 内容。
+6. 标记当前阶段：exploration、confirmation、validation 或 submission-ready。
+7. 输出可直接写入或替换的 `PROJECT_GUIDE.md` 内容。
 
 ## 读取规则
 
@@ -66,8 +74,10 @@ description: 用于创建、更新或压缩生物信息学项目的轻量 PROJEC
 - `One-line summary`
 - `Background`
 - `Central question`
+- `Known / Unknown / Question / Finding / Advance`
 - `Current story chain`
 - `Result / figure skeleton`
+- `Exploration / confirmation / validation status`
 - `Current progress`
 
 只有任务需要复盘操作、找历史命令或确认具体输出时，才读取 `PROJECT_PLAN.md`。

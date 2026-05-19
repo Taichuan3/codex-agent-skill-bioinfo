@@ -4,13 +4,15 @@
 
 本文件用于人工审阅当前 `journal_codex_AGENT` 打包版中的通用生信研究 AGENT 与本地 skills。它不是新的规则源，不替代 `AGENTS.md` 或 `.codex/skills/*/SKILL.md`；它的作用是帮助用户理解当前体系已经完成到什么程度、每个模块负责什么、未来使用时应该如何触发。
 
-v1.3 打包状态：
+v1.4 打包状态：
 
 - 包内包含 1 个根 `AGENTS.md` 和 26 个通用 skill。
 - 每个 skill 均包含 `SKILL.md` 和 Codex UI 元数据 `agents/openai.yaml`。
 - 合规审计见 `docs/SKILL_AUDIT.md`。
 - v1.2 已新增文献/引用、投稿一致性、真实审稿回复、证据缺口和验证策略 skills；后续候选能力见 `docs/REFERENCE_CANDIDATES.md`。
 - v1.3 已新增 `project-environment-bootstrap`，用于新项目启动、切换机器/目录、环境未知或缺少 `PROJECT_ENVIRONMENT.md` 时检查本地环境；日常编码、绘图、分析、写作和翻译不触发。
+- v1.4 已新增 `docs/RIGOROUS_COMPUTATIONAL_RESEARCH_WORKFLOW_GUIDE.md` 和 `docs/WORKFLOW_COVERAGE_AUDIT.md`，用于把“从问题到论文”的完整计算生物学流程作为包级指导文件，而不是只放进 `research-project-planner`。
+- v1.4 已补强 `project-guide-maintainer`、`research-project-planner`、`bioinfo-analysis-code`、`task-self-check` 和 `submission-readiness-audit`，加入选题卡、五句话框架、阶段自检、reviewer attack list、负结果记录、ML 泄漏检查和可复现 workflow 要点。
 
 ## 1. 当前设计目标
 
@@ -20,6 +22,7 @@ v1.3 打包状态：
 
 - 根 `AGENTS.md` 保持短，只放跨项目通用规则。
 - 具体任务细节下沉到 skill。
+- 包级科研流程指导放在 `docs/RIGOROUS_COMPUTATIONAL_RESEARCH_WORKFLOW_GUIDE.md`，用于人工审阅和后续规则维护，不在日常任务中默认全文读取。
 - 项目背景、核心问题、研究主线、路线和当前进度放到轻量 `PROJECT_GUIDE.md` 或同等项目指导文件。
 - 具体项目的专属术语、固定路径、特殊 caveat 和长期解释边界可放到 `project_profiles/<project>/AGENTS.md`。
 - 长 checklist、模板、rubric 和例子放到 skill 的 `references/` 中，按需读取。
@@ -596,6 +599,10 @@ QA 重点：
 
 ```text
 results/
+  01_preprocessing/
+  02_qc/
+  03_analysis/
+  04_visualization/
   priority_tables/
   priority_figures/
   source_data/
@@ -609,6 +616,8 @@ results/
 - 原始数据保持只读。
 - 已确认结论的关键表格和高频文件要有清晰入口。
 - 重要文件可以通过 `latest`、`priority`、`manifest` 或一级目录索引暴露出来。
+- 多步骤分析结果应按阶段编号组织，例如 `01_preprocessing`、`02_qc`、`03_analysis`、`04_visualization`。
+- 关键产物文件名可包含阶段编号，例如 `03_differential_expression.tsv`、`04_main_figure.svg`，便于从结果反查生成步骤。
 - 错误旧文件不需要永久保留在工作路径；可覆盖修正后的图表和派生表，但 manifest 必须指向当前有效版本。
 - 不用深层目录隐藏关键论文表格。
 
@@ -616,6 +625,7 @@ results/
 
 ```text
 .codex/skills/research-data-organization/references/layout-and-manifest.md
+.codex/skills/research-data-organization/references/numbered-output-layout.md
 ```
 
 ### 10.2 `source-data-audit`
@@ -700,6 +710,9 @@ results/
 - 输出写入新的结果目录或用户指定路径。
 - 脚本必须声明输入、输出、关键参数和运行环境。
 - 不静默改变过滤阈值、样本集合、参考版本或工具版本。
+- 多步骤分析必须使用阶段编号组织脚本和产物，例如 `00_`、`01_`、`02_`。
+- 脚本、notebook、结果目录和关键输出文件应共享同一阶段编号，便于从结果反查生成步骤。
+- notebook 可以用于探索，但稳定流程应整理成编号脚本或 workflow；正式结果不应只存在 notebook 中。
 - 探索阶段可以写轻量脚本，但仍要记录关键命令和输入输出。
 - 收尾或投稿阶段要整理为可读、可复现、可提交代码，补充必要注释、参数说明和 README 片段。
 - 注释解释非显然逻辑、输入输出和关键参数，不写无意义逐行注释。
@@ -714,6 +727,7 @@ results/
 
 ```text
 .codex/skills/bioinfo-analysis-code/references/reproducibility-levels.md
+.codex/skills/bioinfo-analysis-code/references/workflow-numbering.md
 ```
 
 ## 12. 环境与外部工具

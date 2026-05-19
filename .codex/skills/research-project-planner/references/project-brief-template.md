@@ -20,7 +20,27 @@
 
 如果项目成功，论文最核心的主张是：
 
-## 6. Figure Skeleton
+## 6. Topic Scorecard
+
+| Dimension | Assessment | Risk | Decision |
+|---|---|---|---|
+| Importance |  |  |  |
+| Novelty |  |  |  |
+| Feasibility |  |  |  |
+| Evidence path |  |  |  |
+| Main risk |  |  |  |
+| User/project advantage |  |  |  |
+| Output type | Discovery / Method / Resource / Integrative analysis |  |  |
+
+## 7. Known / Unknown / Question / Finding / Advance
+
+- Known:
+- Unknown:
+- Question:
+- Finding:
+- Advance:
+
+## 8. Figure Skeleton
 
 - Figure 1:
 - Figure 2:
@@ -29,22 +49,26 @@
 - Figure 5:
 - Figure 6:
 
-## 7. Required Evidence
+## 9. Required Evidence
 
 需要哪些证据才能支持主张：
 
-## 8. Alternative Explanations
+## 10. Alternative Explanations
 
 审稿人可能提出的替代解释：
 
-## 9. Validation Plan
+## 11. Validation Plan
 
 独立验证方案：
 
-## 10. Stop / Pivot Criteria
+## 12. Stop / Pivot Criteria
 
 什么结果说明应该停止或转向：
 
-## 11. Reproducibility Plan
+## 13. Reproducibility Plan
 
 数据、代码、环境、版本、workflow 的管理方式：
+
+## 14. PROJECT_GUIDE Seed
+
+后续应写入 `PROJECT_GUIDE.md` 的最小信息：

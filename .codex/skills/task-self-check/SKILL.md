@@ -27,6 +27,7 @@ description: 用于任何生物信息学研究任务交付前的轻量自检，�
 - `Figure`：是否有遮挡，字号是否可读，PNG/SVG 是否一致，source data 是否可追踪。
 - `Data`：关键表格和最新文件是否容易找到，manifest 是否指向当前有效版本。
 - `Tool`：外部工具或包是否记录版本、来源、license 和适配改动。
+- `Phase`：当前交付物属于 exploration、confirmation、validation 还是 submission-ready，表述强度是否匹配。
 
 ## 输出格式
 
