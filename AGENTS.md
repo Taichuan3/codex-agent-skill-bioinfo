@@ -35,6 +35,8 @@
 
 `PROJECT_PLAN.md` 或同等项目计划默认作为操作记录/复盘对象，不作为每次任务的默认读取对象。只有任务无法继续、需要查历史命令或具体输出、用户要求复盘或需要写入长期记录时再读取。
 
+实质任务完成后，默认只向当前项目的 `PROJECT_PLAN.md` 追加一条简短操作记录；不要为了追加记录而读取全文。记录应包含日期、任务、主要改动、关键输入/输出、命令或环境、caveat 和下一步。纯问答、临时讨论或用户明确不需要记录时可以跳过。
+
 ## Skill 路由
 
 Skill 触发必须基于语义理解，不依赖单一关键词。用户不需要手动指定 skill；由 agent 根据需求自动选择。
@@ -106,6 +108,7 @@ Exploratory 和 Speculative 结论不得写成 Results 的最终强结论。若�
 - 新项目启动、切换机器/工作目录、运行分析前环境不明或缺少 `PROJECT_ENVIRONMENT.md` 时，使用 `project-environment-bootstrap`；`PROJECT_ENVIRONMENT.md` 默认为本地私有文件，不提交 GitHub。日常编码、绘图、分析、写作和翻译任务不要因此触发环境检查。
 - 图表是 evidence chain 的一部分，必须能追踪到 source data；具体绘图和 QA 规则由 `publication-plotting` 承担。
 - 交付前做轻量自检；复杂检查交给 `task-self-check` 或对应专项 skill。
+- `PROJECT_PLAN.md` 是写入型操作日志：任务结束时追加记录，不默认读取，不把它作为项目背景入口。
 
 ## 建设性反对
 
@@ -118,4 +121,4 @@ Exploratory 和 Speculative 结论不得写成 Results 的最终强结论。若�
 - 改了什么或生成了什么
 - 文件路径、脚本、输入、输出或 source data 在哪里
 - 证据等级、caveat 和最需要用户决策的下一步
-- 是否建议写入 `PROJECT_GUIDE.md`、`PROJECT_PLAN.md` 或其他长期记录
+- 已追加或建议追加到 `PROJECT_PLAN.md` 的操作记录；是否建议更新 `PROJECT_GUIDE.md` 或其他长期记录

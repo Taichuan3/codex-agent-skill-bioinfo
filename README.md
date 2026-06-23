@@ -83,6 +83,12 @@ journal_codex_AGENT/
 - 已新增包级科研流程指导文件和 workflow 覆盖审计，不作为日常任务默认读取内容。
 - 详细审计见 `docs/SKILL_AUDIT.md`。
 
+## Hermes 迁移状态
+
+本仓库仍是通用生信 agent/skill 的源头。Hermes 侧采用隔离迁移策略：先审计和试用，再把成熟、高频、低风险的 skill 复制到 `~/.hermes/skills/bioinfo/` 作为运行副本；项目事实、路径和临时进度仍保留在项目 `AGENTS.md`、`PROJECT_GUIDE.md` 或 `PROJECT_PLAN.md`。
+
+当前迁移审计见：`docs/HERMES_MIGRATION_AUDIT.md`。
+
 v1.2 新增文献/引用、投稿一致性、真实审稿回复、证据缺口和验证策略相关 skills。生信专项包仍按真实项目需求后续增补。
 v1.3 新增项目环境启动检查 skill：`project-environment-bootstrap`，用于新项目、切换机器/目录或环境未知时初始化本地私有 `PROJECT_ENVIRONMENT.md`。
 v1.4 补充从问题到论文的计算生物学流程指导文件，并将选题卡、五句话框架、阶段自检、reviewer attack list 和可复现 workflow 要点下沉到相关 references。
