@@ -1,6 +1,6 @@
 ---
 name: research-question-brief
-description: 用于把用户口头或零散描述的研究想法转成简短、可维护、可迭代的研究问题 brief。适用于用户想在沟通过程中不断优化一个方向文档，保留主要论点、目标、边界、证据需求和下一步，而不让长记录占用上下文。
+description: 用于把用户口头、零散或多轮讨论中的研究想法压缩成简短 research question brief，保留 one-line idea、working question、why it matters、evidence needed、constraints 和 next decision。不用于完整技术路线设计、文献检索或项目执行。
 ---
 
 # Research Question Brief
@@ -8,6 +8,13 @@ description: 用于把用户口头或零散描述的研究想法转成简短、�
 ## 使用场景
 
 当用户提出一个原始想法、研究方向、模糊问题或连续讨论中的项目设想，需要把它整理成短文档时使用本 skill。它不同于 `research-project-planner`：本 skill 维护用户想法的精简方向文档，后者设计完整项目路线。
+
+## 不适合触发
+
+- 需要完整项目路线、figure skeleton 或技术路线时，使用 `research-project-planner`。
+- 需要系统文献检索时，使用 `literature-search-workflow`。
+- 已进入具体分析、绘图或写作任务时，使用对应执行 skill。
+
 
 ## 核心原则
 

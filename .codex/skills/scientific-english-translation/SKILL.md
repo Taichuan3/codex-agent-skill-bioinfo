@@ -1,6 +1,6 @@
 ---
 name: scientific-english-translation
-description: 用于将中文科研文本翻译为英文，或将中文草稿转成 Nature/CNS-leaning 但证据边界安全的英文科研表达。适用于摘要、引言、结果、讨论、方法、图注、回复信和标题翻译；不负责中文润色。
+description: 用于将中文科研文本翻译为英文，或把中文草稿转成证据边界安全的英文科研表达，适用于摘要、引言、结果、讨论、方法、图注、回复信和标题。不负责中文润色，也不应为了更像高水平期刊而升级 claim。
 ---
 
 # Scientific English Translation
@@ -8,6 +8,13 @@ description: 用于将中文科研文本翻译为英文，或将中文草稿转�
 ## 使用场景
 
 当用户要求“翻译成英文”“中文转英文”“Nature 风格英文”“英文论文表达”时使用本 skill。中文内部润色使用 `chinese-scientific-polishing`。
+
+## 不适合触发
+
+- 输入已经是英文并只需润色时，使用 `scientific-english-polishing`。
+- 只需中文内部润色或结构调整时，使用 `chinese-scientific-polishing`。
+- 需要判断 claim 是否成立时，联动 `claim-evidence-audit`，不要在翻译中自行增强结论。
+
 
 ## 核心原则
 

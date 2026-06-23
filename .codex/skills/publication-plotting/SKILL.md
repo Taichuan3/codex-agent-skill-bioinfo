@@ -1,6 +1,6 @@
 ---
 name: publication-plotting
-description: 用于生物信息学 manuscript-ready figures、PPT 可读图、论文主图和补图的 figure contract、source data、panel hierarchy、Python/R 绘图、PNG/SVG 导出、CNS/Nature 风格配色、字体统一、遮挡检查和视觉 QA。
+description: 用于生物信息学 manuscript-ready figures、PPT 可读图、论文主图/补图的 figure contract、source data、panel hierarchy、Python/R 绘图、PNG/SVG 导出、字体配色统一、遮挡检查和 visual QA。不用于一般数据分析或单纯 claim 审查。
 ---
 
 # Publication Plotting
@@ -8,6 +8,13 @@ description: 用于生物信息学 manuscript-ready figures、PPT 可读图、�
 ## 使用场景
 
 当用户要求生成论文图、修改图、审查图、定义 panel、导出 PNG/SVG、整理 source data 或做 visual QA 时使用本 skill。参考 Nature-skill 的 figure contract 思路，但按本地项目需求默认输出 PNG + SVG，最终投稿再补 PDF/TIFF。
+
+## 不适合触发
+
+- 只需要清洗数据、统计分析或生成中间表格时，使用 `bioinfo-analysis-code`。
+- 只需要判断图是否支持科学结论时，联动或优先使用 `claim-evidence-audit`。
+- 只需要写 caption 文本且不涉及图形生成时，可使用 `figure-caption` 或写作 skill。
+
 
 ## Figure Contract
 
