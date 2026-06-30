@@ -1,99 +1,97 @@
 package:
   name: journal_codex_AGENT
-  version: "1.6-candidate"
+  version: 1.7-candidate
   scope: generic_bioinformatics_research
   default_language: zh-CN
-  description: >
-    通用生信科研 Codex agent package，用于研究规划、项目指导文件维护、
-    数据分析、图表、论文写作、审稿风险、source data 和复现检查。
+  description: '通用生信科研 Codex agent package，用于研究规划、项目指导文件维护、 数据分析、图表、论文写作、审稿风险、source
+    data 和复现检查。
 
+    '
 entrypoints:
   root_agent: AGENTS.md
   skills_dir: .codex/skills
   project_guide_template: PROJECT_GUIDE.md
   project_log_file: PROJECT_PLAN.md
-
 context_policy:
   read_by_default:
-    - AGENTS.md
-    - triggered_skill/SKILL.md
-    - PROJECT_GUIDE.md summary/background/core_question/results_skeleton/current_progress
-    - user_specified_files
+  - AGENTS.md
+  - triggered_skill/SKILL.md
+  - PROJECT_GUIDE.md summary/background/core_question/results_skeleton/current_progress
+  - user_specified_files
   read_only_when_needed:
-    - PROJECT_PLAN.md
-    - long_manuscript_drafts
-    - large_result_tables
-    - historical_operation_logs
+  - PROJECT_PLAN.md
+  - long_manuscript_drafts
+  - large_result_tables
+  - historical_operation_logs
   notes:
-    - PROJECT_GUIDE.md is the lightweight project direction file.
-    - PROJECT_PLAN.md is an operation log and review file, not default context.
-    - Keep root AGENTS.md short; task details belong in skills.
-
+  - PROJECT_GUIDE.md is the lightweight project direction file.
+  - PROJECT_PLAN.md is an operation log and review file, not default context.
+  - Keep root AGENTS.md short; task details belong in skills.
 skills:
-  - bioinfo-analysis-code
-  - chinese-scientific-polishing
-  - citation-verifier
-  - claim-evidence-audit
-  - evidence-gap-finder
-  - environment-and-tool-adoption
-  - figure-caption
-  - literature-search-workflow
-  - manuscript-consistency-audit
-  - paper-reader
-  - project-environment-bootstrap
-  - project-guide-maintainer
-  - protein-structure-docking
-  - drug-discovery-admet-screening
-  - publication-plotting
-  - research-data-organization
-  - research-decision-review
-  - research-project-planner
-  - research-question-brief
-  - scientific-database-grounding
-  - reviewer-response-builder
-  - reviewer-simulation
-  - scientific-english-polishing
-  - scientific-english-translation
-  - skill-quality-audit
-  - source-data-audit
-  - submission-readiness-audit
-  - task-self-check
-  - validation-strategy-planner
-
+- bioinfo-analysis-code
+- chinese-scientific-polishing
+- citation-verifier
+- claim-evidence-audit
+- clinical-bioinformatics-evidence
+- drug-discovery-admet-screening
+- environment-and-tool-adoption
+- evidence-gap-finder
+- figure-caption
+- literature-search-workflow
+- manuscript-consistency-audit
+- paper-reader
+- pathway-network-analysis
+- project-environment-bootstrap
+- project-guide-maintainer
+- protein-structure-docking
+- publication-plotting
+- research-data-organization
+- research-decision-review
+- research-project-planner
+- research-question-brief
+- reviewer-response-builder
+- reviewer-simulation
+- rnaseq-singlecell-workflow
+- scientific-database-grounding
+- scientific-english-polishing
+- scientific-english-translation
+- skill-quality-audit
+- source-data-audit
+- submission-readiness-audit
+- task-self-check
+- validation-strategy-planner
+- variant-genomics-interpretation
 skill_metadata:
   required_files:
-    - SKILL.md
-    - agents/openai.yaml
+  - SKILL.md
+  - agents/openai.yaml
   optional_dirs:
-    - references
-    - scripts
-    - assets
+  - references
+  - scripts
+  - assets
   trigger_source: SKILL.md frontmatter description
-
 evidence_levels:
-  - Strong
-  - Moderate
-  - Exploratory
-  - Speculative
-
+- Strong
+- Moderate
+- Exploratory
+- Speculative
 hard_constraints:
-  - raw_data_is_read_only
-  - do_not_upgrade_claims_without_evidence
-  - do_not_silently_change_filters_versions_or_environment
-  - derived_wrong_outputs_may_be_overwritten_after_correction
-  - manifest_or_source_data_inventory_must_point_to_current_valid_outputs
-  - external_tools_require_source_version_license_and_adaptation_notes
-
+- raw_data_is_read_only
+- do_not_upgrade_claims_without_evidence
+- do_not_silently_change_filters_versions_or_environment
+- derived_wrong_outputs_may_be_overwritten_after_correction
+- manifest_or_source_data_inventory_must_point_to_current_valid_outputs
+- external_tools_require_source_version_license_and_adaptation_notes
 validation:
   validator: ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py
-  expected_skill_count: 29
+  expected_skill_count: 33
   required_absent_checks:
-    - legacy_project_name_terms
-    - legacy_project_skill_prefixes
-    - deprecated_project_reference_skills
-
+  - legacy_project_name_terms
+  - legacy_project_skill_prefixes
+  - deprecated_project_reference_skills
 future_candidates:
   enabled: tracked_locally_not_in_repository_docs
-  note: >
-    Long-form audits and candidate notes are kept locally. The GitHub repository
+  note: 'Long-form audits and candidate notes are kept locally. The GitHub repository
     should remain an installable AGENT + skills package.
+
+    '

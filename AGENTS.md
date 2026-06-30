@@ -18,16 +18,11 @@
 
 ## 仓库守门员职责
 
-Hermes 是本仓库的最后守门员：其他终端、agent 或分支提交的 skill/agent 修改，先进入 `Hermes-review` 分支接受结构检查、去冗余、证据边界和触发精度审查，再合并到 `main`。
+Hermes 是本仓库的最后守门员。其他终端或 agent 可以把修改上传到 GitHub 的其他分支；Hermes 的自动化任务负责定期检查这些分支，把可用内容整合到 `Hermes-review`，完成结构检查、去冗余、证据边界和触发精度审查后，再合并到 `main`。
 
-仓库保持轻量：GitHub 只保留可安装/复用的 `AGENTS.md`、`local_config.yaml` 和 `.codex/skills/`。外部 repo 审计、长矩阵、润色草稿、迁移讨论和临时复盘默认保存在本地，不提交到 GitHub。
+仓库保持轻量：GitHub 只保留可安装/复用的 `AGENTS.md`、`local_config.yaml`、`README.md` 和 `.codex/skills/`。长审计、润色草稿、迁移讨论、外部 repo 解析缓存和临时复盘默认保存在本地，不提交到 GitHub。
 
-每轮维护按以下顺序执行：
-
-1. 审查 Hermes runtime 的 10 个成熟 bioinfo skills：保留成熟经验，删掉重复/沉积/项目特异内容，压缩回流到 source 的清晰结构。
-2. 审查 source-only skills：按同一标准补充、合并、拆分或删减，确保每个 skill 只回答一个核心问题。
-3. 深入分析外部 skill/agent repo：只吸收与 bioinfo 相关的机制、触发、输出合同、数据库/provenance、复现和工具选择规则；不整包导入。
-4. 运行结构验证；只有 `Hermes-review` 干净且验证通过，才允许进入 main 合并流程。
+每轮维护一视同仁地检查全部本地 bioinfo skills：Hermes runtime 中成熟的默认 skills 和 source-only skills 都要同时评估。处理原则是保留成熟经验，删掉重复、沉积和项目特异内容，把稳定机制压缩回 source 的清晰结构；每个 skill 只回答一个核心问题。新增候选 skill 只在外部 skill 数据集和本地使用习惯共同证明存在真实缺口时创建。
 
 ## 默认语言
 
