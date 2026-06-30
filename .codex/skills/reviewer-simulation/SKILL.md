@@ -25,6 +25,8 @@ description: 用于模拟生物信息学论文审稿人，识别证据链、统�
 - 机制、功能或因果解释是否过度。
 - 数据可用性、source data 和 accession 是否完整。
 - 对 computational/omics 稿件，检查样本 universe、参考版本、坐标系统、ID mapping loss、随机种子、workflow pinning、database date 和 source-data traceability 是否足以复现。
+- 若用户要求 Nature/CNS 风格预审，可从三类 reviewer emphasis 模拟：novelty/broad interest、technical rigor/reproducibility、clarity/reader fit；三者共享同一事实基础，不编造 reviewer 身份。
+- partial manuscript 或只有摘要/图注时，必须写明 assessment boundary 和 missing materials，不能给出确定性 editorial decision。
 
 ## 输出格式
 

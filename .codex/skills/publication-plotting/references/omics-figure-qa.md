@@ -7,7 +7,7 @@
 - 每张图必须说明 data universe：genes、samples、cells、variants、regions、pathways、network nodes/edges。
 - 标注 denominator：过滤前后数量、用于统计的 n、显示的 top N 和未显示部分。
 - 记录 normalization、batch correction、model formula、database release、genome build 和 random seed。
-- Source data 应能重建 panel，不只保存最终 PNG/SVG。
+- Source data / source data table 应能重建 panel，不只保存最终 PNG/SVG；line/text figures 避免 JPEG，优先 SVG/PDF 或高分辨率 PNG。
 
 ## Single-cell
 

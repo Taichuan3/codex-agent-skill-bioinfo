@@ -66,6 +66,7 @@ Skill 触发必须基于语义理解，不依赖单一关键词。用户不需�
 - 结果已有但证据链不完整：`evidence-gap-finder` -> `validation-strategy-planner`
 - 数据库/坐标/ID 不确定：`scientific-database-grounding` -> `claim-evidence-audit`
 - 蛋白对接/药筛探索：`scientific-database-grounding` -> `protein-structure-docking` 或 `drug-discovery-admet-screening` -> `bioinfo-analysis-code`
+- RNA-seq / single-cell / variant / pathway / clinical 转化结果：先用对应领域 skill 锁定输入、QC 和证据边界，再按需联动 `bioinfo-analysis-code`、`publication-plotting` 或 `claim-evidence-audit`
 - 投稿前收尾：`manuscript-consistency-audit` -> `source-data-audit` -> `submission-readiness-audit`
 - 真实审稿意见：`reviewer-response-builder`，必要时联动 `evidence-gap-finder` 或 `bioinfo-analysis-code`
 
@@ -81,6 +82,10 @@ Skill 触发必须基于语义理解，不依赖单一关键词。用户不需�
 | 药物靶点探索、virtual screening、ADMET/QSAR、候选化合物优先级 | `drug-discovery-admet-screening` |
 | 系统检索文献、设计关键词、整理证据表和知识缺口 | `literature-search-workflow` |
 | 核验 DOI、PMID、BibTeX、参考文献和 claim-to-citation | `citation-verifier` |
+| RNA-seq、single-cell、pseudo-bulk、marker/contrast、splicing/isoform 工作流和结果解释 | `rnaseq-singlecell-workflow` |
+| variant/genomics、VCF/BCF、GWAS/QTL/PRS、ClinVar/gnomAD/dbSNP 解释和证据边界 | `variant-genomics-interpretation` |
+| pathway enrichment、GSEA、Reactome/GO/KEGG/WikiPathways、network/graph 分析和解释边界 | `pathway-network-analysis` |
+| clinical/translational evidence、clinical trial、PGx、survival/biomarker、cohort table 安全边界 | `clinical-bioinformatics-evidence` |
 | 论文写作、图表解释、结果段、摘要、讨论或图注中的 claim 证据审查 | `claim-evidence-audit` |
 | 从已有结果或草稿中找缺失证据和最小补分析集合 | `evidence-gap-finder` |
 | 为探索性结果、候选机制或审稿风险设计验证策略 | `validation-strategy-planner` |

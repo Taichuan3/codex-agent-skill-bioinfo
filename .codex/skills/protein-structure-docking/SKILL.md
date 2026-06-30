@@ -55,6 +55,9 @@ description: 用于蛋白结构与 docking 任务的输入定义锁定、结构�
 - 突变体差异是 exploratory signal，除非有独立实验或多工具/多参数一致支持。
 - 结构预测 confidence 不等于互作验证。
 - DiffDock/Boltz/AlphaFold-like confidence、pLDDT/PAE/ipTM 或 pose confidence 反映模型内部可信度或几何合理性，不等同于亲和力、活性、选择性或功能效应。
+- protein design/binder metrics（pLDDT、pTM、ipTM、PAE、ipSAE、shape complementarity、interface dG、BUNS、dSASA）只能作为过滤和排序维度；单项阈值不能预测真实 binding。
+- 小分子/脂质 ligand 必须记录 protonation、tautomer、stereochemistry、charge 和 cofactors/metals/membrane context；DiffDock/Vina/GNINA/Boltz affinity/confidence 不可互相替代。
+- 结构搜索或 homology（Foldseek/BLAST/AlphaFold DB/PDB）只能说明相似性和可建模性；不要把 remote homology 写成相同功能或互作。
 
 ## 输出格式
 

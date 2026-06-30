@@ -41,6 +41,8 @@ description: 用于生物信息学 manuscript-ready figures、PPT 可读图、�
 - Caption 解释如何读图：panel、坐标轴、颜色/大小编码、数据 universe、n/denominator、normalization。结果解释和机制 claim 放在 Results prose。
 - 每个 panel 都要能追踪到 source data；如果 source-data 清单很长，生成单独 index，而不是把路径塞进 reader-facing 正文。
 - 默认导出 PNG + SVG；最终投稿按期刊再补 PDF/TIFF。SVG/PDF 文字尽量保持可编辑。
+- 对 UMAP、Manhattan、heatmap、image tile 等高密度层，优先使用 hybrid export：数据层 rasterized，坐标轴、文字、线和注释保留 vector；避免百万点全矢量 PDF/SVG。
+- 导出前记录目标物理尺寸、字体、DPI 只作用于 raster layer；不要用 JPEG 保存含文字/线条的科学图。
 - 字体、图例、colorbar、panel labels 必须在最终插入尺寸下可读：论文多 panel 常用 6.5–8 pt，PPT/报告展示常用 12–18 pt。
 - 使用低饱和、可区分、色盲友好的配色；直接标签优先于复杂图例；图例不得遮挡数据。
 - 不用图形暗示超出证据的机制或因果关系。
@@ -65,6 +67,7 @@ description: 用于生物信息学 manuscript-ready figures、PPT 可读图、�
 - 色彩和线型是否能区分组别，灰度下是否仍可读。
 - 字体、点、线、图例、colorbar、panel label 是否互相遮挡。
 - PNG 与 SVG 是否都生成，且视觉内容一致。
+- 高密度图是否采用合适的 raster/vector 分层，文字是否仍可编辑，导出尺寸是否与目标版面一致。
 - PPT/报告插入尺寸下是否仍可读。
 - 文档中的 image link 是否存在，是否有 paired SVG，是否残留旧图型名或内部编号。
 - Omics 图是否说明 gene/sample/cell/variant universe、filtering denominator、normalization、random seed、database version 和 source-data path；UMAP/network/pathway 图不得暗示未经验证的因果机制。

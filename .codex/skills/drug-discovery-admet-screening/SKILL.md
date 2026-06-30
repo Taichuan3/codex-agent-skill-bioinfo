@@ -41,6 +41,9 @@ description: 用于药物靶点探索、virtual screening、ADMET/QSAR、drug re
 - Knowledge graph、Open Targets、PrimeKG、ChEMBL、PubChem、OpenFDA 或 ClinicalTrials 只能提供候选关联、bioactivity、regulatory/clinical context 或安全信号；必须记录 endpoint/date/filters，不能合并成单一“有效药物”结论。
 - Docking-derived pose/confidence 与 ADMET/QSAR 是不同证据层；不要用 pose confidence 代替 affinity，也不要用 ADMET pass 代替 efficacy。
 - Clinical/PGx 信息不能转成个人医疗建议。
+- target validation 需要分维度记录 disease association、druggability、chemical matter、clinical precedent、structural tractability 和 safety liability；不要只给总分。
+- ADMET/QSAR 结果必须说明 endpoint、model/source、applicability domain、uncertainty/calibration 和 structural alerts；PAINS/Lipinski/Veber/QED 是过滤线索，不是疗效或安全证明。
+- De novo generation、MolMIM/GenMol/SAFE、scaffold decoration 或 lead optimization 输出必须先做化学有效性、去重、合成可行性和 novelty/known-risk 检查，再进入 docking/ADMET。
 
 ## 输出格式
 

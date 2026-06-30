@@ -23,17 +23,17 @@
 
 - `main`：稳定、可直接安装/复用版本。
 - `Hermes-review`：Hermes 作为最后守门员的审查整合分支。
-- 其他 agent/terminal 的分支先合入 `Hermes-review`，通过结构检查和人工/自动审查后，再合并到 `main`。
+- Hermes 定期检查其他 agent/terminal 推送的分支，把可用改动整合到 `Hermes-review`，通过结构检查和人工/自动审查后，再合并到 `main`。
 
 ## 维护原则
 
-- 先优化已有 skill，尤其是 Hermes runtime 中经过多轮使用的 10 个默认 bioinfo skills。
+- 先优化已有 skill，尤其是 Hermes runtime 中经过多轮使用的本地 bioinfo skills。
 - Runtime skill 的成熟经验要压缩回流到 source；不要整篇覆盖，也不要保留沉积和项目特异细节。
 - 新候选 skill 只用于真实能力缺口；不能因为外部 repo 有很多 skill 就盲目新增。
 - GitHub 仓库保持轻量：只提交 agent、skills、必要配置和少量安装说明；长审计和工作草稿留在本地。
 
 ## 当前状态
 
-- Source skills：29 个。
-- Hermes runtime bioinfo skills：29 个本地默认副本；其中原 10 个 mature runtime skills 需要以 runtime 为准继续瘦身优化，不能用旧 source 覆盖。
-- 本轮不新增候选 skill；RNA-seq/single-cell、variant/genomics、pathway/network、clinical/translational 等外部语料中的通用机制优先并入现有 skill 和 references。
+- Source skills：33 个。
+- Hermes runtime bioinfo skills：33 个；runtime 是用户本地多轮迭代后的新版本，不能用旧 source 覆盖。
+- RNA-seq/single-cell、variant/genomics、pathway/network、clinical/translational 已作为 runtime 成熟领域 skill 回写到 source；外部语料中的通用机制优先并入现有 skill 和 references。

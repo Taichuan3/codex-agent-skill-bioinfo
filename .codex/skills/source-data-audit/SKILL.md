@@ -20,6 +20,9 @@ description: 用于构建或审查生物信息学论文 source-data inventory、
 - raw、filtered、projected、manual-reviewed 数据状态明确。
 - 文件命名和列名稳定，后续论文阶段不用猜测含义。
 - Data/Code Availability 不承诺尚未准备好的数据。
+- 每个支持性 dataset 都要归入一个 access route：public repository、controlled access、within paper/supplement、reused public data、third-party restricted、available on justified request 或 not applicable。
+- 只有存在伦理、法律、商业、第三方限制时才把 `available upon request` 作为主路径；否则应优先 repository/accession/DOI 或随文 source data。
+- dataset citation 要独立于论文 citation：记录 repository、accession/DOI、version/release、license/terms、access date 和 reuse restrictions。
 - 对错误修正或轻微修改后的派生图表/表格，可以覆盖旧文件；不需要在工作路径保留旧的错误版本。
 - 覆盖后 inventory 必须指向当前有效文件，必要时在 notes 中说明这是 correction，而不是保留多份混淆版本。
 

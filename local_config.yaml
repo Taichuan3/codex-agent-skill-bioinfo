@@ -32,6 +32,7 @@ skills:
 - chinese-scientific-polishing
 - citation-verifier
 - claim-evidence-audit
+- clinical-bioinformatics-evidence
 - drug-discovery-admet-screening
 - environment-and-tool-adoption
 - evidence-gap-finder
@@ -39,6 +40,7 @@ skills:
 - literature-search-workflow
 - manuscript-consistency-audit
 - paper-reader
+- pathway-network-analysis
 - project-environment-bootstrap
 - project-guide-maintainer
 - protein-structure-docking
@@ -49,6 +51,7 @@ skills:
 - research-question-brief
 - reviewer-response-builder
 - reviewer-simulation
+- rnaseq-singlecell-workflow
 - scientific-database-grounding
 - scientific-english-polishing
 - scientific-english-translation
@@ -57,6 +60,7 @@ skills:
 - submission-readiness-audit
 - task-self-check
 - validation-strategy-planner
+- variant-genomics-interpretation
 skill_metadata:
   required_files:
   - SKILL.md
@@ -80,7 +84,7 @@ hard_constraints:
 - external_tools_require_source_version_license_and_adaptation_notes
 validation:
   validator: ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py
-  expected_skill_count: 29
+  expected_skill_count: 33
   required_absent_checks:
   - legacy_project_name_terms
   - legacy_project_skill_prefixes

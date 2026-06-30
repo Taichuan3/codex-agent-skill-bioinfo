@@ -34,6 +34,9 @@ description: 用于生物信息学研究中需要查询或核验科学数据库�
 - 药物/靶点信息必须区分 binding evidence、clinical association、repurposing hypothesis、ADMET prediction 和 approved indication。
 - 数据库查询必须能复现：记录 endpoint、query、filters、分页/limit、species、ID namespace、API key/rate-limit 状态和访问日期。
 - 先做 count/summary 或小范围查询评估结果规模，再全量拉取；避免只看第一页结果。
+- 大型 API 结果必须限制字段或先写入文件再解析所需字段；不要把完整 trial JSON、UniProt stream、ChEMBL activity dump 或 VCF annotation dump 直接读入上下文。
+- 优先遵循 source tier：官方数据库/API/下载表 > curated aggregator > 文献/网页摘要；跨 tier 冲突时报告冲突，不用更方便的来源覆盖权威记录。
+- 对需要 token/API key 的数据库，只检查是否可用或提示用户安全写入环境文件；不要读取、打印或复制 `.env`、token、cookie 或 headers。
 - API 或网页结果失败时不要编造；改用替代数据库、离线文件或说明 blocker。
 
 ## 执行流程
@@ -48,7 +51,7 @@ description: 用于生物信息学研究中需要查询或核验科学数据库�
 ## 推荐数据库分层
 
 按需读取 `references/database-source-map.md`，根据任务选择来源；涉及 NCBI 查询时使用其中的 Entrez ESearch/ELink/ESummary/EFetch 记录规则。
-需要设计可复现 API 检索、ID 解析、分页、物种/坐标/证据字段核验或数据库冲突处理时，读取 `references/database-query-contract.md`。
+需要设计可复现 API 检索、ID 解析、分页、字段裁剪、物种/坐标/证据字段核验或数据库冲突处理时，读取 `references/database-query-contract.md`。
 
 ## 输出格式
 
