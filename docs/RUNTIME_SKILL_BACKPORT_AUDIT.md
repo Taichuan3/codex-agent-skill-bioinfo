@@ -162,3 +162,12 @@ Start with `publication-plotting` because it is the most complex mature runtime 
 - a small always-visible workflow;
 - figure contract / source-data / visual QA as references;
 - explicit boundary with `figure-caption`, `claim-evidence-audit`, and `source-data-audit`.
+
+## Complete batch-review follow-up
+
+The first version of this audit started with `publication-plotting`. The complete same-format batch review is now split into:
+
+- `docs/ALL_29_SKILL_REVIEW_MATRIX.md` — all 29 source skills, including source-only candidates and runtime-overlap skills.
+- `docs/RUNTIME_10_SKILL_BACKPORT_DETAILS.md` — all 10 mature Hermes runtime skills with the same backport/sediment review format.
+
+Use those two documents as the checklist before editing further old skills.
