@@ -1,98 +1,39 @@
-# journal_codex_AGENT
+# codex-agent-skill-bioinfo
 
-这是当前通用生信科研 AGENT 与 skills 的打包版本，用于人工审阅、迁移或在新项目中复用。
+通用生信科研 AGENT 与 skills 包。这个仓库的 GitHub 版本只保留可直接安装/复用的 agent 与 skill 文件；外部审计、润色草稿、迁移讨论和临时复盘默认保留在本地，不进入仓库。
 
 ## 内容
 
-```text
-journal_codex_AGENT/
-  AGENTS.md
-  local_config.yaml
-  .codex/
-    skills/
-      bioinfo-analysis-code/
-      chinese-scientific-polishing/
-      citation-verifier/
-      claim-evidence-audit/
-      evidence-gap-finder/
-      environment-and-tool-adoption/
-      figure-caption/
-      literature-search-workflow/
-      manuscript-consistency-audit/
-      paper-reader/
-      project-environment-bootstrap/
-      project-guide-maintainer/
-      publication-plotting/
-      research-data-organization/
-      research-decision-review/
-      research-project-planner/
-      research-question-brief/
-      reviewer-response-builder/
-      reviewer-simulation/
-      scientific-english-polishing/
-      scientific-english-translation/
-      skill-quality-audit/
-      source-data-audit/
-      submission-readiness-audit/
-      task-self-check/
-      validation-strategy-planner/
-  docs/
-    AGENT_SKILL_SUMMARY.md
-    AGENT_SKELETON_TODO.md
-    RIGOROUS_COMPUTATIONAL_RESEARCH_WORKFLOW_GUIDE.md
-    SKILL_AUDIT.md
-    WORKFLOW_COVERAGE_AUDIT.md
-    REFERENCE_CANDIDATES.md
-```
-
-每个 skill 目录均包含：
-
-- `SKILL.md`
-- `agents/openai.yaml`
-- 可选的 `references/`
-
-## 边界
-
-- 本包只包含通用版 AGENT 和通用 skills。
-- 不包含旧专案专属 skills。
-- 不包含项目数据、分析结果、论文草稿或操作日志。
-- `PROJECT_GUIDE.md` 不在包内创建；它应由具体项目根据 `project-guide-maintainer` skill 生成。
-- `docs/REFERENCE_CANDIDATES.md` 只记录后续可选扩展，不代表已经安装或启用这些候选 skill。
-- `docs/RIGOROUS_COMPUTATIONAL_RESEARCH_WORKFLOW_GUIDE.md` 是包级科研流程指导文件，不应在日常任务中默认全文读取。
-- `local_config.yaml` 是本地打包配置清单，只用于人工审阅、迁移和校验，不替代 `AGENTS.md` 或 skill 触发逻辑。
+- `AGENTS.md` — 通用生信研究 agent 入口和 skill 路由。
+- `local_config.yaml` — 本地打包/校验清单。
+- `.codex/skills/` — 通用 bioinfo skills；每个 skill 至少包含：
+  - `SKILL.md`
+  - `agents/openai.yaml`
+  - 可选 `references/`
 
 ## 使用方式
 
 在新项目中复用时，可以把：
 
-- `AGENTS.md` 放到项目根目录。
-- `.codex/skills/` 合并到项目的 `.codex/skills/`。
-- `docs/` 作为人工说明和审阅材料保留。
+1. `AGENTS.md` 放到项目根目录。
+2. `.codex/skills/` 合并到项目的 `.codex/skills/`。
+3. 根据任务语义加载相应 skill；不要把所有 skill 同时读入上下文。
 
-具体项目开始后，建议先用：
+## 分支规则
 
-1. `research-question-brief` 整理用户原始想法。
-2. `research-project-planner` 设计研究路线。
-3. `project-guide-maintainer` 创建轻量 `PROJECT_GUIDE.md`。
+- `main`：稳定、可直接安装/复用版本。
+- `Hermes-review`：Hermes 作为最后守门员的审查整合分支。
+- 其他 agent/terminal 的分支先合入 `Hermes-review`，通过结构检查和人工/自动审查后，再合并到 `main`。
 
-## v1.6-candidate 合规状态
+## 维护原则
 
-- 29 个通用 skill 均通过本地 frontmatter / `agents/openai.yaml` / `local_config.yaml` 一致性验证。
-- 根 `AGENTS.md` 保持短入口，只做路由和硬约束；细节保留在各 skill 与 references。
-- 已新增包级科研流程指导文件、workflow 覆盖审计、全量外部 repo 审计与第二轮吸收矩阵，不作为日常任务默认全文读取内容。
-- 详细审计见 `docs/SKILL_AUDIT.md`、`docs/external-skill-audits/ALL_EXTERNAL_REPOS_STRUCTURE_AUDIT.md`、`docs/SECOND_ROUND_ABSORPTION_MATRIX.md`。
+- 先优化已有 skill，尤其是 Hermes runtime 中经过多轮使用的 10 个默认 bioinfo skills。
+- Runtime skill 的成熟经验要压缩回流到 source；不要整篇覆盖，也不要保留沉积和项目特异细节。
+- 新候选 skill 只用于真实能力缺口；不能因为外部 repo 有很多 skill 就盲目新增。
+- GitHub 仓库保持轻量：只提交 agent、skills、必要配置和少量安装说明；长审计和工作草稿留在本地。
 
-## Hermes 迁移状态
+## 当前状态
 
-本仓库仍是通用生信 agent/skill 的源头。Hermes 侧采用隔离迁移策略：先审计和试用，再把成熟、高频、低风险的 skill 复制到 `~/.hermes/skills/bioinfo/` 作为运行副本；项目事实、路径和临时进度仍保留在项目 `AGENTS.md`、`PROJECT_GUIDE.md` 或 `PROJECT_PLAN.md`。
-
-当前迁移审计见：`docs/HERMES_MIGRATION_AUDIT.md`。
-
-v1.2 新增文献/引用、投稿一致性、真实审稿回复、证据缺口和验证策略相关 skills。生信专项包仍按真实项目需求后续增补。
-v1.3 新增项目环境启动检查 skill：`project-environment-bootstrap`，用于新项目、切换机器/目录或环境未知时初始化本地私有 `PROJECT_ENVIRONMENT.md`。
-v1.4 补充从问题到论文的计算生物学流程指导文件，并将选题卡、五句话框架、阶段自检、reviewer attack list 和可复现 workflow 要点下沉到相关 references。
-
-
-v1.5-candidate 新增 `scientific-database-grounding` 与初版蛋白/药筛候选 skill，用于承接全量外部 skill/agent 审计后的数据库 grounding 与结构/药物发现方向缺口；尚未默认迁移到 Hermes runtime。
-
-v1.6-candidate 将过宽的 `protein-docking-drug-discovery` 拆分为 `protein-structure-docking` 与 `drug-discovery-admet-screening`，使每个 skill 对应一个核心问题。
+- Source skills：29 个。
+- Hermes runtime bioinfo skills：10 个本地成熟副本，未在本仓库中直接覆盖。
+- 当前候选新增方向包括 database grounding、protein structure/docking、drug discovery/ADMET；是否进入 runtime 需经过实际使用验证。

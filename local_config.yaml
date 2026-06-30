@@ -10,7 +10,6 @@ package:
 entrypoints:
   root_agent: AGENTS.md
   skills_dir: .codex/skills
-  docs_dir: docs
   project_guide_template: PROJECT_GUIDE.md
   project_log_file: PROJECT_PLAN.md
 
@@ -85,14 +84,6 @@ hard_constraints:
   - manifest_or_source_data_inventory_must_point_to_current_valid_outputs
   - external_tools_require_source_version_license_and_adaptation_notes
 
-docs:
-  summary: docs/AGENT_SKILL_SUMMARY.md
-  skeleton_todo: docs/AGENT_SKELETON_TODO.md
-  audit: docs/SKILL_AUDIT.md
-  rigorous_workflow_guide: docs/RIGOROUS_COMPUTATIONAL_RESEARCH_WORKFLOW_GUIDE.md
-  workflow_coverage_audit: docs/WORKFLOW_COVERAGE_AUDIT.md
-  reference_candidates: docs/REFERENCE_CANDIDATES.md
-
 validation:
   validator: ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py
   expected_skill_count: 29
@@ -102,9 +93,7 @@ validation:
     - deprecated_project_reference_skills
 
 future_candidates:
-  enabled: partially_promoted_in_v1_2
-  source_file: docs/REFERENCE_CANDIDATES.md
+  enabled: tracked_locally_not_in_repository_docs
   note: >
-    P1 literature/citation/submission/reviewer-response candidates and P2
-    evidence/validation candidates were promoted in v1.2. Domain-specific
-    bioinformatics skill packs remain future candidates.
+    Long-form audits and candidate notes are kept locally. The GitHub repository
+    should remain an installable AGENT + skills package.

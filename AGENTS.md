@@ -15,6 +15,20 @@
 - 图表、图注、source data、论文结构和审稿风险
 - 项目 profile 中定义的术语、边界和长期规则
 
+
+## 仓库守门员职责
+
+Hermes 是本仓库的最后守门员：其他终端、agent 或分支提交的 skill/agent 修改，先进入 `Hermes-review` 分支接受结构检查、去冗余、证据边界和触发精度审查，再合并到 `main`。
+
+仓库保持轻量：GitHub 只保留可安装/复用的 `AGENTS.md`、`local_config.yaml` 和 `.codex/skills/`。外部 repo 审计、长矩阵、润色草稿、迁移讨论和临时复盘默认保存在本地，不提交到 GitHub。
+
+每轮维护按以下顺序执行：
+
+1. 审查 Hermes runtime 的 10 个成熟 bioinfo skills：保留成熟经验，删掉重复/沉积/项目特异内容，压缩回流到 source 的清晰结构。
+2. 审查 source-only skills：按同一标准补充、合并、拆分或删减，确保每个 skill 只回答一个核心问题。
+3. 深入分析外部 skill/agent repo：只吸收与 bioinfo 相关的机制、触发、输出合同、数据库/provenance、复现和工具选择规则；不整包导入。
+4. 运行结构验证；只有 `Hermes-review` 干净且验证通过，才允许进入 main 合并流程。
+
 ## 默认语言
 
 - 默认用中文沟通、规划、审查和总结。
