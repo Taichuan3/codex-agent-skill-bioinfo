@@ -10,6 +10,7 @@
   - `SKILL.md`
   - `agents/openai.yaml`
   - 可选 `references/`
+- `.agents/skills` — 指向 `.codex/skills` 的 repo-scope 兼容入口，供 standalone OpenAI Codex CLI/IDE/app 自动发现 skills。
 
 ## 使用方式
 
@@ -17,7 +18,14 @@
 
 1. `AGENTS.md` 放到项目根目录。
 2. `.codex/skills/` 合并到项目的 `.codex/skills/`。
-3. 根据任务语义加载相应 skill；不要把所有 skill 同时读入上下文。
+3. 若直接使用 standalone OpenAI Codex CLI/IDE/app，在项目根目录创建 `.agents/skills` 指向 `.codex/skills`，或把 skills 安装到 `$HOME/.agents/skills`。
+4. 根据任务语义加载相应 skill；不要把所有 skill 同时读入上下文。
+
+## Standalone Codex CLI
+
+- 从仓库根目录启动 `codex` 或 `codex exec` 时，Codex 会读取根 `AGENTS.md`。
+- Codex 的 repo-scope skill 自动发现路径是 `.agents/skills`；本仓库用 `.agents/skills -> ../.codex/skills` 保持与 Hermes source layout 兼容。
+- `agents/openai.yaml` 是 Codex/OpenAI 产品侧 UI 元数据和默认提示，不替代 `SKILL.md`；触发判断仍以 `SKILL.md` frontmatter 的 `name` 和 `description` 为准。
 
 ## 分支规则
 

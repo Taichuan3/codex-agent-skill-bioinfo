@@ -10,6 +10,7 @@ package:
 entrypoints:
   root_agent: AGENTS.md
   skills_dir: .codex/skills
+  codex_cli_skills_dir: .agents/skills
   project_guide_template: PROJECT_GUIDE.md
   project_log_file: PROJECT_PLAN.md
 context_policy:
@@ -69,6 +70,10 @@ skill_metadata:
   - references
   - scripts
   - assets
+  codex_cli_discovery:
+    repo_scope: .agents/skills
+    source_layout: .codex/skills
+    note: .agents/skills is a lightweight compatibility symlink for standalone Codex discovery.
   trigger_source: SKILL.md frontmatter description
 evidence_levels:
 - Strong

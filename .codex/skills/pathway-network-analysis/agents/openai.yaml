@@ -1,4 +1,4 @@
 interface:
   display_name: "Pathway Network Analysis"
-  short_description: "如何把 gene list 或 ranked omics 结果转成可复现、不过度解释的 pathway/network evidence？"
+  short_description: "Plan pathway and network analysis with evidence limits"
   default_prompt: "Use $pathway-network-analysis for this task."

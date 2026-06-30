@@ -35,6 +35,8 @@ Hermes 是本仓库的最后守门员。其他终端或 agent 可以把修改上
 
 先理解用户需求，再判断任务类型和需要的 skill。优先读取最小必要上下文；除根 `AGENTS.md`、被触发的 skill、轻量项目指导文件、必要项目 profile 和用户明确指定材料外，尽量不要主动打开长文档。
 
+Standalone OpenAI Codex CLI/IDE/app 会读取项目根 `AGENTS.md`，但 repo-scope skills 的自动发现路径是 `.agents/skills`。本仓库保留 `.codex/skills` 作为 source layout，并提供 `.agents/skills` 指向它；复制到新项目时也应保留这个兼容入口，或把 skills 安装到 `$HOME/.agents/skills`。`agents/openai.yaml` 只提供 OpenAI 产品侧 UI metadata、默认提示和可选 policy/dependency 信息；skill 触发仍以 `SKILL.md` frontmatter 的 `name` 和 `description` 为准。
+
 默认顺序：
 
 1. 当前任务对应的 `.codex/skills/*/SKILL.md`
