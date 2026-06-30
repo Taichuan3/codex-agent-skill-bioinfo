@@ -5,6 +5,10 @@ description: 用于处理真实审稿意见、返修信、editor decision 或合
 
 # Reviewer Response Builder
 
+## 核心问题
+
+如何把真实审稿意见拆成行动计划、补分析优先级、正文修改点和礼貌但有边界的回复？
+
 ## 使用场景
 
 当用户提供真实审稿意见、editor letter、返修要求或合作者逐条批注，并希望生成回复策略、response letter 或改稿计划时使用本 skill。

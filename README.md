@@ -75,13 +75,12 @@ journal_codex_AGENT/
 2. `research-project-planner` 设计研究路线。
 3. `project-guide-maintainer` 创建轻量 `PROJECT_GUIDE.md`。
 
-## v1.4 合规状态
+## v1.6-candidate 合规状态
 
-- 28 个通用 skill 均通过官方 `quick_validate.py`。
-- 28 个通用 skill 均已补充 `agents/openai.yaml`。
-- 根 `AGENTS.md` 保持短入口，不包含候选扩展功能。
-- 已新增包级科研流程指导文件和 workflow 覆盖审计，不作为日常任务默认读取内容。
-- 详细审计见 `docs/SKILL_AUDIT.md`。
+- 29 个通用 skill 均通过本地 frontmatter / `agents/openai.yaml` / `local_config.yaml` 一致性验证。
+- 根 `AGENTS.md` 保持短入口，只做路由和硬约束；细节保留在各 skill 与 references。
+- 已新增包级科研流程指导文件、workflow 覆盖审计、全量外部 repo 审计与第二轮吸收矩阵，不作为日常任务默认全文读取内容。
+- 详细审计见 `docs/SKILL_AUDIT.md`、`docs/external-skill-audits/ALL_EXTERNAL_REPOS_STRUCTURE_AUDIT.md`、`docs/SECOND_ROUND_ABSORPTION_MATRIX.md`。
 
 ## Hermes 迁移状态
 
@@ -94,4 +93,6 @@ v1.3 新增项目环境启动检查 skill：`project-environment-bootstrap`，�
 v1.4 补充从问题到论文的计算生物学流程指导文件，并将选题卡、五句话框架、阶段自检、reviewer attack list 和可复现 workflow 要点下沉到相关 references。
 
 
-v1.5-candidate 新增 `scientific-database-grounding` 与 `protein-docking-drug-discovery` 候选 skill，用于承接全量外部 skill/agent 审计后的数据库 grounding 与蛋白/药筛方向缺口；尚未默认迁移到 Hermes runtime。
+v1.5-candidate 新增 `scientific-database-grounding` 与初版蛋白/药筛候选 skill，用于承接全量外部 skill/agent 审计后的数据库 grounding 与结构/药物发现方向缺口；尚未默认迁移到 Hermes runtime。
+
+v1.6-candidate 将过宽的 `protein-docking-drug-discovery` 拆分为 `protein-structure-docking` 与 `drug-discovery-admet-screening`，使每个 skill 对应一个核心问题。

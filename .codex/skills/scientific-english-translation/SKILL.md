@@ -5,6 +5,10 @@ description: 用于将中文科研文本翻译为英文，或把中文草稿转�
 
 # Scientific English Translation
 
+## 核心问题
+
+如何把中文科研草稿翻译成证据边界安全、可投稿语气的英文表达？
+
 ## 使用场景
 
 当用户要求“翻译成英文”“中文转英文”“Nature 风格英文”“英文论文表达”时使用本 skill。中文内部润色使用 `chinese-scientific-polishing`。

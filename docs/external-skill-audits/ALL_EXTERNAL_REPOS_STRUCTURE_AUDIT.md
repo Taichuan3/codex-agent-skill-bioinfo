@@ -11,7 +11,7 @@
 ## 1. Current local baselines
 
 - Source candidate repo: `/Users/yajiehu/.hermes/tmp/codex-agent-skill-bioinfo`
-- Candidate skills in source repo: 26
+- Candidate skills in source repo: 29 after second-pass split/refactor (`scientific-database-grounding`, `protein-structure-docking`, `drug-discovery-admet-screening` included)
 - Hermes default runtime bioinfo skills: 10
 
 ### 1.1 Candidate source skills
@@ -19,6 +19,7 @@
 - `chinese-scientific-polishing` — 用于中文科研文本润色、结构优化和可读性提升，包括摘要、引言、结果、讨论、图注、项目说明和审稿回复草稿。只做中文层面的润色，不做英文翻译；必须保护证据边界，并根据文稿部分控制数据密度和叙事功能。
 - `citation-verifier` — 用于核验科研文本中的引用、DOI、PMID、BibTeX、参考文献条目和 claim-to-citation 是否匹配，防止引用幻觉、错误文献、错配 citation 或 unsupported citation。适用于论文写作、投稿前检查、文献表整理和审稿回复。
 - `claim-evidence-audit` — 用于审查论文文本、结果解释、图注、审稿回复或投稿前材料中的生物信息学 claim 是否被 figure/table/source data/citation/caveat 充分支持，并给出证据等级、风险和安全降级写法。不用于普通代码执行、绘图实现、文件整理或环境安装。
+- `drug-discovery-admet-screening` — 用于药物靶点探索、virtual screening、ADMET/QSAR、drug repurposing、target validation 和小分子筛选策略的候选工作流设计、数据库 grounding、工具选择、结果优先级排序和证据边界控制。
 - `environment-and-tool-adoption` — 用于在生物信息学任务中安装缺失的 Python/R/命令行包，评估并采用 GitHub 工具、论文代码、官方 protocol 或成熟软件，避免重复造轮子，同时记录版本、来源、license、环境和适配改动。
 - `evidence-gap-finder` — 用于从已有结果、论文草稿、figure plan、claim-evidence map 或审稿风险中找出缺失证据、过弱 claim、未闭合 caveat 和最小补分析集合。适用于准备加强论文证据链或决定下一步补什么分析。
 - `figure-caption` — 用于生物信息学论文图表规划、figure title、panel title、legend、caption、figure-to-claim 审查和图注中的 source data/caveat 表达。
@@ -27,6 +28,7 @@
 - `paper-reader` — 用于阅读用户指定的科研论文、PDF、全文 markdown 或网页论文，并输出中文结构化阅读笔记、关键证据、figure grounding、可借鉴方法和局限。不用于开放式文献检索；需要查找新文献时使用 literature-search-workflow。
 - `project-environment-bootstrap` — 用于新生信项目启动、切换机器或工作目录、运行分析前环境不明、缺少 PROJECT_ENVIRONMENT.md、conda/Jupyter/VS Code/GitHub 同步配置检查和本地环境记录初始化。不用于日常编码、绘图、分析、写作、翻译或已确认环境下的小任务。
 - `project-guide-maintainer` — 用于创建、更新或压缩生物信息学项目的轻量 PROJECT_GUIDE.md 项目指导文件。适用于需要把 research-project-planner 和 research-question-brief 的输出整合成可长期读取的研究背景、核心问题、主线、路线、当前进度、结果框架和论文草稿骨架；也适用于用户要求“维护项目指导文件”“更新研究主线”“把当前进展
+- `protein-structure-docking` — 用于蛋白结构与 docking 任务的输入定义锁定、结构来源选择、protein-ligand 或 protein-protein docking 工具选择、运行计划、结果 QC 和证据边界控制。
 - `publication-plotting` — 用于生物信息学 manuscript-ready figures、PPT 可读图、论文主图/补图的 figure contract、source data、panel hierarchy、Python/R 绘图、PNG/SVG 导出、字体配色统一、遮挡检查和 visual QA。不用于一般数据分析或单纯 claim 审查。
 - `research-data-organization` — 用于组织生物信息学项目的数据、表格、结果、图和常用文件路径，解决结果分散、最新文件不清、重要表格难找、投稿数据难汇总的问题。适用于建立目录结构、整理 latest/priority 文件、设计 manifest、迁移常用结果到一级目录或索引表。
 - `research-decision-review` — 用于在已经理解用户需求和必要背景后，对生物信息学研究中的高影响决策进行建设性反对和取舍评估，包括分析方案、论文结构、外部工具采用、证据解释、是否继续/转向/停止、是否重写已有方法。适用于用户问“这样做合理吗”“要不要采用这个工具/方法”“是否值得继续”“我是不是过度解释了”“要不要自己重写代码”，或当前方案明显存在证据、复现、成本或审稿风险的场景；不用于普通
@@ -34,6 +36,7 @@
 - `research-question-brief` — 用于把用户口头、零散或多轮讨论中的研究想法压缩成简短 research question brief，保留 one-line idea、working question、why it matters、evidence needed、constraints 和 next decision。不用于完整技术路线设计、文献检索或项目执行。
 - `reviewer-response-builder` — 用于处理真实审稿意见、返修信、editor decision 或合作者批注，将评论拆解为 response table、行动计划、补分析优先级、正文修改点和礼貌但有边界的回复草稿。不用于模拟潜在审稿人风险；模拟风险使用 reviewer-simulation。
 - `reviewer-simulation` — 用于模拟生物信息学论文审稿人，识别证据链、统计、复现、图表、方法、机制解释和期刊叙事风险，并生成 response strategy 或补分析优先级。
+- `scientific-database-grounding` — 用于生物信息学研究中需要查询或核验科学数据库时，围绕基因、变异、调控元件、表达、蛋白结构、化合物、药物靶点和文献记录建立可追踪的 database grounding。
 - `scientific-english-polishing` — 用于已有英文科研文本的润色、压缩、段落重构、标题/摘要/图注/response letter 英文打磨和学术语气检查；必须保护证据边界，不能升级科学 claim。中文到英文翻译使用 `scientific-english-translation`。
 - `scientific-english-translation` — 用于将中文科研文本翻译为英文，或把中文草稿转成证据边界安全的英文科研表达，适用于摘要、引言、结果、讨论、方法、图注、回复信和标题。不负责中文润色，也不应为了更像高水平期刊而升级 claim。
 - `skill-quality-audit` — 用于审查本地 Codex/Agent skill 的质量、触发描述、结构完整性、上下文占用、references 拆分、安全风险、科研诚信边界和可维护性。适用于用户要求“检查这个 skill”“优化 skill”“这个 skill 是否太长/会误触发”“按 Anthropic/AIPOCH 思路审计 skill”等场景。

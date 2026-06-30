@@ -5,6 +5,10 @@ description: 用于构建或审查生物信息学论文 source-data inventory、
 
 # Source Data Audit
 
+## 核心问题
+
+如何把 manuscript figure/table/number/claim 追踪到 source data、Data/Code Availability 和 FAIR-like metadata？
+
 ## 使用场景
 
 当用户要求整理 source data、锁定论文数字、检查图表数据来源、准备 Data/Code Availability、审查 FAIR 元数据或规划 repository/accession 时使用本 skill。

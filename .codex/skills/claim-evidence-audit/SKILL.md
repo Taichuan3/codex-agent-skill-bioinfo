@@ -5,6 +5,10 @@ description: 用于审查论文文本、结果解释、图注、审稿回复或�
 
 # Claim Evidence Audit
 
+## 核心问题
+
+如何判断一个科学 claim 是否被当前 figure/table/source data/citation 支撑，并给出安全降级写法？
+
 ## 使用场景
 
 当任务涉及论文文本、结果解释、图注、figure-to-claim、审稿回复、投稿前检查，或用户明确要求检查“这个说法是否成立”“是否 overclaim”“结果段是否安全”“图能否支持结论”“审稿人会不会质疑证据”时使用本 skill。

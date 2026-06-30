@@ -56,7 +56,7 @@ Skill 触发必须基于语义理解，不依赖单一关键词。用户不需�
 - 论文段落润色但 claim 风险明显：写作 skill -> `claim-evidence-audit`
 - 结果已有但证据链不完整：`evidence-gap-finder` -> `validation-strategy-planner`
 - 数据库/坐标/ID 不确定：`scientific-database-grounding` -> `claim-evidence-audit`
-- 蛋白对接/药筛探索：`scientific-database-grounding` -> `protein-docking-drug-discovery` -> `bioinfo-analysis-code`
+- 蛋白对接/药筛探索：`scientific-database-grounding` -> `protein-structure-docking` 或 `drug-discovery-admet-screening` -> `bioinfo-analysis-code`
 - 投稿前收尾：`manuscript-consistency-audit` -> `source-data-audit` -> `submission-readiness-audit`
 - 真实审稿意见：`reviewer-response-builder`，必要时联动 `evidence-gap-finder` 或 `bioinfo-analysis-code`
 
@@ -68,7 +68,8 @@ Skill 触发必须基于语义理解，不依赖单一关键词。用户不需�
 | 项目总指导文件、轻量背景、研究主线、当前进度和论文骨架维护 | `project-guide-maintainer` |
 | 阅读用户指定论文、PDF、全文或网页论文 | `paper-reader` |
 | 数据库 grounding、gene/variant/protein/compound 数据库核验、坐标/ID/provenance 追踪 | `scientific-database-grounding` |
-| 蛋白结构、对接、binder design、ADMET、药物靶点筛选工作流规划 | `protein-docking-drug-discovery` |
+| 蛋白结构、对接、结构预测和 docking 结果解释 | `protein-structure-docking` |
+| 药物靶点探索、virtual screening、ADMET/QSAR、候选化合物优先级 | `drug-discovery-admet-screening` |
 | 系统检索文献、设计关键词、整理证据表和知识缺口 | `literature-search-workflow` |
 | 核验 DOI、PMID、BibTeX、参考文献和 claim-to-citation | `citation-verifier` |
 | 论文写作、图表解释、结果段、摘要、讨论或图注中的 claim 证据审查 | `claim-evidence-audit` |

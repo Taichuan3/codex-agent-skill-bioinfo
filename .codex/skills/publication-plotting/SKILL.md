@@ -5,6 +5,10 @@ description: 用于生物信息学 manuscript-ready figures、PPT 可读图、�
 
 # Publication Plotting
 
+## 核心问题
+
+如何把分析结果转成 manuscript-ready figure、source data 和可追踪的 panel contract？
+
 ## 使用场景
 
 当用户要求生成论文图、修改图、审查图、定义 panel、导出 PNG/SVG、整理 source data 或做 visual QA 时使用本 skill。参考 Nature-skill 的 figure contract 思路，但按本地项目需求默认输出 PNG + SVG，最终投稿再补 PDF/TIFF。

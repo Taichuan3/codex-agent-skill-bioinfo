@@ -5,6 +5,10 @@ description: 用于生物信息学论文投稿前或大版本收尾前的综合�
 
 # Submission Readiness Audit
 
+## 核心问题
+
+如何判断一篇生信稿件在主文、图表、方法、source data、代码和引用层面是否接近可投稿？
+
 ## 使用场景
 
 当用户准备投稿、预投稿、发给合作者做最终审阅、或完成大版本论文收尾时使用本 skill。普通交付前 QA 使用 `task-self-check`。

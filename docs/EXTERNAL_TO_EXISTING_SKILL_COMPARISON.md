@@ -14,7 +14,8 @@
 |---|---|---|---|
 | Scientific database grounding for genes, variants, regulatory tracks, proteins, chemicals and papers | `google-deepmind/science-skills`, selected `GPTomics/bioSkills`, `K-Dense-AI/scientific-agent-skills`, `ClawBio/ClawBio` | Partly overlaps `literature-search-workflow`, `bioinfo-analysis-code`, `paper-reader`, but no dedicated grounding skill | Create candidate skill `scientific-database-grounding`; keep database calls on-demand, not always-loaded runtime |
 | Local-first reproducible execution, benchmark mindset, no guessing | `ClawBio/ClawBio`, `GPTomics/bioSkills`, `addyosmani/agent-skills` | Strong overlap with `bioinfo-analysis-code`, `project-environment-bootstrap`, `task-self-check` | Strengthen existing skills with a reference checklist; do not copy execution wrappers wholesale |
-| Protein structure, docking, binder design, drug discovery and ADMET | `NVIDIA-BioNeMo/bionemo-agent-toolkit`, `adaptyvbio/protein-design-skills`, `learningmatter-mit/AtomisticSkills`, selected `bioSkills` | No exact current bioinfo skill; only project-specific memory/notes exist | Create candidate skill `protein-docking-drug-discovery`; keep as candidate until real use validates local workflow |
+| Protein structure and docking | `NVIDIA-BioNeMo/bionemo-agent-toolkit`, `adaptyvbio/protein-design-skills`, `learningmatter-mit/AtomisticSkills`, selected `bioSkills` | No exact previous bioinfo skill; project-specific notes existed only in memory | Split into candidate skill `protein-structure-docking`; keep as candidate until real use validates local workflow |
+| Drug discovery, virtual screening and ADMET | selected `bioSkills`, `K-Dense-AI/scientific-agent-skills`, `ClawBio/ClawBio`, `BioNeMo` | No exact previous bioinfo skill | Create candidate skill `drug-discovery-admet-screening`; keep clinical/personal drug advice out of scope |
 | Scientific writing, figure captions, reviewer response and submission QA | `nature-skills`, selected `scientific-agent-skills`, `superpowers` discipline | Strong overlap with existing writing/reviewer/figure/source-data skills | Keep current user-specific skills as primary; absorb only output-contract/checklist wording when improving existing skills |
 | Agent workflow, context engineering, multi-agent coordination | `obra/superpowers`, `Agent-Skills-for-Context-Engineering`, `ECC`, official skills repos | Overlaps collaboration docs and `skill-quality-audit` | Keep as repo-level operating guidance; avoid runtime bloat |
 | Official skill spec/style examples | `anthropics/skills`, `openai/skills`, `google/skills`, `agentskills/agentskills` | Overlaps `skill-quality-audit` | Reference-only for validator/style; do not migrate domain content |
@@ -30,6 +31,7 @@
 ## First absorption actions in this branch
 
 - Add `scientific-database-grounding` as a new candidate skill.
-- Add `protein-docking-drug-discovery` as a new candidate skill.
+- Add `protein-structure-docking` as a candidate skill for structure/docking input QA and interpretation.
+- Add `drug-discovery-admet-screening` as a candidate skill for target/compound/ADMET screening strategy.
 - Add a local-first execution checklist reference to `bioinfo-analysis-code`.
 - Update root routing and package metadata so these candidate skills are visible in the source repo but not automatically promoted to runtime.

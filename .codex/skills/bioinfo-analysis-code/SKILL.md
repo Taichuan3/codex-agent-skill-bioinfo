@@ -5,6 +5,10 @@ description: 用于生物信息学分析脚本、表格整理、轻量统计、J
 
 # Bioinfo Analysis Code
 
+## 核心问题
+
+如何把生信分析从一次性脚本变成输入、输出、参数、环境和 caveat 都可追踪的可复现执行？
+
 ## 使用场景
 
 当用户要求写脚本、整理 TSV/CSV、合并 metadata、做轻量统计、生成 summary table、调试分析流程或记录运行命令时使用本 skill。

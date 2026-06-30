@@ -5,6 +5,10 @@ description: 用于模拟生物信息学论文审稿人，识别证据链、统�
 
 # Reviewer Simulation
 
+## 核心问题
+
+如何提前模拟审稿人会攻击的证据、统计、复现、图表和叙事风险？
+
 ## 使用场景
 
 当用户要求“模拟审稿人”“找硬伤”“预测 major concerns”“准备 rebuttal”“判断哪些补分析优先”时使用本 skill。

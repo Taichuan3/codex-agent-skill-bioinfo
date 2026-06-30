@@ -5,6 +5,10 @@ description: 用于生物信息学或计算生物学项目启动前，将模糊�
 
 # Research Project Planner
 
+## 核心问题
+
+如何把模糊研究方向变成 central question、evidence package、figure skeleton 和可执行路线？
+
 ## 使用场景
 
 当用户还没有进入具体分析，而是需要把一个研究方向变成可执行项目时使用本 skill。它的目标是先规划路线，不是直接写代码、画图或写论文。

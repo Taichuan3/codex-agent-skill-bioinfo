@@ -1,6 +1,6 @@
 package:
   name: journal_codex_AGENT
-  version: "1.5-candidate"
+  version: "1.6-candidate"
   scope: generic_bioinformatics_research
   default_language: zh-CN
   description: >
@@ -43,7 +43,8 @@ skills:
   - paper-reader
   - project-environment-bootstrap
   - project-guide-maintainer
-  - protein-docking-drug-discovery
+  - protein-structure-docking
+  - drug-discovery-admet-screening
   - publication-plotting
   - research-data-organization
   - research-decision-review
@@ -94,7 +95,7 @@ docs:
 
 validation:
   validator: ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py
-  expected_skill_count: 28
+  expected_skill_count: 29
   required_absent_checks:
     - legacy_project_name_terms
     - legacy_project_skill_prefixes
