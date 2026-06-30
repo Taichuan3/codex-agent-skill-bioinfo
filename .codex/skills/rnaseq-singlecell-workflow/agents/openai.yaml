@@ -1,4 +1,0 @@
-interface:
-  display_name: "Rnaseq Singlecell Workflow"
-  short_description: "如何把 RNA-seq / single-cell 数据从输入定义、QC、差异/marker 分析到结果解释组织成可复现且证据边界清楚的工作流？"
-  default_prompt: "Use $rnaseq-singlecell-workflow for this task."

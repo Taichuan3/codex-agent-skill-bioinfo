@@ -22,7 +22,7 @@ Hermes 是本仓库的最后守门员。其他终端或 agent 可以把修改上
 
 仓库保持轻量：GitHub 只保留可安装/复用的 `AGENTS.md`、`local_config.yaml`、`README.md` 和 `.codex/skills/`。长审计、润色草稿、迁移讨论、外部 repo 解析缓存和临时复盘默认保存在本地，不提交到 GitHub。
 
-每轮维护一视同仁地检查全部本地 bioinfo skills：Hermes runtime 中成熟的默认 skills 和 source-only skills 都要同时评估。处理原则是保留成熟经验，删掉重复、沉积和项目特异内容，把稳定机制压缩回 source 的清晰结构；每个 skill 只回答一个核心问题。新增候选 skill 只在外部 skill 数据集和本地使用习惯共同证明存在真实缺口时创建。
+每轮维护一视同仁地检查全部本地 bioinfo skills：Hermes runtime 中成熟的默认 skills 和 source-only skills 都要同时评估。关键原则：runtime 中经过本地多轮使用的成熟 skill 是更新经验来源，不能用旧 GitHub source 主体覆盖 runtime 主体。正确做法是基于 runtime 新版本和外部 skill 语料共同瘦身、去冗余、补能力，并把稳定机制压缩回 source 的清晰结构。每个 skill 只回答一个核心问题。新增候选 skill 只在外部 skill 数据集和本地使用习惯共同证明存在真实缺口时创建。
 
 ## 默认语言
 

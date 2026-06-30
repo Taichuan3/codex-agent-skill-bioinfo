@@ -1,4 +1,0 @@
-interface:
-  display_name: "Clinical Bioinformatics Evidence"
-  short_description: "如何把临床/转化相关生信证据整理成科研用途的 evidence map，同时避免诊断或治疗建议越界？"
-  default_prompt: "Use $clinical-bioinformatics-evidence for this task."

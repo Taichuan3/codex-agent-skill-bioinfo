@@ -38,6 +38,8 @@ description: 用于药物靶点探索、virtual screening、ADMET/QSAR、drug re
 - ChEMBL/Open Targets/literature association 不是当前项目实验验证。
 - ADMET/QSAR 是预测或筛选信号，必须记录 applicability domain 和 uncertainty。
 - Virtual screening rank 需要结合物理合理性、数据库活性、化学可行性和反例。
+- Knowledge graph、Open Targets、PrimeKG、ChEMBL、PubChem、OpenFDA 或 ClinicalTrials 只能提供候选关联、bioactivity、regulatory/clinical context 或安全信号；必须记录 endpoint/date/filters，不能合并成单一“有效药物”结论。
+- Docking-derived pose/confidence 与 ADMET/QSAR 是不同证据层；不要用 pose confidence 代替 affinity，也不要用 ADMET pass 代替 efficacy。
 - Clinical/PGx 信息不能转成个人医疗建议。
 
 ## 输出格式

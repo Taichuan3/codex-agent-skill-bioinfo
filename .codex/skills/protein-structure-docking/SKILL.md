@@ -54,6 +54,7 @@ description: 用于蛋白结构与 docking 任务的输入定义锁定、结构�
 - 单一 pose 不是稳定构象；需要重复、对照、物理合理性和可视化检查。
 - 突变体差异是 exploratory signal，除非有独立实验或多工具/多参数一致支持。
 - 结构预测 confidence 不等于互作验证。
+- DiffDock/Boltz/AlphaFold-like confidence、pLDDT/PAE/ipTM 或 pose confidence 反映模型内部可信度或几何合理性，不等同于亲和力、活性、选择性或功能效应。
 
 ## 输出格式
 
@@ -69,3 +70,4 @@ description: 用于蛋白结构与 docking 任务的输入定义锁定、结构�
 ## 按需读取
 
 需要选择 docking/structure 工具时读取 `references/structure-docking-tool-matrix.md`。
+需要解释 PDB/AlphaFold/Boltz/DiffDock/Vina/GNINA 等结构或对接结果、建立输入 QA 和结果 QC 时，读取 `references/protein-docking-evidence-contract.md`。

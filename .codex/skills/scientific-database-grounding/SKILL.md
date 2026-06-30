@@ -32,6 +32,8 @@ description: 用于生物信息学研究中需要查询或核验科学数据库�
 - 坐标必须记录 genome build；variant 必须记录 reference/alternate allele、strand 和 transcript context。
 - 蛋白和结构记录必须区分 canonical isoform、model structure、experimental structure 和 predicted confidence。
 - 药物/靶点信息必须区分 binding evidence、clinical association、repurposing hypothesis、ADMET prediction 和 approved indication。
+- 数据库查询必须能复现：记录 endpoint、query、filters、分页/limit、species、ID namespace、API key/rate-limit 状态和访问日期。
+- 先做 count/summary 或小范围查询评估结果规模，再全量拉取；避免只看第一页结果。
 - API 或网页结果失败时不要编造；改用替代数据库、离线文件或说明 blocker。
 
 ## 执行流程
@@ -46,6 +48,7 @@ description: 用于生物信息学研究中需要查询或核验科学数据库�
 ## 推荐数据库分层
 
 按需读取 `references/database-source-map.md`，根据任务选择来源；涉及 NCBI 查询时使用其中的 Entrez ESearch/ELink/ESummary/EFetch 记录规则。
+需要设计可复现 API 检索、ID 解析、分页、物种/坐标/证据字段核验或数据库冲突处理时，读取 `references/database-query-contract.md`。
 
 ## 输出格式
 

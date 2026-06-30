@@ -34,10 +34,6 @@
 
 ## 当前状态
 
-- Source skills：33 个。
-- Hermes runtime bioinfo skills：29 个本地默认副本，已纳入原 29 个 source skills 并统一使用清晰主结构；成熟细节保留在 references。
-- 当前候选新增方向包括 database grounding、protein structure/docking、drug discovery/ADMET；是否进入 runtime 需经过实际使用验证。
-
-## 新增候选 skills
-
-本分支基于外部 2430 个 SKILL.md 的本地索引，新增 RNA-seq/single-cell、variant/genomics、pathway/network、clinical bioinformatics evidence 四个候选方向；候选 skill 先留在 source repo，实际使用验证后再决定是否进入 runtime。
+- Source skills：29 个。
+- Hermes runtime bioinfo skills：29 个本地默认副本；其中原 10 个 mature runtime skills 需要以 runtime 为准继续瘦身优化，不能用旧 source 覆盖。
+- 本轮不新增候选 skill；RNA-seq/single-cell、variant/genomics、pathway/network、clinical/translational 等外部语料中的通用机制优先并入现有 skill 和 references。

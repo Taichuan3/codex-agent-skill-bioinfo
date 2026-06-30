@@ -38,6 +38,8 @@ description: 用于审查论文文本、结果解释、图注、审稿回复或�
 4. 标记过强动词、因果词、机制词、泛化范围和样本范围问题。
 5. 给出推荐写法：保留、降级、移动到 Discussion、补分析后再写或删除。
 
+临床、转化、数据库和药筛相关 claim 需要额外检查证据类型：数据库关联、预测分数、trial status、approved indication、case evidence、population context 和当前项目直接结果不能混写。
+
 ## 输出格式
 
 优先输出表格：
@@ -46,3 +48,7 @@ description: 用于审查论文文本、结果解释、图注、审稿回复或�
 |---|---|---|---|---|
 
 如果材料不足，先列出缺失证据，不要凭记忆补全。
+
+## 按需读取
+
+需要审查 ClinVar/Open Targets/ClinicalTrials/OpenFDA/ChEMBL/ADMET/QSAR/repurposing 等临床或转化 claim 时，读取 `references/translational-evidence-boundary.md`。

@@ -67,6 +67,7 @@ description: 用于生物信息学 manuscript-ready figures、PPT 可读图、�
 - PNG 与 SVG 是否都生成，且视觉内容一致。
 - PPT/报告插入尺寸下是否仍可读。
 - 文档中的 image link 是否存在，是否有 paired SVG，是否残留旧图型名或内部编号。
+- Omics 图是否说明 gene/sample/cell/variant universe、filtering denominator、normalization、random seed、database version 和 source-data path；UMAP/network/pathway 图不得暗示未经验证的因果机制。
 
 交付前视觉检查读取 `references/visual-qa.md`。
 
@@ -85,3 +86,4 @@ description: 用于生物信息学 manuscript-ready figures、PPT 可读图、�
 - 需要设计主图逻辑、panel 角色或主图/补图区分：`references/figure-contract.md`
 - 需要交付前视觉检查、遮挡检查、字体/配色/导出检查：`references/visual-qa.md`
 - 需要整理 reader-facing report / manuscript 中已经插入的多张图：`references/report-figure-integration.md`
+- 需要处理 RNA-seq/single-cell、variant、pathway/network 或 database-derived figures 的图形证据边界和 source-data QA：`references/omics-figure-qa.md`
