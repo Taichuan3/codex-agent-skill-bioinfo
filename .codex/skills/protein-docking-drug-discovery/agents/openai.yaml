@@ -1,0 +1,4 @@
+interface:
+  display_name: "Protein Docking and Drug Discovery"
+  short_description: "Plan and audit protein docking, design, and ADMET workflows"
+  default_prompt: "Use $protein-docking-drug-discovery to lock inputs, choose tools, and interpret docking/design results with caveats."
