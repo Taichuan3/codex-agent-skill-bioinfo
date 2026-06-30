@@ -37,6 +37,10 @@ description: 用于蛋白结构与 docking 任务的输入定义锁定、结构�
 
 如果输入定义不清，不解释 docking 分数为生物学结论。
 
+## 任务分流
+
+先判断任务类型：known-pocket self-dock、apo/cross-dock、blind/cryptic-pocket search、protein-protein/PPI/binder、metal/covalent docking、virtual screening handoff、ADMET handoff、experimental validation planning。不同类型不能共用同一解释强度。
+
 ## 工具选择原则
 
 - 快速可行性：HDOCK、ClusPro、CB-Dock、AutoDock Vina、GNINA 可作为 exploratory pilot。

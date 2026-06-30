@@ -22,3 +22,16 @@ Borrowed lessons from external bioinformatics skill libraries: prefer reproducib
 - Produce a machine-readable table plus a human-readable summary when possible.
 - Record caveats, failed alternatives, and whether results are safe for manuscript use.
 - If a result becomes figure/source data, make the generating script and source path traceable.
+
+
+## Stable output bundle
+
+For any result that may be reused, reviewed, or promoted to a figure/report, prefer a small reproducibility bundle:
+
+- `commands.sh` or notebook cell export for exact commands.
+- `params.yaml` or equivalent config for filters, thresholds, paths, random seeds and references.
+- `manifest.json` or Markdown manifest listing inputs, outputs, row/column expectations and source-data links.
+- checksums for stable input/output files when practical.
+- `environment.yml`, `requirements.txt`, tool version table, or container tag when dependencies matter.
+
+Do not silently change parameters between smoke test and full run. If parameters change, record the reason and invalidate stale outputs.

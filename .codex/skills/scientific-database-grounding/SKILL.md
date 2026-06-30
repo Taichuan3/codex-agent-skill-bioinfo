@@ -45,7 +45,7 @@ description: 用于生物信息学研究中需要查询或核验科学数据库�
 
 ## 推荐数据库分层
 
-按需读取 `references/database-source-map.md`，根据任务选择来源。
+按需读取 `references/database-source-map.md`，根据任务选择来源；涉及 NCBI 查询时使用其中的 Entrez ESearch/ELink/ESummary/EFetch 记录规则。
 
 ## 输出格式
 
@@ -63,4 +63,4 @@ description: 用于生物信息学研究中需要查询或核验科学数据库�
 - 与 `literature-search-workflow`：文献检索负责研究背景和 paper set；本 skill 负责数据库记录和 ID grounding。
 - 与 `bioinfo-analysis-code`：代码 skill 负责执行和表格处理；本 skill 负责查询来源、字段含义和 provenance。
 - 与 `claim-evidence-audit`：claim 审查负责判断文字是否越界；本 skill 提供数据库证据表。
-- 与 `protein-docking-drug-discovery`：结构/药物工作流需要数据库 grounding 时，先用本 skill 锁定输入定义。
+- 与 `protein-structure-docking` / `drug-discovery-admet-screening`：结构、docking、target validation 或 ADMET 任务需要数据库 grounding 时，先用本 skill 锁定 protein/compound/target/literature 输入定义。

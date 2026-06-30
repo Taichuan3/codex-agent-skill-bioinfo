@@ -11,3 +11,11 @@
 ## Candidate table minimum columns
 
 candidate_id, target, evidence_type, source, metric, value, version_or_date, uncertainty, caveat, next_validation
+
+
+## Screening preparation
+
+- Standardize compounds before ranking: salts, stereochemistry, tautomer/protomer, charge, duplicates and assay-compatible units.
+- Separate evidence layers: target genetics, expression/context, bioactivity, docking/pose, ADMET/QSAR, literature and clinical/PGx annotations.
+- Record whether each metric is measured, curated, predicted, text-mined or model-derived.
+- For GO/NO-GO style summaries, state stop/pivot criteria and the missing validation needed to upgrade evidence.

@@ -15,3 +15,19 @@
 - Negative/positive controls when available.
 - Visual inspection of clashes, pocket placement, interface contacts.
 - Store raw output, parsed summary table, and representative figures.
+
+
+## Preparation chain
+
+- Protein preparation: confirm sequence/accession/isoform, chain, residue numbering, missing regions, cofactors/metals, protonation assumptions and whether the structure is apo/holo/predicted.
+- Ligand preparation: standardize SMILES/InChI/SDF, stereochemistry, protomer/tautomer/charge, salts, conformer ensemble and force-field assumptions.
+- Pocket / box definition: distinguish known pocket, blind docking, cryptic pocket, protein-protein interface, membrane/lipid site, metal/covalent site and restraint-defined target.
+- Controls: redock known ligand when possible; include negative/positive controls or WT/mutant matched setup for comparisons.
+- Pose validation: check clashes, pocket placement, contact plausibility, strain/geometry where possible, repeated seeds or alternative tools for fragile conclusions.
+
+## Default path and escalation
+
+- Use Vina/GNINA/SMINA-like workflows for exploratory screening when receptor and ligand are well-defined.
+- Treat DiffDock/Boltz/Chai/AF3-like outputs as pose or complex hypotheses; use independent QC/rescoring before interpretation.
+- Use FEP/RBFE/ABFE only as later refinement after the binding mode and candidate set are credible.
+- NIM/API-backed tools are reference-only until a project has credentials, versioned endpoint information, and a real pilot run.
