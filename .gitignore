@@ -9,3 +9,13 @@ __pycache__/
 venv/
 tmp/
 *.log
+.env
+.env.*
+*.token
+*.key
+*.pem
+.cache/
+.tmp/
+.rlibs/
+.mplconfig/
+.plotlibs/

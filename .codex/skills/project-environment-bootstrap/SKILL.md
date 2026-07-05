@@ -5,10 +5,6 @@ description: 用于新生信项目启动、切换机器或工作目录、运行�
 
 # Project Environment Bootstrap
 
-## 核心问题
-
-如何在新项目或新机器上快速确认工作目录、环境、Git/Jupyter/conda 状态并留下本地环境记录？
-
 ## 使用场景
 
 只在项目环境需要初始化或重新确认时使用本 skill：

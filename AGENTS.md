@@ -15,15 +15,6 @@
 - 图表、图注、source data、论文结构和审稿风险
 - 项目 profile 中定义的术语、边界和长期规则
 
-
-## 仓库守门员职责
-
-Hermes 是本仓库的最后守门员。其他终端或 agent 可以把修改上传到 GitHub 的其他分支；Hermes 的自动化任务负责定期检查这些分支，把可用内容整合到 `Hermes-review`，完成结构检查、去冗余、证据边界和触发精度审查后，再合并到 `main`。
-
-仓库保持轻量：GitHub 只保留可安装/复用的 `AGENTS.md`、`local_config.yaml`、`README.md` 和 `.codex/skills/`。长审计、润色草稿、迁移讨论、外部 repo 解析缓存和临时复盘默认保存在本地，不提交到 GitHub。
-
-每轮维护一视同仁地检查全部本地 bioinfo skills：Hermes runtime 中成熟的默认 skills 和 source-only skills 都要同时评估。关键原则：runtime 中经过本地多轮使用的成熟 skill 是更新经验来源，不能用旧 GitHub source 主体覆盖 runtime 主体。正确做法是基于 runtime 新版本和外部 skill 语料共同瘦身、去冗余、补能力，并把稳定机制压缩回 source 的清晰结构。每个 skill 只回答一个核心问题。新增候选 skill 只在外部 skill 数据集和本地使用习惯共同证明存在真实缺口时创建。
-
 ## 默认语言
 
 - 默认用中文沟通、规划、审查和总结。
@@ -35,8 +26,6 @@ Hermes 是本仓库的最后守门员。其他终端或 agent 可以把修改上
 
 先理解用户需求，再判断任务类型和需要的 skill。优先读取最小必要上下文；除根 `AGENTS.md`、被触发的 skill、轻量项目指导文件、必要项目 profile 和用户明确指定材料外，尽量不要主动打开长文档。
 
-Standalone OpenAI Codex CLI/IDE/app 会读取项目根 `AGENTS.md`，但 repo-scope skills 的自动发现路径是 `.agents/skills`。本仓库保留 `.codex/skills` 作为 source layout，并提供 `.agents/skills` 指向它；复制到新项目时也应保留这个兼容入口，或把 skills 安装到 `$HOME/.agents/skills`。`agents/openai.yaml` 只提供 OpenAI 产品侧 UI metadata、默认提示和可选 policy/dependency 信息；skill 触发仍以 `SKILL.md` frontmatter 的 `name` 和 `description` 为准。
-
 默认顺序：
 
 1. 当前任务对应的 `.codex/skills/*/SKILL.md`
@@ -45,8 +34,6 @@ Standalone OpenAI Codex CLI/IDE/app 会读取项目根 `AGENTS.md`，但 repo-sc
 4. 用户指定的草稿、表格、脚本、图或模块文档
 
 `PROJECT_PLAN.md` 或同等项目计划默认作为操作记录/复盘对象，不作为每次任务的默认读取对象。只有任务无法继续、需要查历史命令或具体输出、用户要求复盘或需要写入长期记录时再读取。
-
-实质任务完成后，默认只向当前项目的 `PROJECT_PLAN.md` 追加一条简短操作记录；不要为了追加记录而读取全文。记录应包含日期、任务、主要改动、关键输入/输出、命令或环境、caveat 和下一步。纯问答、临时讨论或用户明确不需要记录时可以跳过。
 
 ## Skill 路由
 
@@ -66,9 +53,6 @@ Skill 触发必须基于语义理解，不依赖单一关键词。用户不需�
 - 原始想法不清楚：`research-question-brief` -> `research-project-planner`
 - 论文段落润色但 claim 风险明显：写作 skill -> `claim-evidence-audit`
 - 结果已有但证据链不完整：`evidence-gap-finder` -> `validation-strategy-planner`
-- 数据库/坐标/ID 不确定：`scientific-database-grounding` -> `claim-evidence-audit`
-- 蛋白对接/药筛探索：`scientific-database-grounding` -> `protein-structure-docking` 或 `drug-discovery-admet-screening` -> `bioinfo-analysis-code`
-- RNA-seq / single-cell / variant / pathway / clinical 转化结果：先用对应领域 skill 锁定输入、QC 和证据边界，再按需联动 `bioinfo-analysis-code`、`publication-plotting` 或 `claim-evidence-audit`
 - 投稿前收尾：`manuscript-consistency-audit` -> `source-data-audit` -> `submission-readiness-audit`
 - 真实审稿意见：`reviewer-response-builder`，必要时联动 `evidence-gap-finder` 或 `bioinfo-analysis-code`
 
@@ -79,15 +63,8 @@ Skill 触发必须基于语义理解，不依赖单一关键词。用户不需�
 | 用户原始想法整理成短 research brief | `research-question-brief` |
 | 项目总指导文件、轻量背景、研究主线、当前进度和论文骨架维护 | `project-guide-maintainer` |
 | 阅读用户指定论文、PDF、全文或网页论文 | `paper-reader` |
-| 数据库 grounding、gene/variant/protein/compound 数据库核验、坐标/ID/provenance 追踪 | `scientific-database-grounding` |
-| 蛋白结构、对接、结构预测和 docking 结果解释 | `protein-structure-docking` |
-| 药物靶点探索、virtual screening、ADMET/QSAR、候选化合物优先级 | `drug-discovery-admet-screening` |
 | 系统检索文献、设计关键词、整理证据表和知识缺口 | `literature-search-workflow` |
 | 核验 DOI、PMID、BibTeX、参考文献和 claim-to-citation | `citation-verifier` |
-| RNA-seq、single-cell、pseudo-bulk、marker/contrast、splicing/isoform 工作流和结果解释 | `rnaseq-singlecell-workflow` |
-| variant/genomics、VCF/BCF、GWAS/QTL/PRS、ClinVar/gnomAD/dbSNP 解释和证据边界 | `variant-genomics-interpretation` |
-| pathway enrichment、GSEA、Reactome/GO/KEGG/WikiPathways、network/graph 分析和解释边界 | `pathway-network-analysis` |
-| clinical/translational evidence、clinical trial、PGx、survival/biomarker、cohort table 安全边界 | `clinical-bioinformatics-evidence` |
 | 论文写作、图表解释、结果段、摘要、讨论或图注中的 claim 证据审查 | `claim-evidence-audit` |
 | 从已有结果或草稿中找缺失证据和最小补分析集合 | `evidence-gap-finder` |
 | 为探索性结果、候选机制或审稿风险设计验证策略 | `validation-strategy-planner` |
@@ -129,7 +106,6 @@ Exploratory 和 Speculative 结论不得写成 Results 的最终强结论。若�
 - 新项目启动、切换机器/工作目录、运行分析前环境不明或缺少 `PROJECT_ENVIRONMENT.md` 时，使用 `project-environment-bootstrap`；`PROJECT_ENVIRONMENT.md` 默认为本地私有文件，不提交 GitHub。日常编码、绘图、分析、写作和翻译任务不要因此触发环境检查。
 - 图表是 evidence chain 的一部分，必须能追踪到 source data；具体绘图和 QA 规则由 `publication-plotting` 承担。
 - 交付前做轻量自检；复杂检查交给 `task-self-check` 或对应专项 skill。
-- `PROJECT_PLAN.md` 是写入型操作日志：任务结束时追加记录，不默认读取，不把它作为项目背景入口。
 
 ## 建设性反对
 
@@ -142,4 +118,4 @@ Exploratory 和 Speculative 结论不得写成 Results 的最终强结论。若�
 - 改了什么或生成了什么
 - 文件路径、脚本、输入、输出或 source data 在哪里
 - 证据等级、caveat 和最需要用户决策的下一步
-- 已追加或建议追加到 `PROJECT_PLAN.md` 的操作记录；是否建议更新 `PROJECT_GUIDE.md` 或其他长期记录
+- 是否建议写入 `PROJECT_GUIDE.md`、`PROJECT_PLAN.md` 或其他长期记录

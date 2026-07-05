@@ -5,10 +5,6 @@ description: 用于核验科研文本中的引用、DOI、PMID、BibTeX、参考
 
 # Citation Verifier
 
-## 核心问题
-
-如何确认每条 citation 真实存在、元数据正确，并且确实支持它旁边的 claim？
-
 ## 使用场景
 
 当任务涉及引用是否真实、引用格式是否正确、某条 citation 是否支持某个 claim、参考文献列表是否一致时使用本 skill。

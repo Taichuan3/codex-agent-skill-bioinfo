@@ -5,10 +5,6 @@ description: 用于在生物信息学任务中安装缺失的 Python/R/命令行
 
 # Environment and Tool Adoption
 
-## 核心问题
-
-如何在需要外部工具或依赖时，选择成熟方案、记录来源版本 license，并避免不可复现或不可信安装？
-
 ## 使用场景
 
 当任务需要缺失依赖、包安装、R 绘图包、Python 包、生信软件、GitHub 工具、论文代码或官方 protocol 时使用本 skill。

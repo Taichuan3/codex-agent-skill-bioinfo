@@ -1,4 +1,0 @@
-interface:
-  display_name: "Scientific Database Grounding"
-  short_description: "Ground bioinformatics claims in scientific databases"
-  default_prompt: "Use $scientific-database-grounding to query and cross-check scientific database records with provenance."

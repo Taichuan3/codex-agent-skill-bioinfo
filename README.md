@@ -1,47 +1,37 @@
 # codex-agent-skill-bioinfo
 
-通用生信科研 AGENT 与 skills 包。这个仓库的 GitHub 版本只保留可直接安装/复用的 agent 与 skill 文件；外部审计、润色草稿、迁移讨论和临时复盘默认保留在本地，不进入仓库。
+通用生物信息学研究 Codex agent 与 skills 包。
+
+本分支 `home_PC_codex` 是从家用 Windows PC 的本地 Codex 环境整理出的快照，用于交给 MacBook 上的 Hermes 做最终审查、汇总、合并和优化。它只包含可复用的 agent / skill 文件，不包含项目原始数据、分析结果、环境目录或临时缓存。
 
 ## 内容
 
-- `AGENTS.md` — 通用生信研究 agent 入口和 skill 路由。
-- `local_config.yaml` — 本地打包/校验清单。
-- `.codex/skills/` — 通用 bioinfo skills；每个 skill 至少包含：
-  - `SKILL.md`
-  - `agents/openai.yaml`
-  - 可选 `references/`
-- `.agents/skills` — 指向 `.codex/skills` 的 repo-scope 兼容入口，供 standalone OpenAI Codex CLI/IDE/app 自动发现 skills。
+- `AGENTS.md`: 通用生信研究 agent 入口、硬约束、证据规则和 skill 路由。
+- `.codex/skills/`: 当前本机生效的 26 个 bioinformatics research skills。
+- `.agents/skills`: 指向 `../.codex/skills` 的 repo-scope discovery 入口，兼容 standalone Codex/Hermes 读取。
+- `local_config.yaml`: 本包的入口、skill 列表、验证规则和维护约束。
+- `HERMES_REVIEW_NOTES.md`: 给 Hermes 的审查说明。
 
 ## 使用方式
 
-在新项目中复用时，可以把：
+在新项目中复用时：
 
-1. `AGENTS.md` 放到项目根目录。
-2. `.codex/skills/` 合并到项目的 `.codex/skills/`。
-3. 若直接使用 standalone OpenAI Codex CLI/IDE/app，在项目根目录创建 `.agents/skills` 指向 `.codex/skills`，或把 skills 安装到 `$HOME/.agents/skills`。
-4. 根据任务语义加载相应 skill；不要把所有 skill 同时读入上下文。
-
-## Standalone Codex CLI
-
-- 从仓库根目录启动 `codex` 或 `codex exec` 时，Codex 会读取根 `AGENTS.md`。
-- Codex 的 repo-scope skill 自动发现路径是 `.agents/skills`；本仓库用 `.agents/skills -> ../.codex/skills` 保持与 Hermes source layout 兼容。
-- `agents/openai.yaml` 是 Codex/OpenAI 产品侧 UI 元数据和默认提示，不替代 `SKILL.md`；触发判断仍以 `SKILL.md` frontmatter 的 `name` 和 `description` 为准。
-
-## 分支规则
-
-- `main`：稳定、可直接安装/复用版本。
-- `Hermes-review`：Hermes 作为最后守门员的审查整合分支。
-- Hermes 定期检查其他 agent/terminal 推送的分支，把可用改动整合到 `Hermes-review`，通过结构检查和人工/自动审查后，再合并到 `main`。
+1. 将 `AGENTS.md` 放到项目根目录。
+2. 将 `.codex/skills/` 合并到项目的 `.codex/skills/`。
+3. 如果需要 repo-scope skill discovery，保留 `.agents/skills` 指向 `.codex/skills`。
+4. 根据任务语义按需读取对应 `SKILL.md`，不要一次性把所有 skill 塞进上下文。
 
 ## 维护原则
 
-- 先优化已有 skill，尤其是 Hermes runtime 中经过多轮使用的本地 bioinfo skills。
-- Runtime skill 的成熟经验要压缩回流到 source；不要整篇覆盖，也不要保留沉积和项目特异细节。
-- 新候选 skill 只用于真实能力缺口；不能因为外部 repo 有很多 skill 就盲目新增。
-- GitHub 仓库保持轻量：只提交 agent、skills、必要配置和少量安装说明；长审计和工作草稿留在本地。
+- `AGENTS.md` 保持短，只保留跨项目复用的身份、硬约束、证据规则和 skill 路由。
+- 任务细节放入 `.codex/skills/<skill>/SKILL.md`。
+- 项目背景和当前进度应放在具体项目的 `PROJECT_GUIDE.md` 或 profile 中，不进入本仓库。
+- 不提交 raw data、`.env`、token、账号信息、本机绝对路径、临时缓存或项目运行结果。
+- 新 skill 只在真实能力缺口明确时新增；能合并进现有 skill 的经验优先合并。
 
-## 当前状态
+## 当前快照
 
-- Source skills：33 个。
-- Hermes runtime bioinfo skills：33 个；runtime 是用户本地多轮迭代后的新版本，不能用旧 source 覆盖。
-- RNA-seq/single-cell、variant/genomics、pathway/network、clinical/translational 已作为 runtime 成熟领域 skill 回写到 source；外部语料中的通用机制优先并入现有 skill 和 references。
+- Snapshot source: Home PC local Codex bioinfo runtime
+- Branch: `home_PC_codex`
+- Skill count: 26
+- Intended reviewer: Hermes on MacBook

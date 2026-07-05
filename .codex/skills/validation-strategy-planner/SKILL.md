@@ -5,10 +5,6 @@ description: 用于为探索性生物信息学结果、候选机制、模型结�
 
 # Validation Strategy Planner
 
-## 核心问题
-
-如何为探索性结果或候选机制设计最小、分层、可执行的验证策略？
-
 ## 使用场景
 
 当用户有 exploratory 发现、候选机制、模型结果、富集结果或 reviewer risk，需要判断如何验证、是否值得验证、或无法验证时如何安全表述时使用本 skill。

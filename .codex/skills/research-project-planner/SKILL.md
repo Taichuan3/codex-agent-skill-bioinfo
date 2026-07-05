@@ -1,25 +1,13 @@
 ---
 name: research-project-planner
-description: 用于生物信息学或计算生物学项目启动前，将模糊研究方向转成可执行研究路线：澄清 central question、knowledge gap、hypothesis、evidence package、figure skeleton、技术路线、风险和 stop/pivot criteria。不用于已明确的代码执行、单篇论文阅读或单纯文本润色。
+description: 用于生物信息学或计算生物学项目启动前的背景调查、研究问题澄清、知识缺口定位、可检验假设、证据包、figure skeleton、技术路线和可复现计划设计。适用于用户说“我想做一个课题/方向/项目但目标不清楚”“帮我规划研究路线”“先做背景调查和技术路线”“这个想法能不能做成论文”等场景。
 ---
 
 # Research Project Planner
 
-## 核心问题
-
-如何把模糊研究方向变成 central question、evidence package、figure skeleton 和可执行路线？
-
 ## 使用场景
 
 当用户还没有进入具体分析，而是需要把一个研究方向变成可执行项目时使用本 skill。它的目标是先规划路线，不是直接写代码、画图或写论文。
-
-## 不适合触发
-
-- 用户已经给出明确脚本/表格处理任务时，使用 `bioinfo-analysis-code`。
-- 用户指定阅读单篇论文时，使用 `paper-reader`。
-- 用户只需要把零散想法压缩成短 brief 时，优先使用 `research-question-brief`。
-- 用户只要求润色、翻译或改写文本时，使用对应写作 skill。
-
 
 ## 核心原则
 

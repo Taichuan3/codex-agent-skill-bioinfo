@@ -1,4 +1,0 @@
-interface:
-  display_name: "Rnaseq Singlecell Workflow"
-  short_description: "Plan RNA-seq and single-cell workflows with QC"
-  default_prompt: "Use $rnaseq-singlecell-workflow for this task."

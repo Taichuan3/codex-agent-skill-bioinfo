@@ -5,10 +5,6 @@ description: 用于生物信息学分析脚本、表格整理、轻量统计、J
 
 # Bioinfo Analysis Code
 
-## 核心问题
-
-如何把生信分析从一次性脚本变成输入、输出、参数、环境和 caveat 都可追踪的可复现执行？
-
 ## 使用场景
 
 当用户要求写脚本、整理 TSV/CSV、合并 metadata、做轻量统计、生成 summary table、调试分析流程或记录运行命令时使用本 skill。
@@ -28,7 +24,6 @@ description: 用于生物信息学分析脚本、表格整理、轻量统计、J
 - 脚本、notebook、结果目录和关键输出文件应共享同一阶段编号，便于从结果反查生成步骤。
 - notebook 可用于探索和记录，但稳定流程应整理成编号脚本或 workflow；不要把正式分析变成一堆无法按顺序重跑的 notebook。
 - 当分析超过少数几个步骤，或需要反复重跑时，应考虑 `run_all.sh`、Snakemake、Nextflow 或类似 pipeline 入口。
-- 面向 RNA-seq、single-cell、variant/genomics、pathway/network 等 omics 任务时，先锁定输入 universe、样本/批次 metadata、过滤阈值、参考版本、坐标系统、随机种子和最小试运行，再扩展到全量数据。
 
 ## 推荐输出结构
 
@@ -81,5 +76,3 @@ description: 用于生物信息学分析脚本、表格整理、轻量统计、J
 
 需要判断代码整理深度、探索阶段和投稿阶段的注释/README/环境要求时，读取 `references/reproducibility-levels.md`。
 需要设计编号脚本、阶段产物、pipeline 入口或可复现项目结构时，读取 `references/workflow-numbering.md`。
-需要执行外部工具、批量分析或多步骤 workflow，并希望避免“能跑但不可复现”时，读取 `references/local-first-execution-checklist.md`。
-需要把外部 RNA-seq/single-cell、variant、pathway/network 或 workflow-manager 机制压缩为本地可复现执行计划时，读取 `references/omics-execution-contract.md`。

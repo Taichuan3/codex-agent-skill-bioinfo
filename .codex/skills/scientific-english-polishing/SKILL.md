@@ -1,24 +1,13 @@
 ---
 name: scientific-english-polishing
-description: 用于已有英文科研文本的润色、压缩、段落重构、标题/摘要/图注/response letter 英文打磨和学术语气检查；必须保护证据边界，不能升级科学 claim。中文到英文翻译使用 `scientific-english-translation`。
+description: 用于已有英文科研文本的润色、压缩、段落重构、Nature/CNS-leaning academic style 和学术语气检查；必须保护证据边界，不能升级科学 claim。中文到英文翻译优先使用 scientific-english-translation，中文内部润色优先使用 chinese-scientific-polishing。
 ---
 
 # Scientific English Polishing
 
-## 核心问题
-
-如何在不升级 claim 的前提下，把已有英文科研文本变得更清楚、更精炼、更符合学术表达？
-
 ## 使用场景
 
 当用户提供已有英文文本并要求英文润色、Nature/CNS-leaning style、摘要压缩、标题优化、response letter 改写或 figure legend 英文打磨时使用本 skill。
-
-## 不适合触发
-
-- 输入主要是中文并需要英文输出时，使用 `scientific-english-translation`。
-- 只需要中文润色时，使用 `chinese-scientific-polishing`。
-- 文本中的科学结论证据不足时，不直接强化表达；先标注风险，必要时联动 `claim-evidence-audit`。
-
 
 ## 核心原则
 

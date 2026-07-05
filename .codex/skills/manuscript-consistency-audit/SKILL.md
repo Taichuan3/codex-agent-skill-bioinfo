@@ -5,10 +5,6 @@ description: 用于检查科研稿件内部一致性，包括摘要、正文、�
 
 # Manuscript Consistency Audit
 
-## 核心问题
-
-如何发现稿件内部数字、术语、样本集合、图表编号和 claim 的冲突？
-
 ## 使用场景
 
 当用户担心论文前后不一致、数字冲突、图号错、术语混乱、摘要和结果强度不一致、或投稿前需要 number lock 时使用本 skill。
