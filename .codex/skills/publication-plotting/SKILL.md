@@ -43,6 +43,7 @@ description: 用于生物信息学 manuscript-ready figures、PPT 可读图、�
 - 每个 panel 都要能追踪到 source data，但 **provenance / script / source-data tables 默认放在内部 notes 或 supplementary records，不放进 reader-facing report 正文**。
 - 坐标轴、图例、单位、样本数和统计说明必须清楚。
 - 默认导出 PNG + SVG；投稿或最终图再加 PDF/TIFF。
+- 同一 figure 或同一读者版最终图继续微调时，默认覆盖同名最终输出并同步 QC/source manifest；只有用户明确要求保留草图、对比版本、历史版本或不同尺寸方案时，才另存带版本号/尺寸标记的新文件。
 - SVG/PDF 文字尽量保持可编辑。
 - 对 UMAP、Manhattan、heatmap、image tile 等高密度层，优先使用 hybrid export：数据层 rasterized，坐标轴、文字、线和注释保留 vector；避免百万点全矢量 PDF/SVG。
 - 导出前记录目标物理尺寸、字体、DPI 只作用于 raster layer；不要用 JPEG 保存含文字/线条的科学图。
@@ -86,7 +87,7 @@ description: 用于生物信息学 manuscript-ready figures、PPT 可读图、�
 
 ## 输出格式
 
-输出 figure contract、生成或修改的文件路径、source data 路径、生成脚本/重跑入口、运行命令、QA note 和 caveat。若用户在整理报告/论文/PPT，明确标注哪些图进入正文主叙事、哪些图只作为 supplement/PPT inspection；正文中不要堆放只能作为过程检查的图。
+输出 figure contract、生成或修改的文件路径、source data 路径、生成脚本/重跑入口、运行命令、QA note 和 caveat。若覆盖了同名最终输出，明确说明“已覆盖最终输出”；若保留多个版本，说明保留原因。若用户在整理报告/论文/PPT，明确标注哪些图进入正文主叙事、哪些图只作为 supplement/PPT inspection；正文中不要堆放只能作为过程检查的图。
 
 ## 按需读取
 

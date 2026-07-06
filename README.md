@@ -12,6 +12,7 @@
   - 可选 `references/`
 - `.agents/skills` — 指向 `.codex/skills` 的 repo-scope 兼容入口，供 standalone OpenAI Codex CLI/IDE/app 自动发现 skills。
 - `terminal_profiles/` — Home/Lab/Codex machine-level agent snapshot 的审计输入；只保留 agent/profile 说明，不作为默认运行规则。
+- `docs/RESEARCH_LIFECYCLE_SKILL_COVERAGE.md` — 从 Lab workflow audit 压缩出的研究生命周期 × skill 覆盖图，用于 skill-system 审计，不作为普通任务默认上下文。
 
 ## 使用方式
 
@@ -50,4 +51,5 @@ Hermes 定期检查其他 agent/terminal 推送的分支，把可用改动整合
 - Source skills：36 个。
 - 新增/回写 runtime 成熟能力：`ml-benchmarking`、`project-state-maintenance`、`project-directory-card-maintenance`。
 - 已吸收 Home/Lab 分支中稳定的 agent/profile 信息；Lab 机器的 profile agent snapshot 保留在 `terminal_profiles/lab_PC_codex/` 作为审计输入。
+- 已二次吸收 Home/Lab 语义差异：中文正文简洁/内部提醒后置、figure 同名最终输出覆盖规则、Lab workflow coverage 短矩阵。
 - RNA-seq/single-cell、variant/genomics、pathway/network、clinical/translational、protein docking、drug screening、database grounding 已作为成熟领域 skill 保留。

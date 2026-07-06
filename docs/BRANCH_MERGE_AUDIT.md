@@ -24,6 +24,7 @@ Compared branches: `origin/home_PC_codex`, `origin/lab_PC_codex`
 | Runtime skills | Backport mature local Hermes runtime bioinfo skills to `.codex/skills` | Runtime is newest user-iterated source. |
 | Project-specific residue | Remove project-specific references before source commit | Generic source package should not include AlphaGenome/D20S16/repeat-specific notes. |
 | Project-level AGENTS | Explicitly preserve project AGENTS policy | Codex should still read project-level agent files for project-specific operation logic. |
+| Home/Lab semantic diffs | Selectively absorb mature small deltas, not branch bodies | Home/Lab are real Codex outputs; accepted deltas were compressed into current source instead of replacing newer skills. |
 
 ## 3. Added or backported skills
 
@@ -33,7 +34,13 @@ Compared branches: `origin/home_PC_codex`, `origin/lab_PC_codex`
 
 Final expected source skill count: 36.
 
-## 4. Agent updates
+## 4. Accepted follow-up deltas from Home/Lab review
+
+- `chinese-scientific-polishing`: absorb Home wording that reader-facing Chinese text should stay concise, omit non-serving details, and keep internal risk/safety reminders out of reader-facing prose unless surfaced as `Tips`/author notes.
+- `publication-plotting`: absorb Home figure-version rule: when continuing the same final figure, overwrite the stable final output and update QC/source manifest; create extra versions only when requested or needed for comparison/size variants.
+- `docs/RESEARCH_LIFECYCLE_SKILL_COVERAGE.md`: compress Lab workflow-coverage guide into a short lifecycle × skill map for future skill-system audits; do not load it for ordinary tasks.
+
+## 5. Agent updates
 
 Root `AGENTS.md` now integrates:
 
@@ -46,7 +53,7 @@ Root `AGENTS.md` now integrates:
 - explicit preservation of concrete project `AGENTS.md` files;
 - skill route entries for 36 skills.
 
-## 5. Self-check focus
+## 6. Self-check focus
 
 Validation should confirm:
 
