@@ -13,6 +13,16 @@ description: 用于审查本地 Codex/Agent skill 的质量、触发描述、结
 
 当需要审查或改进本地 skill 时使用本 skill。它借鉴 Anthropic 的 skill 最小结构和 progressive disclosure 思路，以及 AIPOCH skill-auditor 的质量门控，但本地化为轻量、中文、科研优先版本。
 
+## Runtime/source guardrail
+
+When auditing this user's Codex/Hermes bioinfo skill system, treat the local runtime skill as the newest user-iterated source unless the user explicitly says otherwise. Do not overwrite runtime `SKILL.md` bodies with older GitHub source bodies. Correct optimization flow:
+
+1. Read the runtime skill first and identify mature reusable behavior, sediment, duplication, and project-specific residue.
+2. Mine external skill corpora to strengthen existing local skills before creating new candidates.
+3. Backport only stable, compressed mechanisms to the installable source repo (`AGENTS.md`, `local_config.yaml`, `.codex/skills`), keeping long audits local.
+4. For standalone Codex compatibility, ensure global or repo-level discovery exposes the same skills via `.agents/skills` / `~/.agents/skills`, and keep `~/.codex/AGENTS.md` aligned with the bioinfo agent rules.
+5. Verify both runtime and source counts/metadata after edits; use ad-hoc verification when no canonical validator exists.
+
 ## Hard gates
 
 先检查：
@@ -36,6 +46,10 @@ description: 用于审查本地 Codex/Agent skill 的质量、触发描述、结
 - Safety and dependency handling
 - Maintainability
 
+## Bioinfo Codex/Hermes skill-system audits
+
+When auditing this user's bioinfo skill library, read `references/bioinfo-codex-skill-governance.md` for the runtime-first, external-corpus, Codex discovery, and lightweight-repo rules learned from prior maintenance mistakes.
+
 ## 输出格式
 
 - Verdict
@@ -50,4 +64,6 @@ description: 用于审查本地 Codex/Agent skill 的质量、触发描述、结
 - Absorption action: strengthen existing / new candidate skill / reference only / reject
 
 需要细化评分时读取 `references/skill-audit-rubric.md`。
+
+当任务涉及从大型外部 skill 语料库吸收内容、判断是否新增 skill、或维护 bioinfo runtime/source skill 体系时，读取 `references/external-corpus-absorption-guardrails.md`。
 需要审计外部 skill/agent 并决定是否吸收时，读取 `references/external-skill-absorption-rubric.md`。

@@ -24,6 +24,8 @@ description: 用于中文科研文本润色、结构优化和可读性提升，�
 - 保持术语一致性，避免同一概念在相邻句或同一小节中被不同词反复替换。不要为了“避免重复”把同一对象改写成多个近义词；例如同一层级的研究对象若已称为 `element`，不要在没有定义层级差异时又写成 `copy`、`unit` 或其他表达。
 - 若确实需要区分不同层级或对象，先定义术语边界，再稳定使用。例如 `element`、`copy`、`locus`、`sequence` 只能在各自含义明确且前后一致时并存。
 - 润色后先做自检，再输出最终版本。`Tips` 不是必选项；只有发现值得用户考虑的删减、补证据、结构调整或术语风险时才给出。
+- **证据未闭合时不要先润色成稿。** 如果用户指出“没有图像/数据支撑”“像幻觉”“需要补图/补实验”“结果还要重构”，或草稿括号批注中出现这类信号，应暂停逐句改写，先整理 revision backlog / claim-to-figure 待办；等补图、source data、Methods/Supplement 方案明确后再进行风格润色。
+- **读者友好不能替代证据。** 模仿导师/作者风格时，只能压缩技术细节和改善主线，不得把 weak/exploratory observation 写成已被图像证明的结果；对缺图 claim 应标记为待补证据、降级或删除。
 
 ## 各部分功能
 
@@ -58,3 +60,4 @@ description: 用于中文科研文本润色、结构优化和可读性提升，�
 - 需要判断摘要、引言、结果、讨论、方法或图注的章节功能时，读取 `references/section-responsibilities.md`。
 - 需要进一步检查数据密度、段落结构和过强措辞时，读取 `references/polishing-checklist.md`。
 - 需要按 Nature/Science/Cell 等高影响期刊常见作者指南维护中文论文结构、摘要、结果、讨论、方法、图注和标题功能时，读取 `references/high-impact-journal-writing.md`。
+- 当用户要求模仿某位作者/导师的“读者友好、简单直接、少讲复杂细节”的 Results 写法，或需要把技术报告式结果段改成更像可读论文叙事时，读取 `references/hashimoto-reader-friendly-results-style.md`。

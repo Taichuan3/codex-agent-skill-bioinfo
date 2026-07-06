@@ -28,6 +28,16 @@ description: 用于从已有结果、论文草稿、figure plan、claim-evidence
 4. 为每个缺口给出最小补分析或降级写法。
 5. 按影响和成本排序。
 
+## 用户批注草稿 / revision backlog 场景
+
+当用户在草稿括号中标记“没有证据证明”“没有确切图像”“需要补图”“后续重构”“结尾可合并”等，并要求先汇总待办而不是立即修改时：
+
+1. 不要直接按批注逐句改正文。
+2. 先提取括号批注和口头反馈，合并成 revision backlog。
+3. 按 `全局问题 / 各 Results 小节 / 图像补充 / Methods-Supplement 分层 / 术语一致性 / 推荐执行顺序` 组织。
+4. 每个待办要绑定 claim、当前缺口、最小补分析或降级写法、可能输出物和优先级。
+5. 明确哪些是 blocking gap，哪些是文字减法或 nice-to-have。
+
 ## 输出格式
 
 | Claim | Current evidence | Gap | Risk | Minimal fix | Cost | Priority |

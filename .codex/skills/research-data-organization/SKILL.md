@@ -16,8 +16,10 @@ description: 用于组织生物信息学项目的数据、表格、结果、图�
 ## 核心原则
 
 - 数据要可追踪，也要容易读取。
+- 新项目或大版本重构时，默认参考 Cookiecutter Data Science / CCDS 思路：`data/raw` immutable、`data/interim` 中间数据、`data/processed` 分析就绪数据、`data/external` 第三方数据、`references` 数据字典/说明、`reports/figures` 输出图表、`src/` 可复用代码、`notebooks/` 探索记录、`Makefile`/workflow 作为入口。
 - 原始数据保持只读；已确认结论的关键表格和高频文件要有清晰入口。
-- 重要文件可以通过 `latest`、`priority`、`manifest` 或一级目录索引暴露出来。
+- 重要文件可以通过 `latest`、`priority`、`manifest`、Directory Card (`README.md`) 或一级目录索引暴露出来。
+- 对稳定、会复用、会进论文或容易混淆的 artifact 目录，选择性维护短 `README.md` Directory Card；不要给每个 run、临时图或中间缓存写 README。
 - 多步骤分析结果应使用阶段编号组织，例如 `01_preprocessing`、`02_qc`、`03_analysis`、`04_visualization`。编号应与脚本或 workflow step 对应。
 - 关键结果文件名可包含阶段编号，便于判断产物来源和处理顺序，例如 `03_differential_expression.tsv`、`04_main_figure.svg`。
 - 错误旧文件不需要永久保留在工作路径；可覆盖修正后的图表和派生表，但要保证最终 manifest 指向当前有效版本。
@@ -53,6 +55,7 @@ results/
 - `notes`
 
 ## 工作流程
+## 工作流程
 
 1. 扫描或读取用户指定目录，不默认全盘读取。
 2. 识别高频文件、已确认结论文件、投稿相关文件和过期文件。
@@ -60,6 +63,30 @@ results/
 4. 建议一个浅层入口：priority tables、priority figures、source data、manifest。
 5. 对需要覆盖的修正图表或派生表，确认它们是错误修正还是新版本分支。
 6. 输出整理计划或 manifest 草案。
+
+## 成熟项目 CCDS 重排规则
+
+当用户要求按 Cookiecutter Data Science / CCDS 重排一个已有大型项目时，不要只做旁支清理、PDF/隐私修正或 verification 汇报后就停止。主任务应是让数据和 analyses 结构可理解、可导航、可逐步迁移。
+
+推荐顺序：
+
+1. 先明确用户要的是 `README/index cleanup`、`physical move` 还是两者都要。
+2. 先做 no-move audit：确定 final report / manuscript 是主线，给 analyses 分成 primary report support、technical/provenance、supplementary/exploratory、raw/local-only、archive/provenance。
+3. 移动文件前写 migration map，至少包含 `source_path`、`target_path`、`move_type`、`reason`、`report_link_impact`、`script_path_impact`、`compatibility_action`、`status`。
+4. 成熟生信项目中，优先移动低风险顶层目录：legacy `figures/` -> `reports/figures/`、root `scripts/` -> `src/scripts/`、`sync_reports/`/`logs/` -> `metadata/`、release package -> `release/`。
+5. raw/reference 数据可以移入 `data/raw/`，但如果旧脚本/文档依赖旧路径，应保留本地 compatibility symlink，并在 `.gitignore` 中忽略 symlink/large data。
+6. 对编号 `analyses/` 和已交付 report bundle，默认先保留稳定路径；只有在第二阶段 migration map 和 link/script verification 准备好后再移动。
+7. 移动后添加 targeted Directory Cards，而不是给所有 run 目录写 README。
+8. 汇报时以主任务为中心：说明结构怎么变了、哪些路径保持稳定、验证了什么、还剩什么，不要让临时验证脚本路径成为主要内容。
+
+详细清单见 `references/ccds-rearrangement-checklist.md`。
+8. 输出整理计划或 manifest 草案。
+
+## 汇报要求
+
+- 汇报要先说“围绕主任务完成了什么”，再列改动文件、验证结果和下一步；不要把临时验证脚本路径或工具日志放在主体。
+- 如果系统要求 ad-hoc verification，只在“验证结果”中简洁说明通过了哪些业务检查，不要让验证回复替代主任务进展汇报。
+- 当用户明确批评“你忘了主要任务 / 只做了补充”，立即回到主任务并交付实际目录整理 artifacts，而不是继续解释。
 
 ## 输出格式
 
@@ -70,7 +97,10 @@ results/
 - `Overwrite / archive decisions`
 - `Next actions`
 
+For this user's project-organization work, write project-facing organization docs in Chinese by default (`README.md`, Directory Cards, `PROJECT_GUIDE.md`, `PROJECT_PLAN.md`, audit/comparison notes) unless the user explicitly asks for English or the artifact is formal English manuscript/code/API text. After broad reorganizations, summarize the result in chat without requiring the user to open files: current layout, what moved/was kept, source-data/report status, risks, and next decision. If Hermes/Codex collaboration is expected, use Codex for a broad read-only scan or second-pass audit and compare its findings with Hermes's findings explicitly.
+
 ## 按需读取
 
 需要设计目录、latest/priority 入口、manifest 字段或投稿前数据整理策略时，读取 `references/layout-and-manifest.md`。
 需要把多步骤分析产物按处理顺序编号，或设计 stage-to-output 映射时，读取 `references/numbered-output-layout.md`。
+新项目启动、大版本重构、或用户提到 Cookiecutter Data Science / CCDS / 找不到文件 / 数据管理混乱时，读取 `references/cookiecutter-data-science-layout.md`。

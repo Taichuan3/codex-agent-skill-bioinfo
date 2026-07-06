@@ -9,7 +9,7 @@ Use this reference only when a task needs concrete database grounding.
 | Variant identity | dbSNP, ClinVar, Ensembl VEP, gnomAD | rsID, genome build, REF/ALT, transcript, clinical significance, allele frequency |
 | Regulatory interval | ENCODE cCREs, UCSC, Ensembl Regulatory Build, JASPAR | genome build, assay type, cell/tissue source, score, motif version |
 | Expression context | GTEx, Human Protein Atlas, Tabula/cell atlas sources | tissue/cell type, unit, version, sample context |
-| Model prediction | AlphaGenome or other sequence models | model/version, input sequence/build, output type, tissue/track context, prediction window |
+| Model prediction | Sequence/regulatory prediction models | model/version, input sequence/build, output type, tissue/track context, prediction window |
 
 ## Protein / structure
 

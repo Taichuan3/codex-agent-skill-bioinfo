@@ -11,82 +11,89 @@ description: 用于生物信息学 manuscript-ready figures、PPT 可读图、�
 
 ## 使用场景
 
-当用户要求生成论文图、修改图、审查图、定义 panel、导出 PNG/SVG、整理 source data 或做 visual QA 时使用本 skill。目标是把“可运行的分析结果”变成“读者能理解、审稿人能追踪、作者能重跑”的图。
+当用户要求生成论文图、修改图、审查图、定义 panel、导出 PNG/SVG、整理 source data 或做 visual QA 时使用本 skill。参考 Nature-skill 的 figure contract 思路，但按本地项目需求默认输出 PNG + SVG，最终投稿再补 PDF/TIFF。
 
 ## 不适合触发
 
-- 只需要清洗数据、统计分析或生成中间表格：使用 `bioinfo-analysis-code`。
-- 只需要判断图是否支持科学结论：优先或联动 `claim-evidence-audit`。
-- 只需要写 caption 文本且不涉及图形生成：使用 `figure-caption` 或写作 skill。
-- 只需要 source-data / Data Availability 总审计：使用 `source-data-audit`。
+- 只需要清洗数据、统计分析或生成中间表格时，使用 `bioinfo-analysis-code`。
+- 只需要判断图是否支持科学结论时，联动或优先使用 `claim-evidence-audit`。
+- 只需要写 caption 文本且不涉及图形生成时，可使用 `figure-caption` 或写作 skill。
 
-## 最小 Figure Contract
 
-绘图前先锁定：
+## Figure Contract
 
-- Main claim：这张图服务哪个结果句子。
-- Output target：main text、supplement、PPT/report inspection 或 internal QC。
-- Panel map：每个 panel 的角色是 definition、main evidence、validation、robustness、case illustration 还是 limitation。
-- Input/source data：输入表、过滤状态、n/denominator、统计方法、source-data 路径。
-- Generating path：脚本、参数、重跑命令、输出 PNG/SVG 路径。
-- Visual grammar：颜色、形状、线型、排序、normalization 和直接标签策略。
-- Caveat/reviewer risk：哪些结论只能写成 exploratory 或需要转到 prose 解释。
+绘图前先定义：
 
-复杂主图设计时读取 `references/figure-contract.md`。
+- Main claim and `claim_id`
+- Whether the figure belongs in main text, supplement, or PPT-only inspection; keep main text limited to figures that directly carry the result narrative.
+- Panels and panel roles
+- Input tables and source data
+- Generating script path and rerun command/path so future title/size/style changes are easy
+- Filtering state
+- Statistics, n, denominator, random seed, database/reference version when relevant
+- Color/shape encodings
+- Caveats and reviewer risks
+- What the panel can support, what it cannot support, and whether claim wording needs downgrade
+- Required exports
 
 ## 绘图规则
 
 - 图表服务证据链，不做装饰性复杂化。
-- 读者版图像优先呈现结果；provenance、script path、source-data index 和 claim-boundary notes 默认放在 Methods、supplement、source-data index 或作者 notes，不堆在正文图旁。
-- Caption 解释如何读图：panel、坐标轴、颜色/大小编码、数据 universe、n/denominator、normalization。结果解释和机制 claim 放在 Results prose。
-- 每个 panel 都要能追踪到 source data；如果 source-data 清单很长，生成单独 index，而不是把路径塞进 reader-facing 正文。
-- 默认导出 PNG + SVG；最终投稿按期刊再补 PDF/TIFF。SVG/PDF 文字尽量保持可编辑。
+- Reader-facing report / seminar report 图像应先满足读者可读性：结果呈现优先，内部审查信息后置。
+- 每个 panel 都要能追踪到 source data，但 **provenance / script / source-data tables 默认放在内部 notes 或 supplementary records，不放进 reader-facing report 正文**。
+- 坐标轴、图例、单位、样本数和统计说明必须清楚。
+- 默认导出 PNG + SVG；投稿或最终图再加 PDF/TIFF。
+- SVG/PDF 文字尽量保持可编辑。
 - 对 UMAP、Manhattan、heatmap、image tile 等高密度层，优先使用 hybrid export：数据层 rasterized，坐标轴、文字、线和注释保留 vector；避免百万点全矢量 PDF/SVG。
 - 导出前记录目标物理尺寸、字体、DPI 只作用于 raster layer；不要用 JPEG 保存含文字/线条的科学图。
-- 字体、图例、colorbar、panel labels 必须在最终插入尺寸下可读：论文多 panel 常用 6.5–8 pt，PPT/报告展示常用 12–18 pt。
-- 使用低饱和、可区分、色盲友好的配色；直接标签优先于复杂图例；图例不得遮挡数据。
-- 不用图形暗示超出证据的机制或因果关系。
+- 不用图形暗示超出证据的机制或因果关系；claim-boundary / caveat / “不能写成…” 等内部审查语言应保存在作者 notes，不要作为图内文字或正文图表说明呈现给读者。
+- 字体大小要统一且可读：论文多 panel 图通常 6.5-8 pt，PPT 展示图通常 12-18 pt；报告/PPT 读者版应优先放大坐标轴、tick labels 和 legend，避免压缩到需要放大才能阅读。
+- 优先使用低饱和、可区分、色盲友好的 CNS/Nature 风格配色；避免整张图被高饱和颜色淹没。
+- 直接标签优先于复杂图例；图例不得遮挡数据。
+- 读者版图像应尽量去掉冗余 in-plot titles/subtitles（由报告小标题和 caption 承担主题），减少不必要文字，把空间留给数据本身。
+- 饼图通常不适合承载复杂 source composition；优先改为 ordered bar chart、dot plot 或 heatmap。对于多轴 atlas / metadata composition，优先用 small-multiple ordered bar charts 分别展示关键轴，而不是把所有信息压进一个饼图。关键轴必须服务当前 Results 叙事：如果后续结果按 histone/TF/target、organ-module、cancer/proxy 三层展开，就用这三层组织 atlas overview；不要因为 `modality`、`biosample_object_type` 等字段方便就做成与正文叙事不一致的通用 metadata 图。替换时同步更新正文、caption 和 alt text，避免保留旧分类或 “pie chart” 等旧描述。
+- 当读者需要同时理解“metadata atlas 组成”和“输入序列/区域设计”时，优先设计 composite figure：一个 panel 展示与下游结果结构对齐的 atlas/source composition，另一个 panel 展示 genomic input window 和 analysis-region schematic。若真实 genomic scale 下 flank/body 太小而不可读，可同时给出 true-position overview 和 not-to-scale expanded design，并在图中明确标注 not to scale。Expanded design 内部仍应保留关键比例：例如 flanks 固定为 10 kb 时，body 宽度应按实际 body 长度缩放，而不是把 body/flank 三段画成等宽。
+- 对已插入报告的图，优先保持输出文件名稳定，除非用户明确同意改路径；这样可减少 Markdown 路径维护成本。
+- When reader-facing report source also looks clean, or同名图片可能被 Markdown/PDF 预览缓存，则不要只覆盖原分析图；应把最终版 PNG/SVG 同步到报告专用目录（如 `figures/project_report/`）并更新 Markdown 图片链接为干净文件名，避免 `figure_09O`、`figure_09S`、`*_pie.png` 等内部编号/过时图型名继续出现在报告源码中。
+- 当用户要求“参考某张已有图的画法”时，不要只吸收视觉风格后重写新脚本；必须先在本地搜索该图的原始绘图脚本、source data 和输出路径，优先在已有脚本基础上按新需求修改。只有找不到原脚本、原脚本与新数据分辨率/输入完全不匹配、或复用风险更高时，才新建脚本，并在交付中说明理由。详见 `references/reference-figure-script-reuse-and-visual-qa.md`。
+- When report figures are regenerated, promoted from supplement to main text, or otherwise repositioned, update the report Markdown in the same pass: replace/insert the corresponding image link, remove duplicate supplementary display if the figure moved into the main narrative, renumber affected supplementary figures, and verify no duplicate or missing image links remain.
+- 整合优化一份报告/论文中的多张图时，先从正文 Markdown 枚举实际插入的图片清单，再按“报告使用图”而不是“脚本会生成的全部图”确定修改范围；重跑批量脚本后恢复未进入报告的自动刷新图，避免无关 diff。
+- 读者版图内不要保留内部编号式标题或 panel/source 编号（如 `Figure 09O`、`09S`、`Result 2 Figure 1`）；报告小标题、caption 和 alt text 承担叙事，图内只保留必要坐标轴、图例和单位。
+- Dotplot/heatmap 的图例和 colorbar 是高风险重叠区域：优先把 dot-size / outline legend 放到右侧独立空白区，给 colorbar 和 legend 分配不同 x 位置；不要把多列 dot-size legend 放在底部挤压旋转 x-axis labels 和脚注。
 
-## Report / manuscript figure integration
+## Report figure placement and captioning lessons
 
-当图已经进入报告、论文或 PPT 时，把“图像文件”和“文档链接”作为一个整体处理：
-
-1. 先从 Markdown/PPT 枚举实际插入的图，不要按脚本会生成的全部输出决定修改范围。
-2. 优先复用原生成脚本和输出 prefix；用户要求“像某张图”时先找原脚本，不要凭记忆重写。
-3. 对已插入报告的图，尽量保持稳定路径；若需要干净 reader-facing copy，再同步更新 Markdown 链接。
-4. 批量脚本重跑后，只保留报告实际使用图的 intended diff，恢复无关自动刷新图。
-5. 替换、提升或移动主图时，同步更新 caption、alt text、补图编号和重复显示。
-
-完整报告图整理时读取 `references/report-figure-integration.md`。
+- When readers need both raw model output and attribution layers, preserve the distinction in figure ordering: show raw/default output-type profiles first, then custom atlas/source-attribution panels. Do not let a custom atlas figure substitute for the raw signal overview when the raw overview is the clearest first-pass evidence.
+- Be precise about averaging logic in raw output-type overview figures: if a panel shows an output-type-level profile summarized across many returned tracks, describe it as an averaged/summary display that can dilute local, source-specific signals. Do **not** write that the output-type overview avoids averaging; instead use that dilution as the rationale for moving to 15-region summaries and atlas source-attribution layers.
+- When a report figure is promoted from supplement to main text or replaced by a better figure, update the Markdown immediately: insert the new link/caption at the correct result point, remove duplicate display from supplement, and move any still-useful screened figure to supplement rather than dropping it.
+- For manuscript-style report sections, keep figure captions explanatory rather than interpretive: describe panels, axes, color/size encodings, data universe, n/denominators, and normalization; keep result claims and caveats in the prose around the figure.
+- In report subsections with several displayed figures, assign local figure labels consistently (e.g. `图 2.3a`, `图 2.3b`), wrap captions in the same small-caption style used by the document when applicable, and ensure the surrounding prose cites each figure in parentheses at the claim it supports. Do not leave promoted/inserted main-text figures as bare image links.
+- For Discussion figures that explain model-performance gaps (e.g. training-track coverage, tissue/context mismatch, reference/sequence gaps), prioritize exact counts over qualitative labels. Good panels include: output type × relevant organ-module track counts; target-specific direct-context versus proxy-context counts with denominators; and external-validation magnitude contrasts that explain why a context is secondary despite training-track coverage. Keep these figures compact and reader-facing, with source-data TSVs indexed in the report.
 
 ## QA Checklist
 
 - 图中每个元素是否有解释。
-- Caption 是否说明数据来源、过滤状态、统计范围/分母和关键设计参数。
-- Source data 是否能重建主要 panel。
+- Caption 是否为论文式图注：正式图题 + panel-specific A/B/... 说明；说明数据来源、统计范围/分母、数字含义和关键设计参数；避免口语化“左侧/右侧/右下”描述。
+- 若不同 panel 的统计 universe 不同（例如 histone/TF panel 仅统计 CHIP_HISTONE/CHIP_TF tracks，而 organ/cancer panel 基于全部 tracks），caption 是否显式写出各自 denominator。
+- source data 是否能重建主要 panel。
 - 色彩和线型是否能区分组别，灰度下是否仍可读。
-- 字体、点、线、图例、colorbar、panel label 是否互相遮挡。
+- 导出文件是否包含正确字体、尺寸和分辨率。
+- 文字、点、线、图例、panel label 是否互相遮挡；profile 图中的 rug/tick/CTSS marker 是否遮挡 x-axis labels、baseline 或 region labels，必要时应下移到独立 rug lane 并固定 y-axis range 以便比较。
 - PNG 与 SVG 是否都生成，且视觉内容一致。
-- 高密度图是否采用合适的 raster/vector 分层，文字是否仍可编辑，导出尺寸是否与目标版面一致。
-- PPT/报告插入尺寸下是否仍可读。
-- 文档中的 image link 是否存在，是否有 paired SVG，是否残留旧图型名或内部编号。
+- PPT 场景下放大/缩小后是否仍可读。
 - Omics 图是否说明 gene/sample/cell/variant universe、filtering denominator、normalization、random seed、database version 和 source-data path；UMAP/network/pathway 图不得暗示未经验证的因果机制。
-
-交付前视觉检查读取 `references/visual-qa.md`。
+- 高密度图是否采用合适的 raster/vector 分层，文字是否仍可编辑，导出尺寸是否与目标版面一致。
 
 ## 输出格式
 
-- Figure contract
-- 生成/修改的图像路径：PNG、SVG、必要时 PDF/TIFF
-- Source data 路径
-- 生成脚本、参数和重跑命令
-- 文档链接或 caption 是否已同步
-- QA note：可读性、遮挡、导出一致性、source-data traceability
-- Caveat：哪些 claim 不能由图直接支持
+输出 figure contract、生成或修改的文件路径、source data 路径、生成脚本/重跑入口、运行命令、QA note 和 caveat。若用户在整理报告/论文/PPT，明确标注哪些图进入正文主叙事、哪些图只作为 supplement/PPT inspection；正文中不要堆放只能作为过程检查的图。
 
 ## 按需读取
 
-- 需要设计主图逻辑、panel 角色或主图/补图区分：`references/figure-contract.md`
-- 需要交付前视觉检查、遮挡检查、字体/配色/导出检查：`references/visual-qa.md`
-- 需要整理 reader-facing report / manuscript 中已经插入的多张图：`references/report-figure-integration.md`
-- 需要处理 RNA-seq/single-cell、variant、pathway/network 或 database-derived figures 的图形证据边界和 source-data QA：`references/omics-figure-qa.md`
+- 需要设计主图逻辑、panel 角色或主图/补图区分时，读取 `references/figure-contract.md`。
+- 需要从论文 claim 反推主图/补图、建立 `CLAIM_TABLE.md` / `FIGURE_PLAN.md` / reviewer attack matrix，或检查每个 panel 是否有 source-data/script/statistics/limitation 时，读取 `references/claim-to-figure-system.md`。
+- 需要交付前视觉检查、遮挡检查、字体/配色/导出检查时，读取 `references/visual-qa.md`。
+- 需要把内部项目图整理成读者版报告图、替换饼图、去除冗余标题或保留报告路径稳定时，读取 `references/reader-facing-report-figure-optimization.md`。
+- 需要重排结果报告中的主图/补图、区分 raw model output 与自定义 atlas/source-attribution 层、或把图注改成论文式说明时，读取 `references/result-report-figure-workflow.md`。
+- 需要处理 RNA-seq/single-cell、variant、pathway/network 或 database-derived figures 的图形证据边界和 source-data QA 时，读取 `references/omics-figure-qa.md`。
+- 需要把包含本地图片链接的 Markdown 研究报告导出为 PDF，并验证 PDF 页数、图片嵌入和 macOS QuickLook 预览时，读取 `references/markdown-report-pdf-export.md`。

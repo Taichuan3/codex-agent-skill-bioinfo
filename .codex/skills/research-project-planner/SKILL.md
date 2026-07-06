@@ -40,8 +40,10 @@ description: 用于生物信息学或计算生物学项目启动前，将模糊�
 5. 设计 evidence package：需要哪些数据、对照、统计、验证和替代解释排除。
 6. 画 figure skeleton：每张主图回答什么问题。
 7. 给出 technical route：数据来源、分析模块、工具选择、验证路线和风险节点。
-8. 给出 stop / pivot criteria：什么结果继续，什么结果转向，什么结果停止。
-9. 建议如何把输出压缩进 `PROJECT_GUIDE.md`，而不是写成长记录。
+8. 生成 Project Charter 级别的 artifacts：minimum viable analysis、risk register、go/no-go criteria、下一阶段 evidence map questions。
+9. 明确哪些任务属于 Hermes 科学编排，哪些可以形成 bounded Codex task contract。对于用户明确采用 Hermes/Codex 分工的生信项目，Hermes 应先定义问题、证据边界、目录/报告主线和验收标准，再把大范围代码实现、批量重构、索引生成或路径更新交给 Codex；不要把 Hermes 当作 Codex 的替代直接吞下所有工程工作。
+10. 给出 stop / pivot criteria：什么结果继续，什么结果转向，什么结果停止。
+11. 建议如何把输出压缩进 `PROJECT_GUIDE.md`，而不是写成长记录。
 
 ## 必要输出
 
@@ -59,7 +61,12 @@ description: 用于生物信息学或计算生物学项目启动前，将模糊�
 - `Technical route`
 - `Risks and alternatives`
 - `Stop / pivot criteria`
-- `Immediate next actions`
+- `Project Charter`
+- `Minimum viable analysis`
+- `Risk register`
+- `Go / no-go criteria`
+- `Next evidence-map questions`
+- `Next bounded Codex tasks`
 
 如果用户提供的想法仍然模糊，先输出需要澄清的问题，但不要问太多。优先问会改变技术路线的 3 个问题。
 

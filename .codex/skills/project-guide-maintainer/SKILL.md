@@ -15,7 +15,7 @@ description: 用于创建、更新或压缩生物信息学项目的轻量 PROJEC
 
 ## 定位
 
-`PROJECT_GUIDE.md` 是项目总指导文件，不是操作日志。它回答：
+`PROJECT_GUIDE.md` 是 hot context / 当前项目卡片；`PROJECT_PLAN.md` 是 cold append-only log / 审计凭证。GUIDE 负责当前可执行性，PLAN 负责历史完整性。GUIDE 目标 2,000–4,000 中文字符，硬上限 6,000 字符或 120 行；只保存当前事实、关键证据指针、next actions 和风险，不保存流水账。它回答：
 
 - 这个项目研究什么问题。
 - 为什么值得研究。

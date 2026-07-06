@@ -81,5 +81,4 @@ description: 用于生物信息学分析脚本、表格整理、轻量统计、J
 
 需要判断代码整理深度、探索阶段和投稿阶段的注释/README/环境要求时，读取 `references/reproducibility-levels.md`。
 需要设计编号脚本、阶段产物、pipeline 入口或可复现项目结构时，读取 `references/workflow-numbering.md`。
-需要执行外部工具、批量分析或多步骤 workflow，并希望避免“能跑但不可复现”时，读取 `references/local-first-execution-checklist.md`。
 需要把外部 RNA-seq/single-cell、variant、pathway/network 或 workflow-manager 机制压缩为本地可复现执行计划时，读取 `references/omics-execution-contract.md`。

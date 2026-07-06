@@ -1,0 +1,4 @@
+interface:
+  display_name: "Ml Benchmarking"
+  short_description: "ml benchmarking"
+  default_prompt: "Use $ml-benchmarking for the matching bioinformatics research task."

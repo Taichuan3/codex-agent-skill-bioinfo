@@ -44,4 +44,6 @@ Self-check
 - Suggested record:
 ```
 
+For this user's long-running research/project-organization tasks, the final chat output after self-check must be self-contained and Chinese by default. Include: actual work completed, changed files/dirs, key findings or comparison results, verification status and boundary, remaining risks, and next decision. Do not make temporary verification scripts or raw tool logs the main content, and do not require the user to open audit files just to understand the conclusion.
+
 需要更细的检查表时读取 `references/self-check-rubric.md`。

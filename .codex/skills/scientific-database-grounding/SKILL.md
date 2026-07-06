@@ -1,6 +1,6 @@
 ---
 name: scientific-database-grounding
-description: 用于生物信息学研究中需要查询或核验科学数据库时，围绕基因、变异、调控元件、表达、蛋白结构、化合物、药物靶点和文献记录建立可追踪的 database grounding。适用于 AlphaGenome/ClinVar/dbSNP/gnomAD/GTEx/ENCODE/Ensembl/UniProt/AlphaFold DB/ChEMBL/PubMed 等数据库查询、交叉核验和 provenance 记录；不用于普通文献阅读或无数据库需求的写作润色。
+description: 用于查询或核验基因、变异、调控元件、表达、蛋白结构、化合物、药物靶点和文献数据库，并建立可追踪的 database grounding。
 ---
 
 # Scientific Database Grounding
@@ -14,7 +14,7 @@ description: 用于生物信息学研究中需要查询或核验科学数据库�
 当任务需要把研究判断落到外部科学数据库记录时使用本 skill，例如：
 
 - 查询 gene、variant、rsID、genomic interval、regulatory element 或 expression evidence。
-- 核验 ClinVar、dbSNP、gnomAD、GTEx、ENCODE、Ensembl、UCSC、AlphaGenome 等数据库中的坐标、版本、等位基因或组织/细胞类型信息。
+- 核验 ClinVar、dbSNP、gnomAD、GTEx、ENCODE、Ensembl、UCSC、sequence-model outputs 等数据库/模型输出中的坐标、版本、等位基因或组织/细胞类型信息。
 - 查询蛋白、domain、structure、UniProt、AlphaFold DB、InterPro、PDB 或 ligand/drug target 关联。
 - 查询 ChEMBL、DrugBank-like public information、Open Targets、PubMed、EuropePMC、bioRxiv、OpenAlex 等，建立 target/compound/literature evidence map。
 - 需要把数据库结果写入 report、Methods、source data、caveat 或审稿回复。
