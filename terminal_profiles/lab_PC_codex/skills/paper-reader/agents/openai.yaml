@@ -1,0 +1,4 @@
+interface:
+  display_name: "Paper Reader"
+  short_description: "Read specified papers with evidence grounding"
+  default_prompt: "Use $paper-reader to summarize this specified paper with figure-grounded evidence and caveats."

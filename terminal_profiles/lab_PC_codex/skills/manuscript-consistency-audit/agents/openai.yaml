@@ -1,0 +1,4 @@
+interface:
+  display_name: "Manuscript Consistency Audit"
+  short_description: "Check manuscript numbers terms and figures"
+  default_prompt: "Use $manuscript-consistency-audit to check this manuscript for number term and figure consistency."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Figure Caption"
+  short_description: "Plan figure titles captions and claim links"
+  default_prompt: "Use $figure-caption to draft panel titles and a caption linked to the claim and source data."

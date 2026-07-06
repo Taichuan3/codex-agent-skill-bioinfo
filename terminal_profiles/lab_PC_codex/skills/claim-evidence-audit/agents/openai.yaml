@@ -1,0 +1,4 @@
+interface:
+  display_name: "Claim Evidence Audit"
+  short_description: "Audit scientific claims against evidence"
+  default_prompt: "Use $claim-evidence-audit to check whether these manuscript claims are supported by evidence."

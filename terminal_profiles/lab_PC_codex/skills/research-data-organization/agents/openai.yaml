@@ -1,0 +1,4 @@
+interface:
+  display_name: "Research Data Organization"
+  short_description: "Organize research results and manifests"
+  default_prompt: "Use $research-data-organization to organize priority tables figures and latest manifests."

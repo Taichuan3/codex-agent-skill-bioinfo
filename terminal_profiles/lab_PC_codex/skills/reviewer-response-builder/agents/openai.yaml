@@ -1,0 +1,4 @@
+interface:
+  display_name: "Reviewer Response Builder"
+  short_description: "Build response plans for real reviews"
+  default_prompt: "Use $reviewer-response-builder to turn these real reviewer comments into a response plan."

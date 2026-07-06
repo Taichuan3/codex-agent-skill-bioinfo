@@ -1,0 +1,4 @@
+interface:
+  display_name: "Project Guide Maintainer"
+  short_description: "Maintain lightweight project guide files"
+  default_prompt: "Use $project-guide-maintainer to create or update a concise PROJECT_GUIDE.md for this project."
