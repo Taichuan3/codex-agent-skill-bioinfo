@@ -1,6 +1,6 @@
 # codex-agent-skill-bioinfo
 
-通用生信科研 Codex/Hermes agent 与 skills 包。GitHub 版本只保留可直接安装/复用的 agent、skills、兼容入口、少量 profile snapshot 和必要说明；外部审计、迁移草稿、运行缓存、原始数据和项目结果默认保留本地。
+通用生信科研 Codex agent 与 skills 包，面向 Home/Lab 电脑上的 standalone OpenAI Codex CLI/IDE/app。GitHub `main` 版本只保留可直接安装/复用的 Codex agent、skills、兼容入口、少量 profile snapshot 和必要说明；外部审计、迁移草稿、运行缓存、原始数据和项目结果默认保留本地。
 
 ## 内容
 
@@ -32,7 +32,7 @@
 
 ## 分支规则
 
-- `main`：稳定、可直接安装/复用版本。
+- `main`：稳定、可直接安装到 Home/Lab standalone Codex 的版本。
 - `Hermes-review`：Hermes 作为最后守门员的审查整合分支。
 - `home_PC_codex` / `lab_PC_codex`：机器或终端上传的输入分支，用于比较和吸收，不直接视为稳定版。
 

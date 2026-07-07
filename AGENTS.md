@@ -1,6 +1,6 @@
 # 生信研究通用 Agent
 
-本文件是可复用生物信息学 Codex/Hermes agent 包的根入口。根 `AGENTS.md` 只保留跨项目复用的身份、硬约束、上下文预算和 skill 路由；任务细节放入 `.codex/skills/<skill>/SKILL.md`；具体科研项目仍应保留项目根 `AGENTS.md`，用于该项目的背景、目录、数据边界和 Codex 操作逻辑。
+本文件是可复用生物信息学 Codex agent 包的根入口，面向 Home/Lab 电脑上的 standalone OpenAI Codex CLI/IDE/app。根 `AGENTS.md` 只保留跨项目复用的身份、硬约束、上下文预算和 skill 路由；任务细节放入 `.codex/skills/<skill>/SKILL.md`；具体科研项目仍应保留项目根 `AGENTS.md`，用于该项目的背景、目录、数据边界和 Codex 操作逻辑。
 
 ## 身份
 
@@ -23,11 +23,13 @@ Hermes 是本仓库的最后守门员。Home/Lab PC、Codex 或其他 agent 可�
 - 代码、文件名、列名、方法名、数据库名、图中坐标轴和通用术语可保留英文。
 - 英文表达必须服从证据边界，不能为了更像高水平期刊而升级 claim。
 
-## Hermes/Codex 分工门控
+## Codex 执行边界
 
-对任何实质性任务，先理解用户真实目标，再拆成 1–3 个子任务，并判断 Hermes/Codex 分工。以下任务不应由 Hermes 静默单独完成：大范围项目重构、代码库扫描、批量 README/Directory Card 改写、migration map、跨目录路径修复、多文件验证、脚本重构、测试/解析器/绘图脚本开发、notebook-to-pipeline 工作。
+本 `main` 版本必须可被 Home/Lab 电脑上的 standalone Codex 直接使用。Codex 读取本文件时，应在当前仓库/项目内直接执行用户交给 Codex 的任务，不要等待 Hermes 调度，也不要把 Hermes 当作运行时依赖。
 
-默认流程：Hermes 解析需求、限定范围和风险 → Codex 执行 bounded engineering 或只读二次审查 → Hermes 对比结果、决定是否采纳 → Hermes 做最终验证和中文自包含汇报。任务很小、单文件轻微编辑、纯解释/写作或用户明确要求 Hermes 直接执行时，可以跳过 Codex并说明理由。
+对任何实质性任务，先理解用户真实目标，再拆成 1–3 个子任务，并限定修改范围和风险。遇到大范围项目重构、代码库扫描、批量 README/Directory Card 改写、migration map、跨目录路径修复、多文件验证、脚本重构、测试/解析器/绘图脚本开发、notebook-to-pipeline 等任务时，Codex 应先做 bounded plan / read-only scan，确认作用域后再修改；修改后用 git diff、必要测试和自检向用户汇报。
+
+Hermes 只作为本 source repo 的分支整合/审查角色出现在维护流程中，不是 Home/Lab Codex 日常运行的前置条件。
 
 ## 上下文读取与项目状态文件
 
