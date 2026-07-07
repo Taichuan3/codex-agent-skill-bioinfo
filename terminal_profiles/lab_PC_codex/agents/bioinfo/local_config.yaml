@@ -1,24 +1,27 @@
 package:
-  name: journal_codex_AGENT
-  version: "1.4"
+  name: codex-agent-skill-bioinfo
+  version: 1.8-integrated
   scope: generic_bioinformatics_research
   default_language: zh-CN
   description: >
-    通用生信科研 Codex agent package，用于研究规划、项目指导文件维护、
-    数据分析、图表、论文写作、审稿风险、source data 和复现检查。
+    通用生信科研 Codex agent package，面向 Home/Lab standalone OpenAI Codex CLI/IDE/app，
+    用于研究规划、项目状态维护、数据分析、图表、论文写作、审稿风险、source data、
+    ML benchmark、目录索引和复现检查。
 
 entrypoints:
   root_agent: AGENTS.md
   skills_dir: .codex/skills
-  docs_dir: docs
-  project_guide_template: PROJECT_GUIDE.md
+  codex_cli_skills_dir: .agents/skills
+  project_guide_file: PROJECT_GUIDE.md
   project_log_file: PROJECT_PLAN.md
+  project_agent_policy: "具体项目保留项目根 AGENTS.md；通用根 AGENTS.md 不替代项目操作逻辑。"
 
 context_policy:
   read_by_default:
     - AGENTS.md
     - triggered_skill/SKILL.md
     - PROJECT_GUIDE.md summary/background/core_question/results_skeleton/current_progress
+    - project_root/AGENTS.md when inside a concrete project
     - user_specified_files
   read_only_when_needed:
     - PROJECT_PLAN.md
@@ -26,23 +29,31 @@ context_policy:
     - large_result_tables
     - historical_operation_logs
   notes:
-    - PROJECT_GUIDE.md is the lightweight project direction file.
-    - PROJECT_PLAN.md is an operation log and review file, not default context.
-    - Keep root AGENTS.md short; task details belong in skills.
+    - PROJECT_GUIDE.md is hot project context.
+    - PROJECT_PLAN.md is a cold append-only audit log and is not read by default.
+    - Directory Card README.md files are read on demand before scanning heavy artifact directories.
+    - Keep root AGENTS.md focused; task details belong in skills and project-specific rules belong in project AGENTS.md.
 
 skills:
   - bioinfo-analysis-code
   - chinese-scientific-polishing
   - citation-verifier
   - claim-evidence-audit
-  - evidence-gap-finder
+  - clinical-bioinformatics-evidence
+  - drug-discovery-admet-screening
   - environment-and-tool-adoption
+  - evidence-gap-finder
   - figure-caption
   - literature-search-workflow
   - manuscript-consistency-audit
+  - ml-benchmarking
   - paper-reader
+  - pathway-network-analysis
+  - project-directory-card-maintenance
   - project-environment-bootstrap
   - project-guide-maintainer
+  - project-state-maintenance
+  - protein-structure-docking
   - publication-plotting
   - research-data-organization
   - research-decision-review
@@ -50,6 +61,8 @@ skills:
   - research-question-brief
   - reviewer-response-builder
   - reviewer-simulation
+  - rnaseq-singlecell-workflow
+  - scientific-database-grounding
   - scientific-english-polishing
   - scientific-english-translation
   - skill-quality-audit
@@ -57,6 +70,7 @@ skills:
   - submission-readiness-audit
   - task-self-check
   - validation-strategy-planner
+  - variant-genomics-interpretation
 
 skill_metadata:
   required_files:
@@ -66,6 +80,10 @@ skill_metadata:
     - references
     - scripts
     - assets
+  codex_cli_discovery:
+    repo_scope: .agents/skills
+    source_layout: .codex/skills
+    note: .agents/skills is a lightweight compatibility symlink for standalone Codex discovery.
   trigger_source: SKILL.md frontmatter description
 
 evidence_levels:
@@ -78,30 +96,26 @@ hard_constraints:
   - raw_data_is_read_only
   - do_not_upgrade_claims_without_evidence
   - do_not_silently_change_filters_versions_or_environment
+  - project_level_AGENTS_files_are_preserved_for_project_logic
   - derived_wrong_outputs_may_be_overwritten_after_correction
   - manifest_or_source_data_inventory_must_point_to_current_valid_outputs
   - external_tools_require_source_version_license_and_adaptation_notes
 
-docs:
-  summary: docs/AGENT_SKILL_SUMMARY.md
-  skeleton_todo: docs/AGENT_SKELETON_TODO.md
-  audit: docs/SKILL_AUDIT.md
-  rigorous_workflow_guide: docs/RIGOROUS_COMPUTATIONAL_RESEARCH_WORKFLOW_GUIDE.md
-  workflow_coverage_audit: docs/WORKFLOW_COVERAGE_AUDIT.md
-  reference_candidates: docs/REFERENCE_CANDIDATES.md
-
 validation:
-  validator: ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py
-  expected_skill_count: 26
+  expected_skill_count: 36
+  expected_root_agents: 1
   required_absent_checks:
-    - legacy_project_name_terms
-    - legacy_project_skill_prefixes
-    - deprecated_project_reference_skills
+    - secrets_or_tokens
+    - raw_data_files
+    - runtime_cache_files
+    - project_specific_result_tables
+    - stale_project_specific_references
 
-future_candidates:
-  enabled: partially_promoted_in_v1_2
-  source_file: docs/REFERENCE_CANDIDATES.md
-  note: >
-    P1 literature/citation/submission/reviewer-response candidates and P2
-    evidence/validation candidates were promoted in v1.2. Domain-specific
-    bioinformatics skill packs remain future candidates.
+branch_integration:
+  base: Hermes-review
+  compared_branches:
+    - home_PC_codex
+    - lab_PC_codex
+  policy: >
+    Preserve Hermes-review as the reviewed base; absorb mature Home/Lab/runtime mechanisms;
+    keep project-level agent files as audit/profile inputs; avoid copying duplicate old skills or machine-private state.

@@ -5,6 +5,10 @@ description: 用于把用户口头、零散或多轮讨论中的研究想法压�
 
 # Research Question Brief
 
+## 核心问题
+
+如何把零散想法压缩成一个短 research question brief，保留为什么重要和下一步决策？
+
 ## 使用场景
 
 当用户提出一个原始想法、研究方向、模糊问题或连续讨论中的项目设想，需要把它整理成短文档时使用本 skill。它不同于 `research-project-planner`：本 skill 维护用户想法的精简方向文档，后者设计完整项目路线。

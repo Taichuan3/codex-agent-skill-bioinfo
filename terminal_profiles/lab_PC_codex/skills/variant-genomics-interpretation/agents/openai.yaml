@@ -1,0 +1,4 @@
+interface:
+  display_name: "Variant Genomics Interpretation"
+  short_description: "如何把 variant/genomics 结果从坐标、等位基因、频率、功能注释和遗传证据组织成可追踪、不过度解释的证据表？"
+  default_prompt: "Use $variant-genomics-interpretation for this task."

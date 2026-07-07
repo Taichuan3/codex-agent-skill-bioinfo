@@ -1,25 +1,28 @@
 # codex-agent-skill-bioinfo
 
-通用生信科研 AGENT 与 skills 包。这个仓库的 GitHub 版本只保留可直接安装/复用的 agent 与 skill 文件；外部审计、润色草稿、迁移讨论和临时复盘默认保留在本地，不进入仓库。
+通用生信科研 Codex agent 与 skills 包，面向 Home/Lab 电脑上的 standalone OpenAI Codex CLI/IDE/app。GitHub `main` 版本只保留可直接安装/复用的 Codex agent、skills、兼容入口、少量 profile snapshot 和必要说明；外部审计、迁移草稿、运行缓存、原始数据和项目结果默认保留本地。
 
 ## 内容
 
-- `AGENTS.md` — 通用生信研究 agent 入口和 skill 路由。
+- `AGENTS.md` — 通用生信研究 agent 入口、上下文预算、项目状态规则和 skill 路由。
 - `local_config.yaml` — 本地打包/校验清单。
 - `.codex/skills/` — 通用 bioinfo skills；每个 skill 至少包含：
   - `SKILL.md`
   - `agents/openai.yaml`
   - 可选 `references/`
 - `.agents/skills` — 指向 `.codex/skills` 的 repo-scope 兼容入口，供 standalone OpenAI Codex CLI/IDE/app 自动发现 skills。
+- `terminal_profiles/` — Home/Lab/Codex machine-level agent snapshot 的审计输入；只保留 agent/profile 说明，不作为默认运行规则。
+- `docs/RESEARCH_LIFECYCLE_SKILL_COVERAGE.md` — 从 Lab workflow audit 压缩出的研究生命周期 × skill 覆盖图，用于 skill-system 审计，不作为普通任务默认上下文。
 
 ## 使用方式
 
-在新项目中复用时，可以把：
+在新项目中复用时：
 
-1. `AGENTS.md` 放到项目根目录。
-2. `.codex/skills/` 合并到项目的 `.codex/skills/`。
-3. 若直接使用 standalone OpenAI Codex CLI/IDE/app，在项目根目录创建 `.agents/skills` 指向 `.codex/skills`，或把 skills 安装到 `$HOME/.agents/skills`。
-4. 根据任务语义加载相应 skill；不要把所有 skill 同时读入上下文。
+1. 把 `AGENTS.md` 放到项目根目录作为通用起点。
+2. 保留或新增该项目自己的项目级 `AGENTS.md` 内容：项目目录、数据边界、运行命令、禁止修改路径、项目状态文件和 Codex 操作逻辑仍应由项目 agent 管理。
+3. 合并 `.codex/skills/` 到项目 `.codex/skills/`，或安装到用户级 skills 目录。
+4. 若直接使用 standalone OpenAI Codex CLI/IDE/app，在项目根目录创建 `.agents/skills` 指向 `.codex/skills`，或把 skills 安装到 `$HOME/.agents/skills`。
+5. 根据任务语义加载相应 skill；不要把所有 skill 同时读入上下文。
 
 ## Standalone Codex CLI
 
@@ -29,19 +32,24 @@
 
 ## 分支规则
 
-- `main`：稳定、可直接安装/复用版本。
+- `main`：稳定、可直接安装到 Home/Lab standalone Codex 的版本。
 - `Hermes-review`：Hermes 作为最后守门员的审查整合分支。
-- Hermes 定期检查其他 agent/terminal 推送的分支，把可用改动整合到 `Hermes-review`，通过结构检查和人工/自动审查后，再合并到 `main`。
+- `home_PC_codex` / `lab_PC_codex`：机器或终端上传的输入分支，用于比较和吸收，不直接视为稳定版。
+
+Hermes 定期检查其他 agent/terminal 推送的分支，把可用改动整合到 `Hermes-review`，通过结构检查和人工/自动审查后，再合并到 `main`。
 
 ## 维护原则
 
 - 先优化已有 skill，尤其是 Hermes runtime 中经过多轮使用的本地 bioinfo skills。
-- Runtime skill 的成熟经验要压缩回流到 source；不要整篇覆盖，也不要保留沉积和项目特异细节。
-- 新候选 skill 只用于真实能力缺口；不能因为外部 repo 有很多 skill 就盲目新增。
+- Runtime skill 的成熟经验要压缩回流到 source；不要整篇覆盖旧 source 后保留项目特异沉积，也不要用旧 source 覆盖 runtime 中已验证的新机制。
+- 新候选 skill 只用于真实能力缺口；不能因为外部 repo 或某台机器有很多 skill 就盲目新增。
 - GitHub 仓库保持轻量：只提交 agent、skills、必要配置和少量安装说明；长审计和工作草稿留在本地。
+- 项目级 agent 文件必须保留：每个具体科研项目的 `AGENTS.md` 管理该项目的操作逻辑，通用包只提供基础规则。
 
 ## 当前状态
 
-- Source skills：33 个。
-- Hermes runtime bioinfo skills：33 个；runtime 是用户本地多轮迭代后的新版本，不能用旧 source 覆盖。
-- RNA-seq/single-cell、variant/genomics、pathway/network、clinical/translational 已作为 runtime 成熟领域 skill 回写到 source；外部语料中的通用机制优先并入现有 skill 和 references。
+- Source skills：36 个。
+- 新增/回写 runtime 成熟能力：`ml-benchmarking`、`project-state-maintenance`、`project-directory-card-maintenance`。
+- 已吸收 Home/Lab 分支中稳定的 agent/profile 信息；Lab 机器的 profile agent snapshot 保留在 `terminal_profiles/lab_PC_codex/` 作为审计输入。
+- 已二次吸收 Home/Lab 语义差异：中文正文简洁/内部提醒后置、figure 同名最终输出覆盖规则、Lab workflow coverage 短矩阵。
+- RNA-seq/single-cell、variant/genomics、pathway/network、clinical/translational、protein docking、drug screening、database grounding 已作为成熟领域 skill 保留。

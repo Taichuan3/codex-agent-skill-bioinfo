@@ -5,13 +5,17 @@ description: 用于创建、更新或压缩生物信息学项目的轻量 PROJEC
 
 # Project Guide Maintainer
 
+## 核心问题
+
+如何把项目背景、核心问题、当前结果和下一步压缩成未来 agent 能快速读取的轻量 PROJECT_GUIDE？
+
 ## 使用场景
 
 当项目需要一个轻量、长期可读、可作为后续上下文入口的指导文件时使用本 skill。它连接 `research-question-brief` 和 `research-project-planner`：前者保留用户原始想法，后者设计项目路线，本 skill 把二者压缩成项目执行和论文写作都能使用的 `PROJECT_GUIDE.md`。
 
 ## 定位
 
-`PROJECT_GUIDE.md` 是项目总指导文件，不是操作日志。它回答：
+`PROJECT_GUIDE.md` 是 hot context / 当前项目卡片；`PROJECT_PLAN.md` 是 cold append-only log / 审计凭证。GUIDE 负责当前可执行性，PLAN 负责历史完整性。GUIDE 目标 2,000–4,000 中文字符，硬上限 6,000 字符或 120 行；只保存当前事实、关键证据指针、next actions 和风险，不保存流水账。它回答：
 
 - 这个项目研究什么问题。
 - 为什么值得研究。

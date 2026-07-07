@@ -5,6 +5,10 @@ description: 用于已有英文科研文本的润色、压缩、段落重构、�
 
 # Scientific English Polishing
 
+## 核心问题
+
+如何在不升级 claim 的前提下，把已有英文科研文本变得更清楚、更精炼、更符合学术表达？
+
 ## 使用场景
 
 当用户提供已有英文文本并要求英文润色、Nature/CNS-leaning style、摘要压缩、标题优化、response letter 改写或 figure legend 英文打磨时使用本 skill。
