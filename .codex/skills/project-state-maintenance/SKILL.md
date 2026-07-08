@@ -147,11 +147,22 @@ A reusable verifier is available at `scripts/verify_agents_state_rules.py`; copy
 
 ## Completion message
 
-Use a compact final note:
+Use a compact final note, but never let verification output replace the task report. If the task did anything beyond checking state, the final response must include the actual task outcome first, then verification as evidence.
 
-```text
-- PROJECT_PLAN.md: appended log_id=...
-- PROJECT_GUIDE.md: updated <section> / not updated because <reason>
-- Verification: <canonical command passed OR ad-hoc verification passed, not suite green>
-- Next: ...
-```
+中文保险：最终回复必须是完整交付报告，不得只输出最后一个验证步骤。验证输出只能作为证据，不能吞掉任务报告。
+
+Required order:
+
+- Done: concise summary of the actual task outcome.
+- Files/artifacts: key paths changed or generated.
+- Verification: canonical command or ad-hoc verification result and what it checked; label ad-hoc checks as ad-hoc, not suite green.
+- Project state: `PROJECT_PLAN.md` appended log_id=...; `PROJECT_GUIDE.md` updated <section> or not updated because <reason>.
+- Next: immediate next action or remaining decision.
+
+Output integrity safeguards:
+
+- Do not return only `AD_HOC_VERIFICATION=passed`, script path, cleanup line, or raw tool stdout. Those are verification evidence only.
+- Before finalizing after an ad-hoc verification command, reconstruct the full task narrative from the user's request and actual changes.
+- Avoid ending the final response with a fenced code block. Prefer inline code or bullets for short paths/commands. If a fenced block is necessary, ensure opening and closing fences are balanced and followed by normal text.
+- Never output orphan language labels such as `text` or `markdown`; language labels belong only on the same line as an opening fence.
+
