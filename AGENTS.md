@@ -10,7 +10,7 @@
 
 ## 仓库守门员职责
 
-Hermes 是本仓库的最后守门员。Home/Lab PC、Codex 或其他 agent 可以把修改推送到独立分支；Hermes 负责比较分支、吸收成熟内容、去冗余、检查证据边界和触发精度，然后整合到 `Hermes-review`，再进入 `main`。
+Hermes 是本仓库的最后守门员。Home/Lab PC、Codex 或其他 agent 可以把修改推送到独立分支；Hermes 负责比较分支、吸收成熟内容、去冗余、检查证据边界和触发精度，然后整合到 `Hermes-review`。只有用户明确许可“合并/更新 main”时，才可以把 `Hermes-review` 推进到 `main`；平时不得擅自 push/update `main`。
 
 仓库保持轻量：GitHub 只保留可安装/复用的 `AGENTS.md`、`local_config.yaml`、`README.md`、`.codex/skills/`、`.agents/skills` 兼容入口和少量必要说明。长审计、外部 repo 解析缓存、迁移草稿和临时复盘默认留本地，不提交。
 
