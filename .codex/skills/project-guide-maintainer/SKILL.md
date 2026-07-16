@@ -32,10 +32,11 @@ description: 用于创建、更新或压缩生物信息学项目的轻量 PROJEC
 
 ## 内容原则
 
-- 尽量短，目标是让 agent 快速理解项目背景和当前进度。
+- 尽量短，目标是让 agent 快速理解项目背景和当前进度；用户要求 1–2 页时主动压缩到当前策略和当前执行规则。
 - 保留研究主线，不保存流水账。
 - 保留关键 claim、证据等级、figure/result skeleton 和 caveat。
-- 不塞完整文献综述、长命令记录、大量路径或每次运行细节。
+- 不塞完整文献综述、长命令记录、大量路径、历史升级解释或每次运行细节。
+- 已完成旧路线、详细 checkpoint 和历史产物列表下沉到 `PROJECT_PLAN.md`、README 或 Directory Card；GUIDE 只保留最新稳定策略和下一步决策。
 - 未确认的信息标记为 `Assumption`、`Open question` 或 `Needs evidence`。
 - 可以作为论文草稿骨架，但不是最终 manuscript。
 
@@ -66,10 +67,11 @@ description: 用于创建、更新或压缩生物信息学项目的轻量 PROJEC
 1. 读取用户指定材料、已有 `PROJECT_GUIDE.md`、短 `research brief` 或 `project planner` 输出。
 2. 抽取最少必要背景、主线、路线和当前进度。
 3. 删除流水账式运行记录，把操作细节移交给 `PROJECT_PLAN.md` 或 summary。
-4. 将结果路线组织成可支持论文主体的 result / figure skeleton。
-5. 对每个主要 claim 标注证据等级或缺口。
-6. 标记当前阶段：exploration、confirmation、validation 或 submission-ready。
-7. 输出可直接写入或替换的 `PROJECT_GUIDE.md` 内容。
+4. 如果 GUIDE 过长或用户只要最新策略，重写为 1–2 页 current-state card：项目一句话、最新策略/模型、当前 pipeline、目录/操作规则、当前缺口和下一步；把旧 roadmap、历史版本解释和详细检查清单下沉。
+5. 将结果路线组织成可支持论文主体的 result / figure skeleton。
+6. 对每个主要 claim 标注证据等级或缺口。
+7. 标记当前阶段：exploration、confirmation、validation 或 submission-ready。
+8. 输出可直接写入或替换的 `PROJECT_GUIDE.md` 内容。
 
 ## 读取规则
 

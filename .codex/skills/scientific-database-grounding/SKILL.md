@@ -1,6 +1,6 @@
 ---
 name: scientific-database-grounding
-description: 用于查询或核验基因、变异、调控元件、表达、蛋白结构、化合物、药物靶点和文献数据库，并建立可追踪的 database grounding。
+description: 用于生物信息学研究中查询或核验外部科学数据库与模型服务记录，围绕基因、变异、调控元件、表达、蛋白结构、化合物、药物靶点和文献建立可追踪的 database grounding。适用于坐标、版本、等位基因、组织/细胞类型、数据库交叉核验和 provenance 记录；不用于普通论文阅读或无数据库需求的写作润色。
 ---
 
 # Scientific Database Grounding

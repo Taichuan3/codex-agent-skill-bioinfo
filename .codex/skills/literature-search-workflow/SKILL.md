@@ -45,20 +45,6 @@ description: 用于生物信息学或计算生物学项目的系统文献检索�
 需要 evidence table 模板时读取 `references/evidence-table-template.md`。
 需要将开放式背景检索整理为项目决策用的 evidence map、dataset/method/gap map、go/no-go memo 时，读取 `references/evidence-map-matrix.md`。
 
-## Hypothesis-driven synthesis for repeat elements / ALT / telomere projects
-
-When the user asks to connect an unpublished bioinformatics hypothesis with public literature, do more than collect papers:
-
-1. First write a concise one-paragraph hypothesis linking the locus/repeat, structural features, biological context, and candidate molecular interface.
-2. Separate evidence layers before interpreting results: expression, complete-genome structure, motif/binding, 3D contact, and DNA-rearrangement/WGS evidence.
-3. Treat negative RNA-seq carefully. If the relevant public evidence concerns telomere contact, chromatin occupancy, or DNA insertion/recombination, lack of ALT+ vs ALT− RNA expression does not falsify the hypothesis; it may indicate the mechanism is DNA/chromatin/3D-driven rather than transcript-abundance-driven.
-4. For repeat elements, explicitly state mapping caveats: multi-mapping, MAPQ thresholds, reference dependence, polyA selection, read length, and repeat-aware vs unique mapping.
-5. Classify claims as Strong / Moderate / Exploratory / Speculative and state what each paper or dataset does *not* prove.
-
-Detailed repeat/ALT synthesis notes: `references/hypothesis-driven-repeat-alt-synthesis.md`.
-
-When the user asks whether suitable public datasets exist for a repeat/ALT/telomere hypothesis, use the dataset-search workflow and reporting template in `references/repeat-alt-dataset-search.md`. 
-
 ## Molecular interaction / docking feasibility searches
 
 当用户询问两个蛋白是否互作、某个突变是否有依据、或 docking 方案是否可行时：

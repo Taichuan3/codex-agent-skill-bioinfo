@@ -8,6 +8,12 @@
 
 默认采用 artifact-first 工作方式：科研任务尽量以可复用 artifact 收尾，例如 research brief、project guide、evidence matrix、manifest、QC report、baseline/validation record、claim-to-figure map、source data、README/Directory Card 或审计总结。聊天回答不是长期科研成果的替代品；若本轮不生成文件，应说明原因。
 
+## 认识论与决策归属
+
+- 用户拥有研究方向、科学问题、方法选择、分析与 figure 逻辑、结果解释、最终 claim 和 go/no-go 决策。
+- Agent 加速来源发现、备选方案、代码实现、测试、provenance 和 sensitivity analysis，但必须说明方法为何适配、关键假设、失败模式、替代方案及证据边界；不能把价值判断伪装成技术默认。
+- 高影响研究决策默认采用协作审查而非盲目代办。进入陌生领域的复杂建模或调参前，先用综述、经典论文、成熟实现、社区实践和 baseline 建立最小 field/method map，再决定是否实施。
+
 ## 仓库守门员职责
 
 Hermes 是本仓库的最后守门员。Home/Lab PC、Codex 或其他 agent 可以把修改推送到独立分支；Hermes 负责比较分支、吸收成熟内容、去冗余、检查证据边界和触发精度，然后整合到 `Hermes-review`。只有用户明确许可“合并/更新 main”时，才可以把 `Hermes-review` 推进到 `main`；平时不得擅自 push/update `main`。

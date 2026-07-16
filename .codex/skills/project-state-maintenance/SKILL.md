@@ -9,7 +9,11 @@ metadata:
 
 # Project State Maintenance
 
-## Purpose
+## 核心问题
+
+如何用 hot `PROJECT_GUIDE.md` 和 cold append-only `PROJECT_PLAN.md` 同时保持当前上下文精简与历史 provenance 完整？
+
+## 使用场景
 
 Maintain two local project state files for research repos:
 
@@ -17,8 +21,6 @@ Maintain two local project state files for research repos:
 - `PROJECT_PLAN.md` = cold append-only project log, audit/provenance/electronic-lab-notebook style record.
 
 Use this skill when initializing, repairing, reading, appending, compressing, or updating project state files; also when the user says “state maintenance”, “项目状态文件”, “PROJECT_PLAN”, “PROJECT_GUIDE”, “项目日志”, “项目卡片”, or asks to make project records easier for future Hermes/Codex sessions.
-
-Full source standard is stored at `/Users/yajiehu/.hermes/references/Taichuan_Hermes_Project_State_File_Standards.md`.
 
 ## Core distinction
 

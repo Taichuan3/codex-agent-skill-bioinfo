@@ -29,10 +29,12 @@ description: 用于生物信息学或计算生物学项目启动前，将模糊�
 - 用重要性、新颖性、可行性、证据路径、风险和产出形态评估方向，而不是凭直觉开题。
 - 用 `Known / Unknown / Question / Finding / Advance` 五句话检查故事是否能收敛。
 - 区分 `exploration`、`confirmation`、`validation`，避免探索结果直接变成强结论。
+- 陌生领域进入复杂建模或调参前，先调查综述/经典论文、可信开源实现、社区实践、成熟 baseline 和专家框架；区分共识、争议与未解问题，不能用单个漂亮结果替代领域定位。
 - 只读取用户指定材料和必要 skill，不默认读取长项目记录。
 
 ## 工作流程
 
+0. 若领域或方法不熟悉，先产出最小 `field_map`、`method_map`、evidence/limitation matrix 和 reproduction shortlist，再决定技术路线。
 1. 明确 central question：这个项目到底要回答什么生物学或计算问题。
 2. 梳理 background / known：领域已知什么，哪些结论较稳。
 3. 定义 knowledge gap：机制不清、因果不清、数据缺失、跨队列不一致、方法不足或解释框架不足。
@@ -66,6 +68,7 @@ description: 用于生物信息学或计算生物学项目启动前，将模糊�
 - `Risk register`
 - `Go / no-go criteria`
 - `Next evidence-map questions`
+- `Field/method map and reproduction shortlist`（陌生领域时）
 - `Next bounded Codex tasks`
 
 如果用户提供的想法仍然模糊，先输出需要澄清的问题，但不要问太多。优先问会改变技术路线的 3 个问题。

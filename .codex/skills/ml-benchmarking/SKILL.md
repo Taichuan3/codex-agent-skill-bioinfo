@@ -1,6 +1,6 @@
 ---
 name: ml-benchmarking
-description: 用于生物信息学或 AI for biomedicine 的 ML benchmark 设计与审查，包括 task contract、baseline、split/leakage、negative controls、ablation、external validation 和 model card。
+description: 用于生物信息学或 AI for biomedicine 的机器学习 benchmark 设计与审查：task contract、baseline、split protocol、leakage checks、negative controls、ablation、external validation、model card 和可交给 Codex 的实现任务。不用于普通脚本执行或泛泛模型介绍。
 metadata:
   hermes:
     tags: [bioinformatics, machine-learning, benchmarking, validation, leakage, model-card]

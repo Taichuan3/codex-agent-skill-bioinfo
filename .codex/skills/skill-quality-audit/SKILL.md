@@ -1,6 +1,6 @@
 ---
 name: skill-quality-audit
-description: 用于审查本地 Codex/Agent skill 的质量、触发描述、结构完整性、上下文占用、references 拆分、安全风险、科研诚信边界和可维护性。适用于用户要求“检查这个 skill”“优化 skill”“这个 skill 是否太长/会误触发”“按 Anthropic/AIPOCH 思路审计 skill”等场景。
+description: 用于审查和治理本地 Codex/Agent skill library：单个 skill 的触发描述、结构、上下文、references、安全与科研边界，以及全机 skill/agent 盘点、canonical/runtime/project/upstream 去重、provenance、隐私和 Git 分支归属。适用于“检查/优化 skill”“整理所有 skill/agent”“判断哪个版本是权威来源”“按项目或类型上传 review 分支”等场景。
 ---
 
 # Skill Quality Audit
@@ -49,6 +49,19 @@ When auditing this user's Codex/Hermes bioinfo skill system, treat the local run
 ## Bioinfo Codex/Hermes skill-system audits
 
 When auditing this user's bioinfo skill library, read `references/bioinfo-codex-skill-governance.md` for the runtime-first, external-corpus, Codex discovery, and lightweight-repo rules learned from prior maintenance mistakes.
+
+## Library-wide inventory and publishing
+
+When the user asks to organize all local skills/agents or publish them by project/type, do a provenance-aware catalog rather than bulk-copying every discovered file:
+
+1. Separate raw discovery counts from curated active counts.
+2. Classify canonical source, runtime mirror, project-specific asset, bundled/upstream content, cache/archive, and personal local-only material.
+3. Record home-relative path, hash, provenance, Git ownership, and upload policy in a machine-readable manifest; never export credentials, sessions, memories, raw data, or private self-model content.
+4. Map each reusable asset to its real canonical repo; reference bundled/third-party sources instead of vendoring them.
+5. For source/runtime drift, perform semantic comparison before promotion; do not let an older GitHub body overwrite user-tested runtime behavior.
+6. Push only to the authorized review/working branch and verify visibility, commit, and clean worktree. Never update `main` without explicit permission.
+
+Read `references/library-inventory-provenance.md` for the two-pass inventory, privacy classes, dirty-worktree strategy, manifest fields, and verification checklist.
 
 ## 输出格式
 

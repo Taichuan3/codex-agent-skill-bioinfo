@@ -9,13 +9,15 @@ metadata:
 
 # Project Directory Card Maintenance
 
-## Purpose
+## 核心问题
+
+如何用选择性的短 README 为重要研究 artifact 目录提供可维护、按需读取且可追踪的导航入口？
+
+## 使用场景
 
 Maintain selective short directory-level `README.md` files as **Directory Cards** for important research artifact folders. A Directory Card explains what a folder contains, which files are current/important, how they were produced, what to read first, and which files to ignore.
 
 Use this skill when the user asks for “Directory Card”, “folder README”, “目录索引”, “结果目录说明”, “更新目录 README”, or asks to organize `data/`, `models/`, `reports/`, `figures/`, `structures/`, `genetics`, or `screening` folders.
-
-Full source supplement is stored at `/Users/yajiehu/.hermes/references/Taichuan_Hermes_Directory_Cards_Supplement.md`.
 
 ## Relationship to project state files
 
