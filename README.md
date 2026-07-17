@@ -36,7 +36,7 @@
 - `Hermes-review`：Hermes 作为最后守门员的审查整合分支。
 - `home_PC_codex` / `lab_PC_codex`：机器或终端上传的输入分支，用于比较和吸收，不直接视为稳定版。
 
-Hermes 定期检查其他 agent/terminal 推送的分支，把可用改动整合到 `Hermes-review`，通过结构检查和人工/自动审查后，再合并到 `main`。
+Hermes 定期检查其他 agent/terminal 推送的分支，把可用改动整合到 `Hermes-review`。只有通过结构/语义审查且获得用户明确批准后，才允许合并或更新 `main`。
 
 ## 维护原则
 
@@ -49,7 +49,6 @@ Hermes 定期检查其他 agent/terminal 推送的分支，把可用改动整合
 ## 当前状态
 
 - Source skills：36 个。
-- 新增/回写 runtime 成熟能力：`ml-benchmarking`、`project-state-maintenance`、`project-directory-card-maintenance`。
-- 已吸收 Home/Lab 分支中稳定的 agent/profile 信息；Lab 机器的 profile agent snapshot 保留在 `terminal_profiles/lab_PC_codex/` 作为审计输入。
-- 已二次吸收 Home/Lab 语义差异：中文正文简洁/内部提醒后置、figure 同名最终输出覆盖规则、Lab workflow coverage 短矩阵。
+- Runtime 成熟经验按逐项 keep/merge 审查后回流 source；项目沉积、机器路径和重复 reference 不进入 canonical。
+- 根 `AGENTS.md` 只保留认知/决策归属、证据、数据安全、项目状态和分支守门内核；细节由对应 skill/reference 承担。
 - RNA-seq/single-cell、variant/genomics、pathway/network、clinical/translational、protein docking、drug screening、database grounding 已作为成熟领域 skill 保留。

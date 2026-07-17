@@ -16,6 +16,10 @@ description: 用于组织生物信息学项目的数据、表格、结果、图�
 ## 核心原则
 
 - 数据要可追踪，也要容易读取。
+- 先 metadata-first 盘点，再决定是否迁移；目录美观不能优先于 consumer compatibility 和 provenance。
+- 任务明确指定为 read-only audit 时，只在回复中给出盘点和建议，不创建 catalog、manifest、README/index 或其他文件。
+- 用户未明确授权 physical move、rename、delete 或 archive 时，可以按用户请求创建或更新非破坏性的 catalog、manifest、README/index 和 migration plan，但不得改变现有路径或删除/覆盖现有 artifact。
+- `keep`、`toss`、`current`、`deprecated` 等分类是建议；删除、覆盖和物理移动由用户决定。
 - 新项目或大版本重构时，默认参考 Cookiecutter Data Science / CCDS 思路：`data/raw` immutable、`data/interim` 中间数据、`data/processed` 分析就绪数据、`data/external` 第三方数据、`references` 数据字典/说明、`reports/figures` 输出图表、`src/` 可复用代码、`notebooks/` 探索记录、`Makefile`/workflow 作为入口。
 - 原始数据保持只读；已确认结论的关键表格和高频文件要有清晰入口。
 - 重要文件可以通过 `latest`、`priority`、`manifest`、Directory Card (`README.md`) 或一级目录索引暴露出来。
@@ -56,12 +60,14 @@ results/
 
 ## 工作流程
 
-1. 扫描或读取用户指定目录，不默认全盘读取。
-2. 识别高频文件、已确认结论文件、投稿相关文件和过期文件。
-3. 识别分析阶段顺序，给目录和关键文件补齐稳定编号。
-4. 建议一个浅层入口：priority tables、priority figures、source data、manifest。
-5. 对需要覆盖的修正图表或派生表，确认它们是错误修正还是新版本分支。
-6. 输出整理计划或 manifest 草案。
+1. 明确任务模式：read-only audit、documentation/index cleanup、migration plan 或用户已授权的 physical move。
+2. 扫描或读取用户指定目录，不默认全盘读取；只读审计不创建 catalog、README 或其他文件，直接在回复中给出可复核结果。
+3. 先建立 metadata-first catalog 设计，识别高频文件、已确认结论文件、投稿相关文件、过期文件、producer 和 consumer。
+4. 从实际 loader、workflow、report links 或生成脚本核验消费关系；不能从 README、文件名或“文件存在”推断当前分析已使用。
+5. 将数据标为 current snapshot、as-of/time-valid candidate、verified historical/as-of-valid、release-lag proxy、unversioned snapshot 或 not assessed；历史日期列不等于当时可见。
+6. 建议浅层入口：priority tables、priority figures、source data、manifest 和选择性的 Directory Cards。
+7. 若涉及路径变化，先输出 migration map 和 compatibility/verification plan；取得用户明确授权后才执行 physical move。
+8. 对需要覆盖的修正图表或派生表，确认它们是错误修正还是新版本分支，并让 manifest 指向当前有效版本。
 
 ## 成熟项目 CCDS 重排规则
 
@@ -69,7 +75,7 @@ results/
 
 推荐顺序：
 
-1. 先明确用户要的是 `README/index cleanup`、`physical move` 还是两者都要。
+1. 先明确用户要的是 `README/index cleanup`、`migration plan` 还是已明确授权的 `physical move`；未授权时停在 audit/plan。
 2. 先做 no-move audit：确定 final report / manuscript 是主线，给 analyses 分成 primary report support、technical/provenance、supplementary/exploratory、raw/local-only、archive/provenance。
 3. 移动文件前写 migration map，至少包含 `source_path`、`target_path`、`move_type`、`reason`、`report_link_impact`、`script_path_impact`、`compatibility_action`、`status`。
 4. 成熟生信项目中，优先移动低风险顶层目录：legacy `figures/` -> `reports/figures/`、root `scripts/` -> `src/scripts/`、`sync_reports/`/`logs/` -> `metadata/`、release package -> `release/`。
@@ -102,3 +108,4 @@ For this user's project-organization work, write project-facing organization doc
 需要设计目录、latest/priority 入口、manifest 字段或投稿前数据整理策略时，读取 `references/layout-and-manifest.md`。
 需要把多步骤分析产物按处理顺序编号，或设计 stage-to-output 映射时，读取 `references/numbered-output-layout.md`。
 新项目启动、大版本重构、或用户提到 Cookiecutter Data Science / CCDS / 找不到文件 / 数据管理混乱时，读取 `references/cookiecutter-data-science-layout.md`。
+成熟项目需要盘点 artifact、核验实际 consumer、区分 as-of/time-valid 状态或设计 registry/migration map 时，读取 `references/metadata-first-project-audit.md`。

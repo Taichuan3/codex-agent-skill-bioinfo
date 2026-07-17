@@ -38,6 +38,7 @@ description: 用于创建、更新或压缩生物信息学项目的轻量 PROJEC
 - 不塞完整文献综述、长命令记录、大量路径、历史升级解释或每次运行细节。
 - 已完成旧路线、详细 checkpoint 和历史产物列表下沉到 `PROJECT_PLAN.md`、README 或 Directory Card；GUIDE 只保留最新稳定策略和下一步决策。
 - 未确认的信息标记为 `Assumption`、`Open question` 或 `Needs evidence`。
+- 研究问题、工作模型、durable facts、claims 和 next decisions 只有经用户确认后才写成当前事实；agent 新提出的方向、解释或优先级必须标为 `Draft`、`Assumption` 或待用户确认。
 - 可以作为论文草稿骨架，但不是最终 manuscript。
 
 ## 推荐结构

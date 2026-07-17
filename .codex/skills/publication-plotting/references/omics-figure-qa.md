@@ -25,6 +25,14 @@
 - Locus、interval、coverage 和 variant 图必须写 genome build、coordinate convention、reference/alternate allele 和 transcript context。
 - 多数据库注释图需区分 submitted/curated/predicted/clinical evidence，避免把 annotation 画成实验验证。
 
+## Interval-hit audit
+
+- 绘图前读取 raw hit table，而不是只依赖平滑 coverage 或汇总曲线。
+- 先验证预期行数、唯一 motif/feature 数、interval 数、重复键、过滤前后命中数和 overlap 定义；将 audit counts 写入可追踪 source data。
+- 当 start/end 和局部位置是证据本体时，优先画明确的 horizontal intervals、event ticks 或 lanes；只有平滑曲线确实回答问题时才使用 coverage smoothing。
+- 确定性 jitter 只能用于显示重叠，不得改变区间或夸大强度。
+- Motif/feature hits 是 sequence compatibility 或候选 landscape，不证明 binding、activation 或因果功能。
+
 ## Pathway / Network
 
 - Enrichment 图必须说明 gene universe、ID mapping loss、database version 和 multiple-testing correction。

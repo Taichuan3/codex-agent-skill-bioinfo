@@ -17,7 +17,14 @@ metadata:
 
 Maintain selective short directory-level `README.md` files as **Directory Cards** for important research artifact folders. A Directory Card explains what a folder contains, which files are current/important, how they were produced, what to read first, and which files to ignore.
 
-Use this skill when the user asks for “Directory Card”, “folder README”, “目录索引”, “结果目录说明”, “更新目录 README”, or asks to organize `data/`, `models/`, `reports/`, `figures/`, `structures/`, `genetics`, or `screening` folders.
+Use this skill when the user asks for “Directory Card”, “folder README”, “目录索引”, “结果目录说明” or “更新目录 README”. If the request includes project-wide classification, a migration plan or physical moves, route that work to `research-data-organization`; this skill only maintains navigation after the layout decision is authorized.
+
+## Scope and authority
+
+- A Directory Card describes the current layout; it does not decide research priorities or become a source of scientific truth.
+- Default work is navigation-only: inspect verified artifacts, then create or update selective README cards.
+- Do not rename, move, delete or archive artifacts under this skill. Physical changes require a migration plan from `research-data-organization` and explicit user authorization.
+- If a card reveals stale paths or conflicting artifact status, report the inconsistency and propose the smallest navigation update; do not silently reorganize the directory.
 
 ## Relationship to project state files
 
@@ -134,6 +141,8 @@ Prefer tables and links to manifests over long prose or full file lists.
 
 When initializing or repairing a project, add the concise Directory Cards rules from `references/agents-directory-cards-patch.md`. If this edits `AGENTS.md`, pair it with `project-state-maintenance` and perform focused ad-hoc verification of the routing rules when no canonical test/lint command exists.
 
+For a versioned artifact tree whose current files and report families are difficult to navigate, read `references/versioned-research-artifact-layout.md`. Use it to classify navigation entries and design cards; hand any physical migration to `research-data-organization` for a user-approved migration plan.
+
 ## Synchronization with GUIDE/PLAN
 
 - Any Directory Card update is a material project action: write a concise `PROJECT_PLAN.md` entry.
@@ -146,6 +155,7 @@ When initializing or repairing a project, add the concise Directory Cards rules 
 - Do not copy full metrics tables, sample metadata, variant tables, candidate molecules, all figure versions, or complete file lists into README.
 - Do not update README after every exploratory run.
 - Do not treat README as exact truth when manifest/registry/script says otherwise.
+- Do not turn a request for a Directory Card into an unapproved physical restructure.
 - For this user's research projects, Directory Cards, `PROJECT_GUIDE.md`, `PROJECT_PLAN.md`, audit/comparison summaries, and README/index files should default to Chinese unless the user explicitly asks for English or the artifact is formal English manuscript/code/API text.
 - When the user asks to understand and reorganize project data structure, do not stop after incidental cleanup or verification; deliver the requested Directory Cards/README/audit files that make the data and analyses understandable.
 - After long README/structure refactors, the chat summary must be self-contained: what changed, key files, classification decisions, audit/comparison findings, verification boundary, risks, and next decision. Do not make the user open files to learn the result.

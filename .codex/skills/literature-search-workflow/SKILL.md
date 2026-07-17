@@ -20,6 +20,7 @@ description: 用于生物信息学或计算生物学项目的系统文献检索�
 - 明确 inclusion / exclusion criteria。
 - 文献只支持它实际证明的 claim。
 - 不编造 DOI、PMID、作者、年份或结论。
+- 网页访问或全文抽取失败时，先用 Crossref、OpenAlex、DOI resolver 或 Semantic Scholar 等 metadata source 锁定题名、作者、年份、期刊和 DOI；不能从不完整摘要补写结论。
 
 ## 工作流程
 
@@ -44,6 +45,18 @@ description: 用于生物信息学或计算生物学项目的系统文献检索�
 
 需要 evidence table 模板时读取 `references/evidence-table-template.md`。
 需要将开放式背景检索整理为项目决策用的 evidence map、dataset/method/gap map、go/no-go memo 时，读取 `references/evidence-map-matrix.md`。
+
+## Hypothesis-driven locus or repeat synthesis
+
+当用户要把未发表的 locus/repeat 假说与公共证据连接，或寻找相应公共数据时：
+
+1. 先分 expression、sequence/structure、motif/binding、3D contact 和 DNA rearrangement 等证据层，再分别设计检索式。
+2. Negative expression evidence 只能约束 transcript-abundance 假说，不能自动否定 DNA、chromatin、contact 或 rearrangement 假说。
+3. 先从论文 Data Availability 和 study-level record 找 accession，再核对 run-level assay、sample、control、reference 和 read metadata。
+4. 对重复或低可比对区间，预先记录 reference、read length、MAPQ、multi-mapping、selection protocol 和 assay-specific limitation。
+5. 按 Strong / Moderate / Exploratory / Speculative 标记各层证据，并写清每篇论文或数据集没有证明什么。
+
+详细检索与报告模板见 `references/repeat-locus-literature-search.md`。
 
 ## Molecular interaction / docking feasibility searches
 

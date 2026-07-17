@@ -31,6 +31,7 @@ description: 用于生物信息学或计算生物学项目启动前，将模糊�
 - 区分 `exploration`、`confirmation`、`validation`，避免探索结果直接变成强结论。
 - 陌生领域进入复杂建模或调参前，先调查综述/经典论文、可信开源实现、社区实践、成熟 baseline 和专家框架；区分共识、争议与未解问题，不能用单个漂亮结果替代领域定位。
 - 只读取用户指定材料和必要 skill，不默认读取长项目记录。
+- 用户决定 central question、方法、analysis/figure logic、结果解释、最终 claim 和 go/no-go；agent 负责 source map、备选方案、风险、可执行 contract、实现、测试、provenance 和 sensitivity analysis，并把需要用户确认的 stop/pivot 条件单列。
 
 ## 工作流程
 
@@ -43,8 +44,8 @@ description: 用于生物信息学或计算生物学项目启动前，将模糊�
 6. 画 figure skeleton：每张主图回答什么问题。
 7. 给出 technical route：数据来源、分析模块、工具选择、验证路线和风险节点。
 8. 生成 Project Charter 级别的 artifacts：minimum viable analysis、risk register、go/no-go criteria、下一阶段 evidence map questions。
-9. 明确哪些任务属于 Hermes 科学编排，哪些可以形成 bounded Codex task contract。对于用户明确采用 Hermes/Codex 分工的生信项目，Hermes 应先定义问题、证据边界、目录/报告主线和验收标准，再把大范围代码实现、批量重构、索引生成或路径更新交给 Codex；不要把 Hermes 当作 Codex 的替代直接吞下所有工程工作。
-10. 给出 stop / pivot criteria：什么结果继续，什么结果转向，什么结果停止。
+9. 由 agent 起草问题、证据边界、目录/报告备选主线、验收标准和 bounded implementation contract，交由用户确认；不得自动选择模型、figure storyline 或研究方向。
+10. 给出待用户确认的 stop / pivot criteria：什么结果继续，什么结果转向，什么结果停止。
 11. 建议如何把输出压缩进 `PROJECT_GUIDE.md`，而不是写成长记录。
 
 ## 必要输出

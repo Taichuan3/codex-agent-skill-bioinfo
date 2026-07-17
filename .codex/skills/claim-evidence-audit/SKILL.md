@@ -75,6 +75,6 @@ description: 用于审查论文文本、结果解释、图注、审稿回复或�
 
 ## 特殊场景：mappability-sensitive 区域的 public-data 外部验证
 
-当审查公共数据对模型预测或候选位点的外部验证，尤其是 repeat-rich / mappability-sensitive 区域时，检查数据来源、raw FASTQ remapping、strict/relaxed mapping、MAPQ、matched input/control、mappability sensitivity、source-data provenance 和 claim 降级写法。
+当审查公共数据对模型预测或候选位点的外部验证，尤其是 repeat-rich / mappability-sensitive 区域时，读取 `references/repeat-rich-external-validation.md`。必须区分模型预测、官方 processed target 与项目重处理信号，检查数据来源、metadata 冲突、assembly、strict/relaxed mapping、MAPQ、matched input/control、mappability sensitivity 和 source-data provenance。
 
-Mappability / synthetic-read sensitivity 通常是解释边界或技术 caveat，不应自动升级为 Results 主结论。只有当正文有对应图表、图注、source data 路径和明确的叙事需要时，才把它作为 main result 展示；否则优先放在 Methods、supplement 或内部 caveat notes。
+Mappability / synthetic-read sensitivity 通常是解释边界或技术 caveat，不应自动升级为 Results 主结论。任何“无信号”结论必须绑定被检查的 signal object、threshold 和 resolution。只有当正文有对应图表、图注、source data 路径和明确叙事需要时，才把它作为 main result 展示；否则优先放在 Methods、supplement 或内部 caveat notes。

@@ -40,7 +40,7 @@ metadata:
 - preprocessing、feature selection、normalization、model selection 和 hyperparameter tuning 不得使用 test/external validation 信息。
 - performance claim 必须绑定 dataset、split、metric、confidence/uncertainty 和 validation context。
 - 生物学/医学解释必须区分 evidence、interpretation、limitation、speculation。
-- Codex 只负责 bounded implementation；Hermes 保留 benchmark 设计、leakage 风险和 claim 边界的最终判断。
+- Agent 提供 benchmark 备选、leakage 风险分析、bounded implementation、测试、provenance 和 sensitivity analysis；用户决定 task、split、metric、模型选择、解释和最终 claim。
 
 ## Workflow
 
