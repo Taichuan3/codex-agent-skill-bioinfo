@@ -1,6 +1,6 @@
 package:
   name: codex-agent-skill-bioinfo
-  version: 1.8-integrated
+  version: 2.0-codex-multidevice-rc1
   scope: generic_bioinformatics_research
   default_language: zh-CN
   description: >
@@ -12,6 +12,10 @@ entrypoints:
   root_agent: AGENTS.md
   skills_dir: .codex/skills
   codex_cli_skills_dir: .agents/skills
+  custom_agents_dir: .codex/agents
+  config_example: .codex/config.toml.example
+  installer: scripts/install_codex_bioinfo.py
+  validator: scripts/validate_package.py
   project_guide_file: PROJECT_GUIDE.md
   project_log_file: PROJECT_PLAN.md
   project_agent_policy: "具体项目保留项目根 AGENTS.md；通用根 AGENTS.md 不替代项目操作逻辑。"
@@ -72,6 +76,13 @@ skills:
   - validation-strategy-planner
   - variant-genomics-interpretation
 
+custom_agents:
+  - bioinfo_source_mapper
+  - bioinfo_implementation_worker
+  - bioinfo_reproducibility_reviewer
+  - bioinfo_claim_evidence_reviewer
+  - bioinfo_release_reviewer
+
 skill_metadata:
   required_files:
     - SKILL.md
@@ -104,18 +115,42 @@ hard_constraints:
 validation:
   expected_skill_count: 36
   expected_root_agents: 1
+  expected_custom_agent_count: 5
   required_absent_checks:
     - secrets_or_tokens
     - raw_data_files
     - runtime_cache_files
     - project_specific_result_tables
     - stale_project_specific_references
+    - machine_profiles_or_absolute_private_paths
 
 branch_integration:
-  base: Hermes-review
-  compared_branches:
+  stable: main
+  candidate_prefix: agent/
+  legacy_input_branches:
+    - Hermes-review
     - home_PC_codex
     - lab_PC_codex
   policy: >
-    Preserve Hermes-review as the reviewed base; absorb mature Home/Lab/runtime mechanisms;
-    keep project-level agent files as audit/profile inputs; avoid copying duplicate old skills or machine-private state.
+    Collect candidates on short-lived branches; absorb mature Home/Lab/runtime mechanisms
+    with keep/merge/split/project-only/local-only/reject review; open a draft PR;
+    never merge or update main without explicit user approval.
+
+sync_scope:
+  include:
+    - portable_bioinformatics_agents
+    - portable_bioinformatics_skills
+    - public_safe_references_and_scripts
+    - install_and_validation_metadata
+  project_private:
+    - project_AGENTS
+    - project_specific_skills
+    - PROJECT_GUIDE
+    - unpublished_results_and_claims
+  exclude:
+    - finance_and_investment
+    - travel_and_personal_ledgers
+    - native_codex_memory_sessions_and_cache
+    - credentials_and_SSH_configuration
+    - machine_paths_and_environment_records
+    - raw_data_and_large_results

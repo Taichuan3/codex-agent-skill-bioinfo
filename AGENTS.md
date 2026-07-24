@@ -8,6 +8,13 @@
 
 默认采用 artifact-first：实质科研任务尽量以 research brief、project guide、evidence matrix、manifest、QC/validation record、claim-to-figure map、source data、Directory Card 或审计总结等可复用 artifact 收尾；若不生成文件，应说明原因。
 
+## 同步范围与工作域
+
+- 本 package 只承载计算生物学/生物信息学的可移植规则、Skills、Agents、安装与校验元数据。
+- 非生信工作流（包括金融投资、旅行和个人账本）不得进入本仓库；其本地内容、偏好和记忆与 bioinfo canonical 分离。
+- 具体课题的未发表事实、项目路径、服务器地址、环境记录和结果不进入公共 package。项目专用 `AGENTS.md`、Skills、`PROJECT_GUIDE.md` 和状态文件应保存在对应的私有项目仓库。
+- 项目实践只有在跨课题复用、完成去沉积与隐私审查后，才能压缩回本 package 的通用 Skill、reference、checklist 或 Agent 规则。
+
 ## 认识论与决策归属
 
 - 用户拥有研究方向、central question、方法选择、analysis/figure logic、结果解释、最终 claim 和 go/no-go 决策。
@@ -17,7 +24,8 @@
 ## Source 与守门流程
 
 - 当前 repo 的 `.codex/skills` 是公开、portable canonical；runtime 是经过使用的成熟经验输入。语义吸收方向是 runtime/外部语料 → 去沉积、压缩 → source，绝不以整篇覆盖代替逐项 keep/merge。
-- Hermes 是本仓库最后守门员：比较工作分支、吸收成熟内容并整合到 `Hermes-review`。未经用户明确许可，永不合并、push 或更新 `main`。
+- Codex 使用独立 intake/review branch 比较各终端和项目中的候选变更，逐项执行 keep/merge/split/project-only/local-only/reject；作者 Agent 不作为唯一 reviewer。
+- 只有结构、语义、隐私、复现和发现验证通过，且获得用户明确许可后，才允许合并或更新 `main`。用户要求上传候选内容时，可推送独立分支和创建 draft PR，但不得把上传理解为已批准合并。
 - 仓库保持轻量，只保留可安装规则、metadata、skills 和少量必要说明；机器私有路径、auth、cache、长审计与项目沉积不进入 canonical。
 
 ## 默认语言与证据边界
@@ -28,9 +36,17 @@
 
 ## Standalone Codex 执行边界
 
-- Standalone Codex 在当前仓库/项目内独立执行用户任务，不等待 Hermes 调度，也不把 Hermes 当作 runtime 依赖。
+- Standalone Codex 在当前仓库/项目内独立执行用户任务，不依赖其他本地 Agent runtime。
 - 实质任务先理解目标，拆成 1–3 个意图并限定范围与风险；大范围扫描、重构、迁移或多文件修改先做 bounded plan/read-only scan，修改后检查 diff、运行最小测试并自检。
 - 只执行用户授权范围内的实现；需要扩大研究方向、外部协调或不可逆操作时请求用户决定。
+
+## 多 Agent 协作
+
+- 主 Agent 负责需求、边界、决策点和最终综合；优先把独立的只读检索、代码定位、验证和审查交给专门子 Agent。
+- 默认保持 1–3 个活跃 workstream。写任务使用独立 branch/worktree，并明确文件所有权；不要让多个 Agent 同时修改同一文件集合。
+- 使用 `.codex/agents/` 中的窄角色：source mapper、implementation worker、reproducibility reviewer、claim-evidence reviewer 和 release reviewer。
+- reviewer 默认只读，先报告按优先级排序的 findings；作者修复后再验证。高影响科研判断和 `main` 合并始终由用户决定。
+- 子 Agent 交接必须包含范围、输入、文件/分支、实际动作、验证、证据边界、未解决风险和下一步责任人；不要只返回工具日志。
 
 ## 最小上下文与项目状态
 
@@ -64,5 +80,6 @@
 ## Self-improvement routing 与交付
 
 - 重要任务、用户纠正、流程失败、重复返工或可复用经验出现时，判断应沉淀到 memory、根/项目 `AGENTS.md`、skill、reference、checklist/eval 或 prompt contract；不要把长流程塞进 memory。
+- 原生 Memory、session、cache 和数据库不跨设备同步。稳定跨项目偏好进入根 Agent，项目事实进入项目 `PROJECT_GUIDE.md`/`AGENTS.md`，可重复多步骤流程进入 Skill，质量门槛进入 checklist/eval；只有完成去隐私和证据审查的提炼内容才能进入 Git。
 - 长任务、重构、审计或多文件修改的最终回复必须是完整交付报告：实际完成内容、精确文件、关键 keep/merge 或决策价值、验证状态与边界、剩余风险、下一步用户决策，以及 `PROJECT_PLAN.md`/`PROJECT_GUIDE.md` 更新状态。
 - Markdown 交付应结构完整、fence 成对；不要用临时脚本路径、`PASS` 或工具 stdout/stderr 取代主线结论。

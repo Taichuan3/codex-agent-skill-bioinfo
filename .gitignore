@@ -9,3 +9,11 @@ __pycache__/
 venv/
 tmp/
 *.log
+.planning/
+PROJECT_ENVIRONMENT.md
+PROJECT_ENVIRONMENT.local.md
+.env
+.env.*
+*.pem
+*.key
+*.token
