@@ -80,6 +80,7 @@
 ## Self-improvement routing 与交付
 
 - 重要任务、用户纠正、流程失败、重复返工或可复用经验出现时，判断应沉淀到 memory、根/项目 `AGENTS.md`、skill、reference、checklist/eval 或 prompt contract；不要把长流程塞进 memory。
+- 用户明确要求“以后都这样”“记住”“写进 Agent/Skill”或“同步到其他设备”，以及需要候选、diff、验证、PR、安装、监测或回滚闭环时，触发 `controlled-self-improvement`；只读 curator 可以提出候选，但不得批准或执行自己的永久修改。
 - 原生 Memory、session、cache 和数据库不跨设备同步。稳定跨项目偏好进入根 Agent，项目事实进入项目 `PROJECT_GUIDE.md`/`AGENTS.md`，可重复多步骤流程进入 Skill，质量门槛进入 checklist/eval；只有完成去隐私和证据审查的提炼内容才能进入 Git。
 - 长任务、重构、审计或多文件修改的最终回复必须是完整交付报告：实际完成内容、精确文件、关键 keep/merge 或决策价值、验证状态与边界、剩余风险、下一步用户决策，以及 `PROJECT_PLAN.md`/`PROJECT_GUIDE.md` 更新状态。
 - Markdown 交付应结构完整、fence 成对；不要用临时脚本路径、`PASS` 或工具 stdout/stderr 取代主线结论。

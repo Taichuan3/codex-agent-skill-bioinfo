@@ -1,6 +1,6 @@
 package:
   name: codex-agent-skill-bioinfo
-  version: 2.0-codex-multidevice-rc1
+  version: 2.0-codex-multidevice-rc2
   scope: generic_bioinformatics_research
   default_language: zh-CN
   description: >
@@ -13,6 +13,7 @@ entrypoints:
   skills_dir: .codex/skills
   codex_cli_skills_dir: .agents/skills
   custom_agents_dir: .codex/agents
+  global_guidance_template: templates/global-AGENTS.md
   config_example: .codex/config.toml.example
   installer: scripts/install_codex_bioinfo.py
   validator: scripts/validate_package.py
@@ -44,6 +45,7 @@ skills:
   - citation-verifier
   - claim-evidence-audit
   - clinical-bioinformatics-evidence
+  - controlled-self-improvement
   - drug-discovery-admet-screening
   - environment-and-tool-adoption
   - evidence-gap-finder
@@ -77,6 +79,7 @@ skills:
   - variant-genomics-interpretation
 
 custom_agents:
+  - capability_curator
   - bioinfo_source_mapper
   - bioinfo_implementation_worker
   - bioinfo_reproducibility_reviewer
@@ -113,9 +116,9 @@ hard_constraints:
   - external_tools_require_source_version_license_and_adaptation_notes
 
 validation:
-  expected_skill_count: 36
+  expected_skill_count: 37
   expected_root_agents: 1
-  expected_custom_agent_count: 5
+  expected_custom_agent_count: 6
   required_absent_checks:
     - secrets_or_tokens
     - raw_data_files

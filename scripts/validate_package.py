@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SKILLS = ROOT / ".codex" / "skills"
 AGENTS = ROOT / ".codex" / "agents"
 MANIFEST = ROOT / "local_config.yaml"
+GLOBAL_GUIDANCE = ROOT / "templates" / "global-AGENTS.md"
 
 errors: list[str] = []
 warnings: list[str] = []
@@ -90,6 +91,38 @@ if expected_agents is None:
 elif len(agent_files) != expected_agents:
     fail(f"custom Agent count is {len(agent_files)}, expected {expected_agents}")
 
+curator = AGENTS / "capability-curator.toml"
+if not curator.is_file():
+    fail(".codex/agents/capability-curator.toml is missing")
+else:
+    with curator.open("rb") as handle:
+        curator_data = tomllib.load(handle)
+    if curator_data.get("sandbox_mode") != "read-only":
+        fail("capability-curator must be read-only")
+
+self_improvement = SKILLS / "controlled-self-improvement"
+for required in (
+    self_improvement / "SKILL.md",
+    self_improvement / "agents" / "openai.yaml",
+    self_improvement / "references" / "lifecycle-and-governance.md",
+    self_improvement / "assets" / "improvement-candidate.md",
+):
+    if not required.is_file():
+        fail(f"{required.relative_to(ROOT)} is missing")
+
+if not GLOBAL_GUIDANCE.is_file():
+    fail("templates/global-AGENTS.md is missing")
+else:
+    guidance_text = GLOBAL_GUIDANCE.read_text(encoding="utf-8")
+    if len(guidance_text) > 6000:
+        fail("templates/global-AGENTS.md exceeds the 6000-character context budget")
+    if guidance_text.count("## Controlled self-improvement") != 1:
+        fail("templates/global-AGENTS.md must contain one Controlled self-improvement section")
+    controlled_section = guidance_text.split("## Controlled self-improvement", 1)[1].split("## ", 1)[0]
+    controlled_rules = [line for line in controlled_section.splitlines() if line.startswith("- ")]
+    if len(controlled_rules) != 5:
+        fail("Controlled self-improvement section must contain exactly five rules")
+
 skill_link = ROOT / ".agents" / "skills"
 if not skill_link.is_symlink():
     fail(".agents/skills must be a symlink")
@@ -126,8 +159,11 @@ for path in ROOT.rglob("*"):
     if secret_pattern.search(text):
         fail(f"{path.relative_to(ROOT)}: contains a high-risk secret pattern")
 
-if "Hermes" in (ROOT / "AGENTS.md").read_text(encoding="utf-8"):
+root_agent_text = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+if "Hermes" in root_agent_text:
     fail("AGENTS.md still contains a Hermes runtime dependency")
+if "controlled-self-improvement" not in root_agent_text:
+    fail("AGENTS.md does not route governed capability evolution to controlled-self-improvement")
 
 if warnings:
     for warning in warnings:

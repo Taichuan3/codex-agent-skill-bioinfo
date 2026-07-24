@@ -19,7 +19,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE_SKILLS = ROOT / ".codex" / "skills"
 SOURCE_AGENTS = ROOT / ".codex" / "agents"
-SOURCE_GUIDANCE = ROOT / "AGENTS.md"
+SOURCE_GUIDANCE = ROOT / "templates" / "global-AGENTS.md"
 BEGIN = "<!-- BEGIN TAICHUAN BIOINFO AGENT -->"
 END = "<!-- END TAICHUAN BIOINFO AGENT -->"
 
@@ -27,6 +27,11 @@ END = "<!-- END TAICHUAN BIOINFO AGENT -->"
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--apply", action="store_true", help="apply the displayed installation plan")
+    parser.add_argument(
+        "--replace-global-guidance",
+        action="store_true",
+        help="replace the complete global AGENTS.md with the compact managed block",
+    )
     parser.add_argument(
         "--home",
         type=Path,
@@ -74,7 +79,11 @@ def main() -> int:
     subprocess.run([sys.executable, str(ROOT / "scripts" / "validate_package.py")], check=True)
 
     existing_guidance = target_guidance.read_text(encoding="utf-8") if target_guidance.exists() else ""
-    new_guidance = managed_guidance(existing_guidance)
+    if args.replace_global_guidance:
+        source = SOURCE_GUIDANCE.read_text(encoding="utf-8").rstrip()
+        new_guidance = f"{BEGIN}\n{source}\n{END}\n"
+    else:
+        new_guidance = managed_guidance(existing_guidance)
 
     skill_action: str
     skill_changed = not (
@@ -103,7 +112,13 @@ def main() -> int:
     print(f"Source: {ROOT}")
     print(f"Target home: {target_home}")
     print(f"Skills: {skill_action}")
-    print(f"Global guidance: {'update managed block' if guidance_changed else 'already current'}")
+    if not guidance_changed:
+        guidance_action = "already current"
+    elif args.replace_global_guidance:
+        guidance_action = "replace with compact managed block"
+    else:
+        guidance_action = "update managed block"
+    print(f"Global guidance: {guidance_action}")
     print(f"Custom Agents to install/update: {len(changed_agents)}")
     for source in changed_agents:
         print(f"  - {source.name}")

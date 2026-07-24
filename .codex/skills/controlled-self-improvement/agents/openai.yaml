@@ -1,0 +1,4 @@
+interface:
+  display_name: "Controlled Self-Improvement"
+  short_description: "Govern safe Agent and Skill evolution"
+  default_prompt: "Use $controlled-self-improvement to turn this correction into a governed improvement candidate."

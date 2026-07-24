@@ -19,7 +19,7 @@
 
 计算生物学项目可以共享通用内核，但项目事实不能交叉污染：
 
-1. 通用 bioinfo：本仓库的 36 个 Skills 和 5 个自定义 Agents。
+1. 通用 bioinfo：本仓库的 37 个 Skills 和 6 个自定义 Agents。
 2. 基因组模型/调控预测项目：项目 API Skill 与主管 Agent 随私有项目仓库。
 3. 蛋白结构与 docking 项目：通用方法进入 `protein-structure-docking`；具体蛋白、突变、结构与结果留在项目仓库。
 4. 重复序列/基因组结构等未发表课题：通用 repeat/genomics、绘图和证据审查机制可回流；未发表假说、路径、数据和 claim 永不进入公共内核。

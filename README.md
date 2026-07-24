@@ -10,7 +10,8 @@
   - `SKILL.md`
   - `agents/openai.yaml`
   - 可选 `references/`
-- `.codex/agents/` — Codex 自定义子 Agent；包含 source mapping、实现、复现审查、claim-evidence 审查和发行审查角色。
+- `.codex/agents/` — Codex 自定义子 Agent；包含 capability curation、source mapping、实现、复现审查、claim-evidence 审查和发行审查角色。
+- `templates/global-AGENTS.md` — 面向所有主机任务的精简全局 guidance；安装时作为受管 block 写入，不把完整 package Agent 复制到每轮上下文。
 - `.codex/config.toml.example` — 推荐的多 Agent 配置片段；按机器合并，不覆盖用户现有配置。
 - `.agents/skills` — 指向 `.codex/skills` 的 repo-scope 兼容入口，供 standalone OpenAI Codex CLI/IDE/app 自动发现 skills。
 - `scripts/install_codex_bioinfo.py` — 默认 dry-run 的用户级安装器。
@@ -35,7 +36,15 @@ python3 scripts/install_codex_bioinfo.py
 python3 scripts/install_codex_bioinfo.py --apply
 ```
 
-安装器会把 `$HOME/.agents/skills` 指向当前 release，更新全局 `AGENTS.md` 中的受管 bioinfo block，并把自定义 Agent 安装到 `$HOME/.codex/agents/`。遇到非 symlink 的现有 Skill 目录时会停止，不静默覆盖。
+安装器会把 `$HOME/.agents/skills` 指向当前 release，使用 `templates/global-AGENTS.md` 更新全局 `AGENTS.md` 中的精简受管 block，并把自定义 Agent 安装到 `$HOME/.codex/agents/`。遇到非 symlink 的现有 Skill 目录时会停止，不静默覆盖。
+
+若当前全局文件已经混入旧 package Agent 或重复规则，可显式压缩为单一受管 block：
+
+```bash
+python3 scripts/install_codex_bioinfo.py --apply --replace-global-guidance
+```
+
+该模式仍会先备份原文件；后续普通安装可以通过 managed markers 原位更新，不会再次追加重复 block。
 
 具体项目仍需保留自己的项目级 `AGENTS.md`：项目目录、数据边界、运行命令、环境、禁止修改路径和项目逻辑不能由通用包替代。项目专用 Skill 应随私有项目仓库同步，不复制进公共全局内核。
 
@@ -59,14 +68,15 @@ MacBook Codex 可以周期性整理各终端的候选变化，但必须逐项审
 - 先优化已有 Skill，尤其是跨项目实际使用后形成的成熟 bioinfo 机制。
 - Runtime skill 的成熟经验要压缩回流到 source；不要整篇覆盖旧 source 后保留项目特异沉积，也不要用旧 source 覆盖 runtime 中已验证的新机制。
 - 新候选 skill 只用于真实能力缺口；不能因为外部 repo 或某台机器有很多 skill 就盲目新增。
+- 用户长期指令、重复纠正、流程失败和能力漂移通过 `controlled-self-improvement` 进入候选 → diff → 验证 → PR → 安装 → 监测/回滚闭环；curator 和定期 guardian 默认只读。
 - GitHub 仓库保持轻量：只提交 Agent、Skills、必要配置和少量安装说明；长审计和工作草稿留在本地。
 - 金融投资、旅行、个人账本和其他非生信工作流不进入本仓库。
 - 项目级 agent 文件必须保留：每个具体科研项目的 `AGENTS.md` 管理该项目的操作逻辑，通用包只提供基础规则。
 
 ## 当前状态
 
-- Source skills：36 个。
-- Codex custom agents：5 个。
+- Source skills：37 个。
+- Codex custom agents：6 个。
 - Runtime 成熟经验按逐项 keep/merge 审查后回流 source；项目沉积、机器路径和重复 reference 不进入 canonical。
 - 根 `AGENTS.md` 只保留认知/决策归属、证据、数据安全、项目状态和分支守门内核；细节由对应 skill/reference 承担。
 - RNA-seq/single-cell、variant/genomics、pathway/network、clinical/translational、protein docking、drug screening、database grounding 已作为成熟领域 skill 保留。
