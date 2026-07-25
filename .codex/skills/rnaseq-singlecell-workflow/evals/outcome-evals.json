@@ -104,6 +104,23 @@
         "equate regulon activity with TF expression",
         "state causal regulation without direct evidence"
       ]
+    },
+    {
+      "id": "rna-outcome-backend-01",
+      "mode": "execution backend preflight",
+      "task": "Route a bulk FASTQ project to an installed NGS plugin and a pinned nf-core production workflow.",
+      "must_include": [
+        "CAP-RNA-001 registry route",
+        "assay sample reference and executor preflight",
+        "reviewed install or reference plan",
+        "official fixture before project data",
+        "pipeline release profile command and output manifest"
+      ],
+      "must_not": [
+        "treat preflight as install approval",
+        "run unpinned latest pipeline on project data",
+        "hide a failed test profile"
+      ]
     }
   ]
 }

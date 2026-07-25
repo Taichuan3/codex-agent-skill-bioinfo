@@ -35,6 +35,12 @@ description: 用于精读用户指定的一篇或固定少量科研论文、PDF�
 6. 区分作者解释、数据直接支持、读者推断和未验证机制；指出外推范围。
 7. 输出与用户问题相关的 take-home、局限和 follow-up，不做无关全文翻译。
 
+## 执行后端
+
+- 固定 paper set 需要 retrieval 辅助时读取 `../../capability_registry.json` 的 `CAP-PAPER-001`：在线全文优先走可核验 PMC/metadata 来源；本地多文档重复问答才考虑 PaperQA2。
+- PaperQA2 只能帮助定位候选证据，最终 claim 仍需回到原页、figure/table 或 supplement 核验；索引命中和模型回答不是来源本身。
+- registry 不授权上传私有论文、安装模型或使用凭据。记录 corpus manifest、版本、reader/parser、question、citation location、missing pages 和失败项。
+
 ## 按需读取
 
 需要逐图精读、panel-to-claim 映射或 figure/table 证据表时，读取 `references/figure-grounding-template.md`。

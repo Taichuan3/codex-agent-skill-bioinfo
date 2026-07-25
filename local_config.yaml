@@ -1,6 +1,6 @@
 package:
   name: codex-agent-skill-bioinfo
-  version: 2.0-codex-multidevice-rc4
+  version: 2.0-codex-multidevice-rc5
   release_status: candidate_only_provenance_reconstructed_stable_review_required
   scope: generic_bioinformatics_research
   runtime_scope: user_global
@@ -15,11 +15,14 @@ entrypoints:
   skills_dir: .codex/skills
   codex_cli_skills_dir: .agents/skills
   custom_agents_dir: .codex/agents
+  capability_registry: .codex/capability_registry.json
   global_guidance_template: templates/global-AGENTS.md
   config_example: .codex/config.toml.example
   installer: scripts/install_codex_bioinfo.py
   validator: scripts/validate_package.py
   release_safety_fixtures: scripts/test_release_safety.py
+  capability_run_validator: scripts/validate_capability_run.py
+  capability_behavior_fixtures: scripts/test_capability_behavior.py
   license: LICENSE
   notice: NOTICE.md
   third_party_notices: THIRD_PARTY_NOTICES.md
@@ -135,7 +138,8 @@ validation:
   expected_skill_count: 37
   expected_root_agents: 1
   expected_custom_agent_count: 6
-  eval_scope: static_schema_balance_and_route_ownership_only
+  expected_registered_execution_capabilities: 6
+  eval_scope: static_schema_balance_route_ownership_and_capability_safe_stop_fixtures
   behavioral_eval_policy: representative_forward_tests_must_be_reported_separately
   required_absent_checks:
     - secrets_or_tokens

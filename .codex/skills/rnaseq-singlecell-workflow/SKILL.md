@@ -45,6 +45,12 @@ description: 规划、执行或审查 bulk RNA-seq 与 single-cell RNA-seq 工�
 - 需要在工具类别、analysis unit 或证据层级间选择：读取 `references/rnaseq-singlecell-decision-matrix.md`。
 - 同一任务同时包含 bulk 与 scRNA 时，分别执行两个分支，再用共同的 sample/reference/provenance 字段衔接；不要把 cell 当作独立 biological replicate。
 
+## 执行后端
+
+- 实际执行前读取 `../../capability_registry.json` 的 `CAP-RNA-001`：先用已安装 NGS plugin 做 assay routing、runtime/reference preflight 和小 fixture；需要 FASTQ-to-matrix 生产流程时再采用固定 release 的 nf-core/Nextflow。
+- preflight 或 registry 不是安装授权。必须先审查 install plan、executor/container、reference 体积、license、磁盘和服务器策略；失败时停在 plan/review，不改用未记录环境。
+- 运行记录至少包含 backend/pipeline release、profile/executor、sample sheet、reference、command/config、成功/失败计数、QC 和输出 manifest。
+
 ## 证据边界
 
 - 差异表达支持给定设计下的表达关联，不单独证明通路激活、调控方向、疾病机制或治疗效应。

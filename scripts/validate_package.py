@@ -19,6 +19,9 @@ ROOT = Path(__file__).resolve().parents[1]
 SKILLS = ROOT / ".codex" / "skills"
 AGENTS = ROOT / ".codex" / "agents"
 MANIFEST = ROOT / "local_config.yaml"
+CAPABILITY_REGISTRY = ROOT / ".codex" / "capability_registry.json"
+CAPABILITY_RUN_VALIDATOR = ROOT / "scripts" / "validate_capability_run.py"
+CAPABILITY_BEHAVIOR_TESTS = ROOT / "scripts" / "test_capability_behavior.py"
 GLOBAL_GUIDANCE = ROOT / "templates" / "global-AGENTS.md"
 ROUTING_FORWARD_TEST = ROOT / "docs" / "ROUTING_FORWARD_TEST_2026-07-25.tsv"
 EXTERNAL_LINEAGE = ROOT / "docs" / "EXTERNAL_FILE_LINEAGE.tsv"
@@ -247,6 +250,158 @@ else:
         missing = sorted(known_skill_names - set(manifest_skill_names))
         extra = sorted(set(manifest_skill_names) - known_skill_names)
         fail(f"local_config.yaml: skills list mismatch; missing={missing}, extra={extra}")
+
+if "capability_registry: .codex/capability_registry.json" not in manifest_text:
+    fail("local_config.yaml: capability_registry entrypoint is missing")
+for entrypoint, expected_path in (
+    ("capability_run_validator", "scripts/validate_capability_run.py"),
+    ("capability_behavior_fixtures", "scripts/test_capability_behavior.py"),
+):
+    if f"{entrypoint}: {expected_path}" not in manifest_text:
+        fail(f"local_config.yaml: {entrypoint} entrypoint is missing")
+for required_script in (CAPABILITY_RUN_VALIDATOR, CAPABILITY_BEHAVIOR_TESTS):
+    if not required_script.is_file():
+        fail(f"{required_script.relative_to(ROOT)} is missing")
+
+registered_owner_skills = {
+    "scientific-database-grounding",
+    "rnaseq-singlecell-workflow",
+    "variant-genomics-interpretation",
+    "literature-search-workflow",
+    "paper-reader",
+    "protein-structure-docking",
+}
+if not CAPABILITY_REGISTRY.is_file():
+    fail(".codex/capability_registry.json is missing")
+else:
+    try:
+        capability_registry = json.loads(CAPABILITY_REGISTRY.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        fail(f".codex/capability_registry.json is invalid JSON: {exc}")
+        capability_registry = {}
+    if capability_registry.get("schema_version") != 1:
+        fail(".codex/capability_registry.json: schema_version must be 1")
+    maturity_levels = capability_registry.get("maturity_levels")
+    expected_maturity_levels = {
+        "spec-only",
+        "tool-bound",
+        "fixture-tested",
+        "integration-tested",
+        "research-piloted",
+        "production",
+    }
+    if not isinstance(maturity_levels, list) or set(maturity_levels) != expected_maturity_levels:
+        fail(".codex/capability_registry.json: maturity_levels do not match the package contract")
+    operating_rules = capability_registry.get("operating_rules")
+    if not isinstance(operating_rules, dict) or set(operating_rules) != {
+        "selection",
+        "authority",
+        "provenance",
+        "fallback",
+        "promotion",
+        "rollback",
+    }:
+        fail(".codex/capability_registry.json: operating_rules are incomplete")
+    backends = capability_registry.get("backends")
+    backend_ids: set[str] = set()
+    if not isinstance(backends, list) or not backends:
+        fail(".codex/capability_registry.json: backends must be a non-empty list")
+        backends = []
+    for backend in backends:
+        if not isinstance(backend, dict):
+            fail(".codex/capability_registry.json: every backend must be an object")
+            continue
+        backend_id = backend.get("id")
+        if not isinstance(backend_id, str) or not backend_id:
+            fail(".codex/capability_registry.json: backend is missing id")
+            continue
+        if backend_id in backend_ids:
+            fail(f".codex/capability_registry.json: duplicate backend id {backend_id}")
+        backend_ids.add(backend_id)
+        for field in (
+            "kind",
+            "source",
+            "license",
+            "network",
+            "adoption",
+            "validation",
+        ):
+            if not isinstance(backend.get(field), str) or not backend[field].strip():
+                fail(f".codex/capability_registry.json: backend {backend_id} is missing {field}")
+        credentials = backend.get("credentials")
+        if not isinstance(credentials, list) or not all(
+            isinstance(item, str) and item.strip() for item in credentials
+        ):
+            fail(f".codex/capability_registry.json: backend {backend_id} credentials must be strings")
+    capabilities = capability_registry.get("capabilities")
+    capability_ids: set[str] = set()
+    owner_skills: set[str] = set()
+    expected_registered = expected_count("expected_registered_execution_capabilities")
+    if not isinstance(capabilities, list):
+        fail(".codex/capability_registry.json: capabilities must be a list")
+        capabilities = []
+    elif expected_registered is None:
+        fail("local_config.yaml: expected_registered_execution_capabilities is missing")
+    elif len(capabilities) != expected_registered:
+        fail(
+            ".codex/capability_registry.json: capability count is "
+            f"{len(capabilities)}, expected {expected_registered}"
+        )
+    for capability in capabilities:
+        if not isinstance(capability, dict):
+            fail(".codex/capability_registry.json: every capability must be an object")
+            continue
+        capability_id = capability.get("id")
+        owner = capability.get("owner_skill")
+        if not isinstance(capability_id, str) or not capability_id:
+            fail(".codex/capability_registry.json: capability is missing id")
+            continue
+        if capability_id in capability_ids:
+            fail(f".codex/capability_registry.json: duplicate capability id {capability_id}")
+        capability_ids.add(capability_id)
+        if owner not in known_skill_names:
+            fail(
+                f".codex/capability_registry.json: capability {capability_id} "
+                f"references unknown owner Skill {owner}"
+            )
+            continue
+        if owner in owner_skills:
+            fail(f".codex/capability_registry.json: duplicate owner Skill {owner}")
+        owner_skills.add(owner)
+        if capability.get("maturity") not in expected_maturity_levels:
+            fail(f".codex/capability_registry.json: capability {capability_id} has invalid maturity")
+        for field in ("deliverable",):
+            if not isinstance(capability.get(field), str) or not capability[field].strip():
+                fail(f".codex/capability_registry.json: capability {capability_id} is missing {field}")
+        stop_conditions = capability.get("stop_conditions")
+        if not isinstance(stop_conditions, list) or not stop_conditions:
+            fail(f".codex/capability_registry.json: capability {capability_id} needs stop_conditions")
+        for route_field in ("preferred_backends", "optional_backends"):
+            routes = capability.get(route_field, [])
+            if not isinstance(routes, list):
+                fail(
+                    f".codex/capability_registry.json: capability {capability_id} "
+                    f"{route_field} must be a list"
+                )
+                continue
+            for route in routes:
+                if not isinstance(route, dict) or route.get("backend") not in backend_ids:
+                    fail(
+                        f".codex/capability_registry.json: capability {capability_id} "
+                        f"has an unknown {route_field} backend"
+                    )
+        owner_skill_text = (SKILLS / owner / "SKILL.md").read_text(encoding="utf-8")
+        if "../../capability_registry.json" not in owner_skill_text or capability_id not in owner_skill_text:
+            fail(
+                f"{(SKILLS / owner / 'SKILL.md').relative_to(ROOT)}: "
+                f"does not route directly to registry capability {capability_id}"
+            )
+    if owner_skills != registered_owner_skills:
+        fail(
+            ".codex/capability_registry.json: owner Skill set mismatch; "
+            f"missing={sorted(registered_owner_skills - owner_skills)}, "
+            f"extra={sorted(owner_skills - registered_owner_skills)}"
+        )
 
 if not ROUTING_FORWARD_TEST.is_file():
     fail("routing forward-test record is missing")

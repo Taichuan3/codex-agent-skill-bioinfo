@@ -13,12 +13,15 @@
   - `evals/outcome-evals.json`
   - 可选 `references/`
 - `.codex/agents/` — Codex 自定义子 Agent；包含 capability curation、source mapping、实现、复现审查、claim-evidence 审查和发行审查角色。
+- `.codex/capability_registry.json` — 把治理型 Skill 映射到可选 plugin、MCP、标准 pipeline 或本地工具的机器可读登记表；它只负责选路，不授权安装、凭据、配额或数据上传。
 - `templates/global-AGENTS.md` — 面向所有主机任务的精简全局 guidance；安装时作为受管 block 写入，不把完整 package Agent 复制到每轮上下文。
 - `.codex/config.toml.example` — 经当前本机 Codex 验证的多 Agent 配置片段；按机器合并，不覆盖用户现有配置。
 - `.agents/skills` — 指向 `.codex/skills` 的 repo-scope 兼容入口，供 standalone OpenAI Codex CLI/IDE/app 自动发现 skills。
 - `scripts/install_codex_bioinfo.py` — 默认 dry-run、检查 source revision/digest 且失败时事务回滚的用户级安装器。
 - `scripts/validate_package.py` — 全部 37 个 Skills 的结构、metadata、资源路由、eval 平衡、Agent TOML、敏感路径和发现入口校验。
 - `scripts/test_release_safety.py` — privacy 拒绝项与安装器 symlink preflight 的隔离回归 fixtures。
+- `scripts/validate_capability_run.py` — 对单次后端运行记录执行版本、授权、输入、provenance、artifact 与 evidence-boundary 门控。
+- `scripts/test_capability_behavior.py` — 8 个去身份化行为 fixtures，覆盖任务不匹配、输入/运行时缺失、模型未授权、浮动版本和不完整产物的安全停止。
 - `docs/MULTI_DEVICE_SYNC.md` — 公共内核、私有项目、机器层和 Memory 晋升边界。
 - `docs/SKILL_STANDARDIZATION_2026-07-25.md` — 本轮 37-Skill 统一基线、来源、验证和发布边界。
 - `docs/EXTERNAL_SOURCE_PROVENANCE.md` — 从历史审计恢复的 external repository、snapshot、license、能力级吸收和禁止 vendoring 记录。
@@ -33,6 +36,7 @@
 ```bash
 python3 scripts/validate_package.py
 python3 scripts/test_release_safety.py
+python3 scripts/test_capability_behavior.py
 python3 scripts/install_codex_bioinfo.py
 ```
 
@@ -104,8 +108,9 @@ MacBook Codex 可以周期性整理各终端的候选变化，但必须逐项审
 
 - Source skills：37 个。
 - Codex custom agents：6 个。
-- 37 个 Skills 已统一为双字段 frontmatter、按需 references、三字段 UI metadata、20 条平衡 trigger eval 和至少 5 条 outcome case；当前共有 740 条 trigger 与 193 条 outcome 定义。
-- Package validator 检查 eval 的 schema、数量、平衡、路由所有者和冲突，不执行模型行为；真实 trigger/outcome 表现仍需独立 forward test，并在发布记录中明确覆盖范围。
+- 37 个 Skills 已统一为双字段 frontmatter、按需 references、三字段 UI metadata、20 条平衡 trigger eval 和至少 5 条 outcome case；当前共有 740 条 trigger 与 200 条 outcome 定义。
+- Package validator 检查 eval 的 schema、数量、平衡、路由所有者和冲突；另有 8 个 capability safe-stop fixtures，但它们不替代真实模型 trigger/outcome forward test 或科研结果验证。
+- 六个高频科研 owner Skill 已通过 capability registry 连接可选执行后端；registry 中的 `tool-bound` 只表示完成选路契约，不能写成安装、集成测试或科研验证已完成。
 - Runtime 成熟经验按逐项 keep/merge 审查后回流 source；项目沉积、机器路径和重复 reference 不进入 canonical。
 - 根 `AGENTS.md` 只保留认知/决策归属、证据、数据安全、项目状态和分支守门内核；细节由对应 skill/reference 承担。
 - RNA-seq/single-cell、variant/genomics、pathway/network、clinical/translational、protein docking、drug screening、database grounding 已作为成熟领域 skill 保留。

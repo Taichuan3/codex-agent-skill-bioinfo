@@ -104,6 +104,23 @@
         "perform ADMET interpretation in the docking skill",
         "promote pose confidence to drug priority by itself"
       ]
+    },
+    {
+      "id": "structure-outcome-backend-01",
+      "mode": "structure backend selection",
+      "task": "Select database and model backends for a protein-protein docking pilot.",
+      "must_include": [
+        "CAP-STRUCT-001 registry route",
+        "sequence isoform chain and partner normalization",
+        "protein-protein task-method fit",
+        "backend version controls and bounded pilot",
+        "model-output versus biological-evidence boundary"
+      ],
+      "must_not": [
+        "treat protein-ligand DiffDock as a protein-protein backend",
+        "install or consume hosted quota from registry metadata alone",
+        "claim interaction from model confidence"
+      ]
     }
   ]
 }

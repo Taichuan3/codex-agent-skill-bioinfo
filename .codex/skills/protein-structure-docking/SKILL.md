@@ -42,6 +42,11 @@ description: 用于蛋白结构来源与模型 QA、受体/配体或互作伙伴
 8. 只把通过基本 QC 的 pose、界面或分数作为候选假设；将虚拟筛选或 ADMET 需求明确 handoff，不自行合并成药物总分。
 9. 交付精确输入/输出、方法与参数、QC/对照、证据等级、caveat 和下一项正交验证。
 
+## 执行后端
+
+- 读取 `../../capability_registry.json` 的 `CAP-STRUCT-001`，先用已安装 PDB/AlphaFold/UniProt 等后端锁定输入；外部模型工具只在 task class 匹配并完成 bounded pilot 后采用。
+- registry 不授权安装、配额或上传结构。尤其不能把 protein-ligand DiffDock/NIM 当作 protein-protein docking 后端；不匹配时停止并回到方法选择。
+
 ## 解释硬边界
 
 - Docking score 不是 `Kd`、`Ki`、`IC50`、结合证明、选择性或 efficacy。

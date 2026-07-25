@@ -44,6 +44,12 @@ description: 解释或审查 variant 与 statistical-genetics 证据，包括 VC
 - GWAS、fine-mapping、QTL/colocalization、rare-variant、PRS 或 MR：读取 `references/statistical-genetics-interpretation.md`。
 - 需要比较来源、字段与 claim 上限：读取 `references/variant-genomics-evidence-matrix.md`。
 
+## 执行后端
+
+- 实际 lookup 读取 `../../capability_registry.json` 的 `CAP-VAR-001`，按证据类型选择 ClinVar、gnomAD、Ensembl、GWAS/QTL 或 locus-to-gene leaf Skill；不要让聚合器替代 allele/build normalization。
+- 只有用户授权 variant-calling 执行且输入、reference、样本设计和运行环境齐全时，才转交 NGS calling backend；本 Skill 保留解释与证据表所有权。
+- registry 不授权安装、凭据或临床使用。记录 backend/version、query/callset provenance、resolved allele、空/失败状态和 downstream handoff。
+
 ## 证据边界
 
 - 计算 consequence、conservation、motif 或 regulatory overlap 是 context/prediction，不单独证明功能或致病性。

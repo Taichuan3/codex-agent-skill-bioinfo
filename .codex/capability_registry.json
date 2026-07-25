@@ -1,0 +1,304 @@
+{
+  "schema_version": 1,
+  "registry_id": "bioinfo-execution-backends",
+  "purpose": "Map portable governance Skills to optional execution backends without vendoring third-party Skill bodies, scripts, credentials, or project facts.",
+  "maturity_levels": [
+    "spec-only",
+    "tool-bound",
+    "fixture-tested",
+    "integration-tested",
+    "research-piloted",
+    "production"
+  ],
+  "operating_rules": {
+    "selection": "Choose the smallest backend set that answers the task and prefer an already installed curated backend over a new installation.",
+    "authority": "A registry entry is routing metadata, not authority to install packages, use credentials, consume API quota, upload data, or run a large job.",
+    "provenance": "Record backend version or immutable ref, exact command or query, access date, inputs, outputs, failures, and evidence boundary in the project artifact.",
+    "fallback": "If a backend is unavailable, report the missing dependency and keep the Skill usable in plan or review mode.",
+    "promotion": "Promote a backend beyond tool-bound only after the named validation gate passes on a bounded fixture or project pilot.",
+    "rollback": "Remove or disable the backend mapping; do not delete project data or rewrite Git history."
+  },
+  "backends": [
+    {
+      "id": "openai-life-science-research",
+      "kind": "curated-plugin",
+      "source": "openai-curated-remote/life-science-research",
+      "license": "plugin-distributed; verify bundled metadata and upstream source terms",
+      "network": "required for live database queries",
+      "credentials": [
+        "source-specific optional API keys"
+      ],
+      "adoption": "prefer-when-installed",
+      "validation": "discover the selected leaf Skill, run one bounded read-only lookup, and retain query provenance"
+    },
+    {
+      "id": "openai-ngs-analysis",
+      "kind": "curated-plugin",
+      "source": "openai-curated-remote/ngs-analysis",
+      "reviewed_version": "1.0.3",
+      "license": "plugin-distributed; verify selected pipeline and dependency licenses",
+      "network": "optional for preflight; required for missing packages, references, or containers",
+      "credentials": [],
+      "adoption": "prefer-when-installed",
+      "validation": "run plugin preflight, review install_plan.json, then run a bundled or synthetic fixture before project data"
+    },
+    {
+      "id": "google-deepmind-science-skills",
+      "kind": "external-skill-corpus",
+      "source": "https://github.com/google-deepmind/science-skills",
+      "reviewed_ref": "0b42509800f49e6eb7809505d96e20a890ef99bd",
+      "license": "Apache-2.0 code; CC-BY-4.0 materials; source-specific terms also apply",
+      "network": "required for live databases and AlphaGenome",
+      "credentials": [
+        "ALPHAGENOME_API_KEY when the selected workflow requires it"
+      ],
+      "adoption": "reference-or-bounded-pilot",
+      "validation": "pin an immutable ref, inspect the selected Skill and scripts, then test one bounded use case without copying the corpus"
+    },
+    {
+      "id": "biomcp",
+      "kind": "external-mcp-cli",
+      "source": "https://github.com/genomoncology/biomcp",
+      "license": "MIT for BioMCP; upstream database terms apply",
+      "network": "required for live upstream sources",
+      "credentials": [
+        "source-specific optional API keys"
+      ],
+      "adoption": "optional-comparison-pilot",
+      "validation": "run health checks and one counts-first cross-entity query; compare provenance and noise with source-specific curated Skills"
+    },
+    {
+      "id": "nf-core-nextflow",
+      "kind": "workflow-engine-and-pipelines",
+      "source": "https://nf-co.re/",
+      "reviewed_pipeline": "nf-core/rnaseq 3.26.0",
+      "license": "pipeline-specific open-source license; container and tool licenses vary",
+      "network": "required for first pull of pipeline, dependencies, references, or containers",
+      "credentials": [],
+      "adoption": "preferred-production-family-after-preflight",
+      "validation": "pin pipeline release and run the official test profile in the target executor before project data"
+    },
+    {
+      "id": "paperqa2",
+      "kind": "local-literature-rag",
+      "source": "https://github.com/Future-House/paper-qa",
+      "reviewed_ref": "v2026.03.18@ac4ff91ad703e6816cb620ea579a98ca0c42c36f",
+      "reviewed_package": "paper-qa==2026.3.18",
+      "license": "Apache-2.0",
+      "network": "depends on selected model, metadata providers, and document acquisition",
+      "credentials": [
+        "model-provider key when not using a local model",
+        "optional metadata-provider keys for larger corpora"
+      ],
+      "adoption": "bounded-local-corpus-pilot",
+      "validation": "use a fixed small paper set with known answers; score citation location, unsupported statements, missing-document handling, privacy, and cost"
+    },
+    {
+      "id": "nvidia-bionemo-agent-toolkit",
+      "kind": "external-skill-and-model-toolkit",
+      "source": "https://github.com/NVIDIA-BioNeMo/bionemo-agent-toolkit",
+      "license": "mixed Apache-2.0 and CC-BY-4.0; selected service/model terms may differ",
+      "network": "depends on selected local model, NIM, or hosted service",
+      "credentials": [
+        "service-specific credentials when a hosted backend is selected"
+      ],
+      "adoption": "bounded-task-pilot",
+      "validation": "confirm task-method fit, pin the selected component, run a control or fixture, and keep model confidence separate from biological evidence"
+    }
+  ],
+  "capabilities": [
+    {
+      "id": "CAP-DB-001",
+      "owner_skill": "scientific-database-grounding",
+      "deliverable": "replayable entity-resolution and cross-database evidence table",
+      "maturity": "tool-bound",
+      "preferred_backends": [
+        {
+          "backend": "openai-life-science-research",
+          "leaf_skills": [
+            "research-router-skill",
+            "ensembl-skill",
+            "clinvar-variation-skill",
+            "gnomad-graphql-skill",
+            "uniprot-skill",
+            "rcsb-pdb-skill",
+            "chembl-skill",
+            "pubchem-pug-skill"
+          ]
+        }
+      ],
+      "optional_backends": [
+        {
+          "backend": "biomcp",
+          "use_when": "a cross-entity counts-first query materially reduces repeated source routing"
+        }
+      ],
+      "stop_conditions": [
+        "entity identity or build is unresolved",
+        "required source terms or credentials are unavailable",
+        "the query would expose a credential or private dataset"
+      ]
+    },
+    {
+      "id": "CAP-RNA-001",
+      "owner_skill": "rnaseq-singlecell-workflow",
+      "deliverable": "sample-aware RNA workflow with QC, reproducible commands, results, and source data",
+      "maturity": "tool-bound",
+      "preferred_backends": [
+        {
+          "backend": "openai-ngs-analysis",
+          "leaf_skills": [
+            "ngs-bulk-rnaseq",
+            "ngs-bulk-rnaseq-counts-qc",
+            "ngs-bulk-rnaseq-differential-expression",
+            "ngs-scrna-seq",
+            "scrna-seq-qc"
+          ]
+        },
+        {
+          "backend": "nf-core-nextflow",
+          "use_when": "FASTQ-to-matrix execution needs a pinned portable production pipeline"
+        }
+      ],
+      "stop_conditions": [
+        "sample design or biological replicate is unresolved",
+        "reference or library chemistry is unresolved",
+        "preflight or official test profile fails"
+      ]
+    },
+    {
+      "id": "CAP-VAR-001",
+      "owner_skill": "variant-genomics-interpretation",
+      "deliverable": "normalized variant or locus evidence table with QC and claim limits",
+      "maturity": "tool-bound",
+      "preferred_backends": [
+        {
+          "backend": "openai-life-science-research",
+          "leaf_skills": [
+            "clinvar-variation-skill",
+            "gnomad-graphql-skill",
+            "ensembl-skill",
+            "gwas-catalog-skill",
+            "gtex-eqtl-skill",
+            "eqtl-catalogue-skill",
+            "locus-to-gene-mapper-skill"
+          ]
+        }
+      ],
+      "optional_backends": [
+        {
+          "backend": "openai-ngs-analysis",
+          "use_when": "the authorized task includes variant-calling execution rather than interpretation only",
+          "leaf_skills": [
+            "ngs-dna-variant-calling",
+            "ngs-dna-germline-variants",
+            "ngs-dna-somatic-variants",
+            "ngs-dna-umi-panel-variants"
+          ]
+        },
+        {
+          "backend": "google-deepmind-science-skills",
+          "use_when": "a bounded AlphaGenome single-variant effect analysis is method-matched and API quota use is explicitly authorized",
+          "leaf_skills": [
+            "alphagenome-single-variant-analysis"
+          ]
+        }
+      ],
+      "stop_conditions": [
+        "build, REF/ALT, effect allele, or transcript cannot be reconciled",
+        "the selected external workflow is single-variant but the research task is regional or sequence-window prediction",
+        "the task requests personal diagnosis or treatment advice",
+        "calling inputs or project authority are missing"
+      ]
+    },
+    {
+      "id": "CAP-LIT-001",
+      "owner_skill": "literature-search-workflow",
+      "deliverable": "reproducible screened paper set and decision-oriented evidence map",
+      "maturity": "tool-bound",
+      "preferred_backends": [
+        {
+          "backend": "openai-life-science-research",
+          "leaf_skills": [
+            "ncbi-entrez-skill",
+            "ncbi-pmc-skill",
+            "biorxiv-skill"
+          ]
+        }
+      ],
+      "optional_backends": [
+        {
+          "backend": "paperqa2",
+          "use_when": "the user supplies a stable local full-text corpus and needs repeated evidence-grounded questions"
+        }
+      ],
+      "stop_conditions": [
+        "search scope or inclusion criteria are undefined",
+        "only metadata is available for a full-text claim",
+        "the corpus cannot be indexed without an unapproved external model or upload"
+      ]
+    },
+    {
+      "id": "CAP-PAPER-001",
+      "owner_skill": "paper-reader",
+      "deliverable": "fixed-paper claim-to-figure and method evidence map",
+      "maturity": "tool-bound",
+      "preferred_backends": [
+        {
+          "backend": "openai-life-science-research",
+          "leaf_skills": [
+            "ncbi-pmc-skill",
+            "ncbi-entrez-skill"
+          ]
+        }
+      ],
+      "optional_backends": [
+        {
+          "backend": "paperqa2",
+          "use_when": "multiple local full texts need repeatable retrieval with page or section citations"
+        }
+      ],
+      "stop_conditions": [
+        "paper version or access scope is unresolved",
+        "page or figure evidence is unavailable for the requested claim",
+        "the backend would upload private papers without approval"
+      ]
+    },
+    {
+      "id": "CAP-STRUCT-001",
+      "owner_skill": "protein-structure-docking",
+      "deliverable": "structure or docking hypothesis with locked inputs, controls, QC, and evidence limits",
+      "maturity": "tool-bound",
+      "preferred_backends": [
+        {
+          "backend": "openai-life-science-research",
+          "leaf_skills": [
+            "alphafold-skill",
+            "rcsb-pdb-skill",
+            "uniprot-skill",
+            "bindingdb-skill"
+          ]
+        },
+        {
+          "backend": "google-deepmind-science-skills",
+          "leaf_skills": [
+            "alphafold_database_fetch_and_analyze",
+            "foldseek_structural_search",
+            "pdb_database"
+          ]
+        }
+      ],
+      "optional_backends": [
+        {
+          "backend": "nvidia-bionemo-agent-toolkit",
+          "use_when": "a selected model or NIM matches structure prediction, protein design, or protein-ligand docking after method review"
+        }
+      ],
+      "stop_conditions": [
+        "sequence, isoform, chain, residue, ligand, or partner mapping is unresolved",
+        "the selected backend does not match protein-protein versus protein-ligand task class",
+        "controls, model version, or output provenance cannot be retained"
+      ]
+    }
+  ]
+}

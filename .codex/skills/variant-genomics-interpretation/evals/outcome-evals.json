@@ -104,6 +104,23 @@
         "recommend screening treatment or family action",
         "present database assertion as clinical sign-out"
       ]
+    },
+    {
+      "id": "variant-outcome-backend-01",
+      "mode": "source-specific backend routing",
+      "task": "Select database and optional calling backends for a variant evidence task.",
+      "must_include": [
+        "CAP-VAR-001 registry route",
+        "interpretation versus calling ownership",
+        "build allele transcript and population fields",
+        "backend version query and failure provenance",
+        "authorization gate before calling execution"
+      ],
+      "must_not": [
+        "let an aggregator replace allele normalization",
+        "run variant calling from an interpretation request",
+        "treat a database label as personal clinical advice"
+      ]
     }
   ]
 }

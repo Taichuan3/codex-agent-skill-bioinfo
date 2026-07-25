@@ -38,6 +38,12 @@ description: 用于查询、解析和交叉核验生物医学科学数据库中�
 7. 输出 database record–claim–evidence type–caveat 映射；需要下游分析时提供明确 handoff 字段。
 8. 若写入报告或 source data，保存可重放 query/command、字段定义和访问日期。
 
+## 执行后端
+
+- 在完整 package 中需要实际查询时，读取 `../../capability_registry.json` 的 `CAP-DB-001`，优先选择已安装的 source-specific curated Skill；只有跨实体查询确实减少重复路由时才比较 BioMCP。
+- registry 只负责选路，不授权安装、读取凭据、消耗配额或上传数据；执行前仍需检查来源条款、网络、凭据状态和项目权限。
+- 后端不可用时保持 `planned query` 或 review 模式，不临时改用低质量网页摘要。实际执行要交付 backend/version、exact query、records/failures 和 replay pointer。
+
 ## 按需读取
 
 - 需要选择 genetics、regulatory、expression、protein、structure、compound 或 literature metadata 来源时，读取 `references/database-source-map.md`。

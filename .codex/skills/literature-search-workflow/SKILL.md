@@ -38,6 +38,12 @@ description: 用于生物信息学与计算生物学问题的可复现文献集�
 7. 给出 `follow`、`reproduce`、`avoid`、`cite_only`、`data_source` 或 `method_reference` 等建议，并把研究方向决策交给用户。
 8. 报告检索覆盖、访问限制、未核验全文、时间截点和下一轮最有价值的检索。
 
+## 执行后端
+
+- 需要实际检索时读取 `../../capability_registry.json` 的 `CAP-LIT-001`，优先使用已安装的 PubMed/PMC/bioRxiv source-specific Skill；本 Skill仍拥有 query、screening、dedup 和 evidence-map 综合。
+- 只有存在稳定的本地全文集合且需要重复问答时才试点 PaperQA2；先固定小 paper set 和已知答案，检查引用定位、unsupported statement、缺文处理、隐私和成本。
+- registry 不授权安装模型、使用 API key 或上传论文。后端不可用时交付可重放 search plan，不把未运行检索写成结果。
+
 ## 特殊检索路由
 
 - 需要标准 evidence table 时读取 `references/evidence-table-template.md`。
