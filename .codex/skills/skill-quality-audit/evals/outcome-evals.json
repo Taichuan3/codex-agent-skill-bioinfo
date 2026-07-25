@@ -1,8 +1,25 @@
 {
   "schema_version": 1,
   "skill_name": "skill-quality-audit",
-  "purpose": "Evaluate single-Skill QA, authorized repair, library provenance, external absorption, and governance handoff.",
+  "purpose": "Evaluate new-Skill authoring, single-Skill QA, authorized repair, library provenance, external absorption, and governance handoff.",
   "cases": [
+    {
+      "id": "skillqa-outcome-authoring-01",
+      "mode": "new-skill authoring",
+      "task": "Design and create a new portable local Skill without publishing it.",
+      "must_include": [
+        "existing-owner and overlap decision",
+        "one core question and primary deliverable",
+        "official skill-creator initialization",
+        "local structure, metadata, trigger, and outcome contracts",
+        "validation boundary and rollback pointer"
+      ],
+      "must_not": [
+        "clone an unrelated Skill as a template",
+        "publish or install without separate authority",
+        "embed private runtime or project facts"
+      ]
+    },
     {
       "id": "skillqa-outcome-audit-01",
       "mode": "single-skill audit",

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "skill_name": "skill-quality-audit",
-  "purpose": "Evaluate Skill QA routing against governed self-improvement, environment work, domain review, and Git publication.",
+  "purpose": "Evaluate local Skill authoring and QA routing against governed self-improvement, environment work, domain review, and Git publication.",
   "cases": [
     {
       "id": "skillqa-positive-01",
@@ -78,10 +78,10 @@
     {
       "id": "skillqa-positive-10",
       "split": "validation",
-      "query": "运行 quick validator、JSON/YAML 解析、链接检查和 diff check，并区分通过与未覆盖行为。",
+      "query": "为本机设计一个新的可移植 Skill：先检查是否已有 owner，再按我们的结构、metadata、20 条平衡 trigger eval 和 outcome gate 标准创建，但不要提交或安装。",
       "should_trigger": true,
       "expected_primary_skill": "skill-quality-audit",
-      "rationale": "Bounded structural validation and evidence reporting belong here."
+      "rationale": "A locally governed new-Skill authoring workflow belongs to the extended QA standard."
     },
     {
       "id": "skillqa-negative-01",

@@ -1,4 +1,4 @@
 interface:
   display_name: "Skill Quality Audit"
-  short_description: "Audit Skill triggers, structure, provenance, and evals"
-  default_prompt: "Use $skill-quality-audit to audit this Skill for precise routing, progressive disclosure, provenance, and validation coverage."
+  short_description: "Design and audit portable Skills with local quality gates"
+  default_prompt: "Use $skill-quality-audit to design or audit this Skill with the local routing, structure, provenance, and validation standard."

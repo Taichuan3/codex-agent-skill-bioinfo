@@ -1,18 +1,19 @@
 ---
 name: skill-quality-audit
-description: 用于只读审计或在明确授权范围内修订 Codex Skill：检查触发描述、SKILL.md、references/scripts/assets 路由、agents metadata、evals、安全与科研边界，并做 Skill/Agent library 的 provenance、重复、source/runtime drift 和外部语料吸收评估；不负责批准、发布、安装或自动自修改。
+description: 用于按本机 portable Skill 标准设计、新建、只读审计或在明确授权范围内修订 Codex Skill：检查核心问题、触发与邻居路由、SKILL.md、resources、agents metadata、平衡 evals、安全、科研边界、provenance、source/runtime drift 和外部语料吸收；与官方 skill-creator 配合，但不负责批准、发布、安装或自动自修改。
 ---
 
 # Skill Quality Audit
 
 ## 核心问题
 
-如何判断一个 Skill 是否触发准确、上下文高效、可验证、科研安全且能由明确来源维护？
+如何按可复用标准创建或维护一个触发准确、上下文高效、可验证、科研安全且来源明确的 Skill？
 
 ## 能力边界
 
-- 本 Skill 负责质量 findings、优先级、候选 semantic diff、外部吸收建议和授权范围内的 Skill 文件修订。
+- 官方 `skill-creator` 负责通用设计、初始化脚手架和基础校验；本 Skill 负责本机 portable package 的严格 authoring contract、质量 findings、候选 diff 和授权范围内修订。
 - `controlled-self-improvement` 负责稳定信号判定、跨层目标路由、action-specific approval、发布、安装、监测与回滚生命周期。
+- 新建 Skill 前先检查现有 owner；只有核心问题、主要交付物和触发边界均独立时才新增，否则强化现有 Skill/reference。
 - 单个 Skill 审计不得自动扩展为全库迁移；全库 inventory 不等于复制或公开所有发现的文件。
 - canonical source、installed runtime、project-local copy 和 upstream bundle 都是需要 provenance 证明的角色；mtime、路径位置或远端存在不能单独决定权威版本。
 - 审计结果不是最终科学批准；内容正确性仍需领域证据和相应 reviewer。
@@ -27,18 +28,19 @@ description: 用于只读审计或在明确授权范围内修订 Codex Skill：�
 
 ## 工作流程
 
-1. 锁定模式：`single-skill audit`、`authorized repair`、`library inventory` 或 `external absorption review`。
+1. 锁定模式：`new-skill authoring`、`single-skill audit`、`authorized repair`、`library inventory` 或 `external absorption review`。
 2. 读取适用 `AGENTS.md`、目标 `SKILL.md` 和直接资源；记录目标范围、source state、dirty files 和验证命令。
-3. 检查 hard gates：仅 `name`/`description` frontmatter、核心问题、授权边界、直接资源路由、metadata 结构、危险命令和科研 claim 风险。
-4. 评估 trigger precision、neighbor routing、progressive disclosure、task completeness、reproducibility、safety、maintainability 和 eval coverage。
-5. 对 source/runtime/project/upstream 副本比较 name、hash、资源集合和 semantic diff；先建立 provenance，再决定 keep/merge。
-6. 输出 P0/P1/P2 findings 和最小修订；优先强化现有 Skill，只有明确独立交付物与触发边界时才建议新增。
-7. 获得修订授权时，只修改指定文件，保持每个 reference/script/asset 从 `SKILL.md` 直接可发现，并补齐平衡的 trigger/outcome evals。
-8. 运行结构解析、validator、JSON/YAML、链接/路径、privacy、diff 和代表性行为检查；区分 pass、not run 和 not covered。
+3. 新建时先写核心问题、主要交付物、正/负触发示例、邻居路由与重复所有权判断，再用官方 `skill-creator` 初始化；不要手工复制旧 Skill 当模板。
+4. 按 `references/local-skill-authoring-standard.md` 检查 frontmatter、核心问题、权限/证据边界、直接资源路由、metadata、eval、provenance、privacy 和 rollback hard gates。
+5. 评估 trigger precision、neighbor routing、progressive disclosure、task completeness、reproducibility、safety、maintainability 和 eval coverage。
+6. 对 source/runtime/project/upstream 副本比较 name、hash、资源集合和 semantic diff；先建立 provenance，再决定 keep/merge。
+7. 输出 P0/P1/P2 findings 和最小修订；获得授权时只修改指定文件，并补齐本地标准要求的 metadata、direct routing 和 trigger/outcome evals。
+8. 运行 quick validation、package validator、JSON/YAML、链接/路径、privacy、diff 和必要的盲测；区分 pass、not run 和 not covered。
 9. 需要发布、安装、跨设备同步或永久规则演化时，交给 `controlled-self-improvement`，不把 QA 结论当作批准。
 
 ## 模式化输出
 
+- `new-skill authoring`：给出 overlap 决策、核心问题、trigger neighbors、资源设计、初始化/文件计划、eval 计划和发布前停止点。
 - `single-skill audit`：给出 verdict、P0/P1/P2、trigger 邻居、资源路由、eval 缺口和候选 diff。
 - `authorized repair`：报告精确文件、keep/merge/split 决策、验证结果、未覆盖行为和未执行的发布/安装。
 - `library inventory`：分开 raw/curated counts，报告 canonical map、drift、upload class、excluded assets 和 dirty-worktree 边界。
@@ -46,6 +48,7 @@ description: 用于只读审计或在明确授权范围内修订 Codex Skill：�
 
 ## 按需读取
 
+- 新建或批量维护本机 Skill，需要采用结构、metadata、20 条平衡 trigger eval、outcome gate、privacy/provenance、验证和发布分离标准时，读取 `references/local-skill-authoring-standard.md`。
 - 需要质量评分、P0/P1/P2 或 verdict 定义时，读取 `references/skill-audit-rubric.md`。
 - 需要 package 结构、discovery、source/runtime parity 或发布前检查时，读取 `references/bioinfo-codex-skill-governance.md`。
 - 做全库 inventory、canonical 映射、hash/provenance 或 upload classification 时，读取 `references/library-inventory-provenance.md`。
