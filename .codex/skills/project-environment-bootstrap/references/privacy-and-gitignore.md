@@ -35,10 +35,12 @@ If `PROJECT_ENVIRONMENT.md` is tracked or staged, stop and ask before proceeding
 Use `rg` as a lightweight warning check when preparing public uploads:
 
 ```bash
-rg -n "token|password|secret|github_pat|BEGIN .*PRIVATE KEY|ssh-rsa|/Users/|/home/|\\\\wsl\\$" .
+rg -n "token|password|secret|github_pat|BEGIN .*PRIVATE KEY|ssh-rsa|^[A-Za-z]:\\\\|/(Users|home)/" .
 ```
 
 This may create false positives. Treat it as a warning, not an automatic deletion rule.
+
+Do not print matching secret values into reports. Prefer filenames and redacted findings when a hit may contain a credential.
 
 ## If sensitive data was committed
 

@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "skill_name": "research-project-planner",
+  "purpose": "Evaluate project-route planning against early briefs, decision review, validation design, execution, and state maintenance.",
+  "cases": [
+    {
+      "id": "project-planner-positive-01",
+      "split": "train",
+      "query": "把这个已确认的研究问题扩展成 evidence package、figure skeleton、技术模块和停止条件。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-project-planner",
+      "rationale": "The user requests a complete research route."
+    },
+    {
+      "id": "project-planner-positive-02",
+      "split": "train",
+      "query": "为新的计算生物学课题制定 Project Charter、minimum viable analysis 和 risk register。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-project-planner",
+      "rationale": "Project charter and staged analysis planning are core outputs."
+    },
+    {
+      "id": "project-planner-positive-03",
+      "split": "train",
+      "query": "设计一个从 exploration 到 confirmation 再到 validation 的项目路线，并标明每阶段证据门槛。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-project-planner",
+      "rationale": "Project-level phase architecture belongs here."
+    },
+    {
+      "id": "project-planner-positive-04",
+      "split": "train",
+      "query": "这个方向已经有 central question，请补出 knowledge gap、hypothesis、替代解释和主图逻辑。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-project-planner",
+      "rationale": "Completing a route around a bounded central question is core."
+    },
+    {
+      "id": "project-planner-positive-05",
+      "split": "train",
+      "query": "在开始复杂建模前，先做最小 field/method map、成熟 baseline 和可复现实现 shortlist。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-project-planner",
+      "rationale": "Method mapping before a new project route is an explicit planner mode."
+    },
+    {
+      "id": "project-planner-positive-06",
+      "split": "validation",
+      "query": "为跨队列整合项目规划数据、对照、统计、外部验证、里程碑和 go/no-go criteria。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-project-planner",
+      "rationale": "This is a project-wide evidence and milestone plan."
+    },
+    {
+      "id": "project-planner-positive-07",
+      "split": "validation",
+      "query": "给每张候选主图定义它回答的问题、输入和进入下一阶段的证据阈值。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-project-planner",
+      "rationale": "A question-linked project figure skeleton is core."
+    },
+    {
+      "id": "project-planner-positive-08",
+      "split": "validation",
+      "query": "我准备重大重规划这个课题，请提出可分阶段的路线、依赖、风险和 pivot 节点，先不要执行。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-project-planner",
+      "rationale": "Major project replanning is within scope."
+    },
+    {
+      "id": "project-planner-positive-09",
+      "split": "validation",
+      "query": "用 Known/Unknown/Question/Finding/Advance 检查课题故事能否收敛，并生成后续 bounded tasks。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-project-planner",
+      "rationale": "Story convergence and bounded task decomposition are planner outputs."
+    },
+    {
+      "id": "project-planner-positive-10",
+      "split": "validation",
+      "query": "为一个尚未开跑的单细胞项目制定可复现性计划、主要替代解释和 stop criteria。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-project-planner",
+      "rationale": "Pre-execution project route planning belongs here."
+    },
+    {
+      "id": "project-planner-negative-01",
+      "split": "train",
+      "query": "我只有几句模糊想法，先压缩成一页 working-question brief，不要设计路线。",
+      "should_trigger": false,
+      "expected_primary_skill": "research-question-brief",
+      "rationale": "Early bounded question clarification precedes project planning."
+    },
+    {
+      "id": "project-planner-negative-02",
+      "split": "train",
+      "query": "路线已经有了，现在判断继续、转向还是停止，并比较机会成本。",
+      "should_trigger": false,
+      "expected_primary_skill": "research-decision-review",
+      "rationale": "Reviewing an existing high-impact choice belongs to decision review."
+    },
+    {
+      "id": "project-planner-negative-03",
+      "split": "train",
+      "query": "只为这个候选机制设计计算复核、独立数据和扰动实验的验证矩阵。",
+      "should_trigger": false,
+      "expected_primary_skill": "validation-strategy-planner",
+      "rationale": "A single-claim validation matrix is narrower than project planning."
+    },
+    {
+      "id": "project-planner-negative-04",
+      "split": "train",
+      "query": "按现有计划实现数据清洗和差异分析脚本。",
+      "should_trigger": false,
+      "expected_primary_skill": "bioinfo-analysis-code",
+      "rationale": "Concrete implementation is downstream execution."
+    },
+    {
+      "id": "project-planner-negative-05",
+      "split": "train",
+      "query": "把已经确认的项目路线压缩进 PROJECT_GUIDE 的 current story 和 next decisions。",
+      "should_trigger": false,
+      "expected_primary_skill": "project-guide-maintainer",
+      "rationale": "Writing current-state GUIDE content belongs to guide maintenance."
+    },
+    {
+      "id": "project-planner-negative-06",
+      "split": "validation",
+      "query": "交付前检查这个计划是否自包含、claim 是否越界以及文件是否可追踪。",
+      "should_trigger": false,
+      "expected_primary_skill": "task-self-check",
+      "rationale": "Final QA of an existing deliverable belongs to task-self-check."
+    },
+    {
+      "id": "project-planner-negative-07",
+      "split": "validation",
+      "query": "系统检索近期文献，整理这个领域的证据和争议。",
+      "should_trigger": false,
+      "expected_primary_skill": "literature-search-workflow",
+      "rationale": "Literature retrieval alone is not project-route planning."
+    },
+    {
+      "id": "project-planner-negative-08",
+      "split": "validation",
+      "query": "读取并总结指定论文，解释作者用了什么统计模型。",
+      "should_trigger": false,
+      "expected_primary_skill": "paper-reader",
+      "rationale": "Single-paper interpretation belongs to paper-reader."
+    },
+    {
+      "id": "project-planner-negative-09",
+      "split": "validation",
+      "query": "盘点现有 data/results 目录并设计 manifest 与 latest 入口。",
+      "should_trigger": false,
+      "expected_primary_skill": "research-data-organization",
+      "rationale": "Artifact layout and manifest planning belong to data organization."
+    },
+    {
+      "id": "project-planner-negative-10",
+      "split": "validation",
+      "query": "追加一条 PROJECT_PLAN 记录并判断 durable fact 是否需要更新 GUIDE。",
+      "should_trigger": false,
+      "expected_primary_skill": "project-state-maintenance",
+      "rationale": "State lifecycle orchestration is not research-route design."
+    }
+  ]
+}

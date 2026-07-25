@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "skill_name": "chinese-scientific-polishing",
+  "purpose": "Evaluate meaning preservation, section-aware editing, terminology, evidence boundaries, and concise delivery.",
+  "cases": [
+    {
+      "id": "chinese-polish-outcome-paragraph-01",
+      "mode": "results paragraph polishing",
+      "task": "Polish a Chinese Results paragraph containing quantitative observations and exploratory wording.",
+      "must_include": [
+        "directly usable Chinese revision",
+        "all decision-relevant numbers preserved",
+        "observational Results stance",
+        "stable terminology",
+        "no unnecessary risk template"
+      ],
+      "must_not": [
+        "turn association into causation",
+        "invent data or mechanism",
+        "translate the paragraph into English"
+      ]
+    },
+    {
+      "id": "chinese-polish-outcome-structure-01",
+      "mode": "subsection restructuring",
+      "task": "Restructure a Chinese result subsection with a weak opening and repetitive conclusion.",
+      "must_include": [
+        "clear opening function",
+        "one controlling claim per evidence paragraph",
+        "bounded subsection synthesis",
+        "logical transition",
+        "substantive changes summarized"
+      ],
+      "must_not": [
+        "add unsupported claims",
+        "move interpretation into Results as fact",
+        "retain redundant data inventory"
+      ]
+    },
+    {
+      "id": "chinese-polish-outcome-methods-01",
+      "mode": "methods polishing",
+      "task": "Polish Chinese Methods text containing versions, parameters, filters, and sample definitions.",
+      "must_include": [
+        "clear reproducible prose",
+        "versions and parameters preserved",
+        "filters and sample definitions preserved",
+        "uncertain values flagged",
+        "meaning checked against the source"
+      ],
+      "must_not": [
+        "remove technical detail for elegance",
+        "silently correct values",
+        "add unprovided software or settings"
+      ]
+    },
+    {
+      "id": "chinese-polish-outcome-gap-01",
+      "mode": "evidence-gap handling",
+      "task": "Handle a Chinese draft whose annotations say that several claims lack figures or data.",
+      "must_include": [
+        "unsupported sentences identified",
+        "revision or claim-to-figure backlog",
+        "safe polishing of evidence-closed text only",
+        "options to downgrade, support, or remove claims",
+        "explicit unresolved items"
+      ],
+      "must_not": [
+        "polish unsupported claims into final conclusions",
+        "fabricate figure support",
+        "hide the evidence gap"
+      ]
+    },
+    {
+      "id": "chinese-polish-outcome-caption-01",
+      "mode": "existing caption language edit",
+      "task": "Improve the language of an existing Chinese caption without changing its content.",
+      "must_include": [
+        "polished Chinese caption",
+        "panel order preserved",
+        "numbers and statistics preserved",
+        "terminology preserved",
+        "missing content not invented"
+      ],
+      "must_not": [
+        "redesign the figure",
+        "add guessed sample details",
+        "perform an English translation"
+      ]
+    }
+  ]
+}

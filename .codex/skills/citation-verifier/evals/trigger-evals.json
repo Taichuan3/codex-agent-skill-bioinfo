@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "skill_name": "citation-verifier",
+  "purpose": "Evaluate citation identity and claim-support auditing against discovery, paper reading, database lookup, claim auditing, and formatting.",
+  "cases": [
+    {"id":"citation-positive-01","split":"train","query":"逐条检查这 30 个 DOI 是否可解析，题名、作者、年份和期刊是否匹配。","should_trigger":true,"expected_primary_skill":"citation-verifier","rationale":"Identifier and metadata verification are core tasks."},
+    {"id":"citation-positive-02","split":"train","query":"判断每个 Results claim 后面的引用是否真正支持该句，并给出风险类型。","should_trigger":true,"expected_primary_skill":"citation-verifier","rationale":"Claim-to-citation fit is the central responsibility."},
+    {"id":"citation-positive-03","split":"train","query":"核验这个 BibTeX 文件的重复项、错误 DOI 和预印本/正式版冲突。","should_trigger":true,"expected_primary_skill":"citation-verifier","rationale":"Bibliography identity and version conflicts belong here."},
+    {"id":"citation-positive-04","split":"train","query":"审稿人说引用错配，请定位原文支持位置并建议保留、替换或降级措辞。","should_trigger":true,"expected_primary_skill":"citation-verifier","rationale":"Citation-fit remediation is a core workflow."},
+    {"id":"citation-positive-05","split":"train","query":"检查这条 review citation 是否应该换成 primary evidence。","should_trigger":true,"expected_primary_skill":"citation-verifier","rationale":"Review-versus-primary support is an explicit risk type."},
+    {"id":"citation-positive-06","split":"validation","query":"只访问到摘要，请把 citation 标成 partial verification，不要推断全文。","should_trigger":true,"expected_primary_skill":"citation-verifier","rationale":"Access-bounded citation verification is supported."},
+    {"id":"citation-positive-07","split":"validation","query":"核对 PMID、DOI 和题名是否属于同一篇文章，并检查 correction 或 retraction。","should_trigger":true,"expected_primary_skill":"citation-verifier","rationale":"Identity resolution and record status belong here."},
+    {"id":"citation-positive-08","split":"validation","query":"批量审计 reference list，报告 verified、partial、unverified 和 duplicate counts。","should_trigger":true,"expected_primary_skill":"citation-verifier","rationale":"Batch citation audit with counts is a core deliverable."},
+    {"id":"citation-positive-09","split":"validation","query":"这篇方法论文是否只能支持 pipeline，而不能支持生物学结论？","should_trigger":true,"expected_primary_skill":"citation-verifier","rationale":"Method-only citation mismatch is explicitly in scope."},
+    {"id":"citation-positive-10","split":"validation","query":"验证引用所研究的物种、组织和处理条件是否与句子中的泛化范围一致。","should_trigger":true,"expected_primary_skill":"citation-verifier","rationale":"Scope matching is part of claim-support verification."},
+    {"id":"citation-negative-01","split":"train","query":"为 Introduction 系统寻找新的综述和 primary studies。","should_trigger":false,"expected_primary_skill":"literature-search-workflow","rationale":"Open-ended citation discovery belongs to literature search."},
+    {"id":"citation-negative-02","split":"train","query":"逐图阅读这篇指定论文并总结所有实验。","should_trigger":false,"expected_primary_skill":"paper-reader","rationale":"Whole-paper reading belongs to paper-reader."},
+    {"id":"citation-negative-03","split":"train","query":"查 ClinVar 中这个变异的 review status 和 clinical significance。","should_trigger":false,"expected_primary_skill":"scientific-database-grounding","rationale":"Scientific entity database lookup is not citation verification."},
+    {"id":"citation-negative-04","split":"train","query":"检查无引用的 Discussion 是否把相关性写成因果。","should_trigger":false,"expected_primary_skill":"claim-evidence-audit","rationale":"A claim audit without citations belongs to claim-evidence-audit."},
+    {"id":"citation-negative-05","split":"train","query":"把 100 条参考文献统一成 Vancouver 格式，不需要核验内容。","should_trigger":false,"expected_primary_skill":"none","rationale":"Pure formatting is outside verification."},
+    {"id":"citation-negative-06","split":"validation","query":"找出稿件最需要补哪三类证据并安排最小分析。","should_trigger":false,"expected_primary_skill":"evidence-gap-finder","rationale":"Evidence portfolio prioritization belongs elsewhere."},
+    {"id":"citation-negative-07","split":"validation","query":"用 Crossref 导出某期刊 2025 年所有文章做计量分析。","should_trigger":false,"expected_primary_skill":"scientific-database-grounding","rationale":"A publication database retrieval task is broader data grounding."},
+    {"id":"citation-negative-08","split":"validation","query":"把正文中的 [1] 改成上标并调整 bibliography indentation。","should_trigger":false,"expected_primary_skill":"none","rationale":"Citation styling alone should not trigger verification."},
+    {"id":"citation-negative-09","split":"validation","query":"总结这篇论文能给我的项目哪些方法启发。","should_trigger":false,"expected_primary_skill":"paper-reader","rationale":"Specified-paper interpretation belongs to paper-reader."},
+    {"id":"citation-negative-10","split":"validation","query":"检查摘要、正文和图注里的样本数是否一致。","should_trigger":false,"expected_primary_skill":"manuscript-consistency-audit","rationale":"Cross-manuscript numeric consistency is not citation verification."}
+  ]
+}

@@ -1,4 +1,4 @@
 interface:
   display_name: "Drug Discovery and ADMET Screening"
-  short_description: "Plan target validation, screening, and ADMET ranking"
-  default_prompt: "Use $drug-discovery-admet-screening to design early drug-discovery screens and rank candidates with evidence boundaries."
+  short_description: "Design evidence-bounded drug and ADMET screens"
+  default_prompt: "Use $drug-discovery-admet-screening to design an early drug-discovery screen and rank candidates without overstating predicted evidence."

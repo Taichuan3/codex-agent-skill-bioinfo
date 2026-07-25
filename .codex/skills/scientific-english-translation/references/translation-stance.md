@@ -4,7 +4,7 @@
 
 1. Preserve scientific meaning.
 2. Preserve evidence boundary.
-3. Preserve project terminology.
+3. Preserve user-provided or source-defined terminology.
 4. Improve clarity and flow.
 5. Add journal-leaning style only when safe.
 

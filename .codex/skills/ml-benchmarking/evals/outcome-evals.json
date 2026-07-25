@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "skill_name": "ml-benchmarking",
+  "purpose": "Evaluate task definition, fair comparison, leakage handling, reproducibility, implementation handoff, and metric-to-claim boundaries.",
+  "cases": [
+    {
+      "id": "ml-benchmark-outcome-design-01",
+      "mode": "benchmark design",
+      "task": "Design a patient-level biomedical risk-prediction benchmark before model implementation.",
+      "must_include": [
+        "prediction unit, horizon, label source, intended use, and forbidden claims",
+        "patient-level split rationale and locked test policy",
+        "trivial and credible simple baselines",
+        "predeclared metrics with calibration and uncertainty",
+        "data provenance, controls, external-validation status, and user decisions"
+      ],
+      "must_not": [
+        "select a complex model before defining the task",
+        "use row-level random split across related observations",
+        "claim clinical utility from discrimination metrics"
+      ]
+    },
+    {
+      "id": "ml-benchmark-outcome-leakage-01",
+      "mode": "benchmark audit",
+      "task": "Audit a benchmark that fits preprocessing globally and repeatedly inspects its test set.",
+      "must_include": [
+        "invalidating leakage findings ordered by severity",
+        "affected preprocessing, selection, and test-access stages",
+        "test contamination status and evidence",
+        "minimal repair with a new locked test or external set",
+        "claim downgrade and results that remain interpretable"
+      ],
+      "must_not": [
+        "call the current test estimate unbiased",
+        "silently reuse the contaminated test set",
+        "treat rerunning with a new seed as repair"
+      ]
+    },
+    {
+      "id": "ml-benchmark-outcome-comparison-01",
+      "mode": "comparison plan",
+      "task": "Compare a graph neural network with classical baselines for molecular property prediction.",
+      "must_include": [
+        "application-matched scaffold split",
+        "same eligible data, folds, preprocessing, and metric code",
+        "documented and comparable tuning budgets",
+        "paired uncertainty across folds or seeds",
+        "negative controls, ablations, and a stop rule"
+      ],
+      "must_not": [
+        "compare only each model's best run",
+        "treat incomparable literature numbers as direct baselines",
+        "declare superiority from point estimates alone"
+      ]
+    },
+    {
+      "id": "ml-benchmark-outcome-reproducibility-01",
+      "mode": "reproducibility audit",
+      "task": "Make a completed benchmark independently rerunnable.",
+      "must_include": [
+        "immutable input manifest and versions",
+        "split IDs, seeds, code revision, and environment lock",
+        "train and evaluate commands",
+        "metrics, predictions, model, and artifact hashes",
+        "hardware nondeterminism and unresolved provenance gaps"
+      ],
+      "must_not": [
+        "equate one successful local run with reproducibility",
+        "omit split provenance",
+        "overwrite raw data or silently change the environment"
+      ]
+    },
+    {
+      "id": "ml-benchmark-outcome-handoff-01",
+      "mode": "implementation handoff",
+      "task": "Hand a frozen benchmark design to an implementation workflow.",
+      "must_include": [
+        "frozen input and output schemas",
+        "exact split rules and test-read prohibitions",
+        "baseline runner and evaluation-table requirements",
+        "tests, commands, done definition, and expected artifacts",
+        "handoff to bioinfo-analysis-code"
+      ],
+      "must_not": [
+        "leave model or split choices implicit",
+        "allow test data in tuning or feature selection",
+        "expand into unrelated project validation"
+      ]
+    },
+    {
+      "id": "ml-benchmark-outcome-claim-01",
+      "mode": "claim guard",
+      "task": "Interpret a high internal AUROC when no external validation or clinical utility analysis exists.",
+      "must_include": [
+        "dataset, version, unit, split, metric, and uncertainty context",
+        "minimal supported performance statement",
+        "external validity marked not assessed",
+        "unsupported biological, causal, and clinical claims",
+        "next validation needed for any claim upgrade"
+      ],
+      "must_not": [
+        "call high AUROC proof of mechanism",
+        "claim clinical utility or readiness",
+        "substitute internal cross-validation for external evidence"
+      ]
+    }
+  ]
+}

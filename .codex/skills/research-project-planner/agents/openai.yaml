@@ -1,4 +1,4 @@
 interface:
   display_name: "Research Project Planner"
-  short_description: "Plan research questions and evidence routes"
-  default_prompt: "Use $research-project-planner to turn this research idea into a testable project route."
+  short_description: "Design testable bioinformatics project routes"
+  default_prompt: "Use $research-project-planner to turn this bounded research direction into a staged, testable project route with stop and pivot criteria."

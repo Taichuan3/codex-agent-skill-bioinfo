@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "skill_name": "claim-evidence-audit",
+  "purpose": "Evaluate atomic claim-support routing against source-data, consistency, submission, and reviewer workflows.",
+  "cases": [
+    {
+      "id": "claim-positive-01",
+      "split": "train",
+      "query": "这句 Results 说 Gene X drives resistance，但我们只有队列相关性和 pathway enrichment。请判断是否 overclaim 并给安全写法。",
+      "should_trigger": true,
+      "expected_primary_skill": "claim-evidence-audit",
+      "rationale": "The requested deliverable is a claim-strength judgment and evidence-safe downgrade."
+    },
+    {
+      "id": "claim-positive-02",
+      "split": "train",
+      "query": "Figure 3 只有 docking score 和一段短 MD，我能否写这个化合物具有高亲和力且体内有效？",
+      "should_trigger": true,
+      "expected_primary_skill": "claim-evidence-audit",
+      "rationale": "The task asks whether computational proxy evidence supports affinity and efficacy claims."
+    },
+    {
+      "id": "claim-positive-03",
+      "split": "train",
+      "query": "逐条审查这五个图注结论，把 evidence、interpretation、limitation 和 speculation 分开。",
+      "should_trigger": true,
+      "expected_primary_skill": "claim-evidence-audit",
+      "rationale": "Separating claim layers for figure legends is core claim auditing."
+    },
+    {
+      "id": "claim-positive-04",
+      "split": "train",
+      "query": "ClinVar、Open Targets 和一个 registered trial 能否支持我们说这个靶点已获临床验证？",
+      "should_trigger": true,
+      "expected_primary_skill": "claim-evidence-audit",
+      "rationale": "This is a translational evidence-boundary question."
+    },
+    {
+      "id": "claim-positive-05",
+      "split": "train",
+      "query": "把 claim-to-figure 表里的每个主张标成 keep、downgrade、move_to_discussion 或 needs_analysis。",
+      "should_trigger": true,
+      "expected_primary_skill": "claim-evidence-audit",
+      "rationale": "The requested action taxonomy directly evaluates claim support."
+    },
+    {
+      "id": "claim-positive-06",
+      "split": "validation",
+      "query": "模型预测与公共 track 在重复区域看起来一致，这能写成预测准确吗？请检查 mappability caveat。",
+      "should_trigger": true,
+      "expected_primary_skill": "claim-evidence-audit",
+      "rationale": "The task is a repeat-rich concordance claim audit, not a data inventory."
+    },
+    {
+      "id": "claim-positive-07",
+      "split": "validation",
+      "query": "审稿回复草稿说新增分析 proves causality；请只检查这句话与现有统计证据是否匹配。",
+      "should_trigger": true,
+      "expected_primary_skill": "claim-evidence-audit",
+      "rationale": "A bounded claim audit can apply inside a response draft without owning the full response workflow."
+    },
+    {
+      "id": "claim-positive-08",
+      "split": "validation",
+      "query": "外部验证只覆盖一个细胞系，我们的结论却泛化到所有患者。请标出范围越界并改写。",
+      "should_trigger": true,
+      "expected_primary_skill": "claim-evidence-audit",
+      "rationale": "The central issue is unsupported generalization."
+    },
+    {
+      "id": "claim-positive-09",
+      "split": "validation",
+      "query": "检查 Discussion 中哪些机制句只是 speculative，哪些至少有 Moderate evidence。",
+      "should_trigger": true,
+      "expected_primary_skill": "claim-evidence-audit",
+      "rationale": "Evidence grading of mechanism statements is a core task."
+    },
+    {
+      "id": "claim-positive-10",
+      "split": "validation",
+      "query": "我只有摘要、Figure 1 和 source table。请限定材料范围，审计摘要中的三个核心结论是否安全。",
+      "should_trigger": true,
+      "expected_primary_skill": "claim-evidence-audit",
+      "rationale": "A bounded support audit remains appropriate when its assessment boundary is explicit."
+    },
+    {
+      "id": "claim-negative-01",
+      "split": "train",
+      "query": "为 Figure 1 到 Figure 5 建 source-data inventory，记录 source file、script、统计定义和 accession。",
+      "should_trigger": false,
+      "expected_primary_skill": "source-data-audit",
+      "rationale": "The deliverable is traceability inventory rather than claim-strength judgment."
+    },
+    {
+      "id": "claim-negative-02",
+      "split": "train",
+      "query": "检查摘要、Results 和图注里的样本数为什么分别是 96、94 和 95。",
+      "should_trigger": false,
+      "expected_primary_skill": "manuscript-consistency-audit",
+      "rationale": "Cross-location number conflicts belong to manuscript consistency."
+    },
+    {
+      "id": "claim-negative-03",
+      "split": "train",
+      "query": "整套稿件、补充材料、代码和 availability statement 是否已经可以投稿？",
+      "should_trigger": false,
+      "expected_primary_skill": "submission-readiness-audit",
+      "rationale": "A complete-package readiness gate is broader than atomic claim audit."
+    },
+    {
+      "id": "claim-negative-04",
+      "split": "train",
+      "query": "模拟三个审稿视角，预测这篇稿件最可能收到的 major concerns。",
+      "should_trigger": false,
+      "expected_primary_skill": "reviewer-simulation",
+      "rationale": "Prospective reviewer red-teaming belongs to reviewer simulation."
+    },
+    {
+      "id": "claim-negative-05",
+      "split": "train",
+      "query": "这里是真实的 Reviewer 2 意见，请逐条生成 response table 和返修计划。",
+      "should_trigger": false,
+      "expected_primary_skill": "reviewer-response-builder",
+      "rationale": "Real reviewer comments require the response-builder workflow."
+    },
+    {
+      "id": "claim-negative-06",
+      "split": "validation",
+      "query": "核验这 30 条 DOI 和 PMID 是否对应正确论文，并修正引用身份。",
+      "should_trigger": false,
+      "expected_primary_skill": "citation-verifier",
+      "rationale": "Citation identity verification is not claim-evidence interpretation."
+    },
+    {
+      "id": "claim-negative-07",
+      "split": "validation",
+      "query": "把火山图改成色盲友好配色并输出 SVG。",
+      "should_trigger": false,
+      "expected_primary_skill": "publication-plotting",
+      "rationale": "Figure implementation without claim judgment belongs to plotting."
+    },
+    {
+      "id": "claim-negative-08",
+      "split": "validation",
+      "query": "搜索 2025 年以来关于这个基因与耐药性的最新论文。",
+      "should_trigger": false,
+      "expected_primary_skill": "literature-search-workflow",
+      "rationale": "Literature retrieval is upstream evidence gathering, not claim auditing."
+    },
+    {
+      "id": "claim-negative-09",
+      "split": "validation",
+      "query": "重构这个 notebook，让差异分析函数可重复运行并加测试。",
+      "should_trigger": false,
+      "expected_primary_skill": "bioinfo-analysis-code",
+      "rationale": "Code implementation is outside claim-audit scope."
+    },
+    {
+      "id": "claim-negative-10",
+      "split": "validation",
+      "query": "把这段中文结果润色得更简洁，但不要改变任何科学含义。",
+      "should_trigger": false,
+      "expected_primary_skill": "chinese-scientific-polishing",
+      "rationale": "Pure language polishing without support judgment belongs to scientific polishing."
+    }
+  ]
+}

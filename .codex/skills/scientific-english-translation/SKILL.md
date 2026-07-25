@@ -1,6 +1,6 @@
 ---
 name: scientific-english-translation
-description: 用于将中文科研文本翻译为英文，或把中文草稿转成证据边界安全的英文科研表达，适用于摘要、引言、结果、讨论、方法、图注、回复信和标题。不负责中文润色，也不应为了更像高水平期刊而升级 claim。
+description: 用于把中文或以中文为主的科研文本忠实翻译为英文，适用于摘要、正文、方法、回复信、标题和既有图注，并保护术语、数字、章节职责与证据强度。已有英文文本的语言改写用 scientific-english-polishing，中文输出用 chinese-scientific-polishing；需要从图和分析信息起草完整 figure title/panel legend/caption 时用 figure-caption。
 ---
 
 # Scientific English Translation
@@ -9,51 +9,35 @@ description: 用于将中文科研文本翻译为英文，或把中文草稿转�
 
 如何把中文科研草稿翻译成证据边界安全、可投稿语气的英文表达？
 
-## 使用场景
+## 路由与边界
 
-当用户要求“翻译成英文”“中文转英文”“Nature 风格英文”“英文论文表达”时使用本 skill。中文内部润色使用 `chinese-scientific-polishing`。
+- 以来源语言和目标语言路由：中文或中英混合输入、目标为英文时用本 Skill；已有英文的清晰度和风格修改用 `scientific-english-polishing`。
+- 只翻译现成中文图注时用本 Skill；需要决定 caption 应包含哪些 panel、n、统计、编码、source data 或 caveat 时改用或组合 `figure-caption`。
+- 只需要中文改写时用 `chinese-scientific-polishing`；主要任务是验证 claim 时先用 `claim-evidence-audit`。
+- 不发明数据、文献、样本数、统计、机制或术语定义，不静默纠正疑似错误数字。
 
-## 不适合触发
+## 翻译契约
 
-- 输入已经是英文并只需润色时，使用 `scientific-english-polishing`。
-- 只需中文内部润色或结构调整时，使用 `chinese-scientific-polishing`。
-- 需要判断 claim 是否成立时，联动 `claim-evidence-audit`，不要在翻译中自行增强结论。
-
-
-## 核心原则
-
-- 先保护科学 claim，再追求英文风格。
-- 不把相关性写成因果，不把候选机制写成已证明机制。
-- 保留项目 profile 中的术语、禁止性表达和证据等级。
-- 翻译时保持术语一一对应：同一个中文概念应稳定翻译为同一个英文术语，不要为了英文变化把同一对象翻成多个词。若中文原文中同一概念用了多个说法，应在 `Risk notes` 或 `Terms preserved` 中提示并建议统一。
-- `element`、`copy`、`unit`、`locus`、`sequence` 等术语只有在对应不同层级或不同对象时才可并存；否则应选择一个 preferred term 并保持全文一致。
-- 翻译按文本部分调整语气：摘要更紧，结果更具体，讨论更有边界。
-- 不发明数据、文献、样本数、统计结果或机制。
-- 翻译完成后先自检再输出。风险说明、术语表和精炼版本只在任务需要或发现问题时提供，不默认增加冗余说明。
+- 先忠实保留 scientific meaning、evidence boundary、数字、限定词和章节职责，再改善英文流畅度。
+- 不把相关性翻译成因果，不把 candidate、putative 或 exploratory 结果翻译成 demonstrated、established 或 mechanistic conclusion。
+- 一个中文概念稳定映射为一个英文术语；原文术语不一致时选择最保守映射并标记歧义。
+- Results 保持观察性，Discussion 可解释但保留限制，Methods 不压缩掉复现信息。
+- “Nature/高影响期刊风格”只改变选择、结构与简洁度，不授权新增 novelty 或增强 claim。
 
 ## 工作流程
 
-1. 判断文本部分：abstract、introduction、results、discussion、methods、figure legend、response。
-2. 抽取核心 claim、caveat 和需要稳定翻译的关键术语。
-3. 建立或沿用 terminology map，统一同一概念的英文表达。
-4. 给出忠实英文版。
-5. 如用户需要，再给出更精炼或 Nature-leaning 版本。
-6. 交付前自检：检查英文是否忠实、claim 是否升级、术语是否一一对应、section function 是否正确、是否引入英文歧义。
-7. 如发现问题，标出不建议使用的过强英文词和容易造成歧义的术语替换。
+1. 确认英文目标、章节、读者、期刊导向、长度和必须保留的术语。
+2. 提取 claim、直接证据、caveat、数字和术语映射；遇到歧义先保守处理并标记。
+3. 先完成忠实英文版，再按用户要求压缩或调整期刊语气。
+4. 逐项回对原文，检查遗漏、增译、数字、术语、claim 强度和 section function。
 
 ## 输出格式
 
-- `English version`
-- `Optional concise version`：可选；仅在用户要求精炼、投稿语气或原文明显冗长时提供。
-- `Risk notes`：可选；仅在存在过强表达、翻译歧义、证据边界或 section function 风险时提供。
-- `Terms preserved`：可选；仅在有必须保留的项目术语时提供。
-- `Terminology map`：可选；复杂文本、术语不稳定或用户要求术语统一时提供。
-
-## 风格参考
-
-可参考本地 `nature-polishing` 的 section responsibility 思路，但不要直接照搬 Nature 规则到所有项目。
+- 默认给出可直接使用的 `English version`。
+- 仅在用户要求时给出 `Concise` 或 journal-leaning variant。
+- 仅在存在歧义或证据风险时增加 `Risk notes`；复杂术语才给 `Terminology map`。
 
 ## 按需读取
 
-需要在忠实翻译、精炼翻译和 Nature-leaning 翻译之间选择时，读取 `references/translation-stance.md`。
-需要将中文论文段落翻译成符合高影响期刊 section function 的英文表达，或检查摘要、引言、结果、讨论、方法、图注的英文职责时，读取 `references/high-impact-journal-translation.md`。
+- 需要选择 faithful、concise 或 journal-leaning stance，或原文术语不稳定时，读取 `references/translation-stance.md`。
+- 用户明确要求高影响期刊导向或需要维护 manuscript section function 时，读取 `references/high-impact-journal-translation.md`；目标期刊规则优先。

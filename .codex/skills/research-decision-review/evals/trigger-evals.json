@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "skill_name": "research-decision-review",
+  "purpose": "Evaluate high-impact option review against planning, validation strategy, QA, and execution.",
+  "cases": [
+    {
+      "id": "decision-review-positive-01",
+      "split": "train",
+      "query": "这个课题还值得继续吗？请比较继续、转向和停止的证据与机会成本。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-decision-review",
+      "rationale": "Continue-pivot-stop is a high-impact existing decision."
+    },
+    {
+      "id": "decision-review-positive-02",
+      "split": "train",
+      "query": "该直接用现有工具、做本地适配还是自己重写？请给条件化建议。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-decision-review",
+      "rationale": "Use-adapt-rewrite trade-off is a core decision mode."
+    },
+    {
+      "id": "decision-review-positive-03",
+      "split": "train",
+      "query": "我把相关性写成机制是不是过度解释了？请审查 claim 强度和替代表述。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-decision-review",
+      "rationale": "The user asks for a high-impact claim-strength judgment."
+    },
+    {
+      "id": "decision-review-positive-04",
+      "split": "train",
+      "query": "在两条论文主线之间做选择，比较科学价值、证据适配和审稿风险。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-decision-review",
+      "rationale": "Comparing existing manuscript routes is decision support."
+    },
+    {
+      "id": "decision-review-positive-05",
+      "split": "train",
+      "query": "这个外部数据库值得纳入主分析吗？考虑版本、可追踪性和长期维护成本。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-decision-review",
+      "rationale": "Adoption of an external dependency is a high-impact trade-off."
+    },
+    {
+      "id": "decision-review-positive-06",
+      "split": "validation",
+      "query": "请建设性反对我的现有方案，并给出最强替代方案和最小去风险步骤。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-decision-review",
+      "rationale": "The user explicitly requests constructive decision review."
+    },
+    {
+      "id": "decision-review-positive-07",
+      "split": "validation",
+      "query": "这个模型提升只有 1%，是否值得承担新增依赖和维护成本？",
+      "should_trigger": true,
+      "expected_primary_skill": "research-decision-review",
+      "rationale": "Benefit versus ownership cost is the core decision."
+    },
+    {
+      "id": "decision-review-positive-08",
+      "split": "validation",
+      "query": "评估删掉一个脆弱主图还是追加昂贵实验，说明什么条件会改变推荐。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-decision-review",
+      "rationale": "This compares costly alternatives and flip conditions."
+    },
+    {
+      "id": "decision-review-positive-09",
+      "split": "validation",
+      "query": "我们是否应该用一个不可完全复现但表现更好的方法作为主结果？",
+      "should_trigger": true,
+      "expected_primary_skill": "research-decision-review",
+      "rationale": "Performance versus reproducibility is a high-impact choice."
+    },
+    {
+      "id": "decision-review-positive-10",
+      "split": "validation",
+      "query": "现有数据不足以支持最初目标，应该降级 claim、转向相邻问题还是停止？",
+      "should_trigger": true,
+      "expected_primary_skill": "research-decision-review",
+      "rationale": "A conditional pivot and claim decision belongs here."
+    },
+    {
+      "id": "decision-review-negative-01",
+      "split": "train",
+      "query": "把我的零散想法整理成一个一页研究问题简报。",
+      "should_trigger": false,
+      "expected_primary_skill": "research-question-brief",
+      "rationale": "Early question framing is not decision review."
+    },
+    {
+      "id": "decision-review-negative-02",
+      "split": "train",
+      "query": "为新课题从零设计 figure skeleton、技术模块、里程碑和 stop criteria。",
+      "should_trigger": false,
+      "expected_primary_skill": "research-project-planner",
+      "rationale": "From-scratch project planning belongs to the planner."
+    },
+    {
+      "id": "decision-review-negative-03",
+      "split": "train",
+      "query": "针对候选机制列出计算、独立队列和扰动实验的验证选项与成功判据。",
+      "should_trigger": false,
+      "expected_primary_skill": "validation-strategy-planner",
+      "rationale": "Detailed claim-linked validation design belongs to validation strategy."
+    },
+    {
+      "id": "decision-review-negative-04",
+      "split": "train",
+      "query": "最终检查报告中的路径、命令、证据和图表是否可交付。",
+      "should_trigger": false,
+      "expected_primary_skill": "task-self-check",
+      "rationale": "Final delivery QA belongs to task-self-check."
+    },
+    {
+      "id": "decision-review-negative-05",
+      "split": "train",
+      "query": "按已确认方案运行差异表达分析并保存结果。",
+      "should_trigger": false,
+      "expected_primary_skill": "bioinfo-analysis-code",
+      "rationale": "Ordinary execution does not warrant decision review."
+    },
+    {
+      "id": "decision-review-negative-06",
+      "split": "validation",
+      "query": "审计论文中每个机制 claim 是否有对应数据和图表证据。",
+      "should_trigger": false,
+      "expected_primary_skill": "claim-evidence-audit",
+      "rationale": "A systematic claim-to-evidence audit is a dedicated audit task."
+    },
+    {
+      "id": "decision-review-negative-07",
+      "split": "validation",
+      "query": "查询这个工具的官方文档、license、最新版本和安装方式。",
+      "should_trigger": false,
+      "expected_primary_skill": "environment-and-tool-adoption",
+      "rationale": "Tool due diligence and adoption mechanics are not yet an option decision."
+    },
+    {
+      "id": "decision-review-negative-08",
+      "split": "validation",
+      "query": "把用户已经确认的 continue 决定和风险写进 PROJECT_GUIDE。",
+      "should_trigger": false,
+      "expected_primary_skill": "project-guide-maintainer",
+      "rationale": "Recording a confirmed current decision belongs to guide maintenance."
+    },
+    {
+      "id": "decision-review-negative-09",
+      "split": "validation",
+      "query": "把 Results 这一段改得更简洁，不改变证据强度。",
+      "should_trigger": false,
+      "expected_primary_skill": "chinese-scientific-polishing",
+      "rationale": "Text polishing is not a high-impact research decision."
+    },
+    {
+      "id": "decision-review-negative-10",
+      "split": "validation",
+      "query": "这个 shell 命令为什么报错？只诊断语法问题。",
+      "should_trigger": false,
+      "expected_primary_skill": "none",
+      "rationale": "A routine technical diagnosis is not research decision support."
+    }
+  ]
+}

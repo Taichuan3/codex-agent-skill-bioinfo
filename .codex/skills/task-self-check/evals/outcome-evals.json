@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "skill_name": "task-self-check",
+  "purpose": "Evaluate bounded inspection, honest unknowns, severity, readiness, and minimal fixes.",
+  "cases": [
+    {
+      "id": "self-check-outcome-scope-01",
+      "mode": "bounded QA",
+      "task": "Check three specified deliverable files.",
+      "must_include": ["checked scope", "intended use and phase", "Pass Needs fix Not checked", "validation boundary"],
+      "must_not": ["scan the entire project", "infer unseen evidence", "redo the main analysis"]
+    },
+    {
+      "id": "self-check-outcome-hardstop-01",
+      "mode": "hard stop",
+      "task": "A key claim lacks a visible evidence source.",
+      "must_include": ["Not ready", "High severity", "affected claim", "minimal evidence or wording fix"],
+      "must_not": ["mark the claim Pass", "invent a source", "hide the issue among polish notes"]
+    },
+    {
+      "id": "self-check-outcome-repro-01",
+      "mode": "reproducibility",
+      "task": "Check a script-based analysis handoff.",
+      "must_include": ["input", "output", "command", "environment and parameters", "missing items as Not checked or Needs fix"],
+      "must_not": ["claim reproducibility from file existence alone", "run an unbounded rebuild", "change parameters silently"]
+    },
+    {
+      "id": "self-check-outcome-figure-01",
+      "mode": "figure QA",
+      "task": "Check a final figure and its traceability.",
+      "must_include": ["readability", "source-data pointer", "producer or command", "phase-appropriate claim", "minimal fix"],
+      "must_not": ["redesign the entire figure without authorization", "treat visual appeal as scientific validity", "ignore missing source data"]
+    },
+    {
+      "id": "self-check-outcome-delivery-01",
+      "mode": "final handoff",
+      "task": "Gate a long-running research task's final response.",
+      "must_include": ["actual work completed", "changed files", "verification and boundary", "remaining risks", "next decision"],
+      "must_not": ["use raw logs as the main conclusion", "require opening an audit file to understand the result", "claim final scientific approval"]
+    }
+  ]
+}

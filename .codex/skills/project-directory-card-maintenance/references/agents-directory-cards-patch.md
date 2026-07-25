@@ -8,7 +8,7 @@ Add this section to project-level `AGENTS.md` when adopting Directory Cards.
 This project uses short directory-level `README.md` files as on-demand directory cards for important artifact folders.
 
 Purpose:
-- Help Hermes/Codex understand what a result/data/model/figure folder contains without opening every file.
+- Help future agents understand what a result/data/model/figure folder contains without opening every file.
 - Preserve local provenance and navigation information.
 - Keep `PROJECT_GUIDE.md` short and keep `PROJECT_PLAN.md` as the detailed append-only log.
 

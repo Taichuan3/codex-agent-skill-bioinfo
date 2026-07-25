@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "skill_name": "clinical-bioinformatics-evidence",
+  "purpose": "Evaluate clinical and translational evidence routing across trials, cohorts, PGx, individual medical requests, variants, and drug discovery.",
+  "cases": [
+    {
+      "id": "clinical-positive-01",
+      "split": "train",
+      "query": "整理某靶点相关临床试验 landscape，记录 NCT ID、status/date、phase、arms、eligibility、primary outcome 和 results availability。",
+      "should_trigger": true,
+      "expected_primary_skill": "clinical-bioinformatics-evidence",
+      "rationale": "A dated trial-registry landscape is core scope."
+    },
+    {
+      "id": "clinical-positive-02",
+      "split": "train",
+      "query": "审查一项随机试验的 registry、posted results 和论文，比较 primary endpoint、analysis set、effect、CI 和 harms。",
+      "should_trigger": true,
+      "expected_primary_skill": "clinical-bioinformatics-evidence",
+      "rationale": "Linked trial-result appraisal is a central mode."
+    },
+    {
+      "id": "clinical-positive-03",
+      "split": "train",
+      "query": "把多个 cohort 的 biomarker association 按 population、assay、endpoint、effect、validation 和 bias 做 evidence map。",
+      "should_trigger": true,
+      "expected_primary_skill": "clinical-bioinformatics-evidence",
+      "rationale": "Cross-cohort biomarker evidence synthesis belongs here."
+    },
+    {
+      "id": "clinical-positive-04",
+      "split": "train",
+      "query": "审查一个 survival model 的 time origin、censoring、event count、covariates、PH assumption 和 external validation。",
+      "should_trigger": true,
+      "expected_primary_skill": "clinical-bioinformatics-evidence",
+      "rationale": "Survival-model clinical evidence review is core scope."
+    },
+    {
+      "id": "clinical-positive-05",
+      "split": "train",
+      "query": "整理某 drug-gene pair 的 PGx study、guideline 和 label context，仅做 research-only 比较，不给剂量建议。",
+      "should_trigger": true,
+      "expected_primary_skill": "clinical-bioinformatics-evidence",
+      "rationale": "Research-only PGx evidence review belongs to this Skill."
+    },
+    {
+      "id": "clinical-positive-06",
+      "split": "validation",
+      "query": "比较标签、监管安全信息和自发不良事件信号，说明为什么不能据此直接估计发生率或因果性。",
+      "should_trigger": true,
+      "expected_primary_skill": "clinical-bioinformatics-evidence",
+      "rationale": "Regulatory and safety-signal evidence boundaries are supported."
+    },
+    {
+      "id": "clinical-positive-07",
+      "split": "validation",
+      "query": "为 gene–disease–drug 转化方向建立 evidence map，分开遗传支持、cohort association、trial design 和 trial results。",
+      "should_trigger": true,
+      "expected_primary_skill": "clinical-bioinformatics-evidence",
+      "rationale": "Layered translational evidence synthesis is core scope."
+    },
+    {
+      "id": "clinical-positive-08",
+      "split": "validation",
+      "query": "只读审查一个 patient/cohort table 的 inclusion、missingness、follow-up、endpoint 和 covariates，不输出任何可识别信息。",
+      "should_trigger": true,
+      "expected_primary_skill": "clinical-bioinformatics-evidence",
+      "rationale": "Privacy-preserving cohort evidence review belongs here."
+    },
+    {
+      "id": "clinical-positive-09",
+      "split": "validation",
+      "query": "判断这个 internally validated biomarker model 最多能支持 prognostic association、prediction 还是 clinical utility。",
+      "should_trigger": true,
+      "expected_primary_skill": "clinical-bioinformatics-evidence",
+      "rationale": "Clinical intended-use and validation boundary review is core scope."
+    },
+    {
+      "id": "clinical-positive-10",
+      "split": "validation",
+      "query": "有人要求根据研究型 biomarker 结果决定个人用药；请拦截医疗建议，并只解释一般证据和临床复核需要的信息。",
+      "should_trigger": true,
+      "expected_primary_skill": "clinical-bioinformatics-evidence",
+      "rationale": "The clinical safety boundary must activate on an individualized action request."
+    },
+    {
+      "id": "clinical-negative-01",
+      "split": "train",
+      "query": "核验一个 VCF indel 的 GRCh38 REF/ALT、HGVS、ClinVar assertion 和 gnomAD frequency。",
+      "should_trigger": false,
+      "expected_primary_skill": "variant-genomics-interpretation",
+      "rationale": "Variant identity and database reconciliation belong to variant interpretation."
+    },
+    {
+      "id": "clinical-negative-02",
+      "split": "train",
+      "query": "对 1000 个候选分子运行 docking、ADMET 和 toxicity filtering，生成优先级清单。",
+      "should_trigger": false,
+      "expected_primary_skill": "drug-discovery-admet-screening",
+      "rationale": "Candidate screening is a drug-discovery workflow, not clinical evidence review."
+    },
+    {
+      "id": "clinical-negative-03",
+      "split": "train",
+      "query": "从 raw counts 运行 bulk RNA-seq differential expression 并检查 batch effect。",
+      "should_trigger": false,
+      "expected_primary_skill": "rnaseq-singlecell-workflow",
+      "rationale": "RNA execution belongs to the RNA workflow Skill."
+    },
+    {
+      "id": "clinical-negative-04",
+      "split": "train",
+      "query": "写 R 函数拟合 Cox 模型、导出 tidy coefficients 并加单元测试；不解释临床结果。",
+      "should_trigger": false,
+      "expected_primary_skill": "bioinfo-analysis-code",
+      "rationale": "Pure statistical implementation belongs to analysis code."
+    },
+    {
+      "id": "clinical-negative-05",
+      "split": "train",
+      "query": "系统检索某疾病最近十年的综述和机制研究，生成 PRISMA 风格检索记录。",
+      "should_trigger": false,
+      "expected_primary_skill": "literature-search-workflow",
+      "rationale": "A broad literature search without clinical evidence extraction has its own Skill."
+    },
+    {
+      "id": "clinical-negative-06",
+      "split": "validation",
+      "query": "把这段临床研究 Results 润色成正式英文，但不要审查数据、证据或 claim。",
+      "should_trigger": false,
+      "expected_primary_skill": "scientific-english-polishing",
+      "rationale": "Language-only polishing belongs to scientific-English polishing."
+    },
+    {
+      "id": "clinical-negative-07",
+      "split": "validation",
+      "query": "重画 Kaplan–Meier 图，统一 risk table、字体、颜色和导出尺寸。",
+      "should_trigger": false,
+      "expected_primary_skill": "publication-plotting",
+      "rationale": "The deliverable is figure production."
+    },
+    {
+      "id": "clinical-negative-08",
+      "split": "validation",
+      "query": "检查稿件的 clinical claim 是否与所有表格、图、方法和引用一致。",
+      "should_trigger": false,
+      "expected_primary_skill": "manuscript-consistency-audit",
+      "rationale": "Manuscript-wide consistency has a dedicated audit Skill."
+    },
+    {
+      "id": "clinical-negative-09",
+      "split": "validation",
+      "query": "核对临床论文引用的 DOI、PMID、作者、年份与正文 statement 是否对应。",
+      "should_trigger": false,
+      "expected_primary_skill": "citation-verifier",
+      "rationale": "Citation verification is not clinical evidence synthesis."
+    },
+    {
+      "id": "clinical-negative-10",
+      "split": "validation",
+      "query": "从零规划一个三年转化研究课题的 aims、预算、milestones 和 go/no-go。",
+      "should_trigger": false,
+      "expected_primary_skill": "research-project-planner",
+      "rationale": "Long-range research planning is outside evidence review."
+    }
+  ]
+}

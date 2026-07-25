@@ -1,46 +1,47 @@
 ---
 name: reviewer-simulation
-description: 用于模拟生物信息学论文审稿人，识别证据链、统计、复现、图表、方法、机制解释和期刊叙事风险，并生成 response strategy 或补分析优先级。
+description: 用于在尚无真实审稿意见时对生物信息学稿件或摘要做 prospective reviewer red-team，生成有证据依据的假想 Critical/Major/Minor concerns、可反驳性测试和补分析优先级；不处理真实 editor/reviewer comments，不给出最终 editorial decision，也不替代投稿完整性 gate。
 ---
 
 # Reviewer Simulation
 
 ## 核心问题
 
-如何提前模拟审稿人会攻击的证据、统计、复现、图表和叙事风险？
+如何在不虚构审稿人或编辑决定的前提下，提前找出稿件最可能受到的高价值科学与方法攻击？
 
-## 使用场景
+## 能力边界
 
-当用户要求“模拟审稿人”“找硬伤”“预测 major concerns”“准备 rebuttal”“判断哪些补分析优先”时使用本 skill。
+- 在真实 peer review 之前生成 hypothetical concerns、严重度、依据、可回答方式和补分析优先级。
+- 已提供真实 editor letter、reviewer comments 或 collaborator annotations 时，改用 `reviewer-response-builder`。
+- 判断整套 package 是否 ready 时，改用 `submission-readiness-audit`。
+- 只审查具体 claim、source-data traceability 或稿件内部冲突时，分别改用 `claim-evidence-audit`、`source-data-audit` 或 `manuscript-consistency-audit`。
+- 不模拟具名审稿人，不声称预测实际决定，不把缺失材料当成已验证缺陷。
 
-## 审稿视角
+## 模拟合同
 
-至少从以下角度检查：
+- 锁定稿件版本、目标期刊/读者（如已提供）、材料范围和 assessment boundary。
+- 从 novelty/reader value、claim-evidence、study design/statistics、method/reproducibility、figure logic、alternative explanations 与 data/code availability 选择适用视角。
+- 每条 concern 必须引用稿件位置、figure/table 或明确缺失材料；避免泛化的“需要更多验证”。
+- 区分 `Critical`、`Major`、`Minor`，并区分文字澄清、重分析、外部验证、新实验与不可在本轮解决的定位问题。
+- 对 computational/omics 稿件检查 sample universe、reference/coordinate、ID mapping loss、filtering、multiple testing、random seed、workflow/database version 和 source-data traceability。
+- partial manuscript 只给条件性审查，不给确定性 editorial verdict。
+- 不编造 reviewer identity、journal policy、实验结果、统计缺陷或 rebuttal 已完成状态。
 
-- 研究问题是否清楚，结果顺序是否支持主线。
-- claim 是否由当前证据支撑。
-- 样本、过滤、统计背景和多重比较是否清楚。
-- 图表是否承载了关键结论。
-- 方法和代码是否足以复现。
-- 机制、功能或因果解释是否过度。
-- 数据可用性、source data 和 accession 是否完整。
-- 对 computational/omics 稿件，检查样本 universe、参考版本、坐标系统、ID mapping loss、随机种子、workflow pinning、database date 和 source-data traceability 是否足以复现。
-- 若用户要求 Nature/CNS 风格预审，可从三类 reviewer emphasis 模拟：novelty/broad interest、technical rigor/reproducibility、clarity/reader fit；三者共享同一事实基础，不编造 reviewer 身份。
-- partial manuscript 或只有摘要/图注时，必须写明 assessment boundary 和 missing materials，不能给出确定性 editorial decision。
+## 工作流程
 
-## 输出格式
+1. 建立稿件主张、figure logic、方法与验证范围的最小地图。
+2. 先列能推翻中心结论或破坏可复现性的攻击，再列叙事和可读性问题。
+3. 为每条 concern 写明 evidence/location、why it matters、最小充分 response 和残余风险。
+4. 检查替代解释、confounder、data leakage、baseline/sensitivity、independent validation 与 claim generalization。
+5. 对每项 response 标记 `clarify`、`reanalyze`、`new validation`、`new experiment`、`downgrade` 或 `scope decision`。
+6. 按 central-claim impact、可行动性和成本排序；把具体深审转交相应 Skill。
+7. 汇报材料边界与最可能改变优先级的未知因素，不将模拟意见写成真实审稿事实。
 
-优先输出按严重度排序的审稿意见：
+## 输出合同
 
-| Severity | Reviewer concern | Why it matters | Recommended response |
-|---|---|---|---|
+| Severity | Hypothetical concern | Evidence/location | Why it matters | Response class | Priority |
+|---|---|---|---|---|---|
 
-Severity 使用：
+最后给出 top attack chain、最小 rebuttal-enabling work、不能从现有材料判断的事项和专项 handoff。
 
-- **Critical**：可能阻止论文成立。
-- **Major**：需要补分析、重写或补充证据。
-- **Minor**：表达、图注、方法细节或易读性问题。
-
-给出 response strategy 时，区分“可以文字澄清”和“需要新增分析”。
-
-若审查 RNA-seq/single-cell、variant/genomics、pathway/network、clinical/translational 或 protein/docking 结果，优先把风险归入：输入定义不清、统计/过滤不透明、数据库证据越界、图表承载不足、复现入口缺失、claim 过强。
+最终回复明确说明这是 prospective simulation，不是实际 reviewer 意见或最终 editorial decision。

@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "skill_name": "research-question-brief",
+  "purpose": "Evaluate concise question framing, epistemic labels, and handoff boundaries.",
+  "cases": [
+    {
+      "id": "question-brief-outcome-create-01",
+      "mode": "create",
+      "task": "Create a brief from a broad verbal research idea.",
+      "must_include": ["one-line idea", "one bounded working question", "why it matters", "evidence categories", "next user decision"],
+      "must_not": ["invent a result", "choose a full technical route", "exceed one page without justification"]
+    },
+    {
+      "id": "question-brief-outcome-ambiguity-01",
+      "mode": "clarify",
+      "task": "Handle an idea with missing population, comparison, and outcome.",
+      "must_include": ["known inputs", "Assumption labels", "Open question labels", "no more than three route-changing questions"],
+      "must_not": ["silently fill missing facts", "ask an exhaustive questionnaire", "present a hypothesis as confirmed"]
+    },
+    {
+      "id": "question-brief-outcome-candidates-01",
+      "mode": "candidate framing",
+      "task": "Offer candidate formulations for an overly broad topic.",
+      "must_include": ["at most two candidate working questions", "difference in scope", "evidence implication", "explicit user choice"],
+      "must_not": ["select the scientific direction for the user", "add methods not requested", "collapse alternatives into one ambiguous question"]
+    },
+    {
+      "id": "question-brief-outcome-update-01",
+      "mode": "update",
+      "task": "Update an existing brief after new constraints arrive.",
+      "must_include": ["replacement current wording", "new constraint", "retained open questions", "updated next decision"],
+      "must_not": ["append a conversation log", "erase unresolved uncertainty", "expand into a project charter"]
+    },
+    {
+      "id": "question-brief-outcome-routing-01",
+      "mode": "handoff",
+      "task": "The brief is now confirmed and the user asks what comes next.",
+      "must_include": ["confirmed brief boundary", "handoff to research-project-planner", "inputs ready for planning", "remaining user-owned decisions"],
+      "must_not": ["take over GUIDE maintenance", "pretend planning is complete", "execute an analysis"]
+    }
+  ]
+}

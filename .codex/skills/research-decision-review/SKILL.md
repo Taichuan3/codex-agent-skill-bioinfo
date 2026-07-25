@@ -1,54 +1,46 @@
 ---
 name: research-decision-review
-description: 用于在已经理解用户需求和必要背景后，对生物信息学研究中的高影响决策进行建设性反对和取舍评估，包括分析方案、论文结构、外部工具采用、证据解释、是否继续/转向/停止、是否重写已有方法。适用于用户问“这样做合理吗”“要不要采用这个工具/方法”“是否值得继续”“我是不是过度解释了”“要不要自己重写代码”，或当前方案明显存在证据、复现、成本或审稿风险的场景；不用于普通执行型任务的默认反驳。
+description: 审查已有生物信息学研究方案中的高影响取舍，比较继续/转向/停止、采用/改造/重写工具、claim 强度或论文路线等选项，并给出条件化建议、替代方案、敏感假设和最小去风险步骤；用于用户明确寻求“是否合理/值得/过度解释”的 decision support，不用于从零规划项目、为单个 claim 设计验证矩阵、普通执行或交付前 QA。
 ---
 
 # Research Decision Review
 
 ## 核心问题
 
-如何在高影响研究决策前识别风险、成本、证据边界和 stop/pivot 条件？
+如何让一个已有高影响选择的推荐、代价和会改变结论的条件可见？
 
-## 使用场景
+## 边界
 
-当任务的核心不是执行，而是判断方向、取舍、风险和替代方案时使用本 skill。必须先理解用户目标、已有材料和当前约束，再决定是否触发；不要在尚未读懂需求时因为“可能需要反对”而机械触发。
+- 本 Skill 审查已有选项，不从零生成完整 project charter；项目启动或重大重规划用 `research-project-planner`。
+- 针对具体 claim 生成计算、外部数据、统计和实验验证矩阵时用 `validation-strategy-planner`；本 Skill 只指出哪类证据会改变决策。
+- 交付前查错用 `task-self-check`，系统 claim 审计用 `claim-evidence-audit`，具体执行交给相应执行 Skill。
+- 普通执行任务不默认触发“建设性反对”；只有任务核心是取舍，或继续执行存在明确高影响风险时才使用。
+- 输出是 decision support。用户拥有研究方向、方法、解释、最终 claim 与 go/no-go 决定。
 
-普通执行型任务默认不使用本 skill。只有当继续执行可能造成明显科学风险、复现风险、资源浪费、错误叙事或不必要重复造轮子时，才转入 decision review。
+## 工作流程
 
-## 决策维度
+1. 写清决策、候选选项、目标、硬约束、时间点和决策所有者；缺少会改变建议的信息时，只问必要问题。
+2. 核验用户提供的证据与必要背景，区分 verified evidence、method judgment、value/cost judgment 和 speculation。
+3. 至少比较当前方案与一个可信替代方案，评估 scientific value、evidence fit、feasibility、reproducibility、tool maturity、ownership cost 和 reviewer risk。
+4. 识别关键假设、阈值和不可逆成本；说明它们变化时 recommendation 是否翻转。
+5. 给出条件化 recommendation、反对理由、反方最强论点和最低成本的去风险步骤。
+6. 明列用户仍需决定的事项；不得用技术默认替用户选择或把计划写成已验证结论。
 
-- `Scientific value`：问题是否重要，能否改变理解或实践。
-- `Evidence strength`：当前证据能否支撑 claim。
-- `Feasibility`：时间、数据、技能、计算和验证是否可行。
-- `Reproducibility`：方法、代码、数据和环境是否可追踪。
-- `Tool maturity`：是否已有成熟工具、论文代码或官方 protocol。
-- `Cost of ownership`：自己维护代码或流程的长期成本。
-- `Reviewer risk`：审稿人最可能攻击哪里。
+## 特殊取舍
 
-## 默认立场
+- 工具选择比较 source、license、维护状态、接口适配、可复现性和长期维护成本；成熟不等于适用。
+- 重写只在外部实现不适配、不安全、不可复现、license 不允许、核心逻辑需要完全可控，或重写总成本更低时成立。
+- continue/pivot/stop 必须关联可观察证据、剩余信息价值和机会成本，不用沉没成本支撑继续。
+- claim 强度取舍必须区分 observation、association、functional support、mechanism 和 causality。
 
-- 能用成熟工具时，不优先重复造轮子。
-- 成熟工具也必须审查来源、license、维护状态、输入输出和适配边界。
-- 自己重写只在以下情况合理：外部工具不适配、不可复现、license 不合适、核心方法需要完全可控，或重写成本低于适配成本。
-- 反对用户时必须给出替代方案。
+## 输出契约
 
-## 决策归属与证据契约
+- Decision and owner
+- Conditional recommendation and confidence
+- Evidence used and unknowns
+- Option comparison with main trade-offs
+- Key assumptions, flip conditions and reviewer risks
+- Minimal de-risking step
+- User decision required
 
-- 输出是供用户判断的 decision support，不替代用户对研究方向、方法、解释和最终 claim 的决定。
-- 至少比较一个可信替代方案，并说明关键假设或阈值改变时 recommendation 是否会变化。
-- 区分事实证据、方法判断、成本/价值取舍和 speculation；无法验证的部分明确标记。
-- 把仍需用户决定的事项单列，不以“技术默认”静默替用户选择。
-
-## 输出格式
-
-```text
-Decision review
-- Recommendation:
-- Why:
-- Main risks:
-- Evidence needed:
-- Alternative options:
-- Minimal next step:
-```
-
-需要更细的取舍表时读取 `references/decision-rubric.md`。
+需要 continue/pivot/stop、use/adapt/rewrite 或 reviewer-attack 的结构化判据时读取 `references/decision-rubric.md`；简单二选一不必加载。

@@ -1,4 +1,4 @@
 interface:
   display_name: "Reviewer Simulation"
-  short_description: "Simulate reviewers and response priorities"
-  default_prompt: "Use $reviewer-simulation to identify likely reviewer concerns and priority fixes."
+  short_description: "Red-team a manuscript before peer review"
+  default_prompt: "Use $reviewer-simulation to generate evidence-linked hypothetical reviewer concerns and prioritize the work needed to answer them."

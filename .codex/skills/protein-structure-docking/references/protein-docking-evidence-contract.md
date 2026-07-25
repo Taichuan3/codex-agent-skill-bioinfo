@@ -1,37 +1,43 @@
 # Protein Docking Evidence Contract
 
-用于吸收外部 PDB、Boltz、DiffDock、protein-QC、UniProt 等 skills 的通用机制。目标是锁定输入、减少错误解释，并把结构/对接结果限制在合适证据等级。
+## 输入与 provenance
 
-## 输入锁定
+| Layer | Minimum record |
+|---|---|
+| Protein | accession, species, isoform, sequence/hash, domains, mutations |
+| Structure | source ID/version, method/model, chain, residue map, apo/holo, missing regions, confidence |
+| Ligand/partner | stable ID or sequence, structure file/hash, stereochemistry, protomer/tautomer, charge, salts |
+| Site/context | pocket/interface/restraints, cofactors, metals, membrane/lipid or covalent assumptions |
+| Run | software/model version, preparation protocol, parameters, seed, replicate, compute environment, output path |
 
-- Protein：accession、species、isoform、sequence length、domain boundaries、mutation list。
-- Structure：experimental PDB/mmCIF、AlphaFold DB、Boltz/Chai/ColabFold model；记录 chain、model number、missing residues、pLDDT/PAE/interface confidence。
-- Ligand/partner：SMILES/InChI/SDF/MOL2、protonation、tautomer、stereochemistry、charge、cofactor/metal/lipid context。
-- Binding site：known pocket、blind docking、interface residue、restraint 或 literature-defined region。
-- Numbering：UniProt、PDB chain residue number、model residue number和用户给定坐标必须对齐。
+UniProt、PDB chain、预测模型与用户坐标必须显式对齐。无法对齐时把相关 residue-level 解释标记为 `not assessed`。
 
-## 运行与 QC
+## 对照与运行 QC
 
-- 对 known binder 优先 self-dock/cross-dock 或 positive control；没有对照时结果只能 exploratory。
-- 对 batch docking 建立样本表，包含 receptor、ligand、site、method、seed、replicate 和 output path。
-- 检查 pose：clash、buried polar group、unreasonable torsion、metal coordination、membrane context、missing pocket residues。
-- 对多个工具/参数一致性只提升到 Moderate；仍不能替代实验结合数据。
-- 记录软件版本、model/version、GPU/server、参数和随机种子。
+- known binder 可用时优先 self-dock/redock 或 cross-dock；记录 RMSD 定义及 atom mapping。
+- 比较 WT/mutant、ligand 或方法时固定 preparation、site/box/restraints、参数、seed/replicate policy 和 ranking definition。
+- batch summary 至少包含 `sample_id, receptor_id, ligand_or_partner_id, site, method_version, seed, replicate, status, score_name, score_value, qc_status, output_path, failure_reason`。
+- 检查完成率、重复一致性、正/负对照、clash、buried unsatisfied polar groups、不合理 torsion/strain、pocket placement、metal geometry、membrane context 和缺失 pocket/interface residue。
+- 原始模型输出与后处理结果分开保存；转换、过滤和 rank 规则必须可重跑。
 
-## 解释边界
+## 证据层
 
-- Pose confidence 不是 binding affinity。
-- Docking score 不是 `Kd`、`IC50` 或 efficacy。
-- Predicted complex confidence 不是 protein-protein interaction proof。
-- WT-mutant score difference 是 hypothesis-generating，除非同一 preparation、同一参数、重复和对照都支持。
-- Virtual screening rank 必须结合化学可行性、已知活性、PAINS/reactivity、ADMET 和 orthogonal validation。
+| Layer | Can support | Cannot support alone |
+|---|---|---|
+| Model confidence | model/geometry triage | binding, function, causality |
+| Docking score/rank | within-protocol prioritization | affinity, potency, selectivity |
+| Pose/interface QC | physical plausibility | stable physiological interaction |
+| Matched score delta | perturbation hypothesis | mutation function or mechanism |
+| Orthogonal experiments | assay-specific evidence | broader clinical efficacy or safety without relevant studies |
 
-## 输出
+多工具或多参数一致只能在输入、比较协议和失败模式可比时作为 sensitivity evidence。不得把不同工具的 raw score 当作同一量纲直接平均。
 
-- locked inputs
-- structure provenance
-- method and parameters
-- QC pass/fail
-- ranked poses or candidates
-- evidence level
-- caveats and next validation
+## 交付最小字段
+
+- locked inputs and unresolved mappings
+- structure and ligand/partner provenance
+- task class, method, parameters, controls and replicates
+- run counts and failures
+- pose/interface QC and score definition
+- evidence level and unsupported claims
+- exact artifact paths and next orthogonal validation

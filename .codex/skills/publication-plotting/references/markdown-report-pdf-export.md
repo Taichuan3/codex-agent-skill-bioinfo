@@ -22,7 +22,7 @@ npx --yes md-to-pdf REPORT.md \
 
 ## Verification pattern
 
-Use a focused temporary `hermes-verify-*.py` script when the export CSS or PDF output is a changed artifact. Check:
+Use a focused temporary verification script when the export CSS or PDF output is a changed artifact. Check:
 
 - CSS exists and contains key tokens (`@page`, `size: A4`, `font-family`, `img`, `max-width: 100%`).
 - PDF exists, is non-empty, starts with `%PDF-`, and is large enough for a figure-rich report.

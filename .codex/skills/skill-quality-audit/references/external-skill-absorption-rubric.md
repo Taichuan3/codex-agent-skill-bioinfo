@@ -1,6 +1,6 @@
 # External Skill Absorption Rubric
 
-Use this reference when comparing external skill/agent repositories with the user's source skill repo.
+Use this reference when comparing external Skill/Agent repositories with a canonical source package.
 
 ## Four actions
 

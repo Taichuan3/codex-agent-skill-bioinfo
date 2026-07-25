@@ -13,7 +13,7 @@ Do not equate every discovered `SKILL.md` with an independent user-owned skill. 
 Discover, without reading unrelated project data:
 
 - `SKILL.md`;
-- `AGENTS.md`, `CLAUDE.md`, `HERMES.md`, `.hermes.md`;
+- applicable Agent guidance files;
 - agent metadata under `agents/`;
 - Git roots, origins, branches, and dirty state.
 
@@ -24,7 +24,7 @@ Exclude dependency/build trees, `.git/objects`, large data/results, and OS cache
 Classify each active asset as one of:
 
 1. `canonical-source` — installable source maintained in a real repo;
-2. `runtime-mirror` — installed Hermes/Codex copy; compare before promotion;
+2. `runtime-mirror` — installed runtime copy; compare before promotion;
 3. `project-specific` — belongs to one private project;
 4. `bundled-or-upstream` — preserve source/license; reference rather than vendor;
 5. `cache-or-archive` — exclude from active catalog;
@@ -44,7 +44,7 @@ Do not include file contents, credentials, session transcripts, memories, raw re
 
 ## Canonical and drift decisions
 
-For a logical skill present in source, Hermes runtime, Codex runtime, and project mirrors:
+For a logical Skill present in source, one or more installed runtimes, and project mirrors:
 
 1. compare names, frontmatter, linked files, and hashes;
 2. treat runtime as an important source of user-tested improvements, not an automatic winner;

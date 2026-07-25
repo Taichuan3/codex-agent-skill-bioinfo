@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "skill_name": "validation-strategy-planner",
+  "purpose": "Evaluate claim-linked validation design against project planning, decision review, execution, auditing, and QA.",
+  "cases": [
+    {
+      "id": "validation-planner-positive-01",
+      "split": "train",
+      "query": "针对这个探索性富集结果设计 minimal、balanced 和 submission-strength 验证路线。",
+      "should_trigger": true,
+      "expected_primary_skill": "validation-strategy-planner",
+      "rationale": "Tiered validation for a defined exploratory finding is core."
+    },
+    {
+      "id": "validation-planner-positive-02",
+      "split": "train",
+      "query": "这个候选机制要怎么验证？比较参数敏感性、独立队列、正交实验和扰动实验。",
+      "should_trigger": true,
+      "expected_primary_skill": "validation-strategy-planner",
+      "rationale": "The task requests a claim-linked cross-layer validation design."
+    },
+    {
+      "id": "validation-planner-positive-03",
+      "split": "train",
+      "query": "为模型性能结论定义外部验证、数据泄漏检查和成功失败判据。",
+      "should_trigger": true,
+      "expected_primary_skill": "validation-strategy-planner",
+      "rationale": "Validation criteria for a model claim belong here."
+    },
+    {
+      "id": "validation-planner-positive-04",
+      "split": "train",
+      "query": "审稿人质疑背景集选择，请设计能检验稳健性和特异性的验证矩阵。",
+      "should_trigger": true,
+      "expected_primary_skill": "validation-strategy-planner",
+      "rationale": "A reviewer challenge tied to a specific claim is in scope."
+    },
+    {
+      "id": "validation-planner-positive-05",
+      "split": "train",
+      "query": "独立实验做不了，请说明还可做什么验证，以及最终 claim 应降级到什么程度。",
+      "should_trigger": true,
+      "expected_primary_skill": "validation-strategy-planner",
+      "rationale": "Validation infeasibility and safe claim downgrade are core."
+    },
+    {
+      "id": "validation-planner-positive-06",
+      "split": "validation",
+      "query": "为跨队列可泛化性 claim 设计复制分析，写清什么算成功、混合或失败。",
+      "should_trigger": true,
+      "expected_primary_skill": "validation-strategy-planner",
+      "rationale": "Success criteria for independent replication are core."
+    },
+    {
+      "id": "validation-planner-positive-07",
+      "split": "validation",
+      "query": "这个网络中心基因只是计算候选，哪些低成本检查最能排除替代解释？",
+      "should_trigger": true,
+      "expected_primary_skill": "validation-strategy-planner",
+      "rationale": "Prioritizing informative validation for a defined candidate is core."
+    },
+    {
+      "id": "validation-planner-positive-08",
+      "split": "validation",
+      "query": "为差异表达结果规划负对照、参数敏感性和正交测量，并说明各自不能证明什么。",
+      "should_trigger": true,
+      "expected_primary_skill": "validation-strategy-planner",
+      "rationale": "Explicit test limits are part of validation design."
+    },
+    {
+      "id": "validation-planner-positive-09",
+      "split": "validation",
+      "query": "把当前 observation 升级为 functional support 至少需要哪些证据，什么时候应停止追加验证？",
+      "should_trigger": true,
+      "expected_primary_skill": "validation-strategy-planner",
+      "rationale": "Claim-upgrade and stop criteria are core."
+    },
+    {
+      "id": "validation-planner-positive-10",
+      "split": "validation",
+      "query": "检查我列出的验证是否只是同源数据库循环支持，并重排成高信息量顺序。",
+      "should_trigger": true,
+      "expected_primary_skill": "validation-strategy-planner",
+      "rationale": "Detecting pseudo-validation and prioritizing options belongs here."
+    },
+    {
+      "id": "validation-planner-negative-01",
+      "split": "train",
+      "query": "从一个研究方向开始设计完整 project charter、figure skeleton、里程碑和路线。",
+      "should_trigger": false,
+      "expected_primary_skill": "research-project-planner",
+      "rationale": "Whole-project planning is broader than claim validation."
+    },
+    {
+      "id": "validation-planner-negative-02",
+      "split": "train",
+      "query": "这项昂贵实验是否值得做？比较继续、转向和停止的机会成本。",
+      "should_trigger": false,
+      "expected_primary_skill": "research-decision-review",
+      "rationale": "The primary deliverable is a high-impact choice, not a validation matrix."
+    },
+    {
+      "id": "validation-planner-negative-03",
+      "split": "train",
+      "query": "按既定方案运行 100 次 permutation 并输出 null distribution。",
+      "should_trigger": false,
+      "expected_primary_skill": "bioinfo-analysis-code",
+      "rationale": "Executing a defined validation analysis is implementation."
+    },
+    {
+      "id": "validation-planner-negative-04",
+      "split": "train",
+      "query": "交付前检查现有验证报告是否写清输入、参数、结果和 caveat。",
+      "should_trigger": false,
+      "expected_primary_skill": "task-self-check",
+      "rationale": "Final QA of an existing validation report belongs to self-check."
+    },
+    {
+      "id": "validation-planner-negative-05",
+      "split": "train",
+      "query": "系统审计论文中所有 claim 与 figure、table 和引用之间的支持关系。",
+      "should_trigger": false,
+      "expected_primary_skill": "claim-evidence-audit",
+      "rationale": "Whole-manuscript claim auditing is not validation planning."
+    },
+    {
+      "id": "validation-planner-negative-06",
+      "split": "validation",
+      "query": "把模糊的候选方向整理成 working question 和 evidence needed。",
+      "should_trigger": false,
+      "expected_primary_skill": "research-question-brief",
+      "rationale": "Early question framing precedes a defined validation claim."
+    },
+    {
+      "id": "validation-planner-negative-07",
+      "split": "validation",
+      "query": "为 pathway network 运行具体富集和拓扑分析。",
+      "should_trigger": false,
+      "expected_primary_skill": "pathway-network-analysis",
+      "rationale": "Domain analysis execution is not validation strategy design."
+    },
+    {
+      "id": "validation-planner-negative-08",
+      "split": "validation",
+      "query": "核验引用的实验论文是否真的支持这个机制句子。",
+      "should_trigger": false,
+      "expected_primary_skill": "citation-verifier",
+      "rationale": "Citation-level source verification is a dedicated task."
+    },
+    {
+      "id": "validation-planner-negative-09",
+      "split": "validation",
+      "query": "把已确认的验证结果和当前 claim 更新到 PROJECT_GUIDE。",
+      "should_trigger": false,
+      "expected_primary_skill": "project-guide-maintainer",
+      "rationale": "Recording confirmed current state belongs to guide maintenance."
+    },
+    {
+      "id": "validation-planner-negative-10",
+      "split": "validation",
+      "query": "解释什么是交叉验证。",
+      "should_trigger": false,
+      "expected_primary_skill": "none",
+      "rationale": "A general conceptual explanation does not require a project validation strategy."
+    }
+  ]
+}

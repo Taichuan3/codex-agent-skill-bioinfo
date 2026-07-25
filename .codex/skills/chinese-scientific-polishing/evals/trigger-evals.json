@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "skill_name": "chinese-scientific-polishing",
+  "purpose": "Evaluate Chinese-language polishing against translation, English polishing, caption construction, and evidence review.",
+  "cases": [
+    {
+      "id": "chinese-polish-positive-01",
+      "split": "train",
+      "query": "请把这段中文 Results 润色得更清楚，保留所有数字和探索性语气。",
+      "should_trigger": true,
+      "expected_primary_skill": "chinese-scientific-polishing",
+      "rationale": "The source and requested output are Chinese, and the task is language polishing."
+    },
+    {
+      "id": "chinese-polish-positive-02",
+      "split": "train",
+      "query": "这段中文摘要太啰嗦，压缩到 250 字，但不要增强结论。",
+      "should_trigger": true,
+      "expected_primary_skill": "chinese-scientific-polishing",
+      "rationale": "Chinese abstract compression with preserved claim strength is core scope."
+    },
+    {
+      "id": "chinese-polish-positive-03",
+      "split": "train",
+      "query": "优化这段中文 Discussion 的逻辑，让限制、替代解释和意义分开。",
+      "should_trigger": true,
+      "expected_primary_skill": "chinese-scientific-polishing",
+      "rationale": "Chinese discussion restructuring is core scope."
+    },
+    {
+      "id": "chinese-polish-positive-04",
+      "split": "train",
+      "query": "润色这份中文方法说明，不能删掉软件版本、参数和过滤条件。",
+      "should_trigger": true,
+      "expected_primary_skill": "chinese-scientific-polishing",
+      "rationale": "Language improvement of Chinese Methods while preserving reproducibility belongs here."
+    },
+    {
+      "id": "chinese-polish-positive-05",
+      "split": "train",
+      "query": "把这封中文审稿回复改得专业、直接一些，保持对证据不足的承认。",
+      "should_trigger": true,
+      "expected_primary_skill": "chinese-scientific-polishing",
+      "rationale": "Chinese response-letter polishing is supported."
+    },
+    {
+      "id": "chinese-polish-positive-06",
+      "split": "validation",
+      "query": "重构这个中文结果小节的总起段、证据段和小结段，不改科学含义。",
+      "should_trigger": true,
+      "expected_primary_skill": "chinese-scientific-polishing",
+      "rationale": "Chinese subsection structure editing is a core workflow."
+    },
+    {
+      "id": "chinese-polish-positive-07",
+      "split": "validation",
+      "query": "统一中文稿中位点、区域和序列的术语，并修正含混指代。",
+      "should_trigger": true,
+      "expected_primary_skill": "chinese-scientific-polishing",
+      "rationale": "Terminology and reference consistency in Chinese prose belongs here."
+    },
+    {
+      "id": "chinese-polish-positive-08",
+      "split": "validation",
+      "query": "只改这条已有中文图注的语言和标点，内容、panel 信息和统计都不要补。",
+      "should_trigger": true,
+      "expected_primary_skill": "chinese-scientific-polishing",
+      "rationale": "Language-only editing of an existing Chinese caption routes to Chinese polishing."
+    },
+    {
+      "id": "chinese-polish-positive-09",
+      "split": "validation",
+      "query": "这份对外中文阶段报告有很多内部批注痕迹，请润色成读者版并保留证据限定。",
+      "should_trigger": true,
+      "expected_primary_skill": "chinese-scientific-polishing",
+      "rationale": "External-facing Chinese report cleanup is supported."
+    },
+    {
+      "id": "chinese-polish-positive-10",
+      "split": "validation",
+      "query": "中文草稿里写着缺图和待验证，请先整理不能成稿的句子，再润色证据闭合部分。",
+      "should_trigger": true,
+      "expected_primary_skill": "chinese-scientific-polishing",
+      "rationale": "The skill explicitly stops unsupported claims from being polished into final prose."
+    },
+    {
+      "id": "chinese-polish-negative-01",
+      "split": "train",
+      "query": "把这段中文 Results 翻译成英文。",
+      "should_trigger": false,
+      "expected_primary_skill": "scientific-english-translation",
+      "rationale": "Chinese-to-English output is translation."
+    },
+    {
+      "id": "chinese-polish-negative-02",
+      "split": "train",
+      "query": "Please polish this English abstract and make it 150 words.",
+      "should_trigger": false,
+      "expected_primary_skill": "scientific-english-polishing",
+      "rationale": "Existing English prose routes to English polishing."
+    },
+    {
+      "id": "chinese-polish-negative-03",
+      "split": "train",
+      "query": "根据 Figure 2 的四个 panel、样本量和统计检验写一条完整中文图注。",
+      "should_trigger": false,
+      "expected_primary_skill": "figure-caption",
+      "rationale": "Constructing a complete caption from figure information is figure-caption work."
+    },
+    {
+      "id": "chinese-polish-negative-04",
+      "split": "train",
+      "query": "判断这句‘Gene A 驱动疾病进展’是否真的被现有数据支持。",
+      "should_trigger": false,
+      "expected_primary_skill": "claim-evidence-audit",
+      "rationale": "The primary task is evidentiary validity, not language."
+    },
+    {
+      "id": "chinese-polish-negative-05",
+      "split": "train",
+      "query": "把火山图改成色盲友好配色并重新导出 SVG。",
+      "should_trigger": false,
+      "expected_primary_skill": "publication-plotting",
+      "rationale": "Figure rendering and styling are outside prose polishing."
+    },
+    {
+      "id": "chinese-polish-negative-06",
+      "split": "validation",
+      "query": "核对整篇稿件的 Results、Methods、图注和补充表是否一致。",
+      "should_trigger": false,
+      "expected_primary_skill": "manuscript-consistency-audit",
+      "rationale": "Manuscript-wide consistency auditing is a separate deliverable."
+    },
+    {
+      "id": "chinese-polish-negative-07",
+      "split": "validation",
+      "query": "逐 panel 检查 Figure 3 的 source data、统计定义和生成脚本。",
+      "should_trigger": false,
+      "expected_primary_skill": "source-data-audit",
+      "rationale": "Source-data traceability is not language polishing."
+    },
+    {
+      "id": "chinese-polish-negative-08",
+      "split": "validation",
+      "query": "验证参考文献 12 是否真的支持这段机制描述。",
+      "should_trigger": false,
+      "expected_primary_skill": "citation-verifier",
+      "rationale": "Citation support verification is not prose editing."
+    },
+    {
+      "id": "chinese-polish-negative-09",
+      "split": "validation",
+      "query": "把这条现成中文图注翻译成英文，panel 顺序和内容不变。",
+      "should_trigger": false,
+      "expected_primary_skill": "scientific-english-translation",
+      "rationale": "A language change from Chinese to English is translation."
+    },
+    {
+      "id": "chinese-polish-negative-10",
+      "split": "validation",
+      "query": "给 PROJECT_GUIDE 更新当前研究问题、证据指针和 next decisions。",
+      "should_trigger": false,
+      "expected_primary_skill": "project-guide-maintainer",
+      "rationale": "Project state content is not scientific prose polishing."
+    }
+  ]
+}

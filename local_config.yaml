@@ -1,7 +1,9 @@
 package:
   name: codex-agent-skill-bioinfo
-  version: 2.0-codex-multidevice-rc2
+  version: 2.0-codex-multidevice-rc4
+  release_status: candidate_only_provenance_reconstructed_stable_review_required
   scope: generic_bioinformatics_research
+  runtime_scope: user_global
   default_language: zh-CN
   description: >
     通用生信科研 Codex agent package，面向 Home/Lab standalone OpenAI Codex CLI/IDE/app，
@@ -17,9 +19,16 @@ entrypoints:
   config_example: .codex/config.toml.example
   installer: scripts/install_codex_bioinfo.py
   validator: scripts/validate_package.py
+  release_safety_fixtures: scripts/test_release_safety.py
+  license: LICENSE
+  notice: NOTICE.md
+  third_party_notices: THIRD_PARTY_NOTICES.md
+  external_provenance: docs/EXTERNAL_SOURCE_PROVENANCE.md
+  external_file_lineage: docs/EXTERNAL_FILE_LINEAGE.tsv
+  external_expression_review: docs/EXTERNAL_EXPRESSION_REVIEW_2026-07-25.tsv
   project_guide_file: PROJECT_GUIDE.md
   project_log_file: PROJECT_PLAN.md
-  project_agent_policy: "具体项目保留项目根 AGENTS.md；通用根 AGENTS.md 不替代项目操作逻辑。"
+  project_agent_policy: "运行时只保留全局 ~/.codex/AGENTS.md 与具体项目根 AGENTS.md 两层；项目容器父目录不放指导或状态文件。"
 
 context_policy:
   read_by_default:
@@ -34,6 +43,8 @@ context_policy:
     - large_result_tables
     - historical_operation_logs
   notes:
+    - Runtime guidance has two layers only: global host guidance and concrete project guidance.
+    - Parent directories used only to store multiple projects must not add AGENTS.md, PROJECT_GUIDE.md, or PROJECT_PLAN.md.
     - PROJECT_GUIDE.md is hot project context.
     - PROJECT_PLAN.md is a cold append-only audit log and is not read by default.
     - Directory Card README.md files are read on demand before scanning heavy artifact directories.
@@ -90,14 +101,17 @@ skill_metadata:
   required_files:
     - SKILL.md
     - agents/openai.yaml
+    - evals/trigger-evals.json
+    - evals/outcome-evals.json
   optional_dirs:
     - references
     - scripts
     - assets
   codex_cli_discovery:
     repo_scope: .agents/skills
+    user_global_runtime: ~/.agents/skills
     source_layout: .codex/skills
-    note: .agents/skills is a lightweight compatibility symlink for standalone Codex discovery.
+    note: ~/.agents/skills is the single user-global portable Skill source; stale user Skills under ~/.codex/skills are backed up and retired while .system is preserved.
   trigger_source: SKILL.md frontmatter description
 
 evidence_levels:
@@ -114,11 +128,15 @@ hard_constraints:
   - derived_wrong_outputs_may_be_overwritten_after_correction
   - manifest_or_source_data_inventory_must_point_to_current_valid_outputs
   - external_tools_require_source_version_license_and_adaptation_notes
+  - parent_project_container_has_no_agent_or_project_state_files
+  - project_agents_declare_data_results_figures_source_data_manifest_and_environment
 
 validation:
   expected_skill_count: 37
   expected_root_agents: 1
   expected_custom_agent_count: 6
+  eval_scope: static_schema_balance_and_route_ownership_only
+  behavioral_eval_policy: representative_forward_tests_must_be_reported_separately
   required_absent_checks:
     - secrets_or_tokens
     - raw_data_files

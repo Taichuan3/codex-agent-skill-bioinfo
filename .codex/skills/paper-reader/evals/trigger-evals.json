@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "skill_name": "paper-reader",
+  "purpose": "Evaluate specified-paper reading against discovery, citation verification, database lookup, and manuscript auditing.",
+  "cases": [
+    {"id":"paper-positive-01","split":"train","query":"精读我上传的 PDF，按每张 figure 解释问题、数据、结果和局限。","should_trigger":true,"expected_primary_skill":"paper-reader","rationale":"A specified PDF with figure grounding is the core task."},
+    {"id":"paper-positive-02","split":"train","query":"阅读 DOI 10.xxxx/abcd 这篇指定论文，总结研究设计和主要证据链。","should_trigger":true,"expected_primary_skill":"paper-reader","rationale":"A DOI identifies a fixed paper for structured reading."},
+    {"id":"paper-positive-03","split":"train","query":"只基于这篇论文的 Methods 和 supplement，提取样本、软件版本和关键参数。","should_trigger":true,"expected_primary_skill":"paper-reader","rationale":"Method extraction from specified materials belongs here."},
+    {"id":"paper-positive-04","split":"train","query":"这篇 preprint 的 Figure 3 是否真的支持作者的机制解释？","should_trigger":true,"expected_primary_skill":"paper-reader","rationale":"Claim-to-figure reading within one specified paper is supported."},
+    {"id":"paper-positive-05","split":"train","query":"比较我给出的三篇固定论文的方法和证据，不要检索新的文献。","should_trigger":true,"expected_primary_skill":"paper-reader","rationale":"A closed, small paper set can be read with shared fields."},
+    {"id":"paper-positive-06","split":"validation","query":"这篇论文只有 abstract 可访问，请明确访问边界后总结能确定和不能确定的内容。","should_trigger":true,"expected_primary_skill":"paper-reader","rationale":"Abstract-only reading is supported with explicit limits."},
+    {"id":"paper-positive-07","split":"validation","query":"从这个全文 markdown 提取作者 claim、对应表格和可复用的数据 accession。","should_trigger":true,"expected_primary_skill":"paper-reader","rationale":"Structured evidence extraction from a specified full text belongs here."},
+    {"id":"paper-positive-08","split":"validation","query":"解释 Supplementary Figure S5 的 axes、controls、sample size 和统计检验。","should_trigger":true,"expected_primary_skill":"paper-reader","rationale":"Close reading of a specified supplementary figure is a core mode."},
+    {"id":"paper-positive-09","split":"validation","query":"为这篇论文写中文阅读笔记，区分作者结论、数据直接支持和我的推断。","should_trigger":true,"expected_primary_skill":"paper-reader","rationale":"Evidence-bounded structured notes are a core deliverable."},
+    {"id":"paper-positive-10","split":"validation","query":"核对 preprint 与正式发表版在 Figure 2 和主结论上有哪些变化。","should_trigger":true,"expected_primary_skill":"paper-reader","rationale":"Version-aware comparison of a specified paper is supported."},
+    {"id":"paper-negative-01","split":"train","query":"系统检索空间蛋白组学的所有 benchmark 论文并建立纳排记录。","should_trigger":false,"expected_primary_skill":"literature-search-workflow","rationale":"Open-ended paper discovery belongs to literature search."},
+    {"id":"paper-negative-02","split":"train","query":"检查参考文献列表中 DOI、作者和年份是否准确。","should_trigger":false,"expected_primary_skill":"citation-verifier","rationale":"Bibliographic verification belongs to citation-verifier."},
+    {"id":"paper-negative-03","split":"train","query":"查 UniProt 中 P12345 的 canonical isoform 和 domain boundaries。","should_trigger":false,"expected_primary_skill":"scientific-database-grounding","rationale":"Database entity lookup is not paper reading."},
+    {"id":"paper-negative-04","split":"train","query":"审计我的 Results 全文是否有 overclaim。","should_trigger":false,"expected_primary_skill":"claim-evidence-audit","rationale":"A user-manuscript claim audit is outside specified-paper reading."},
+    {"id":"paper-negative-05","split":"train","query":"根据审稿意见给现有 figures 排出最小补分析优先级。","should_trigger":false,"expected_primary_skill":"evidence-gap-finder","rationale":"Evidence-gap prioritization belongs to evidence-gap-finder."},
+    {"id":"paper-negative-06","split":"validation","query":"帮我找一篇最适合入门 AlphaFold 的综述。","should_trigger":false,"expected_primary_skill":"literature-search-workflow","rationale":"Finding an unspecified paper is discovery, not reading."},
+    {"id":"paper-negative-07","split":"validation","query":"这句话引用 Smith 2020 合适吗？只核验 claim support。","should_trigger":false,"expected_primary_skill":"citation-verifier","rationale":"A bounded claim-to-citation check belongs to citation-verifier."},
+    {"id":"paper-negative-08","split":"validation","query":"从 PDB 和 AlphaFold DB 比较这个蛋白的实验与预测结构。","should_trigger":false,"expected_primary_skill":"scientific-database-grounding","rationale":"Cross-database structure records belong to database grounding."},
+    {"id":"paper-negative-09","split":"validation","query":"把论文 PDF 全文逐句翻译成中文。","should_trigger":false,"expected_primary_skill":"none","rationale":"Full-document translation is not the evidence-focused reading workflow."},
+    {"id":"paper-negative-10","split":"validation","query":"复现论文代码并重新训练模型。","should_trigger":false,"expected_primary_skill":"bioinfo-analysis-code","rationale":"Implementation and compute execution require an analysis-code workflow."}
+  ]
+}

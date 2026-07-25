@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "skill_name": "figure-caption",
+  "purpose": "Evaluate complete figure-caption work against language-only editing, plotting, source-data auditing, and manuscript consistency.",
+  "cases": [
+    {
+      "id": "figure-caption-positive-01",
+      "split": "train",
+      "query": "根据 Figure 1 的 panel A–D、样本量和统计检验写完整图题和图注。",
+      "should_trigger": true,
+      "expected_primary_skill": "figure-caption",
+      "rationale": "Drafting complete title and caption content from figure information is core scope."
+    },
+    {
+      "id": "figure-caption-positive-02",
+      "split": "train",
+      "query": "审查这条图注是否说明了每个 panel、颜色、符号、n 和显著性检验。",
+      "should_trigger": true,
+      "expected_primary_skill": "figure-caption",
+      "rationale": "Caption content-completeness review belongs here."
+    },
+    {
+      "id": "figure-caption-positive-03",
+      "split": "train",
+      "query": "为这张多组学图设计简短 figure title、panel titles 和 panel-to-claim map。",
+      "should_trigger": true,
+      "expected_primary_skill": "figure-caption",
+      "rationale": "Title, panel labels, and figure-to-claim contract are supported."
+    },
+    {
+      "id": "figure-caption-positive-04",
+      "split": "train",
+      "query": "补齐 Figure 3 legend 中缺少的统计单位、重复类型、缩写和过滤说明。",
+      "should_trigger": true,
+      "expected_primary_skill": "figure-caption",
+      "rationale": "Completing the caption information contract is core scope."
+    },
+    {
+      "id": "figure-caption-positive-05",
+      "split": "train",
+      "query": "检查图注是否把图中相关性过度写成机制结论，并给出安全版本。",
+      "should_trigger": true,
+      "expected_primary_skill": "figure-caption",
+      "rationale": "Caption-specific claim boundary review belongs here."
+    },
+    {
+      "id": "figure-caption-positive-06",
+      "split": "validation",
+      "query": "Draft an English caption for panels A–F from the supplied figure, analysis notes, n, and tests.",
+      "should_trigger": true,
+      "expected_primary_skill": "figure-caption",
+      "rationale": "Caption construction is primary regardless of output language."
+    },
+    {
+      "id": "figure-caption-positive-07",
+      "split": "validation",
+      "query": "这张探索性筛选图需要一条中文图注，明确 candidate 状态和背景集合。",
+      "should_trigger": true,
+      "expected_primary_skill": "figure-caption",
+      "rationale": "Drafting an evidence-bounded caption for an exploratory figure is core scope."
+    },
+    {
+      "id": "figure-caption-positive-08",
+      "split": "validation",
+      "query": "将现有 caption 按真实 panel 顺序重构，并列出仍缺少的 source-data 指针。",
+      "should_trigger": true,
+      "expected_primary_skill": "figure-caption",
+      "rationale": "Caption restructuring plus missing-information checklist belongs here."
+    },
+    {
+      "id": "figure-caption-positive-09",
+      "split": "validation",
+      "query": "给这个主图写一句信息型标题，并确保 legend 能独立说明比较对象和编码。",
+      "should_trigger": true,
+      "expected_primary_skill": "figure-caption",
+      "rationale": "Figure title and self-contained legend drafting are core deliverables."
+    },
+    {
+      "id": "figure-caption-positive-10",
+      "split": "validation",
+      "query": "图中星号没有说明检验和阈值，请审查 caption 并用待补占位符标出。",
+      "should_trigger": true,
+      "expected_primary_skill": "figure-caption",
+      "rationale": "The skill must identify missing statistics without guessing."
+    },
+    {
+      "id": "figure-caption-negative-01",
+      "split": "train",
+      "query": "只润色这条已有中文图注的语言，不补任何内容。",
+      "should_trigger": false,
+      "expected_primary_skill": "chinese-scientific-polishing",
+      "rationale": "Language-only Chinese caption editing belongs to Chinese polishing."
+    },
+    {
+      "id": "figure-caption-negative-02",
+      "split": "train",
+      "query": "Only polish the wording of this complete English legend.",
+      "should_trigger": false,
+      "expected_primary_skill": "scientific-english-polishing",
+      "rationale": "Language-only editing of an existing English legend routes to English polishing."
+    },
+    {
+      "id": "figure-caption-negative-03",
+      "split": "train",
+      "query": "把这条完整中文图注翻译成英文，内容不变。",
+      "should_trigger": false,
+      "expected_primary_skill": "scientific-english-translation",
+      "rationale": "Language conversion of an existing caption is translation."
+    },
+    {
+      "id": "figure-caption-negative-04",
+      "split": "train",
+      "query": "重画 Figure 2，调整 panel 布局、字体和色盲配色并导出 TIFF。",
+      "should_trigger": false,
+      "expected_primary_skill": "publication-plotting",
+      "rationale": "Actual figure production and layout are outside caption writing."
+    },
+    {
+      "id": "figure-caption-negative-05",
+      "split": "train",
+      "query": "逐 panel 核对 source-data 文件、统计定义和生成脚本是否可追溯。",
+      "should_trigger": false,
+      "expected_primary_skill": "source-data-audit",
+      "rationale": "Artifact-level traceability is a source-data audit."
+    },
+    {
+      "id": "figure-caption-negative-06",
+      "split": "validation",
+      "query": "检查全文所有 figures、Results、Methods 和 supplements 是否一致。",
+      "should_trigger": false,
+      "expected_primary_skill": "manuscript-consistency-audit",
+      "rationale": "Manuscript-wide consistency is broader than a caption deliverable."
+    },
+    {
+      "id": "figure-caption-negative-07",
+      "split": "validation",
+      "query": "判断 Figure 4 是否足以证明该通路是疾病的必要机制。",
+      "should_trigger": false,
+      "expected_primary_skill": "claim-evidence-audit",
+      "rationale": "The primary question is claim validity, not caption composition."
+    },
+    {
+      "id": "figure-caption-negative-08",
+      "split": "validation",
+      "query": "核验图注引用的三篇文献和 DOI 是否正确。",
+      "should_trigger": false,
+      "expected_primary_skill": "citation-verifier",
+      "rationale": "Citation verification is outside caption drafting."
+    },
+    {
+      "id": "figure-caption-negative-09",
+      "split": "validation",
+      "query": "润色中文 Results 段落，让正文更好地引用 Figure 2。",
+      "should_trigger": false,
+      "expected_primary_skill": "chinese-scientific-polishing",
+      "rationale": "The deliverable is Chinese Results prose, not a caption."
+    },
+    {
+      "id": "figure-caption-negative-10",
+      "split": "validation",
+      "query": "Polish the English Methods section describing how Figure 3 was generated.",
+      "should_trigger": false,
+      "expected_primary_skill": "scientific-english-polishing",
+      "rationale": "Existing English Methods prose routes to English polishing."
+    }
+  ]
+}

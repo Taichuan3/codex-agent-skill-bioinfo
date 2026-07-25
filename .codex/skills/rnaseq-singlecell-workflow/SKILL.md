@@ -1,53 +1,59 @@
 ---
 name: rnaseq-singlecell-workflow
-description: 用于 RNA-seq、single-cell RNA-seq、pseudo-bulk、marker/contrast、QC、批次整合和 splicing/isoform 初步分析的工作流规划、工具选择、结果检查和证据边界控制。适用于 bulk RNA-seq、scRNA-seq、Multiome RNA 层、marker table、DE/DTU/splicing 任务；不负责通用绘图或文献综述。
+description: 规划、执行或审查 bulk RNA-seq 与 single-cell RNA-seq 工作流，包括 FASTQ/BAM/count matrix/h5ad 输入、QC、定量、差异表达、pseudo-bulk、cluster/marker、batch/integration、splicing/isoform 和 regulon 结果。用于需要锁定样本设计、reference、过滤、工具参数、可复现产物与表达证据边界的 RNA 分析；不用于通用代码、绘图、variant 解释或临床证据审查。
 ---
 
-# Rnaseq Singlecell Workflow
+# RNA-seq and Single-cell Workflow
 
 ## 核心问题
 
-如何把 RNA-seq / single-cell 数据从输入定义、QC、差异/marker 分析到结果解释组织成可复现且证据边界清楚的工作流？
+如何把 bulk RNA-seq 或 scRNA-seq 从输入与实验设计推进到可复现结果，同时避免把技术结构、marker 或差异信号升级为机制与因果结论？
 
-## 使用场景
+## 能力边界
 
-- bulk RNA-seq differential expression、pseudo-bulk、marker/contrast 表格解释。
-- scRNA-seq QC、doublet/batch/integration、cluster annotation、marker validation。
-- alternative splicing、isoform switching、long-read RNA-seq 的方法选择和 caveat。
-- 从外部 skill 生态吸收 nf-core/rnaseq、nf-core/scrnaseq、Scanpy/Seurat、FRASER/OUTRIDER、rMATS/LeafCutter/MAJIQ 等工作流思路。
+- 负责 RNA 工作流的设计、受控执行、QC、结果表和方法审查；只读请求不得修改数据或运行分析。
+- 原始 FASTQ/BAM、原始 counts 和原始 cell matrix 只读；派生产物写入项目约定目录。
+- 不替用户静默选择样本、contrast、reference/annotation、QC 阈值、batch covariate 或统计定义。
+- 通用脚本工程交给 `bioinfo-analysis-code`；成图交给 `publication-plotting`；claim 强度专项审计交给 `claim-evidence-audit`。
+- variant/genomics 证据转交 `variant-genomics-interpretation`；clinical/trial/cohort 证据转交 `clinical-bioinformatics-evidence`。
 
-## 不适合触发
+## 首要门控
 
-- 单纯写脚本或表格整理：用 `bioinfo-analysis-code`。
-- 论文图生成：用 `publication-plotting`。
-- 结果 claim 是否越界：联动 `claim-evidence-audit`。
+执行前明确最可能改变路线的 1–3 项：
 
-## 工作流程
+1. 输入层级、原始数据可用性及其 provenance；
+2. biological replicate、sample identity、batch、condition 和 contrast；
+3. 物种、genome build、annotation、library chemistry、strandedness 或 assay 类型。
 
-1. 锁定输入：FASTQ/BAM/count matrix/h5ad、物种、reference、annotation、样本表、batch 和 contrast。
-2. 定义 analysis level：gene、transcript、junction、cell、cluster、pseudo-bulk 或 region/gene-set。
-3. 选择工具：优先成熟标准流程；记录版本、参数和过滤标准。
-4. QC：library size、mapping/feature counts、mitochondrial/ribosomal、doublet、batch、replicate consistency、marker sanity checks。
-5. 输出：结果表、QC 图、source data、解释等级和下一步验证。
+任一关键项未知时，标记 `Assumption` 或 `Open question`；不得用工具默认值掩盖。
 
-## 外部语料吸收后的关键门控
+## 工作流
 
-- FASTQ/BAM 到 counts 优先考虑 nf-core/rnaseq、nf-core/scrnaseq、STAR/Salmon/featureCounts、Cell Ranger/STARsolo 等成熟流程；本 skill 负责选择和审查，不把重型 wrapper 变成默认依赖。
-- Count matrix QC 先看 library size、detected genes、sample correlation/PCA、batch/sex/identity/outlier；DE 模型使用 raw counts 和设计矩阵，VST/log/normalized matrix 只用于 QC/可视化。
-- scRNA-seq 必须明确 raw counts 是否存在；processed-only `.h5ad` 不能直接当作可重复 QC/DE 起点。cluster marker 是模型依赖结果，条件比较优先 pseudo-bulk。
-- splicing/isoform claim 要锁定 junction/read support、event definition 和测序类型；3' scRNA-seq 通常只能支持弱 splicing 线索。
-- GRN/SCENIC 类结果必须区分 co-expression module、motif-pruned regulon 和 AUCell activity；regulon activity 不是 TF expression，也不是因果调控证明。
+1. 锁定模式：`plan`、`execute`、`QC/review`、`result interpretation` 或 `repair`。
+2. 读取项目 `AGENTS.md`、样本表、输入 schema 和已有 workflow/config；扫描大型数据目录前先读 Directory Card。
+3. 写 analysis contract：analysis unit、replicate、design、contrast、reference、输入/输出、过滤、版本和 stop condition。
+4. 先在 1–2 个代表样本或小矩阵上检查 schema、日志、输出数量和磁盘，再扩展大任务。
+5. 执行对应分支并保留 command/config、software/reference provenance、QC 和排除理由。
+6. 在统计前检查 identity、replicate consistency、depth/complexity、outlier、batch 与模型可辨识性。
+7. 输出分析就绪矩阵、QC、结果表、source data、方法定义和 caveat；不要只交付图片或工具日志。
+8. 区分 evidence、interpretation、limitation 和 speculation，并列出 reviewer risk 与下一项验证。
 
-## 输出格式
+## 分支规则
 
-- Task type and input definition
-- Recommended workflow/tools
-- QC and filtering contract
-- Expected outputs and source data
-- Evidence level and caveats
-- Next validation / reviewer risk
+- bulk RNA-seq、count matrix、DE、DTU 或 junction/splicing：读取 `references/bulk-rnaseq-execution.md`。
+- scRNA-seq、pseudo-bulk、annotation、integration 或 Multiome RNA 层：读取 `references/single-cell-rnaseq-execution.md`。
+- 需要在工具类别、analysis unit 或证据层级间选择：读取 `references/rnaseq-singlecell-decision-matrix.md`。
+- 同一任务同时包含 bulk 与 scRNA 时，分别执行两个分支，再用共同的 sample/reference/provenance 字段衔接；不要把 cell 当作独立 biological replicate。
 
+## 证据边界
 
-## 按需读取
+- 差异表达支持给定设计下的表达关联，不单独证明通路激活、调控方向、疾病机制或治疗效应。
+- cluster 和 marker 依赖预处理、表示空间、分辨率与 annotation reference；不得把聚类标签当作天然真值。
+- 条件比较优先使用 sample-aware pseudo-bulk 或明确处理 donor 重复测量的模型；大量 cell 不能补偿 biological replicate 不足。
+- integrated/latent 表示主要用于结构与批次校正，不默认作为基因层差异检验输入。
+- 3' tag scRNA-seq 通常不足以支持强 isoform/splicing claim；junction、coverage 与 event definition 必须可追踪。
+- regulon activity、motif enrichment 和 co-expression 不等于 TF expression、直接结合或因果调控。
 
-需要选择工具/证据层级时读取 `references/rnaseq-singlecell-decision-matrix.md`。
+## 交付
+
+先报告推荐或实际完成的工作流，再给输入与设计、精确产物、QC/过滤、版本与命令、验证边界、未解决风险和需用户决定的下一步。不得自称完成最终科学审批。

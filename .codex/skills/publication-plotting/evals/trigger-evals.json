@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "skill_name": "publication-plotting",
+  "purpose": "Evaluate figure-production routing against captioning, source-data audit, claim review, analysis code, and pathway interpretation.",
+  "cases": [
+    {
+      "id": "plot-positive-01",
+      "split": "train",
+      "query": "根据差异表达表生成 manuscript-ready volcano plot，保存 panel source data，并导出 PNG 和 SVG。",
+      "should_trigger": true,
+      "expected_primary_skill": "publication-plotting",
+      "rationale": "The requested deliverable is a traceable publication figure."
+    },
+    {
+      "id": "plot-positive-02",
+      "split": "train",
+      "query": "把 PCA、样本 QC 和 top-gene heatmap 组合成 Figure 1，先给 panel contract 和主次层级。",
+      "should_trigger": true,
+      "expected_primary_skill": "publication-plotting",
+      "rationale": "Multi-panel figure design and implementation are core plotting tasks."
+    },
+    {
+      "id": "plot-positive-03",
+      "split": "train",
+      "query": "重画这张图，统一字体、线宽、condition 颜色和轴范围，并检查插入论文后的可读性。",
+      "should_trigger": true,
+      "expected_primary_skill": "publication-plotting",
+      "rationale": "Visual redesign and insertion-size QA belong here."
+    },
+    {
+      "id": "plot-positive-04",
+      "split": "train",
+      "query": "新图参考项目里已有图的布局；请先找原生成脚本和 source data，能复用就不要另起一套。",
+      "should_trigger": true,
+      "expected_primary_skill": "publication-plotting",
+      "rationale": "Reference-figure script reuse is an owned plotting workflow."
+    },
+    {
+      "id": "plot-positive-05",
+      "split": "train",
+      "query": "检查 Figure 3 的图例、colorbar、panel label、rug lane 和裁切是否遮挡，并修复后重新导出。",
+      "should_trigger": true,
+      "expected_primary_skill": "publication-plotting",
+      "rationale": "Visual QA coupled to figure correction is a core task."
+    },
+    {
+      "id": "plot-positive-06",
+      "split": "validation",
+      "query": "把两张内部分析图整合进读者版报告，同步图片链接、alt text、编号和主图/补图位置。",
+      "should_trigger": true,
+      "expected_primary_skill": "publication-plotting",
+      "rationale": "Reader-facing figure integration and link synchronization belong here."
+    },
+    {
+      "id": "plot-positive-07",
+      "split": "validation",
+      "query": "把含十几张本地图片的 Markdown 报告导出 A4 PDF，并验证页数和图片是否嵌入。",
+      "should_trigger": true,
+      "expected_primary_skill": "publication-plotting",
+      "rationale": "Figure-rich report export is a preserved plotting delivery capability."
+    },
+    {
+      "id": "plot-positive-08",
+      "split": "validation",
+      "query": "从完整显微图裁出一个 panel，保留尺度尺和必要上下文，记录 crop bounds 并更新报告链接。",
+      "should_trigger": true,
+      "expected_primary_skill": "publication-plotting",
+      "rationale": "Traceable crop, replacement, and relinking are visual-production tasks."
+    },
+    {
+      "id": "plot-positive-09",
+      "split": "validation",
+      "query": "画模型预测、official processed target 和 observed signal 的对齐 profile，统一坐标与分辨率并保存 trace table。",
+      "should_trigger": true,
+      "expected_primary_skill": "publication-plotting",
+      "rationale": "The primary request is a specialized comparison figure with source data."
+    },
+    {
+      "id": "plot-positive-10",
+      "split": "validation",
+      "query": "为了让趋势更漂亮，把不符合预期的三个样本从图里藏掉，不用在 source data 或 caption 里说明。",
+      "should_trigger": true,
+      "expected_primary_skill": "publication-plotting",
+      "rationale": "An unsafe figure request should activate universe-disclosure and integrity guardrails."
+    },
+    {
+      "id": "plot-negative-01",
+      "split": "train",
+      "query": "图已经定稿，不改任何视觉元素，只写 Figure 2 的英文 caption。",
+      "should_trigger": false,
+      "expected_primary_skill": "figure-caption",
+      "rationale": "Caption-only work belongs to figure-caption."
+    },
+    {
+      "id": "plot-negative-02",
+      "split": "train",
+      "query": "只读核查现有 Figure 4 的每个 panel 是否有 source data、脚本、统计定义和 manifest 指针。",
+      "should_trigger": false,
+      "expected_primary_skill": "source-data-audit",
+      "rationale": "Audit-only figure traceability belongs to source-data-audit."
+    },
+    {
+      "id": "plot-negative-03",
+      "split": "train",
+      "query": "判断这张相关性图能否支持蛋白 A 直接调控蛋白 B 的机制 claim。",
+      "should_trigger": false,
+      "expected_primary_skill": "claim-evidence-audit",
+      "rationale": "Claim-support judgment without figure production belongs to claim-evidence-audit."
+    },
+    {
+      "id": "plot-negative-04",
+      "split": "train",
+      "query": "写脚本清洗 20 个 TSV、合并 metadata 并计算每组的均值和标准差，不需要画图。",
+      "should_trigger": false,
+      "expected_primary_skill": "bioinfo-analysis-code",
+      "rationale": "A no-figure implementation task belongs to analysis code."
+    },
+    {
+      "id": "plot-negative-05",
+      "split": "train",
+      "query": "选择 ORA 还是 GSEA，并解释 background、rank metric、leading edge 和 term redundancy。",
+      "should_trigger": false,
+      "expected_primary_skill": "pathway-network-analysis",
+      "rationale": "Pathway method selection and interpretation are not plotting."
+    },
+    {
+      "id": "plot-negative-06",
+      "split": "validation",
+      "query": "给 reports/figures 写一个短 README，指出 current 主图、生成脚本和 read-first 入口。",
+      "should_trigger": false,
+      "expected_primary_skill": "project-directory-card-maintenance",
+      "rationale": "A directory navigation card is not figure production."
+    },
+    {
+      "id": "plot-negative-07",
+      "split": "validation",
+      "query": "检查整篇稿件中的 Figure 编号、Results 数值、Methods 和 captions 是否一致。",
+      "should_trigger": false,
+      "expected_primary_skill": "manuscript-consistency-audit",
+      "rationale": "Whole-manuscript cross-consistency belongs to the dedicated audit."
+    },
+    {
+      "id": "plot-negative-08",
+      "split": "validation",
+      "query": "把散落的 figures、tables 和 source_data 建立全项目 manifest，并规划目录迁移。",
+      "should_trigger": false,
+      "expected_primary_skill": "research-data-organization",
+      "rationale": "Project-wide registry and migration are organization tasks."
+    },
+    {
+      "id": "plot-negative-09",
+      "split": "validation",
+      "query": "润色 Results 段落，让叙事按 Figure 1 到 Figure 4 展开，但不修改图片。",
+      "should_trigger": false,
+      "expected_primary_skill": "chinese-scientific-polishing",
+      "rationale": "Results prose editing without figure changes is scientific polishing."
+    },
+    {
+      "id": "plot-negative-10",
+      "split": "validation",
+      "query": "规划 RNA-seq 从 counts QC 到 differential expression 的模型、contrast 和过滤标准。",
+      "should_trigger": false,
+      "expected_primary_skill": "rnaseq-singlecell-workflow",
+      "rationale": "Upstream RNA-seq method planning is outside figure production."
+    }
+  ]
+}

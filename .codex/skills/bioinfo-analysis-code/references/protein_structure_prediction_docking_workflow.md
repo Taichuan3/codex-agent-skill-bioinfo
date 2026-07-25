@@ -2,7 +2,7 @@
 
 Use this reference when a bioinformatics task depends on predicted protein structures before docking or interface analysis.
 
-## User-facing workflow preferences
+## Workflow safeguards
 
 - Treat structure generation as the foundation for docking. Do not rush into docking with low-quality or wrong-length structures when the user asks for AlphaFold-quality inputs.
 - Show key tables and images directly in chat when reporting results; do not only provide file paths.
@@ -30,7 +30,7 @@ Use this reference when a bioinformatics task depends on predicted protein struc
 6. Only proceed to docking if structure quality is acceptable for the region being interpreted. If pTM is low or most residues have pLDDT <50, recommend domain-level or restrained docking instead of full-length blind docking.
 7. For docking, report score tables, interface residues, motif/domain contact status, and steric-clash metrics. Large numbers of atom pairs <2 Å indicate invalid poses even if docking scores look favorable.
 
-## Pitfalls from ACTN4–PHLDB2 session
+## Common failure modes
 
 - Full-length HDOCK sequence-input jobs may return modeled fragments rather than explicit full-length structures; always check returned residue coverage before interpreting docking.
 - Full-length blind docking of large low-confidence proteins can produce strongly scored but physically impossible poses with severe steric overlap. Add clash metrics before presenting any pose as plausible.

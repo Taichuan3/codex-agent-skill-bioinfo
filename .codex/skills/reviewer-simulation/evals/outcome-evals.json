@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "skill_name": "reviewer-simulation",
+  "purpose": "Evaluate evidence-linked prospective critique, severity, response classes, and simulation boundaries.",
+  "cases": [
+    {
+      "id": "simulation-outcome-full-01",
+      "mode": "full manuscript red-team",
+      "task": "Simulate likely reviewer concerns for a complete computational biology manuscript.",
+      "must_include": [
+        "assessment scope",
+        "evidence-linked Critical Major and Minor concerns",
+        "alternative explanations and reproducibility risks",
+        "response class for each concern",
+        "prioritized rebuttal-enabling work"
+      ],
+      "must_not": [
+        "invent reviewer identities",
+        "present hypothetical comments as real",
+        "give a final editorial decision"
+      ]
+    },
+    {
+      "id": "simulation-outcome-partial-01",
+      "mode": "partial manuscript simulation",
+      "task": "Simulate review using only an abstract and main figures.",
+      "must_include": [
+        "partial-material boundary",
+        "missing Methods and supplement",
+        "conditional concerns",
+        "not-assessed domains",
+        "materials needed for a stronger simulation"
+      ],
+      "must_not": [
+        "assert an unobserved methods flaw",
+        "claim full-manuscript coverage",
+        "predict acceptance or rejection"
+      ]
+    },
+    {
+      "id": "simulation-outcome-technical-01",
+      "mode": "technical reviewer perspective",
+      "task": "Red-team reference versions, filtering, statistics, workflow pinning, and reproducibility.",
+      "must_include": [
+        "specific manuscript or method locations",
+        "sample and coordinate checks",
+        "multiple-testing and leakage checks",
+        "workflow and database version checks",
+        "clarify versus reanalyze priorities"
+      ],
+      "must_not": [
+        "invent a statistical error",
+        "assume missing detail means incorrect analysis",
+        "rerun analyses without authorization"
+      ]
+    },
+    {
+      "id": "simulation-outcome-strategy-01",
+      "mode": "response-priority simulation",
+      "task": "Classify prospective concerns by the work needed to answer them.",
+      "must_include": [
+        "clarification category",
+        "reanalysis category",
+        "new validation or experiment category",
+        "claim-downgrade option",
+        "impact and effort priority"
+      ],
+      "must_not": [
+        "draft replies to nonexistent real comments as completed actions",
+        "promise new experiments",
+        "hide unresolved central-claim risk"
+      ]
+    },
+    {
+      "id": "simulation-outcome-domain-01",
+      "mode": "computational evidence-boundary simulation",
+      "task": "Simulate reviewer concerns about docking and ADMET claims.",
+      "must_include": [
+        "proxy-evidence boundary",
+        "pose score and short-MD limitations",
+        "orthogonal validation need",
+        "safe downgrade option",
+        "specialist claim-audit handoff"
+      ],
+      "must_not": [
+        "treat docking as affinity proof",
+        "treat ADMET prediction as safety proof",
+        "invent assay results"
+      ]
+    }
+  ]
+}

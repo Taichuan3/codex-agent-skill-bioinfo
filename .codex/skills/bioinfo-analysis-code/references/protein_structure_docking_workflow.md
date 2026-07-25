@@ -2,11 +2,11 @@
 
 Use this reference when a bioinformatics task involves protein structure prediction, mutation models, protein-protein docking, or protein-ligand docking.
 
-## User-facing workflow lessons
+## Workflow safeguards
 
 - Treat structure quality as a prerequisite for docking. Do not rush to docking before confirming sequence identity, mutation definitions, model coverage, pLDDT/pTM/PAE, and obvious steric problems.
 - When the user corrects mutation definitions, immediately regenerate all dependent FASTA/PDB/restraint files and mark old outputs obsolete. Verify differences against WT explicitly by residue number.
-- For this user, display key comparison tables and figures directly in chat when requested; do not only provide paths.
+- When requested, present key comparison tables and figures together with their file paths.
 - Be precise with terminology: ColabFold can be a runner/wrapper for AlphaFold2/AF2-ptm models, not a completely unrelated modeling algorithm. Say “AlphaFold2/AF2-ptm via ColabFold runner” when that is what was used.
 
 ## Recommended sequence-to-docking pipeline

@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "skill_name": "claim-evidence-audit",
+  "purpose": "Evaluate evidence grading, scope control, traceability separation, and safe wording.",
+  "cases": [
+    {
+      "id": "claim-outcome-standard-01",
+      "mode": "atomic claim audit",
+      "task": "Audit a causal manuscript statement supported only by association and enrichment.",
+      "must_include": [
+        "claim decomposed into observation and causal interpretation",
+        "mapped evidence and missing validation",
+        "evidence level",
+        "downgrade action",
+        "safe replacement wording"
+      ],
+      "must_not": [
+        "treat enrichment as mechanism proof",
+        "invent an experiment or citation",
+        "rewrite unrelated manuscript text"
+      ]
+    },
+    {
+      "id": "claim-outcome-translational-01",
+      "mode": "translational boundary audit",
+      "task": "Assess a clinical-validation claim based on database annotations and trial registration.",
+      "must_include": [
+        "evidence types and dates",
+        "current-project direct evidence status",
+        "trial status distinguished from efficacy",
+        "exploratory or moderate boundary",
+        "clinical-safe wording"
+      ],
+      "must_not": [
+        "equate registration with efficacy",
+        "equate database association with approved indication",
+        "claim clinical validation"
+      ]
+    },
+    {
+      "id": "claim-outcome-traceability-01",
+      "mode": "claim and provenance separation",
+      "task": "Audit a claim whose figure exists but whose plotted source file is missing.",
+      "must_include": [
+        "scientific support assessed from available material",
+        "traceability gap reported separately",
+        "needs_source_data action",
+        "handoff to source-data-audit",
+        "bounded conclusion"
+      ],
+      "must_not": [
+        "declare the observation false solely because provenance is missing",
+        "invent a source path",
+        "mark traceability as verified"
+      ]
+    },
+    {
+      "id": "claim-outcome-repeat-01",
+      "mode": "repeat-rich external validation",
+      "task": "Assess a prediction-accuracy claim in a mappability-sensitive interval.",
+      "must_include": [
+        "model prediction and observed signal separated",
+        "signal definition and coordinate checks",
+        "mapping-sensitivity caveat",
+        "concordance distinguished from accuracy",
+        "safe proxy-support wording"
+      ],
+      "must_not": [
+        "call concordance accuracy without a defined truth metric",
+        "make an unqualified absence claim",
+        "merge strict and relaxed mapping evidence"
+      ]
+    },
+    {
+      "id": "claim-outcome-partial-01",
+      "mode": "partial-material audit",
+      "task": "Audit three abstract claims when only the abstract, one figure, and one table are available.",
+      "must_include": [
+        "assessment boundary",
+        "claim-by-claim evidence map",
+        "not assessed materials",
+        "conditional evidence levels",
+        "author decisions and evidence gaps"
+      ],
+      "must_not": [
+        "claim manuscript-wide coverage",
+        "fill missing methods from memory",
+        "give final scientific approval"
+      ]
+    }
+  ]
+}

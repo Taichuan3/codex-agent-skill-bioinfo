@@ -1,4 +1,4 @@
 interface:
-  display_name: "Rnaseq Singlecell Workflow"
-  short_description: "Plan RNA-seq and single-cell workflows with QC"
-  default_prompt: "Use $rnaseq-singlecell-workflow for this task."
+  display_name: "RNA-seq and Single-cell Workflow"
+  short_description: "Plan reproducible bulk and single-cell RNA workflows"
+  default_prompt: "Use $rnaseq-singlecell-workflow to design or review this RNA analysis with explicit QC, provenance, and evidence boundaries."

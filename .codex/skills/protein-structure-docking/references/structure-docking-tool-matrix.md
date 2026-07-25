@@ -2,10 +2,12 @@
 
 | Task | Candidate tools | Use when | Main caveat |
 |---|---|---|---|
-| Protein-ligand pilot docking | AutoDock Vina, GNINA, CB-Dock, DiffDock-like tools | ligand and receptor are defined; need quick exploratory pose | score is not proof of affinity; protonation/pocket definition matters |
+| Known-pocket protein-ligand pilot | AutoDock Vina, GNINA, SMINA-like tools | receptor, ligand and box are defined; controls are possible | score is protocol-specific, not affinity |
+| Blind or pose-generation hypothesis | CB-Dock, DiffDock-like tools | site or pose is uncertain and broad hypothesis generation is acceptable | confidence does not identify a true site or binding |
 | Protein-protein docking | HDOCK, ClusPro, HADDOCK when restraints exist | testing interface hypotheses or WT vs mutant trend | docking rank can be unstable; require controls and interface inspection |
 | Structure/complex prediction | AlphaFold DB, ColabFold, Boltz, Chai, AF3-like services | structure unavailable or complex prediction needed | model confidence does not equal binding validation |
 | Pose validation | visual inspection, PoseBusters-like checks, clash/contact analysis | deciding whether a pose is physically plausible | validation filters reduce false positives but do not prove biology |
+| Affinity refinement | FEP/RBFE/ABFE implementations with validated setup | binding mode and congeneric series are credible and compute/protocol expertise exists | expensive, assumption-sensitive and still assay-dependent |
 
 ## QC checklist
 
@@ -14,7 +16,7 @@
 - Explicit residue numbering and chain mapping.
 - Negative/positive controls when available.
 - Visual inspection of clashes, pocket placement, interface contacts.
-- Store raw output, parsed summary table, and representative figures.
+- Store raw output, parsed summary table, failure records and representative figures.
 
 
 ## Preparation chain
@@ -30,4 +32,4 @@
 - Use Vina/GNINA/SMINA-like workflows for exploratory screening when receptor and ligand are well-defined.
 - Treat DiffDock/Boltz/Chai/AF3-like outputs as pose or complex hypotheses; use independent QC/rescoring before interpretation.
 - Use FEP/RBFE/ABFE only as later refinement after the binding mode and candidate set are credible.
-- NIM/API-backed tools are reference-only until a project has credentials, versioned endpoint information, and a real pilot run.
+- API-backed tools require an authorized account, versioned endpoint record and bounded pilot before campaign use.

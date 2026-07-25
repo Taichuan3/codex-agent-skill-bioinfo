@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "skill_name": "manuscript-consistency-audit",
+  "purpose": "Evaluate cross-location consistency routing against claim, source-data, polishing, and submission workflows.",
+  "cases": [
+    {
+      "id": "consistency-positive-01",
+      "split": "train",
+      "query": "摘要写 214 个样本，Results 写 211，图注写 209。请列出所有位置并对照 locked table。",
+      "should_trigger": true,
+      "expected_primary_skill": "manuscript-consistency-audit",
+      "rationale": "Resolving cross-location sample-count conflicts is core scope."
+    },
+    {
+      "id": "consistency-positive-02",
+      "split": "train",
+      "query": "检查全文把 responders、benefit group 和 sensitive cohort 是否混作同一个术语。",
+      "should_trigger": true,
+      "expected_primary_skill": "manuscript-consistency-audit",
+      "rationale": "Terminology consistency across a manuscript belongs here."
+    },
+    {
+      "id": "consistency-positive-03",
+      "split": "train",
+      "query": "Figure 2 在正文叫 panel C，但图注和 supplement 都写 panel D，请核对交叉引用。",
+      "should_trigger": true,
+      "expected_primary_skill": "manuscript-consistency-audit",
+      "rationale": "Figure-panel reference conflicts are a core consistency task."
+    },
+    {
+      "id": "consistency-positive-04",
+      "split": "train",
+      "query": "Methods 写 FDR < 0.1，Results 写 adjusted P < 0.05。请查明哪些分析口径冲突，不要自动改。",
+      "should_trigger": true,
+      "expected_primary_skill": "manuscript-consistency-audit",
+      "rationale": "Cross-section statistical-definition conflicts require authority-based audit."
+    },
+    {
+      "id": "consistency-positive-05",
+      "split": "train",
+      "query": "建立 number lock，核对主文、图注、表格和补充材料里的所有关键百分比。",
+      "should_trigger": true,
+      "expected_primary_skill": "manuscript-consistency-audit",
+      "rationale": "A manuscript-wide locked-number comparison is core scope."
+    },
+    {
+      "id": "consistency-positive-06",
+      "split": "validation",
+      "query": "摘要说显著改善，Results 只说 trend，Discussion 又写 confirmed。请标出 claim-strength 不一致的位置。",
+      "should_trigger": true,
+      "expected_primary_skill": "manuscript-consistency-audit",
+      "rationale": "The task asks for cross-location strength mismatch detection, not final support judgment."
+    },
+    {
+      "id": "consistency-positive-07",
+      "split": "validation",
+      "query": "检查 manuscript 与 supplement 的 reference genome、software version 和 filtering threshold 是否一致。",
+      "should_trigger": true,
+      "expected_primary_skill": "manuscript-consistency-audit",
+      "rationale": "Method and version consistency across documents belongs here."
+    },
+    {
+      "id": "consistency-positive-08",
+      "split": "validation",
+      "query": "两个 cohort 分母不同导致百分比看似冲突，请标记 scope-dependent 而不是强行统一。",
+      "should_trigger": true,
+      "expected_primary_skill": "manuscript-consistency-audit",
+      "rationale": "Distinguishing true conflict from scope-dependent values is a consistency task."
+    },
+    {
+      "id": "consistency-positive-09",
+      "split": "validation",
+      "query": "返修后 Figure 4 改成 Figure 5，请检查正文、图注、补表和 response letter 的所有旧引用。",
+      "should_trigger": true,
+      "expected_primary_skill": "manuscript-consistency-audit",
+      "rationale": "Post-revision cross-reference verification is in scope."
+    },
+    {
+      "id": "consistency-positive-10",
+      "split": "validation",
+      "query": "只读检查稿件的数字、样本集合和术语一致性；没有权威来源的项目请标 AUTHOR_INPUT_NEEDED。",
+      "should_trigger": true,
+      "expected_primary_skill": "manuscript-consistency-audit",
+      "rationale": "A bounded read-only consistency audit with authority gaps is core scope."
+    },
+    {
+      "id": "consistency-negative-01",
+      "split": "train",
+      "query": "这句把相关性写成 causality 是否有证据支持？请给安全降级写法。",
+      "should_trigger": false,
+      "expected_primary_skill": "claim-evidence-audit",
+      "rationale": "Atomic claim support is distinct from cross-location consistency."
+    },
+    {
+      "id": "consistency-negative-02",
+      "split": "train",
+      "query": "建立 Figure 1 每个 panel 的 source file、script、statistics 和 accession inventory。",
+      "should_trigger": false,
+      "expected_primary_skill": "source-data-audit",
+      "rationale": "Source-data traceability is not a manuscript conflict audit."
+    },
+    {
+      "id": "consistency-negative-03",
+      "split": "train",
+      "query": "综合判断整套 manuscript package 是否 ready for submission。",
+      "should_trigger": false,
+      "expected_primary_skill": "submission-readiness-audit",
+      "rationale": "Package readiness is a broader gate."
+    },
+    {
+      "id": "consistency-negative-04",
+      "split": "train",
+      "query": "把 Results 改成更流畅的中文科研表达，保持原数字不变。",
+      "should_trigger": false,
+      "expected_primary_skill": "chinese-scientific-polishing",
+      "rationale": "Pure prose polishing is outside consistency audit."
+    },
+    {
+      "id": "consistency-negative-05",
+      "split": "train",
+      "query": "模拟审稿人挑出方法、统计和叙事硬伤。",
+      "should_trigger": false,
+      "expected_primary_skill": "reviewer-simulation",
+      "rationale": "Prospective red-team critique belongs to reviewer simulation."
+    },
+    {
+      "id": "consistency-negative-06",
+      "split": "validation",
+      "query": "根据真实 reviewer comments 起草逐条回复，并标出待补分析。",
+      "should_trigger": false,
+      "expected_primary_skill": "reviewer-response-builder",
+      "rationale": "Real-comment response orchestration belongs to reviewer response builder."
+    },
+    {
+      "id": "consistency-negative-07",
+      "split": "validation",
+      "query": "核实参考文献 12 的 DOI 和文章标题是否匹配。",
+      "should_trigger": false,
+      "expected_primary_skill": "citation-verifier",
+      "rationale": "Bibliographic identity verification is not cross-manuscript consistency."
+    },
+    {
+      "id": "consistency-negative-08",
+      "split": "validation",
+      "query": "重新绘制 Figure 2 并统一字体、panel label 和颜色。",
+      "should_trigger": false,
+      "expected_primary_skill": "publication-plotting",
+      "rationale": "Figure production belongs to publication plotting."
+    },
+    {
+      "id": "consistency-negative-09",
+      "split": "validation",
+      "query": "为项目建立 latest_manifest，整理 reports 和 source_data 的入口。",
+      "should_trigger": false,
+      "expected_primary_skill": "research-data-organization",
+      "rationale": "Project artifact organization is outside manuscript consistency."
+    },
+    {
+      "id": "consistency-negative-10",
+      "split": "validation",
+      "query": "查找支持这个研究背景的最新综述和方法论文。",
+      "should_trigger": false,
+      "expected_primary_skill": "literature-search-workflow",
+      "rationale": "Literature discovery is not an internal-consistency deliverable."
+    }
+  ]
+}

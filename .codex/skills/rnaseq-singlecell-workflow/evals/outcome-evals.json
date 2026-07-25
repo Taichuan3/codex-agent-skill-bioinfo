@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "skill_name": "rnaseq-singlecell-workflow",
+  "purpose": "Evaluate reproducible bulk and single-cell execution, sample-aware inference, and RNA claim boundaries.",
+  "cases": [
+    {
+      "id": "rna-outcome-bulk-raw-01",
+      "mode": "bulk FASTQ execution plan",
+      "task": "Plan paired-end FASTQ through gene-level abundance and QC.",
+      "must_include": [
+        "sample and replicate contract",
+        "reference annotation and strandedness",
+        "representative-sample dry run",
+        "mapping assignment and cross-sample QC",
+        "commands configs provenance and outputs"
+      ],
+      "must_not": [
+        "modify raw reads",
+        "choose exclusions from mapping rate alone",
+        "treat an aggregated QC report as the gate"
+      ]
+    },
+    {
+      "id": "rna-outcome-bulk-de-01",
+      "mode": "bulk count-matrix differential expression",
+      "task": "Review a count matrix and define a condition contrast.",
+      "must_include": [
+        "raw-count and identifier validation",
+        "sample roster and full-rank design",
+        "predeclared filtering and contrast",
+        "effect uncertainty and multiple testing",
+        "complete results plus source data"
+      ],
+      "must_not": [
+        "test transformed values as raw counts",
+        "silently drop an outlier",
+        "claim mechanism from differential expression"
+      ]
+    },
+    {
+      "id": "rna-outcome-scrna-raw-01",
+      "mode": "raw single-cell workflow",
+      "task": "Plan raw 10x data through QC, integration, clustering and annotation.",
+      "must_include": [
+        "donor library chemistry and reference",
+        "per-sample QC with before-after counts",
+        "ambient RNA doublet and identity checks",
+        "unintegrated baseline and integration assessment",
+        "annotation evidence and stability"
+      ],
+      "must_not": [
+        "use one universal QC threshold without inspection",
+        "force labels onto ambiguous clusters",
+        "equate clusters with biological truth"
+      ]
+    },
+    {
+      "id": "rna-outcome-processed-only-01",
+      "mode": "processed-only object review",
+      "task": "Assess a processed h5ad with missing raw preprocessing artifacts.",
+      "must_include": [
+        "layer and metadata inventory",
+        "available versus missing provenance",
+        "bounded analyses still supportable",
+        "raw-QC and count-testing limitations",
+        "recovery inputs or stop condition"
+      ],
+      "must_not": [
+        "pretend raw QC is reproducible",
+        "invent filtering history",
+        "silently use scaled values for count testing"
+      ]
+    },
+    {
+      "id": "rna-outcome-pseudobulk-01",
+      "mode": "sample-aware single-cell comparison",
+      "task": "Compare one cell type between cases and controls.",
+      "must_include": [
+        "donor as replication unit",
+        "aggregation and minimum-cell rules",
+        "design covariates and contrast",
+        "sample-level QC and multiple testing",
+        "composition and replicate caveats"
+      ],
+      "must_not": [
+        "treat cells as independent replicates",
+        "use integrated values as default DE input",
+        "claim significance from cell count alone"
+      ]
+    },
+    {
+      "id": "rna-outcome-splicing-regulon-01",
+      "mode": "specialized RNA evidence review",
+      "task": "Review splicing or regulon results for a mechanistic report.",
+      "must_include": [
+        "event or network definition",
+        "junction coverage or motif-pruning evidence",
+        "method version parameters and stability",
+        "association-level interpretation",
+        "orthogonal validation need"
+      ],
+      "must_not": [
+        "infer protein function from isoform score alone",
+        "equate regulon activity with TF expression",
+        "state causal regulation without direct evidence"
+      ]
+    }
+  ]
+}

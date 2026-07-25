@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "skill_name": "protein-structure-docking",
+  "purpose": "Evaluate routing for structure/model QA, docking setup and pose interpretation against ADMET campaigns, database lookup, plotting and unsupported biological claims.",
+  "cases": [
+    {
+      "id": "structure-positive-01",
+      "split": "train",
+      "query": "我有一个 PDB 受体和已知小分子，帮我设计 Vina redocking pilot，先锁定 chain、protonation、box 和 positive control。",
+      "should_trigger": true,
+      "expected_primary_skill": "protein-structure-docking",
+      "rationale": "Known-pocket docking preparation and control design are core tasks."
+    },
+    {
+      "id": "structure-positive-02",
+      "split": "train",
+      "query": "比较 WT 和 R248Q 与同一配体的 docking，要求所有 preparation、seed 和 scoring policy 一致。",
+      "should_trigger": true,
+      "expected_primary_skill": "protein-structure-docking",
+      "rationale": "A matched mutant docking comparison belongs to this skill."
+    },
+    {
+      "id": "structure-positive-03",
+      "split": "train",
+      "query": "审查这个 AlphaFold 模型能否用于 pocket docking，检查 coverage、PAE、缺失残基和 residue numbering。",
+      "should_trigger": true,
+      "expected_primary_skill": "protein-structure-docking",
+      "rationale": "Structure-model QA for docking is a primary capability."
+    },
+    {
+      "id": "structure-positive-04",
+      "split": "train",
+      "query": "用 HDOCK 或 ClusPro 测试两个蛋白的界面假设，给出 restraints、对照和 interface QC。",
+      "should_trigger": true,
+      "expected_primary_skill": "protein-structure-docking",
+      "rationale": "Protein-protein docking workflow selection and QC are in scope."
+    },
+    {
+      "id": "structure-positive-05",
+      "split": "train",
+      "query": "只读解释 DiffDock 的 20 个 pose：哪些有 clash，confidence 能支持什么，不能支持什么？",
+      "should_trigger": true,
+      "expected_primary_skill": "protein-structure-docking",
+      "rationale": "Read-only pose and confidence interpretation is a core mode."
+    },
+    {
+      "id": "structure-positive-06",
+      "split": "validation",
+      "query": "为一个 metal-binding pocket 规划 constrained docking，记录金属配位、protonation 和失败条件。",
+      "should_trigger": true,
+      "expected_primary_skill": "protein-structure-docking",
+      "rationale": "Metal-aware docking input and failure-mode planning belong here."
+    },
+    {
+      "id": "structure-positive-07",
+      "split": "validation",
+      "query": "Boltz 预测的复合物 ipTM 很高，帮我检查 chain mapping、界面 PAE，并限制互作结论强度。",
+      "should_trigger": true,
+      "expected_primary_skill": "protein-structure-docking",
+      "rationale": "Predicted-complex confidence and interface interpretation are in scope."
+    },
+    {
+      "id": "structure-positive-08",
+      "split": "validation",
+      "query": "设计一个 12 个 ligand 的 GNINA 小样本 pilot，记录成功率、seed、pose QC、日志和磁盘占用。",
+      "should_trigger": true,
+      "expected_primary_skill": "protein-structure-docking",
+      "rationale": "A bounded docking pilot with operational QC is a core workflow."
+    },
+    {
+      "id": "structure-positive-09",
+      "split": "validation",
+      "query": "这个脂质配体要 dock 到膜蛋白，先核查 membrane context、charge、cofactor 和 blind-site 假设。",
+      "should_trigger": true,
+      "expected_primary_skill": "protein-structure-docking",
+      "rationale": "Membrane and lipid-context docking requires this input contract."
+    },
+    {
+      "id": "structure-positive-10",
+      "split": "validation",
+      "query": "复核一批 PPI docking 输出，生成带 receptor、partner、method、replicate、score 和 QC status 的 summary schema。",
+      "should_trigger": true,
+      "expected_primary_skill": "protein-structure-docking",
+      "rationale": "Batch docking provenance and interface QC summaries belong here."
+    },
+    {
+      "id": "structure-negative-01",
+      "split": "train",
+      "query": "为 50 万个化合物设计 ADMET、QSAR 和 virtual-screening 多证据排序方案。",
+      "should_trigger": false,
+      "expected_primary_skill": "drug-discovery-admet-screening",
+      "rationale": "Campaign-level screening and ADMET ranking belong to the drug-screening skill."
+    },
+    {
+      "id": "structure-negative-02",
+      "split": "train",
+      "query": "整合 Open Targets、GWAS 和 CRISPR 证据，给三个药物靶点做优先级判断。",
+      "should_trigger": false,
+      "expected_primary_skill": "drug-discovery-admet-screening",
+      "rationale": "Target evidence prioritization is not a structure/docking task."
+    },
+    {
+      "id": "structure-negative-03",
+      "split": "train",
+      "query": "评估一个 ADMET 模型的 endpoint、scaffold split、applicability domain 和 calibration。",
+      "should_trigger": false,
+      "expected_primary_skill": "drug-discovery-admet-screening",
+      "rationale": "ADMET model assessment belongs to the drug-screening skill."
+    },
+    {
+      "id": "structure-negative-04",
+      "split": "train",
+      "query": "核验 UniProt accession、isoform sequence 和物种是否对应，不做结构建模。",
+      "should_trigger": false,
+      "expected_primary_skill": "scientific-database-grounding",
+      "rationale": "A pure database identity check should not trigger docking."
+    },
+    {
+      "id": "structure-negative-05",
+      "split": "train",
+      "query": "把已有 docking summary 重画成 publication-ready heatmap，统一字体、panel label 和色盲配色。",
+      "should_trigger": false,
+      "expected_primary_skill": "publication-plotting",
+      "rationale": "Figure production without docking analysis belongs to plotting."
+    },
+    {
+      "id": "structure-negative-06",
+      "split": "validation",
+      "query": "根据一个较低的 docking score 直接证明这个突变导致了疾病机制。",
+      "should_trigger": false,
+      "expected_primary_skill": "claim-evidence-audit",
+      "rationale": "The request is primarily an unsupported claim audit, not a docking workflow."
+    },
+    {
+      "id": "structure-negative-07",
+      "split": "validation",
+      "query": "从 ChEMBL 和 BindingDB 汇总 IC50，统一单位并筛选已有活性化合物。",
+      "should_trigger": false,
+      "expected_primary_skill": "drug-discovery-admet-screening",
+      "rationale": "Bioactivity curation and compound screening belong to drug screening."
+    },
+    {
+      "id": "structure-negative-08",
+      "split": "validation",
+      "query": "根据 ADMET pass 和 clinical-trial 状态推荐患者应该服用哪种药。",
+      "should_trigger": false,
+      "expected_primary_skill": "clinical-bioinformatics-evidence",
+      "rationale": "Patient-level treatment advice is outside this research Skill and must route to the clinical safety boundary."
+    },
+    {
+      "id": "structure-negative-09",
+      "split": "validation",
+      "query": "比较三个 QSAR 模型的 random split 与 scaffold split，排查 leakage 和 baseline。",
+      "should_trigger": false,
+      "expected_primary_skill": "ml-benchmarking",
+      "rationale": "General model benchmarking is not a structure/docking task."
+    },
+    {
+      "id": "structure-negative-10",
+      "split": "validation",
+      "query": "按 CCDS 重排整个项目的 raw data、models、reports 和 figures 路径。",
+      "should_trigger": false,
+      "expected_primary_skill": "research-data-organization",
+      "rationale": "Project-wide data organization is outside docking scope."
+    }
+  ]
+}

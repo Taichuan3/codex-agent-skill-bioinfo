@@ -1,5 +1,12 @@
 # Directory Card templates
 
+## Contents
+
+- Generic Directory Card
+- `data/processed/README.md`
+- `models/README.md`
+- `reports/figures/README.md`
+
 ## Generic Directory Card
 
 ```markdown
@@ -25,7 +32,7 @@ Command: `<make command or python script>`
 - Ignore: `<pattern>` because <reason>.
 - Deprecated: `<file>` replaced by `<file>` on <date>.
 
-## Notes for Hermes/Codex
+## Notes for future agents
 - Do not inspect all files unless the task requires it.
 - Prefer the current files listed above.
 

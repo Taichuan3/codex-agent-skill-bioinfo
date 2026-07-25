@@ -10,3 +10,5 @@ Cost classes:
 - `low`: text change, table lookup, existing output audit.
 - `medium`: rerun existing script, add sensitivity check, create source table.
 - `high`: new dataset, new pipeline, wet-lab validation, large compute job.
+
+Prioritize by claim impact and decision value, not cost alone. Each proposed fix must state an acceptance criterion and a stop condition. If a lower-cost wording downgrade safely closes the gap for the intended deliverable, present it alongside new-analysis options.

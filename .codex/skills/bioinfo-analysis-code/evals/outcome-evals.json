@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "skill_name": "bioinfo-analysis-code",
+  "purpose": "Evaluate reproducible implementation, bounded execution, validation, and handoff quality.",
+  "cases": [
+    {
+      "id": "code-outcome-script-01",
+      "mode": "script implementation",
+      "task": "Implement a CLI that joins metadata and count summaries.",
+      "must_include": [
+        "declared input and output schema",
+        "explicit join key and duplicate handling",
+        "parameterized command",
+        "row-count and unmatched-ID validation",
+        "exact script and output paths"
+      ],
+      "must_not": [
+        "modify raw inputs",
+        "silently drop unmatched samples",
+        "claim correctness from exit status alone"
+      ]
+    },
+    {
+      "id": "code-outcome-refactor-01",
+      "mode": "notebook refactor",
+      "task": "Turn an exploratory notebook into a stable rerunnable workflow.",
+      "must_include": [
+        "preserved analysis definition",
+        "numbered stages or workflow entrypoint",
+        "externalized parameters",
+        "environment and random-seed record",
+        "comparison against prior outputs"
+      ],
+      "must_not": [
+        "silently change filters or statistics",
+        "leave stable results only in notebook state",
+        "renumber established stages without a migration note"
+      ]
+    },
+    {
+      "id": "code-outcome-large-run-01",
+      "mode": "large-job execution",
+      "task": "Run a batch parser over a large collection of files.",
+      "must_include": [
+        "representative smoke-test subset",
+        "logs and output-count inspection",
+        "disk-usage check",
+        "unchanged parameters between pilot and full run",
+        "failure and partial-output handling"
+      ],
+      "must_not": [
+        "start full execution without preflight",
+        "hide failed samples",
+        "overwrite raw data"
+      ]
+    },
+    {
+      "id": "code-outcome-debug-01",
+      "mode": "workflow debugging",
+      "task": "Diagnose and fix a workflow that omits a declared result table.",
+      "must_include": [
+        "reproduced failure or bounded evidence",
+        "root cause",
+        "minimal code or dependency fix",
+        "focused regression check",
+        "remaining caveat"
+      ],
+      "must_not": [
+        "rewrite unrelated workflow stages",
+        "change samples or thresholds to make the test pass",
+        "equate a PASS marker with scientific validity"
+      ]
+    },
+    {
+      "id": "code-outcome-package-01",
+      "mode": "reproducibility package",
+      "task": "Prepare analysis code and report-level source data for external review.",
+      "must_include": [
+        "reader-facing rerun entry",
+        "scripts commands and environment",
+        "manifest with relative paths and hashes",
+        "intentional exclusions and retrieval pointers",
+        "archive and manifest verification"
+      ],
+      "must_not": [
+        "bundle credentials or machine-private paths",
+        "include raw large data by default",
+        "present the package as final scientific approval"
+      ]
+    }
+  ]
+}

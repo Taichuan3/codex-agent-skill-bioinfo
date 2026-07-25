@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "skill_name": "rnaseq-singlecell-workflow",
+  "purpose": "Evaluate RNA workflow routing across bulk, single-cell, generic coding, plotting, variant, and clinical neighbors.",
+  "cases": [
+    {
+      "id": "rna-positive-01",
+      "split": "train",
+      "query": "从 paired-end FASTQ 规划 bulk RNA-seq 到 gene counts 的可复现流程，并写清 reference、strandedness 和 QC。",
+      "should_trigger": true,
+      "expected_primary_skill": "rnaseq-singlecell-workflow",
+      "rationale": "FASTQ-to-counts bulk workflow design is core scope."
+    },
+    {
+      "id": "rna-positive-02",
+      "split": "train",
+      "query": "检查这个 raw count matrix 的样本身份、PCA、低表达过滤和 DESeq2 design，再定义 treatment contrast。",
+      "should_trigger": true,
+      "expected_primary_skill": "rnaseq-singlecell-workflow",
+      "rationale": "Count-matrix QC and sample-level differential design are core bulk tasks."
+    },
+    {
+      "id": "rna-positive-03",
+      "split": "train",
+      "query": "为 10x scRNA-seq 设计 empty droplets、ambient RNA、doublet、batch integration 和 cell annotation 流程。",
+      "should_trigger": true,
+      "expected_primary_skill": "rnaseq-singlecell-workflow",
+      "rationale": "Raw single-cell QC through annotation is core scope."
+    },
+    {
+      "id": "rna-positive-04",
+      "split": "train",
+      "query": "比较病例与对照的 T cells，请按 donor 做 pseudo-bulk，不要把每个 cell 当独立重复。",
+      "should_trigger": true,
+      "expected_primary_skill": "rnaseq-singlecell-workflow",
+      "rationale": "Sample-aware single-cell condition testing is a central guardrail."
+    },
+    {
+      "id": "rna-positive-05",
+      "split": "train",
+      "query": "评估 rMATS 和 LeafCutter 哪个适合当前 short-read RNA-seq，并要求 junction support 与 event definition。",
+      "should_trigger": true,
+      "expected_primary_skill": "rnaseq-singlecell-workflow",
+      "rationale": "Splicing method selection with evidence checks belongs to the RNA workflow."
+    },
+    {
+      "id": "rna-positive-06",
+      "split": "validation",
+      "query": "我只有 processed h5ad；请审查还能可靠做哪些 QC、marker 和 condition comparison，并标出不能重建的步骤。",
+      "should_trigger": true,
+      "expected_primary_skill": "rnaseq-singlecell-workflow",
+      "rationale": "Processed-only single-cell feasibility review is an explicit mode."
+    },
+    {
+      "id": "rna-positive-07",
+      "split": "validation",
+      "query": "审查 Multiome 项目的 RNA layer：按 sample 做 QC、annotation 和 differential expression，并说明跨模态关联边界。",
+      "should_trigger": true,
+      "expected_primary_skill": "rnaseq-singlecell-workflow",
+      "rationale": "The RNA layer of Multiome is within single-cell scope."
+    },
+    {
+      "id": "rna-positive-08",
+      "split": "validation",
+      "query": "现有 scRNA 结果用 integrated values 做 DE 且 p 值把 cells 当独立样本，请诊断并给出可复现修复路线。",
+      "should_trigger": true,
+      "expected_primary_skill": "rnaseq-singlecell-workflow",
+      "rationale": "Repairing invalid single-cell differential testing is core workflow review."
+    },
+    {
+      "id": "rna-positive-09",
+      "split": "validation",
+      "query": "为 long-read RNA-seq 的 isoform switching 分析定义输入、coverage QC、结果表和验证止损线。",
+      "should_trigger": true,
+      "expected_primary_skill": "rnaseq-singlecell-workflow",
+      "rationale": "Isoform workflow design and coverage boundaries belong to RNA analysis."
+    },
+    {
+      "id": "rna-positive-10",
+      "split": "validation",
+      "query": "审查 pySCENIC 输出，区分 co-expression module、motif-pruned regulon 和 AUCell activity。",
+      "should_trigger": true,
+      "expected_primary_skill": "rnaseq-singlecell-workflow",
+      "rationale": "RNA regulon-output interpretation with method boundaries is supported."
+    },
+    {
+      "id": "rna-negative-01",
+      "split": "train",
+      "query": "把已经确认的 DE 表画成期刊风格 volcano plot 和 heatmap，统一字体与色盲配色。",
+      "should_trigger": false,
+      "expected_primary_skill": "publication-plotting",
+      "rationale": "Pure figure production belongs to publication plotting."
+    },
+    {
+      "id": "rna-negative-02",
+      "split": "train",
+      "query": "写一个通用 Python 函数，把任意 TSV 转成 Parquet 并加单元测试。",
+      "should_trigger": false,
+      "expected_primary_skill": "bioinfo-analysis-code",
+      "rationale": "Generic code engineering is not an RNA workflow task."
+    },
+    {
+      "id": "rna-negative-03",
+      "split": "train",
+      "query": "核验 rs123 的 genome build、REF/ALT、ClinVar assertion 和 gnomAD frequency。",
+      "should_trigger": false,
+      "expected_primary_skill": "variant-genomics-interpretation",
+      "rationale": "Variant identity and evidence belong to variant interpretation."
+    },
+    {
+      "id": "rna-negative-04",
+      "split": "train",
+      "query": "整理该药物所有临床试验的 phase、status、primary endpoint 和 results availability。",
+      "should_trigger": false,
+      "expected_primary_skill": "clinical-bioinformatics-evidence",
+      "rationale": "Clinical-trial evidence review is outside RNA execution."
+    },
+    {
+      "id": "rna-negative-05",
+      "split": "train",
+      "query": "对论文中‘这个基因驱动疾病机制’的 claim 做逐条证据审计。",
+      "should_trigger": false,
+      "expected_primary_skill": "claim-evidence-audit",
+      "rationale": "A manuscript claim audit is broader than an RNA workflow."
+    },
+    {
+      "id": "rna-negative-06",
+      "split": "validation",
+      "query": "系统检索过去五年关于单细胞批次校正的 benchmark 论文并做引用矩阵。",
+      "should_trigger": false,
+      "expected_primary_skill": "literature-search-workflow",
+      "rationale": "The primary deliverable is a literature search, not RNA execution."
+    },
+    {
+      "id": "rna-negative-07",
+      "split": "validation",
+      "query": "把 DEG 输入 Reactome 和 STRING，构建 pathway network 并解释模块。",
+      "should_trigger": false,
+      "expected_primary_skill": "pathway-network-analysis",
+      "rationale": "Downstream pathway/network analysis has its own workflow."
+    },
+    {
+      "id": "rna-negative-08",
+      "split": "validation",
+      "query": "比较五个分类器预测 cell type 的性能，要求 nested CV、校准和外部验证。",
+      "should_trigger": false,
+      "expected_primary_skill": "ml-benchmarking",
+      "rationale": "The primary task is ML benchmarking rather than a standard RNA workflow."
+    },
+    {
+      "id": "rna-negative-09",
+      "split": "validation",
+      "query": "为 Figure 2 的 scRNA UMAP 和 marker panels 写完整图注。",
+      "should_trigger": false,
+      "expected_primary_skill": "figure-caption",
+      "rationale": "Caption writing is not analysis execution."
+    },
+    {
+      "id": "rna-negative-10",
+      "split": "validation",
+      "query": "按 CCDS 重新整理整个项目的 FASTQ、counts、figures 和 manifest，但不要运行 RNA 分析。",
+      "should_trigger": false,
+      "expected_primary_skill": "research-data-organization",
+      "rationale": "Project-wide artifact organization belongs to research-data-organization."
+    }
+  ]
+}

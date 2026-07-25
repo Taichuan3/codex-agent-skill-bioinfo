@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "skill_name": "scientific-english-translation",
+  "purpose": "Evaluate Chinese-to-English scientific translation against same-language polishing, caption construction, and evidence review.",
+  "cases": [
+    {
+      "id": "english-translation-positive-01",
+      "split": "train",
+      "query": "把这段中文 Results 忠实翻译成英文，保留相关性语气。",
+      "should_trigger": true,
+      "expected_primary_skill": "scientific-english-translation",
+      "rationale": "Chinese scientific source with English output is the core route."
+    },
+    {
+      "id": "english-translation-positive-02",
+      "split": "train",
+      "query": "请将中文摘要译成简洁的投稿英文，不要新增 novelty claim。",
+      "should_trigger": true,
+      "expected_primary_skill": "scientific-english-translation",
+      "rationale": "Journal-facing Chinese-to-English abstract translation belongs here."
+    },
+    {
+      "id": "english-translation-positive-03",
+      "split": "train",
+      "query": "这段方法主要是中文，夹有软件名和参数，请翻成英文并全部保留。",
+      "should_trigger": true,
+      "expected_primary_skill": "scientific-english-translation",
+      "rationale": "Mixed but Chinese-dominant Methods translated into English is supported."
+    },
+    {
+      "id": "english-translation-positive-04",
+      "split": "train",
+      "query": "将这封中文审稿回复翻译成专业英文，保持我们对限制的承认。",
+      "should_trigger": true,
+      "expected_primary_skill": "scientific-english-translation",
+      "rationale": "Response-letter translation with preserved stance belongs here."
+    },
+    {
+      "id": "english-translation-positive-05",
+      "split": "train",
+      "query": "把这个中文论文标题翻译成英文，避免使用过强的 causal verb。",
+      "should_trigger": true,
+      "expected_primary_skill": "scientific-english-translation",
+      "rationale": "Scientific title translation is a supported deliverable."
+    },
+    {
+      "id": "english-translation-positive-06",
+      "split": "validation",
+      "query": "把这条完整中文图注翻译成英文，panel、n 和统计信息不要改。",
+      "should_trigger": true,
+      "expected_primary_skill": "scientific-english-translation",
+      "rationale": "Language-only translation of an existing complete caption belongs here."
+    },
+    {
+      "id": "english-translation-positive-07",
+      "split": "validation",
+      "query": "将中文 Discussion 转成英文，并区分支持的结论、假说和替代解释。",
+      "should_trigger": true,
+      "expected_primary_skill": "scientific-english-translation",
+      "rationale": "Translation must preserve Discussion stance and evidence categories."
+    },
+    {
+      "id": "english-translation-positive-08",
+      "split": "validation",
+      "query": "中文原稿里同一概念用了三个词，请先建立术语映射再翻成英文。",
+      "should_trigger": true,
+      "expected_primary_skill": "scientific-english-translation",
+      "rationale": "Terminology mapping during Chinese-to-English translation is core scope."
+    },
+    {
+      "id": "english-translation-positive-09",
+      "split": "validation",
+      "query": "Translate the following Chinese introduction into English with a clear field-to-gap-to-objective flow.",
+      "should_trigger": true,
+      "expected_primary_skill": "scientific-english-translation",
+      "rationale": "The request language is English, but the source and target direction determine routing."
+    },
+    {
+      "id": "english-translation-positive-10",
+      "split": "validation",
+      "query": "把这份中英混合草稿统一成英文，已有英文术语保持不变。",
+      "should_trigger": true,
+      "expected_primary_skill": "scientific-english-translation",
+      "rationale": "A Chinese-dominant mixed draft normalized into English is translation."
+    },
+    {
+      "id": "english-translation-negative-01",
+      "split": "train",
+      "query": "Please polish this existing English Results paragraph for clarity.",
+      "should_trigger": false,
+      "expected_primary_skill": "scientific-english-polishing",
+      "rationale": "Existing English prose requires polishing, not translation."
+    },
+    {
+      "id": "english-translation-negative-02",
+      "split": "train",
+      "query": "把这段中文摘要润色得更紧凑，最终仍然用中文。",
+      "should_trigger": false,
+      "expected_primary_skill": "chinese-scientific-polishing",
+      "rationale": "Chinese-to-Chinese editing belongs to Chinese polishing."
+    },
+    {
+      "id": "english-translation-negative-03",
+      "split": "train",
+      "query": "根据 Figure 1 的 panel、样本和统计信息从零写英文 caption。",
+      "should_trigger": false,
+      "expected_primary_skill": "figure-caption",
+      "rationale": "Constructing caption content from figure information is figure-caption work."
+    },
+    {
+      "id": "english-translation-negative-04",
+      "split": "train",
+      "query": "检查这段英文是否把 association 错写成 causation，并判断证据能否支持。",
+      "should_trigger": false,
+      "expected_primary_skill": "claim-evidence-audit",
+      "rationale": "The primary deliverable is claim-to-evidence validation."
+    },
+    {
+      "id": "english-translation-negative-05",
+      "split": "train",
+      "query": "重新绘制 Figure 4 并导出英文标注的 PDF。",
+      "should_trigger": false,
+      "expected_primary_skill": "publication-plotting",
+      "rationale": "Rendering a figure is not translation."
+    },
+    {
+      "id": "english-translation-negative-06",
+      "split": "validation",
+      "query": "核验英文稿中的 DOI 和参考文献是否真正支持相关结论。",
+      "should_trigger": false,
+      "expected_primary_skill": "citation-verifier",
+      "rationale": "Citation verification is outside translation."
+    },
+    {
+      "id": "english-translation-negative-07",
+      "split": "validation",
+      "query": "逐 panel 审计英文图注对应的 source-data 文件和脚本。",
+      "should_trigger": false,
+      "expected_primary_skill": "source-data-audit",
+      "rationale": "Artifact traceability is not language translation."
+    },
+    {
+      "id": "english-translation-negative-08",
+      "split": "validation",
+      "query": "检查英文 manuscript 的 Methods、Results 和 legends 是否一致。",
+      "should_trigger": false,
+      "expected_primary_skill": "manuscript-consistency-audit",
+      "rationale": "Cross-section consistency auditing is a different primary task."
+    },
+    {
+      "id": "english-translation-negative-09",
+      "split": "validation",
+      "query": "只把现有英文图注压缩 20%，不改变语言。",
+      "should_trigger": false,
+      "expected_primary_skill": "scientific-english-polishing",
+      "rationale": "Same-language editing of existing English text is English polishing."
+    },
+    {
+      "id": "english-translation-negative-10",
+      "split": "validation",
+      "query": "为这张图补齐英文标题、panel 描述、统计检验和缩写定义。",
+      "should_trigger": false,
+      "expected_primary_skill": "figure-caption",
+      "rationale": "Caption completeness is the primary deliverable regardless of output language."
+    }
+  ]
+}

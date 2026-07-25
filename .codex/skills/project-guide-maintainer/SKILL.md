@@ -1,100 +1,53 @@
 ---
 name: project-guide-maintainer
-description: 用于创建、更新或压缩生物信息学项目的轻量 PROJECT_GUIDE.md 项目指导文件。适用于需要把 research-project-planner 和 research-question-brief 的输出整合成可长期读取的研究背景、核心问题、主线、路线、当前进度、结果框架和论文草稿骨架；也适用于用户要求“维护项目指导文件”“更新研究主线”“把当前进展压缩成以后可读的背景”。
+description: 用于创建/压缩 PROJECT_GUIDE 的 current state，维护研究问题、证据指针、story/figure skeleton、风险和 next decisions；不负责 PLAN、历史复盘或目录 README。
 ---
 
 # Project Guide Maintainer
 
 ## 核心问题
 
-如何把项目背景、核心问题、当前结果和下一步压缩成未来 agent 能快速读取的轻量 PROJECT_GUIDE？
+如何把经确认的项目背景、当前结果、证据边界和下一决策压缩成未来 Agent 能快速读取的轻量 GUIDE？
 
-## 使用场景
+## 能力边界
 
-当项目需要一个轻量、长期可读、可作为后续上下文入口的指导文件时使用本 skill。它连接 `research-question-brief` 和 `research-project-planner`：前者保留用户原始想法，后者设计项目路线，本 skill 把二者压缩成项目执行和论文写作都能使用的 `PROJECT_GUIDE.md`。
+- 本 Skill 只维护 `PROJECT_GUIDE.md` 的 current-state 内容，不管理 PLAN 生命周期。
+- 初始化 GUIDE+PLAN、追加 material-action 日志、定向查历史或修复两者关系时，组合或改用 `project-state-maintenance`。
+- 局部目录导航使用 `project-directory-card-maintenance`；项目级布局和迁移使用 `research-data-organization`。
+- GUIDE 可作为论文叙事骨架，但不是最终 manuscript，也不是操作日志、完整综述或 artifact inventory。
 
-## 定位
+## 事实与证据边界
 
-`PROJECT_GUIDE.md` 是 hot context / 当前项目卡片；`PROJECT_PLAN.md` 是 cold append-only log / 审计凭证。GUIDE 负责当前可执行性，PLAN 负责历史完整性。GUIDE 目标 2,000–4,000 中文字符，硬上限 6,000 字符或 120 行；只保存当前事实、关键证据指针、next actions 和风险，不保存流水账。它回答：
-
-- 这个项目研究什么问题。
-- 为什么值得研究。
-- 当前主线和工作模型是什么。
-- 技术路线分成哪几步。
-- 每一步做到哪里了。
-- 哪些结果可以支撑论文主体框架。
-- 哪些 caveat、open question 和下一步最重要。
-- 当前项目处于 exploration、confirmation 还是 validation 阶段。
-- 五句话 `Known / Unknown / Question / Finding / Advance` 是否已经能说清。
-- 哪些 reviewer attack 已经被证据、验证或降级写法处理。
-
-`PROJECT_PLAN.md` 或类似文件只记录操作、运行结果和复盘，不应承担项目背景和论文主线。
-
-## 内容原则
-
-- 尽量短，目标是让 agent 快速理解项目背景和当前进度；用户要求 1–2 页时主动压缩到当前策略和当前执行规则。
-- 保留研究主线，不保存流水账。
-- 保留关键 claim、证据等级、figure/result skeleton 和 caveat。
-- 不塞完整文献综述、长命令记录、大量路径、历史升级解释或每次运行细节。
-- 已完成旧路线、详细 checkpoint 和历史产物列表下沉到 `PROJECT_PLAN.md`、README 或 Directory Card；GUIDE 只保留最新稳定策略和下一步决策。
-- 未确认的信息标记为 `Assumption`、`Open question` 或 `Needs evidence`。
-- 研究问题、工作模型、durable facts、claims 和 next decisions 只有经用户确认后才写成当前事实；agent 新提出的方向、解释或优先级必须标为 `Draft`、`Assumption` 或待用户确认。
-- 可以作为论文草稿骨架，但不是最终 manuscript。
-
-## 推荐结构
-
-```text
-# PROJECT_GUIDE
-
-## One-line summary
-## Background
-## Central question
-## Known / Unknown / Question / Finding / Advance
-## Working hypothesis / model
-## Current story chain
-## Result / figure skeleton
-## Evidence package
-## Exploration / confirmation / validation status
-## Current progress
-## Key evidence and caveats
-## Reviewer attack list
-## Open questions
-## Next decisions
-## Pointers
-```
+- 研究问题、工作模型、durable findings、claims 和 next decisions 只有经用户确认后才写成当前事实。
+- Agent 新提出的解释或优先级必须标记 `Draft`、`Assumption`、`Open question` 或 `Needs evidence`。
+- 区分 evidence、interpretation、limitation 和 speculation；不得因压缩或润色提高 claim 强度。
+- 每个主要 finding/claim 保留短证据指针、证据等级、caveat 和状态；详细表格、日志、命令和历史下沉到 artifact、PLAN 或 Directory Card。
+- 不把凭证、患者可识别信息、原始数据内容、长机器路径列表或未必要公开的项目事实复制进公共模板。
 
 ## 工作流程
 
-1. 读取用户指定材料、已有 `PROJECT_GUIDE.md`、短 `research brief` 或 `project planner` 输出。
-2. 抽取最少必要背景、主线、路线和当前进度。
-3. 删除流水账式运行记录，把操作细节移交给 `PROJECT_PLAN.md` 或 summary。
-4. 如果 GUIDE 过长或用户只要最新策略，重写为 1–2 页 current-state card：项目一句话、最新策略/模型、当前 pipeline、目录/操作规则、当前缺口和下一步；把旧 roadmap、历史版本解释和详细检查清单下沉。
-5. 将结果路线组织成可支持论文主体的 result / figure skeleton。
-6. 对每个主要 claim 标注证据等级或缺口。
-7. 标记当前阶段：exploration、confirmation、validation 或 submission-ready。
-8. 输出可直接写入或替换的 `PROJECT_GUIDE.md` 内容。
+1. 锁定模式：`create`、`durable update`、`compress/replace` 或 `draft proposal`。
+2. 读取项目 `AGENTS.md`、现有 GUIDE 和用户指定的最小证据；需要历史时让 `project-state-maintenance` 定向读取 PLAN。
+3. 区分 confirmed fact、working model、open question、current evidence、caveat、risk 和 next decision。
+4. 只保留理解当前项目与下一步所需的信息；将 chronology、旧路线、详细 checkpoint 和完整路径表下沉。
+5. 用 result/figure skeleton 和 evidence pointer 连接研究主线；未验证观察保持 candidate/exploratory 状态。
+6. 更新时替换过期 current-state 表述，不在 GUIDE 尾部持续追加版本历史。
+7. 检查预算、内部一致性、claim 强度、指针有效性和用户确认状态。
+8. GUIDE 写入属于 material action；把完整候选交给 `project-state-maintenance`，由其执行 `prepared → 原子替换 GUIDE → committed` 两阶段协议。部分失败时报告实际落盘状态，不自行改写 PLAN 历史。
 
-## 读取规则
+## 内容与预算契约
 
-后续任务需要项目背景时，优先读取 `PROJECT_GUIDE.md` 的以下短段落：
+- 目标 2,000–4,000 中文字符；硬上限 6,000 字符或 120 行。
+- Main findings 最多 5–7 项；Next decisions 最多 3 项；Risks 最多 5 项。
+- 必须覆盖：one-line summary、central question、current story、key evidence/caveats、current stage、next decisions 和关键 pointers。
+- 项目需要时再加入 working model、result/figure skeleton、reviewer risks 或 evidence package；不要机械填满所有模板段落。
+- 超出预算时优先删除重复背景、chronology 和过期路线，并用 `log_id`、manifest、报告或 Directory Card 指针替代。
 
-- `One-line summary`
-- `Background`
-- `Central question`
-- `Known / Unknown / Question / Finding / Advance`
-- `Current story chain`
-- `Result / figure skeleton`
-- `Exploration / confirmation / validation status`
-- `Current progress`
+## 模式化输出
 
-只有任务需要复盘操作、找历史命令或确认具体输出时，才读取 `PROJECT_PLAN.md`。
+- `create`：给出可直接写入的 GUIDE、未确认字段和证据缺口。
+- `durable update`：列出替换的 current facts、证据指针、保留的 caveat 和需要追加的 PLAN 记录。
+- `compress/replace`：报告保留、删除、下沉和仍需用户确认的内容，并提供压缩后的完整 GUIDE。
+- `draft proposal`：不得把建议写成当前事实；清楚标记等待用户确认的段落。
 
-## 输出格式
-
-- `PROJECT_GUIDE.md draft` 或更新后的完整内容
-- `保留的信息`
-- `删除或下沉到 PROJECT_PLAN.md 的信息`
-- `Needs evidence / open questions`
-- `Suggested next update`
-
-需要模板时读取 `references/project-guide-template.md`。
+需要完整结构和字段示例时读取 `references/project-guide-template.md`。最终回复说明更新结果、精确路径、证据边界、PLAN 同步状态和下一决策。

@@ -1,6 +1,6 @@
 # Database Query Contract
 
-用于把外部 database lookup、ClinVar、Open Targets、gget、PDB/UniProt 等 skills 的通用机制压缩成本地 database grounding 规则。
+用于设计可重放的科学数据库查询，并统一实体解析、分页、字段选择、冲突核验和凭据边界。
 
 ## 查询前
 

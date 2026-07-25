@@ -1,6 +1,6 @@
 # 生信研究通用 Agent
 
-本文件是可复用生物信息学 Codex agent 包的根入口，面向 Home/Lab standalone OpenAI Codex CLI/IDE/app。通用规则放在这里，任务细节放入 `.codex/skills/<skill>/SKILL.md`，具体项目另用项目根 `AGENTS.md` 描述操作边界。
+本文件是可复用生物信息学 Codex capability package 仓库自己的项目级 Agent，面向 Home/Lab standalone OpenAI Codex CLI/IDE/app。不要把它复制到用于容纳多个项目的 `bioinfo` 父目录；用户运行时只保留全局 `~/.codex/AGENTS.md` 与具体项目根 `AGENTS.md` 两层。通用运行规则由 `templates/global-AGENTS.md` 安装，任务细节放入 `.codex/skills/<skill>/SKILL.md`。
 
 ## 身份与工作方式
 

@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "skill_name": "source-data-audit",
+  "purpose": "Evaluate figure-source traceability routing against claim, consistency, organization, and submission workflows.",
+  "cases": [
+    {
+      "id": "source-positive-01",
+      "split": "train",
+      "query": "为主文每个 figure panel 建 inventory，记录 plotted source file、生成脚本、统计定义和状态。",
+      "should_trigger": true,
+      "expected_primary_skill": "source-data-audit",
+      "rationale": "Panel-level source-data traceability is the core deliverable."
+    },
+    {
+      "id": "source-positive-02",
+      "split": "train",
+      "query": "投稿前检查 Data Availability 里承诺的 accession 和 source data 文件是否真实可用。",
+      "should_trigger": true,
+      "expected_primary_skill": "source-data-audit",
+      "rationale": "Truth-checking availability routes belongs to source-data audit."
+    },
+    {
+      "id": "source-positive-03",
+      "split": "train",
+      "query": "整理 numbers-to-lock，给每个关键数字标出权威 source file、列名、单位和 producer。",
+      "should_trigger": true,
+      "expected_primary_skill": "source-data-audit",
+      "rationale": "Building the source layer for locked numbers is a core task."
+    },
+    {
+      "id": "source-positive-04",
+      "split": "train",
+      "query": "审计 repository deposit 是否缺 README、license、version、access date 或 reuse restriction。",
+      "should_trigger": true,
+      "expected_primary_skill": "source-data-audit",
+      "rationale": "Repository metadata and reuse readiness are owned here."
+    },
+    {
+      "id": "source-positive-05",
+      "split": "train",
+      "query": "Figure 2 有 PNG 但找不到 plotted table。请只读追踪 producer 和 consumer，并列阻断缺口。",
+      "should_trigger": true,
+      "expected_primary_skill": "source-data-audit",
+      "rationale": "A bounded read-only traceability audit is a core mode."
+    },
+    {
+      "id": "source-positive-06",
+      "split": "validation",
+      "query": "检查 raw、filtered、normalized 和 manual-reviewed 数据有没有在 source-data 包里混写。",
+      "should_trigger": true,
+      "expected_primary_skill": "source-data-audit",
+      "rationale": "Auditing data-state distinctions in a publication package is core scope."
+    },
+    {
+      "id": "source-positive-07",
+      "split": "validation",
+      "query": "为受控访问临床数据设计诚实的 access route，并避免滥用 available upon request。",
+      "should_trigger": true,
+      "expected_primary_skill": "source-data-audit",
+      "rationale": "Controlled-access and availability wording are source-data responsibilities."
+    },
+    {
+      "id": "source-positive-08",
+      "split": "validation",
+      "query": "核验私人 reviewer link 能否在作者账号外访问，并把结果写入 repository readiness 清单。",
+      "should_trigger": true,
+      "expected_primary_skill": "source-data-audit",
+      "rationale": "Reviewer access testing is a repository-readiness check."
+    },
+    {
+      "id": "source-positive-09",
+      "split": "validation",
+      "query": "公共数据复用表缺 exact release、access date 和 transformation，帮我补一份审计表。",
+      "should_trigger": true,
+      "expected_primary_skill": "source-data-audit",
+      "rationale": "Reused-dataset provenance and transformations belong to source-data audit."
+    },
+    {
+      "id": "source-positive-10",
+      "split": "validation",
+      "query": "修正后的派生表已经获批覆盖旧表，请更新 inventory 的 current 指针并验证所有 panel target。",
+      "should_trigger": true,
+      "expected_primary_skill": "source-data-audit",
+      "rationale": "Updating current source-data pointers after an authorized correction is in scope."
+    },
+    {
+      "id": "source-negative-01",
+      "split": "train",
+      "query": "Figure 4 支持我们说这个通路 drives metastasis 吗？请给降级措辞。",
+      "should_trigger": false,
+      "expected_primary_skill": "claim-evidence-audit",
+      "rationale": "Scientific claim strength is distinct from traceability."
+    },
+    {
+      "id": "source-negative-02",
+      "split": "train",
+      "query": "摘要写 n=120、Methods 写 n=118、图注写 n=116，请找出所有冲突位置。",
+      "should_trigger": false,
+      "expected_primary_skill": "manuscript-consistency-audit",
+      "rationale": "Cross-manuscript number conflict detection belongs to consistency audit."
+    },
+    {
+      "id": "source-negative-03",
+      "split": "train",
+      "query": "判断主文、补充材料、代码和所有声明是否总体达到可投稿状态。",
+      "should_trigger": false,
+      "expected_primary_skill": "submission-readiness-audit",
+      "rationale": "A package-level submission gate is broader than source-data traceability."
+    },
+    {
+      "id": "source-negative-04",
+      "split": "train",
+      "query": "项目结果散落在十个目录，建立 latest_manifest 并规划 CCDS 迁移。",
+      "should_trigger": false,
+      "expected_primary_skill": "research-data-organization",
+      "rationale": "Project-wide artifact organization and migration are not publication source-data audit."
+    },
+    {
+      "id": "source-negative-05",
+      "split": "train",
+      "query": "给 reports/figures 写一个短 README，列 current 图和 read-first 顺序。",
+      "should_trigger": false,
+      "expected_primary_skill": "project-directory-card-maintenance",
+      "rationale": "A single-directory navigation card belongs to directory-card maintenance."
+    },
+    {
+      "id": "source-negative-06",
+      "split": "validation",
+      "query": "模拟审稿人，找出这篇论文最可能被攻击的统计和机制问题。",
+      "should_trigger": false,
+      "expected_primary_skill": "reviewer-simulation",
+      "rationale": "Prospective reviewer critique is not a source-data inventory task."
+    },
+    {
+      "id": "source-negative-07",
+      "split": "validation",
+      "query": "请根据真实 Reviewer 1 的 data sharing 意见起草逐条回复。",
+      "should_trigger": false,
+      "expected_primary_skill": "reviewer-response-builder",
+      "rationale": "Real comments require response construction, possibly with source-data audit as a handoff."
+    },
+    {
+      "id": "source-negative-08",
+      "split": "validation",
+      "query": "把 Figure 3 的字体统一并导出 600 dpi TIFF。",
+      "should_trigger": false,
+      "expected_primary_skill": "publication-plotting",
+      "rationale": "Figure styling and export are plotting tasks."
+    },
+    {
+      "id": "source-negative-09",
+      "split": "validation",
+      "query": "核对论文引用的 DOI、标题和年份是否正确。",
+      "should_trigger": false,
+      "expected_primary_skill": "citation-verifier",
+      "rationale": "Bibliographic identity checking is outside source-data scope."
+    },
+    {
+      "id": "source-negative-10",
+      "split": "validation",
+      "query": "设计 RNA-seq 差异分析 workflow 并生成 counts table。",
+      "should_trigger": false,
+      "expected_primary_skill": "bioinfo-analysis-code",
+      "rationale": "Producing analysis results is not auditing publication traceability."
+    }
+  ]
+}

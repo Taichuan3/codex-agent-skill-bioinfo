@@ -22,7 +22,15 @@
 | Check | Status | Issue | Minimal fix |
 |---|---|---|---|
 
-Use `Pass` only when the item is actually visible from the inspected material. Use `Not checked` when the needed file or evidence was not provided.
+Allowed status values are `Pass`, `Needs fix`, and `Not checked`. Use `Pass` only when the item is visible in the inspected material; missing evidence is `Not checked`, not a failure or an inferred pass.
+
+## Readiness
+
+| Result | Meaning |
+|---|---|
+| Ready | No hard stop or unresolved High issue in the checked scope. |
+| Ready with caveats | Only disclosed Medium/Low issues remain and they do not invalidate the intended use. |
+| Not ready | A hard stop or unresolved High issue can mislead, break reproducibility, or invalidate delivery. |
 
 ## Phase-aware checks
 

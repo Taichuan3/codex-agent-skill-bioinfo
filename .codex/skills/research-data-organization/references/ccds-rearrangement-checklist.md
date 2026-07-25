@@ -11,7 +11,8 @@ Use when reorganizing an existing analysis-heavy project into a Cookiecutter Dat
 2. **Start with a no-move audit**
    - Identify primary report/manuscript outputs.
    - Classify analyses as primary report support, technical/provenance support, supplementary/exploratory, raw/local-only, or archive/provenance.
-   - Write or update README/Directory Cards so the current structure is understandable.
+   - In a read-only audit, report proposed README/Directory Cards in chat without creating them.
+   - Only in an authorized documentation/index cleanup may you write or update README/Directory Cards.
 
 3. **Create a migration map before moving**
    Minimum columns:
@@ -19,7 +20,7 @@ Use when reorganizing an existing analysis-heavy project into a Cookiecutter Dat
    source_path	target_path	move_type	reason	report_link_impact	script_path_impact	compatibility_action	status
    ```
 
-4. **Move low-risk top-level directories first**
+4. **After explicit physical-move authorization, move low-risk top-level directories first**
    Common mature-project moves:
    - `figures/` -> `reports/figures/`
    - root `scripts/` -> `src/scripts/`
@@ -31,8 +32,8 @@ Use when reorganizing an existing analysis-heavy project into a Cookiecutter Dat
    - Keep numbered `analyses/` workflows stable when scripts and reports rely on relative paths.
    - Keep final report bundles stable if they are already submission/backup artifacts.
 
-6. **Add targeted Directory Cards**
-   Add short README files only for durable new namespaces: `metadata/`, `src/`, `release/`, `notebooks/`, `reports/figures/`, or important stage directories.
+6. **Add targeted Directory Cards within the authorized write scope**
+   Add short README files only for durable new namespaces: `metadata/`, `src/`, `release/`, `notebooks/`, `reports/figures/`, or important stage directories. Do not create them during a read-only audit.
 
 7. **Verify after moves**
    Focused ad-hoc checks should confirm:

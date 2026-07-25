@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "skill_name": "scientific-english-translation",
+  "purpose": "Evaluate faithful translation, terminology mapping, section function, reproducibility details, and caption preservation.",
+  "cases": [
+    {
+      "id": "english-translation-outcome-faithful-01",
+      "mode": "faithful Results translation",
+      "task": "Translate a Chinese Results paragraph with quantitative observations and bounded wording.",
+      "must_include": [
+        "directly usable English version",
+        "all numbers preserved",
+        "observational Results stance",
+        "stable terminology",
+        "source meaning checked"
+      ],
+      "must_not": [
+        "upgrade association to causation",
+        "invent mechanism or novelty",
+        "omit a limiting phrase"
+      ]
+    },
+    {
+      "id": "english-translation-outcome-terms-01",
+      "mode": "terminology-sensitive translation",
+      "task": "Translate Chinese text whose key concept is named inconsistently in the source.",
+      "must_include": [
+        "conservative preferred English term",
+        "terminology map",
+        "source ambiguity flagged",
+        "consistent use in the translation",
+        "distinctions retained when real"
+      ],
+      "must_not": [
+        "use synonyms for stylistic variety",
+        "invent a biological distinction",
+        "hide unresolved ambiguity"
+      ]
+    },
+    {
+      "id": "english-translation-outcome-journal-01",
+      "mode": "journal-leaning abstract translation",
+      "task": "Translate and condense a Chinese abstract for a high-impact-journal-facing English draft.",
+      "must_include": [
+        "context-to-gap-to-action-to-result flow",
+        "bounded implication",
+        "only decision-relevant numbers",
+        "claim strength preserved",
+        "target-journal caveat when rules are unknown"
+      ],
+      "must_not": [
+        "add novelty language",
+        "turn the abstract into a data inventory",
+        "present generic guidance as journal-specific rules"
+      ]
+    },
+    {
+      "id": "english-translation-outcome-methods-01",
+      "mode": "Methods translation",
+      "task": "Translate Chinese Methods containing versions, parameters, filtering, and sample definitions.",
+      "must_include": [
+        "precise English methods verbs",
+        "versions and parameters preserved",
+        "filters and samples preserved",
+        "uncertain source text flagged",
+        "reproducibility retained"
+      ],
+      "must_not": [
+        "polish away technical details",
+        "silently correct values",
+        "add unprovided procedures"
+      ]
+    },
+    {
+      "id": "english-translation-outcome-caption-01",
+      "mode": "existing caption translation",
+      "task": "Translate a complete Chinese caption into English without changing content.",
+      "must_include": [
+        "English caption in original panel order",
+        "numbers and statistics preserved",
+        "symbols and abbreviations preserved",
+        "terminology consistent",
+        "missing source information not invented"
+      ],
+      "must_not": [
+        "redesign the caption contract",
+        "add guessed n or tests",
+        "move interpretation beyond the source"
+      ]
+    }
+  ]
+}

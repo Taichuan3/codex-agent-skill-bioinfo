@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "skill_name": "research-project-planner",
+  "purpose": "Evaluate question-led project design, evidence phases, user ownership, and stop criteria.",
+  "cases": [
+    {
+      "id": "project-planner-outcome-charter-01",
+      "mode": "project charter",
+      "task": "Plan a new project from a confirmed research question.",
+      "must_include": ["central question and scope", "knowledge gap", "tentative hypothesis", "evidence package", "user decisions required"],
+      "must_not": ["invent preliminary results", "silently choose the final claim", "start implementation"]
+    },
+    {
+      "id": "project-planner-outcome-figures-01",
+      "mode": "figure skeleton",
+      "task": "Design the project's main figure logic.",
+      "must_include": ["question per figure", "input per figure", "evidence threshold", "alternative explanation", "phase label"],
+      "must_not": ["treat figures as decoration", "promise unavailable data", "equate exploration with validation"]
+    },
+    {
+      "id": "project-planner-outcome-field-map-01",
+      "mode": "unfamiliar field",
+      "task": "Plan work in a method area unfamiliar to the team.",
+      "must_include": ["authoritative field sources", "mature baseline", "credible implementations", "consensus and disputes", "reproduction shortlist"],
+      "must_not": ["jump directly to complex tuning", "rely on one attractive result", "claim expert consensus without evidence"]
+    },
+    {
+      "id": "project-planner-outcome-risk-01",
+      "mode": "risk and checkpoints",
+      "task": "Define project milestones and go-no-go logic.",
+      "must_include": ["minimum viable analysis", "dependencies", "risk register", "observable continue pivot stop criteria", "resource or time checkpoints"],
+      "must_not": ["use vague success language", "hide decision ownership", "continue based on sunk cost"]
+    },
+    {
+      "id": "project-planner-outcome-handoff-01",
+      "mode": "handoff",
+      "task": "Turn the plan into bounded next actions and current-state seed.",
+      "must_include": ["bounded implementation tasks", "inputs and outputs", "acceptance boundaries", "PROJECT_GUIDE seed", "handoff to project-guide-maintainer"],
+      "must_not": ["write execution results", "take over GUIDE lifecycle", "read the full PROJECT_PLAN"]
+    }
+  ]
+}

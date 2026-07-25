@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "skill_name": "source-data-audit",
+  "purpose": "Evaluate traceability, data-state, access-route, correction, and scope integrity.",
+  "cases": [
+    {
+      "id": "source-outcome-inventory-01",
+      "mode": "panel inventory",
+      "task": "Build a source-data inventory for all main-figure panels.",
+      "must_include": [
+        "one row per figure panel",
+        "current source file and data state",
+        "producer inputs and environment",
+        "statistical definition",
+        "verification status and required action"
+      ],
+      "must_not": [
+        "infer current status from filenames alone",
+        "merge raw and plotted data states",
+        "claim unverified panels are complete"
+      ]
+    },
+    {
+      "id": "source-outcome-availability-01",
+      "mode": "availability truth check",
+      "task": "Audit a Data and Code Availability statement before submission.",
+      "must_include": [
+        "dataset-by-dataset access route",
+        "accession DOI or restriction status",
+        "statement-to-artifact comparison",
+        "untested or unavailable promises",
+        "safe corrected wording"
+      ],
+      "must_not": [
+        "invent an accession",
+        "promise files not yet available",
+        "default to available upon request without justification"
+      ]
+    },
+    {
+      "id": "source-outcome-public-01",
+      "mode": "reused public data audit",
+      "task": "Audit provenance for reused public datasets supporting manuscript figures.",
+      "must_include": [
+        "repository and accession",
+        "exact release or version",
+        "access date and license",
+        "filtering or transformation",
+        "reuse restrictions and dataset citation"
+      ],
+      "must_not": [
+        "treat the paper citation as a dataset citation",
+        "omit transformations",
+        "assume current repository content matches the analyzed release"
+      ]
+    },
+    {
+      "id": "source-outcome-correction-01",
+      "mode": "authorized correction",
+      "task": "Update inventory pointers after an approved correction to a derived table.",
+      "must_include": [
+        "authorization boundary",
+        "old and current pointer",
+        "correction note",
+        "consumer and panel-target validation",
+        "raw-data unchanged statement"
+      ],
+      "must_not": [
+        "alter raw data",
+        "silently change statistical definitions",
+        "leave multiple files marked current"
+      ]
+    },
+    {
+      "id": "source-outcome-readonly-01",
+      "mode": "read-only traceability audit",
+      "task": "Trace a figure with a missing plotted source table without writing files.",
+      "must_include": [
+        "bounded scan scope",
+        "producer and consumer evidence",
+        "missing or ambiguous status",
+        "central-claim impact",
+        "no-write statement and next owner"
+      ],
+      "must_not": [
+        "create an inventory file",
+        "scan all raw data by default",
+        "declare the figure scientifically false solely from missing provenance"
+      ]
+    }
+  ]
+}

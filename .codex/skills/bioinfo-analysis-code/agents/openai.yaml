@@ -1,4 +1,4 @@
 interface:
   display_name: "Bioinfo Analysis Code"
-  short_description: "Bioinformatics scripts and reproducible analysis"
-  default_prompt: "Use $bioinfo-analysis-code to write or review a reproducible bioinformatics analysis script."
+  short_description: "Implement reproducible bioinformatics analysis code"
+  default_prompt: "Use $bioinfo-analysis-code to implement and validate this reproducible bioinformatics workflow."

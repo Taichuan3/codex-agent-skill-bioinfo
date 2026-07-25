@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "skill_name": "ml-benchmarking",
+  "purpose": "Evaluate biomedical ML benchmark activation against implementation, project validation, claim audit, plotting, data organization, and general explanation.",
+  "cases": [
+    {
+      "id": "ml-benchmark-positive-01",
+      "split": "train",
+      "query": "为患者复发风险模型设计 benchmark，先定义 prediction horizon、patient-level split、简单 baseline 和 calibration 指标。",
+      "should_trigger": true,
+      "expected_primary_skill": "ml-benchmarking",
+      "rationale": "Task contract, deployment-aligned split, baselines, and metrics are core benchmark design."
+    },
+    {
+      "id": "ml-benchmark-positive-02",
+      "split": "train",
+      "query": "审查这个蛋白功能预测 benchmark：random split 的 AUROC 很高，但同源蛋白可能跨 train/test。",
+      "should_trigger": true,
+      "expected_primary_skill": "ml-benchmarking",
+      "rationale": "Homology leakage and split validity are core benchmark audit concerns."
+    },
+    {
+      "id": "ml-benchmark-positive-03",
+      "split": "train",
+      "query": "比较 GNN 和 random forest 做分子性质预测，要求相同 scaffold split、tuning budget、folds 和置信区间。",
+      "should_trigger": true,
+      "expected_primary_skill": "ml-benchmarking",
+      "rationale": "Fair model comparison under a scaffold split is a core task."
+    },
+    {
+      "id": "ml-benchmark-positive-04",
+      "split": "train",
+      "query": "给临床模型制定 temporal validation 和 external cohort 方案，并锁定最终 test set，不能反向调参。",
+      "should_trigger": true,
+      "expected_primary_skill": "ml-benchmarking",
+      "rationale": "Temporal and external validation isolation belongs to benchmark design."
+    },
+    {
+      "id": "ml-benchmark-positive-05",
+      "split": "train",
+      "query": "检查现有 ML pipeline 是否在全数据上先做 normalization 和 feature selection，判断 test leakage 如何修复。",
+      "should_trigger": true,
+      "expected_primary_skill": "ml-benchmarking",
+      "rationale": "Preprocessing and feature-selection leakage audit is a core task."
+    },
+    {
+      "id": "ml-benchmark-positive-06",
+      "split": "validation",
+      "query": "为 genetics、omics、clinical 三模态模型设计 negative controls、modality ablation 和 data-size curve。",
+      "should_trigger": true,
+      "expected_primary_skill": "ml-benchmarking",
+      "rationale": "Controls and ablations for a multimodal benchmark are core concerns."
+    },
+    {
+      "id": "ml-benchmark-positive-07",
+      "split": "validation",
+      "query": "我们的测试集为了改模型已经看过很多次，请审计 benchmark 污染、降级 claim，并规划新的 locked test。",
+      "should_trigger": true,
+      "expected_primary_skill": "ml-benchmarking",
+      "rationale": "Test reuse, repair, and performance-claim downgrade require benchmark guardrails."
+    },
+    {
+      "id": "ml-benchmark-positive-08",
+      "split": "validation",
+      "query": "设计一个生成蛋白序列的评价框架，包含 validity、diversity、novelty、功能 proxy、negative control 和 wet-lab 之前的 claim boundary。",
+      "should_trigger": true,
+      "expected_primary_skill": "ml-benchmarking",
+      "rationale": "A multidimensional generative-model evaluation framework is an ML benchmark."
+    },
+    {
+      "id": "ml-benchmark-positive-09",
+      "split": "validation",
+      "query": "把这个已完成模型研究整理成可复现 benchmark contract：固定数据版本、split IDs、seeds、环境、命令和 artifact hashes。",
+      "should_trigger": true,
+      "expected_primary_skill": "ml-benchmarking",
+      "rationale": "Benchmark reproducibility and provenance are explicit responsibilities."
+    },
+    {
+      "id": "ml-benchmark-positive-10",
+      "split": "validation",
+      "query": "内部 AUROC 0.97，帮我判断 benchmark 还能支持什么最小性能结论，哪些临床和机制 claim 不能写进 model card。",
+      "should_trigger": true,
+      "expected_primary_skill": "ml-benchmarking",
+      "rationale": "A model-card claim boundary tied to benchmark evidence is a core guardrail."
+    },
+    {
+      "id": "ml-benchmark-negative-01",
+      "split": "train",
+      "query": "split 和指标已经定稿，请实现 sklearn Dataset loader、训练脚本和 pytest。",
+      "should_trigger": false,
+      "expected_primary_skill": "bioinfo-analysis-code",
+      "rationale": "Implementation of a frozen contract is generic reproducible analysis-code work."
+    },
+    {
+      "id": "ml-benchmark-negative-02",
+      "split": "train",
+      "query": "把两个 TSV 按 sample_id 合并，缺失值保留为 NA，并输出汇总表。",
+      "should_trigger": false,
+      "expected_primary_skill": "bioinfo-analysis-code",
+      "rationale": "Generic table processing is not benchmark design or audit."
+    },
+    {
+      "id": "ml-benchmark-negative-03",
+      "split": "train",
+      "query": "这个富集结果是探索性的，请给出计算复核、外部数据和实验验证三档方案。",
+      "should_trigger": false,
+      "expected_primary_skill": "validation-strategy-planner",
+      "rationale": "Non-ML project validation planning belongs to validation-strategy-planner."
+    },
+    {
+      "id": "ml-benchmark-negative-04",
+      "split": "train",
+      "query": "候选通路需要做 qPCR 还是 CRISPR？请按成本和能升级的 claim 设计验证矩阵。",
+      "should_trigger": false,
+      "expected_primary_skill": "validation-strategy-planner",
+      "rationale": "Claim-centered wet-lab validation planning is not an ML benchmark task."
+    },
+    {
+      "id": "ml-benchmark-negative-05",
+      "split": "train",
+      "query": "审查论文 Results 里“高 AUC 证明该基因驱动疾病”这句话，并给安全降级写法。",
+      "should_trigger": false,
+      "expected_primary_skill": "claim-evidence-audit",
+      "rationale": "Manuscript claim-to-evidence wording audit belongs to claim-evidence-audit."
+    },
+    {
+      "id": "ml-benchmark-negative-06",
+      "split": "validation",
+      "query": "整理 models 和 reports 目录，建立 current model、metrics、source data 和 manifest 的浅层入口。",
+      "should_trigger": false,
+      "expected_primary_skill": "research-data-organization",
+      "rationale": "Artifact layout and manifest maintenance belong to research-data-organization."
+    },
+    {
+      "id": "ml-benchmark-negative-07",
+      "split": "validation",
+      "query": "用通俗语言解释 random forest、XGBoost 和神经网络有什么区别。",
+      "should_trigger": false,
+      "expected_primary_skill": "none",
+      "rationale": "A general model explanation does not require benchmark workflow guidance."
+    },
+    {
+      "id": "ml-benchmark-negative-08",
+      "split": "validation",
+      "query": "检索近五年蛋白语言模型在致病变异预测中的代表性论文，并核对 DOI。",
+      "should_trigger": false,
+      "expected_primary_skill": "literature-search-workflow",
+      "rationale": "Literature retrieval and citation verification are not benchmark design."
+    },
+    {
+      "id": "ml-benchmark-negative-09",
+      "split": "validation",
+      "query": "根据现有 predictions.tsv 画 ROC、PR 和 calibration curve，统一期刊配色并导出 SVG。",
+      "should_trigger": false,
+      "expected_primary_skill": "publication-plotting",
+      "rationale": "Rendering already-defined model figures is a plotting task."
+    },
+    {
+      "id": "ml-benchmark-negative-10",
+      "split": "validation",
+      "query": "帮我安装一个 GPU 训练环境，记录 CUDA、PyTorch 版本和验证命令。",
+      "should_trigger": false,
+      "expected_primary_skill": "environment-and-tool-adoption",
+      "rationale": "Environment adoption without benchmark design belongs to the environment skill."
+    }
+  ]
+}

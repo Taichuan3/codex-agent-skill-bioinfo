@@ -4,7 +4,7 @@ Use when auditing or improving local skills from a large external skill corpus.
 
 ## Primary rule
 
-A large external corpus is not a reason to create many new local skills. Its primary value is to improve the user's existing class-level skills.
+A large external corpus is not a reason to create many new local Skills. Its primary value is to improve existing class-level Skills.
 
 Order of operations:
 
@@ -23,9 +23,9 @@ Do not import directly:
 - Session-specific audit matrices into the GitHub source repo.
 - Many narrow candidate skills just because an external repo contains them.
 
-## Runtime/source rule for this user
+## Source/runtime rule
 
-For the bioinfo skill system, runtime skills under `~/.hermes/skills/bioinfo` are the newer, locally iterated working versions. GitHub source is the installable package. Never overwrite runtime bodies with older source bodies. Instead, compress runtime experience and external mechanisms into stable source structure.
+Treat source, installed runtime and project-local copies as provenance-bearing inputs, not automatic winners. Compare semantic differences and retain only stable, portable mechanisms in canonical source. Do not overwrite a reviewed source with an unverified runtime copy, or a locally iterated runtime with a stale source body.
 
 ## Quality checks
 

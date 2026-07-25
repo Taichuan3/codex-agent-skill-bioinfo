@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "skill_name": "validation-strategy-planner",
+  "purpose": "Evaluate claim-linked test selection, pseudo-validation avoidance, tiered paths, and safe claim outcomes.",
+  "cases": [
+    {
+      "id": "validation-planner-outcome-claim-01",
+      "mode": "claim framing",
+      "task": "Plan validation for an exploratory mechanism claim.",
+      "must_include": ["specific claim", "current and target evidence level", "key alternative explanation", "resource constraints", "user decision"],
+      "must_not": ["start from a generic assay list", "assume mechanism is true", "promise causal proof"]
+    },
+    {
+      "id": "validation-planner-outcome-matrix-01",
+      "mode": "validation matrix",
+      "task": "Compare computational, external-data, and experimental options.",
+      "must_include": ["what each option tests", "what it cannot prove", "success criterion", "cost and dependency", "claim impact"],
+      "must_not": ["equate rerunning with validation", "treat correlated evidence as independent", "omit failure interpretation"]
+    },
+    {
+      "id": "validation-planner-outcome-tiers-01",
+      "mode": "tiered paths",
+      "task": "Offer minimal, balanced, and submission-strength routes.",
+      "must_include": ["ordered tests per tier", "information gain", "resource level", "stop or escalate criterion", "remaining caveat"],
+      "must_not": ["mechanically require every validation type", "hide prerequisites", "make the minimal tier submission-ready by assertion"]
+    },
+    {
+      "id": "validation-planner-outcome-pseudo-01",
+      "mode": "pseudo-validation review",
+      "task": "Review a validation list that reuses the same database evidence.",
+      "must_include": ["non-independence finding", "circular support explanation", "independent alternative", "revised evidence limit"],
+      "must_not": ["count duplicate annotations as replication", "upgrade the claim", "ignore parameter selection bias"]
+    },
+    {
+      "id": "validation-planner-outcome-language-01",
+      "mode": "claim outcomes",
+      "task": "Validation is infeasible or produces mixed results.",
+      "must_include": ["success wording", "mixed-result wording", "failure or infeasible wording", "unresolved alternatives", "execution handoff if chosen"],
+      "must_not": ["erase negative evidence", "call absence of significance proof of no effect", "present a candidate as confirmed"]
+    }
+  ]
+}

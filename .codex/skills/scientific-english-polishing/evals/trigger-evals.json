@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "skill_name": "scientific-english-polishing",
+  "purpose": "Evaluate polishing of existing English scientific prose against translation, Chinese polishing, caption construction, and evidence review.",
+  "cases": [
+    {
+      "id": "english-polish-positive-01",
+      "split": "train",
+      "query": "Please polish this existing English Results paragraph without strengthening the claim.",
+      "should_trigger": true,
+      "expected_primary_skill": "scientific-english-polishing",
+      "rationale": "Existing English prose with same-language polishing is core scope."
+    },
+    {
+      "id": "english-polish-positive-02",
+      "split": "train",
+      "query": "Condense this English abstract to 180 words while preserving all essential caveats.",
+      "should_trigger": true,
+      "expected_primary_skill": "scientific-english-polishing",
+      "rationale": "English abstract compression is supported."
+    },
+    {
+      "id": "english-polish-positive-03",
+      "split": "train",
+      "query": "Rewrite this English Discussion so supported conclusions and hypotheses are clearly separated.",
+      "should_trigger": true,
+      "expected_primary_skill": "scientific-english-polishing",
+      "rationale": "English Discussion restructuring belongs here."
+    },
+    {
+      "id": "english-polish-positive-04",
+      "split": "train",
+      "query": "Polish the grammar and flow of these English Methods without removing parameters or versions.",
+      "should_trigger": true,
+      "expected_primary_skill": "scientific-english-polishing",
+      "rationale": "Language improvement of existing English Methods is core scope."
+    },
+    {
+      "id": "english-polish-positive-05",
+      "split": "train",
+      "query": "Make this English response to reviewer 2 more direct and professional.",
+      "should_trigger": true,
+      "expected_primary_skill": "scientific-english-polishing",
+      "rationale": "Existing English response-letter editing is supported."
+    },
+    {
+      "id": "english-polish-positive-06",
+      "split": "validation",
+      "query": "Improve this English title for clarity, but keep its associative rather than causal stance.",
+      "should_trigger": true,
+      "expected_primary_skill": "scientific-english-polishing",
+      "rationale": "Same-language scientific title polishing belongs here."
+    },
+    {
+      "id": "english-polish-positive-07",
+      "split": "validation",
+      "query": "This English subsection repeats the same result three times; restructure it around one claim per paragraph.",
+      "should_trigger": true,
+      "expected_primary_skill": "scientific-english-polishing",
+      "rationale": "Structural editing of existing English prose is supported."
+    },
+    {
+      "id": "english-polish-positive-08",
+      "split": "validation",
+      "query": "Only improve the wording of this existing English figure legend; do not add panel or statistical content.",
+      "should_trigger": true,
+      "expected_primary_skill": "scientific-english-polishing",
+      "rationale": "Language-only editing of an existing English legend routes here."
+    },
+    {
+      "id": "english-polish-positive-09",
+      "split": "validation",
+      "query": "Standardize element, copy, and locus in this English manuscript excerpt and fix ambiguous pronouns.",
+      "should_trigger": true,
+      "expected_primary_skill": "scientific-english-polishing",
+      "rationale": "English terminology and reference clarity are core polishing work."
+    },
+    {
+      "id": "english-polish-positive-10",
+      "split": "validation",
+      "query": "Give this existing English abstract a Nature-leaning concise style without adding novelty or mechanism.",
+      "should_trigger": true,
+      "expected_primary_skill": "scientific-english-polishing",
+      "rationale": "Journal-leaning style on existing English text belongs here."
+    },
+    {
+      "id": "english-polish-negative-01",
+      "split": "train",
+      "query": "把这段中文 Results 翻译成英文。",
+      "should_trigger": false,
+      "expected_primary_skill": "scientific-english-translation",
+      "rationale": "Chinese-to-English conversion is translation."
+    },
+    {
+      "id": "english-polish-negative-02",
+      "split": "train",
+      "query": "润色这段中文 Discussion，最终仍用中文。",
+      "should_trigger": false,
+      "expected_primary_skill": "chinese-scientific-polishing",
+      "rationale": "Chinese-to-Chinese editing is Chinese polishing."
+    },
+    {
+      "id": "english-polish-negative-03",
+      "split": "train",
+      "query": "From the figure and analysis notes, draft a complete English title and caption for panels A–F.",
+      "should_trigger": false,
+      "expected_primary_skill": "figure-caption",
+      "rationale": "Constructing caption content is figure-caption work."
+    },
+    {
+      "id": "english-polish-negative-04",
+      "split": "train",
+      "query": "Determine whether the data support the sentence that Gene X is required for the phenotype.",
+      "should_trigger": false,
+      "expected_primary_skill": "claim-evidence-audit",
+      "rationale": "The primary task is evidence validity."
+    },
+    {
+      "id": "english-polish-negative-05",
+      "split": "train",
+      "query": "Redraw the heatmap with English labels and export a 600 dpi TIFF.",
+      "should_trigger": false,
+      "expected_primary_skill": "publication-plotting",
+      "rationale": "Figure production is outside language polishing."
+    },
+    {
+      "id": "english-polish-negative-06",
+      "split": "validation",
+      "query": "Audit whether every statement in this English legend has matching source data and code.",
+      "should_trigger": false,
+      "expected_primary_skill": "source-data-audit",
+      "rationale": "Source-data traceability is a distinct audit."
+    },
+    {
+      "id": "english-polish-negative-07",
+      "split": "validation",
+      "query": "Check whether the English Results, Methods, figures, and supplements agree throughout the manuscript.",
+      "should_trigger": false,
+      "expected_primary_skill": "manuscript-consistency-audit",
+      "rationale": "Manuscript-wide consistency is not a language-only task."
+    },
+    {
+      "id": "english-polish-negative-08",
+      "split": "validation",
+      "query": "Verify that citation 18 supports the English claim and that the DOI is correct.",
+      "should_trigger": false,
+      "expected_primary_skill": "citation-verifier",
+      "rationale": "Citation validation is outside polishing."
+    },
+    {
+      "id": "english-polish-negative-09",
+      "split": "validation",
+      "query": "把这条中文图注译成英文，不改变内容。",
+      "should_trigger": false,
+      "expected_primary_skill": "scientific-english-translation",
+      "rationale": "Changing from Chinese to English is translation."
+    },
+    {
+      "id": "english-polish-negative-10",
+      "split": "validation",
+      "query": "Add the missing sample sizes, statistical tests, abbreviations, and panel descriptions to this English caption.",
+      "should_trigger": false,
+      "expected_primary_skill": "figure-caption",
+      "rationale": "Completing the caption information contract is figure-caption work."
+    }
+  ]
+}

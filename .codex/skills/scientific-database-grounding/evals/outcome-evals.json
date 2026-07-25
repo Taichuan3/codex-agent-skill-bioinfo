@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "skill_name": "scientific-database-grounding",
+  "purpose": "Evaluate entity resolution, query provenance, cross-source conflicts, credential safety, and database-evidence boundaries.",
+  "cases": [
+    {"id":"database-outcome-variant-01","mode":"variant reconciliation","task":"Reconcile one variant across dbSNP, ClinVar, gnomAD, and VEP.","must_include":["input and resolved identifiers","genome build and REF/ALT","transcript context","source versions or access dates","agreement and unresolved conflicts"],"must_not":["merge assemblies silently","treat clinical significance as mechanism proof","omit allele orientation"]},
+    {"id":"database-outcome-api-01","mode":"reproducible API query","task":"Retrieve a bounded record set from an official API.","must_include":["endpoint and exact query parameters","fields and pagination","count-first or small-sample check","record count and access date","failure or rate-limit status"],"must_not":["print credentials","read an entire large response into context","claim an unexecuted query succeeded"]},
+    {"id":"database-outcome-protein-01","mode":"protein structure grounding","task":"Compare experimental and predicted structure records.","must_include":["accession and isoform","experimental versus predicted labels","chain and residue numbering","confidence or evidence code","missing-region caveats"],"must_not":["call a predicted model experimental","silently choose a canonical isoform","infer binding from structure presence"]},
+    {"id":"database-outcome-conflict-01","mode":"cross-source conflict","task":"Handle contradictory database annotations.","must_include":["source-specific values","release or date context","identifier mapping checks","unresolved conflict","safe downstream handoff"],"must_not":["select the convenient source without reason","erase release lag","upgrade annotation to validation"]},
+    {"id":"database-outcome-empty-01","mode":"empty or failed query","task":"Report an empty result from a bounded database lookup.","must_include":["exact searched scope","query and source status","empty versus failed distinction","alternative source or retry path","no-existence boundary"],"must_not":["claim the entity does not exist","fabricate a fallback record","expose tokens or headers"]}
+  ]
+}

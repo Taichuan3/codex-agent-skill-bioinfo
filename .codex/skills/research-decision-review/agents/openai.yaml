@@ -1,4 +1,4 @@
 interface:
   display_name: "Research Decision Review"
-  short_description: "Review high-impact research decisions"
-  default_prompt: "Use $research-decision-review to evaluate this high-impact research decision and alternatives."
+  short_description: "Compare high-impact research trade-offs"
+  default_prompt: "Use $research-decision-review to compare this high-impact research choice, its alternatives, and the conditions that would change the recommendation."

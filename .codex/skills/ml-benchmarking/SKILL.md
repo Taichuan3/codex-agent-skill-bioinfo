@@ -1,112 +1,57 @@
 ---
 name: ml-benchmarking
-description: 用于生物信息学或 AI for biomedicine 的机器学习 benchmark 设计与审查：task contract、baseline、split protocol、leakage checks、negative controls、ablation、external validation、model card 和可交给 Codex 的实现任务。不用于普通脚本执行或泛泛模型介绍。
-metadata:
-  hermes:
-    tags: [bioinformatics, machine-learning, benchmarking, validation, leakage, model-card]
-    related_skills: [bioinfo-analysis-code, validation-strategy-planner, research-data-organization, claim-evidence-audit]
+description: 用于设计或审查生物信息学与 AI for biomedicine 的机器学习 benchmark，包括 task contract、可信 baseline、公平模型比较、应用匹配的 split、leakage/negative-control 检查、ablation、外部或 OOD 验证、复现契约和 model-card claim 边界；不用于已冻结方案的普通代码实现、非 ML 项目验证或仅凭指标撰写科学/临床结论。
 ---
 
 # ML Benchmarking
 
 ## 核心问题
 
-如何把一个生物医学机器学习想法变成可复现、可比较、无明显 leakage、能支撑安全 claim 的 benchmark？
+如何建立可复现、可公平比较、能暴露 leakage，且证据强度与 claim 相匹配的生物医学机器学习 benchmark？
 
-## 使用场景
+## 能力与决策边界
 
-当用户要设计、审查或实现机器学习 benchmark 时使用本 skill，例如：
+- 本 Skill 负责 benchmark 的任务定义、比较设计、审查和实现契约，不把高指标自动解释为生物学机制、临床效用或药物发现成功。
+- 用户决定 intended use、target、可接受 split、primary metric、模型取舍和最终 claim；Agent 提供备选、风险、敏感性分析和可验证实现边界。
+- 已冻结 benchmark contract 后的 Dataset、runner、table、plot、test 或 workflow 实现，组合或转交 `bioinfo-analysis-code`。
+- 不涉及 ML 比较的项目级计算、外部数据、统计或实验验证规划，改用 `validation-strategy-planner`。
+- 论文段落、图注或审稿回复中的 claim-to-evidence 审查，改用 `claim-evidence-audit`。
+- 不因用户要求“最先进模型”而跳过简单 baseline、数据审计或真实应用匹配的 split。
 
-- clinical/genetic risk prediction
-- variant/pathogenicity prediction
-- protein/ligand/property prediction
-- binding affinity / docking score surrogate model
-- multi-modal genetics + structure + omics + clinical model
-- representation learning 或 generative model evaluation
-- 比较多个模型、baseline、ablation 或 external validation
+## 工作流程
 
-## 不适合触发
+1. 冻结 task contract：prediction unit、input、target/label source、prediction horizon、intended use、decision context 和 forbidden claims。
+2. 建立数据与 provenance 表：source/version/license、纳排规则、样本关系、重复、pretraining overlap、batch/site/time、homology 或 scaffold 风险。
+3. 选择模拟实际泛化对象的 split；按需使用 patient/family/group、gene/protein-family/homology、scaffold、site/batch、temporal 或 external-cohort split。
+4. 在看 test 结果前固定 primary metric、secondary metrics、calibration/uncertainty、subgroup/error analysis 和成功判据。
+5. 建立递进 baseline：trivial/null、简单规则或 classical model、可信公开基线；说明每个 baseline 排除了什么替代解释。
+6. 固定公平比较：相同 eligible data、split/fold、preprocessing scope、tuning budget 和评估代码；用 paired comparison、confidence interval 或重复种子描述不确定性。
+7. 审计 leakage：所有 fit/selection/tuning 仅用允许的数据；检查 duplicate/relatedness、homology/scaffold、label proxy、batch/site/time、pretraining contamination 和 test reuse。
+8. 加入 negative controls、ablation 和 robustness：label/feature shuffle、null/decoy、modality/component removal、data-size curve、seed/parameter sensitivity 和 OOD challenge。
+9. 将 external validation 与 model selection 隔离；外部 cohort、orthogonal assay 或 prospective test 不可反向参与调参。
+10. 记录可复现契约：immutable input/version、split IDs、seed、environment、hardware-sensitive settings、命令、日志、metrics/source data 和 model artifact hash。
+11. 形成 model card：intended use、unsupported use、训练/评估数据、结果与不确定性、failure modes、subgroup limits、external validity 和 unsupported claims。
+12. 交付 benchmark 设计或审计；若进入实现，把冻结的 schema、split、禁止项、测试和 done definition 交给 `bioinfo-analysis-code`。
 
-- 只需要写普通 Python/R 脚本、处理表格或跑命令时，使用 `bioinfo-analysis-code`。
-- 只需要给探索性结果设计验证策略且不涉及 ML benchmark 时，使用 `validation-strategy-planner`。
-- 只需要整理数据目录、manifest 或 source data 时，使用 `research-data-organization`。
-- 不要为一个没有明确 task、target、split 和 metric 的问题直接推荐复杂模型。
+## 比较与 claim 守门
 
-## 原则
+- “最好”只在预先声明、可比且有不确定性评估的候选集合内成立；跨论文数字不能默认直接比较。
+- 单次 holdout、随机 split、内部交叉验证或单一 metric 不能单独证明稳健泛化。
+- AUROC/AUPRC、RMSE、correlation、ranking 或生成质量指标不等同于校准、临床净获益、因果机制、结合亲和力、有效性或安全性。
+- 测试集被反复查看、用于选模型或改 pipeline 后，不再是未触碰的最终验证集；必须记录污染并降级结论或补充新验证。
+- External/OOD 结果缺失时，明确写 `not assessed` 或 `planned`，不得用内部指标替代。
+- 所有 performance claim 绑定 dataset/version、unit、split、metric definition、uncertainty 和 validation context。
 
-- 先 task contract，再模型。
-- 先 baseline，再复杂模型。
-- split protocol 必须模拟真实应用场景。
-- preprocessing、feature selection、normalization、model selection 和 hyperparameter tuning 不得使用 test/external validation 信息。
-- performance claim 必须绑定 dataset、split、metric、confidence/uncertainty 和 validation context。
-- 生物学/医学解释必须区分 evidence、interpretation、limitation、speculation。
-- Agent 提供 benchmark 备选、leakage 风险分析、bounded implementation、测试、provenance 和 sensitivity analysis；用户决定 task、split、metric、模型选择、解释和最终 claim。
+## 模式化输出
 
-## Workflow
+- `benchmark design`：task contract、数据风险、split、baseline、metrics、controls、comparison、validation、reproducibility 和 claim boundary。
+- `benchmark audit`：按严重性列出 invalidating leakage、不可比项、复现缺口、可保留结果和最小修复。
+- `comparison plan`：候选模型、统一预算与 folds、paired statistics、ablation、stop rule 和报告表结构。
+- `implementation handoff`：冻结输入/输出 schema、split IDs、禁止读取 test 的步骤、验收测试、命令和 done definition。
+- `claim guard`：指标可支持的最小结论、不能支持的结论、需要补充的验证和安全降级写法。
 
-1. 定义 task contract：task type、input unit、target、prediction horizon/label source、intended use、forbidden claim。
-2. 定义 dataset/provenance：data sources、versions、license、sample inclusion/exclusion、duplicates/homology/scaffold/batch risk。
-3. 定义 split protocol：patient-level、family-level、gene/protein-family-level、scaffold split、time split、batch-aware split 或 external cohort。
-4. 定义 metrics：primary metric、secondary metrics、calibration、uncertainty、subgroup/error analysis。
-5. 建立 baseline：最简单可信模型或规则，不允许直接跳到复杂模型。
-6. 设计 leakage checks：preprocessing fit scope、duplicate leakage、homology/scaffold leakage、label leakage、batch/confounder leakage。
-7. 设计 negative controls：label shuffle、feature shuffle、decoy/scaffold control、known easy/hard subsets、null background。
-8. 设计 ablation：data modality、feature group、architecture component、training data size、preprocessing choices。
-9. 设计 robustness/external validation：独立 cohort、orthogonal assay、OOD split、temporal validation、known benchmark comparison。
-10. 生成 Codex task contract：只交给 Codex 实现 Dataset/DataModule、split script、baseline runner、evaluation table、tests 和 figure scripts。
-11. 产出 model card 和 claim boundary。
+## 按需读取
 
-## Required artifacts
+设计 task/split 文件、leakage checklist、comparison table、复现记录或 model card 时，读取 `references/ml-benchmark-contract.md`；不要在不需要这些模板时加载它。
 
-```text
-models/task_definition.md
-models/baseline_plan.md
-models/split_protocol.md
-models/leakage_checklist.md
-models/negative_controls.md
-models/ablation_plan.md
-models/validation_protocol.md
-models/model_card.md
-reports/model/metrics.tsv
-reports/model/calibration_report.md
-reports/model/robustness_report.md
-reports/model/error_analysis.md
-```
-
-## Codex-suitable tasks
-
-- 实现 Dataset/DataModule 和 data loaders。
-- 写 split 脚本与 leakage tests。
-- 写 baseline train/evaluate runner。
-- 写 model comparison table 和 plotting scripts。
-- 写 ablation runner。
-- 将 notebook 逻辑抽成 `src/` 和 `tests/`。
-
-Codex prompt 必须包含：输入路径、输出路径、schema、split 规则、禁止读取 test fold 的步骤、测试命令和 done definition。
-
-## Output format
-
-- `Task contract`
-- `Data/provenance risks`
-- `Split protocol`
-- `Baseline`
-- `Metrics`
-- `Leakage checklist`
-- `Negative controls`
-- `Ablation plan`
-- `External validation`
-- `Codex implementation tasks`
-- `Claim boundary / model card notes`
-
-## Verification
-
-输出合格标准：
-
-- task、target、unit、split、metric 明确；
-- 至少一个 baseline；
-- leakage checklist 覆盖 preprocessing / feature selection / duplicates / homology or scaffold / batch / label source；
-- 有 negative control 和 ablation；
-- 有 external validation 或明确说明暂不可行；
-- claim 不把 benchmark metric 写成临床、生物学或药物发现最终证明。
-
-需要模板时读取 `references/ml-benchmark-contract.md`。
+最终回复先给 benchmark 结论或设计，再给关键假设、精确 artifacts、验证边界、实现路由、剩余风险和需要用户决定的事项。不得自称完成最终科学或临床批准。

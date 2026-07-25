@@ -1,9 +1,11 @@
+[features]
+multi_agent = true
+
 [agents]
-enabled = true
-max_concurrent_threads_per_session = 3
+max_threads = 3
 interrupt_message = true
 
 # Keep model selection machine-local so Home/Lab/Server can choose a suitable
 # cost, latency, and reasoning profile without changing the portable package.
-# default_subagent_model = "..."
-# default_subagent_reasoning_effort = "medium"
+# Do not add model keys here unless the installed Codex config reference and
+# `codex doctor` confirm that the current client supports them.

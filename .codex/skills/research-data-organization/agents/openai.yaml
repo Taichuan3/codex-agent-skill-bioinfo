@@ -1,4 +1,4 @@
 interface:
   display_name: "Research Data Organization"
-  short_description: "Organize research results and manifests"
-  default_prompt: "Use $research-data-organization to organize priority tables figures and latest manifests."
+  short_description: "Organize bioinformatics data, results, and manifests"
+  default_prompt: "Use $research-data-organization to audit a project's data and result layout, identify current figures and tables, and propose the smallest safe manifest or migration plan."

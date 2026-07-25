@@ -4,8 +4,9 @@
 
 本项目要回答的核心科学问题是：
 
-## 2. Background / Known
+## 2. Scope and Background / Known
 
+范围与排除项：
 领域已经知道：
 
 ## 3. Knowledge Gap / Unknown
@@ -40,35 +41,49 @@
 - Finding:
 - Advance:
 
-## 8. Figure Skeleton
+## 8. Evidence Package and Phases
 
-- Figure 1:
-- Figure 2:
-- Figure 3:
-- Figure 4:
-- Figure 5:
-- Figure 6:
+| Evidence | Exploration / Confirmation / Validation | Alternative excluded | Acceptance threshold |
+|---|---|---|---|
+|  |  |  |  |
 
-## 9. Required Evidence
+## 9. Figure Skeleton
 
-需要哪些证据才能支持主张：
+| Figure | Question | Input | Evidence threshold |
+|---|---|---|---|
+| Figure 1 |  |  |  |
 
-## 10. Alternative Explanations
+## 10. Technical Modules and Minimum Viable Analysis
 
-审稿人可能提出的替代解释：
+| Module | Input | Output | Dependency | Milestone |
+|---|---|---|---|---|
+|  |  |  |  |  |
 
-## 11. Validation Plan
+## 11. Alternative Explanations and Risk Register
 
-独立验证方案：
+| Risk or alternative | Impact | Early signal | Mitigation |
+|---|---|---|---|
+|  |  |  |  |
 
-## 12. Stop / Pivot Criteria
+## 12. Stop / Pivot / Go-No-Go Criteria
 
-什么结果说明应该停止或转向：
+| Checkpoint | Continue | Pivot | Stop |
+|---|---|---|---|
+|  |  |  |  |
 
-## 13. Reproducibility Plan
+## 13. Reproducibility and Provenance
 
-数据、代码、环境、版本、workflow 的管理方式：
+记录数据来源、版本、环境、参数、workflow 和输出入口的计划。
 
-## 14. PROJECT_GUIDE Seed
+## 14. Field / Method Map
+
+仅在陌生领域填写：权威来源、成熟 baseline、可信实现、共识、争议和适用限制。
+
+## 15. User Decisions Required and Next Bounded Tasks
+
+- User decision:
+- Bounded task:
+
+## 16. PROJECT_GUIDE Seed
 
 后续应写入 `PROJECT_GUIDE.md` 的最小信息：

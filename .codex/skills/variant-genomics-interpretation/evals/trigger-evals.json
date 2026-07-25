@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "skill_name": "variant-genomics-interpretation",
+  "purpose": "Evaluate variant and statistical-genetics interpretation routing against calling, database lookup, clinical review, and other analyses.",
+  "cases": [
+    {
+      "id": "variant-positive-01",
+      "split": "train",
+      "query": "核验一个 indel 在 GRCh37/38 的规范化 REF/ALT、HGVS、VEP consequence、ClinVar 和 gnomAD 记录。",
+      "should_trigger": true,
+      "expected_primary_skill": "variant-genomics-interpretation",
+      "rationale": "Cross-source normalized variant interpretation is core scope."
+    },
+    {
+      "id": "variant-positive-02",
+      "split": "train",
+      "query": "审查 cohort VCF 的 missingness、depth、contamination、sex/identity、filters 和 multi-allelic handling 是否足够支持注释。",
+      "should_trigger": true,
+      "expected_primary_skill": "variant-genomics-interpretation",
+      "rationale": "Callset-fitness review before interpretation is supported."
+    },
+    {
+      "id": "variant-positive-03",
+      "split": "train",
+      "query": "把一个 GWAS locus 的 lead SNP、effect allele、ancestry、LD proxies 和 candidate genes 整理成不过度解释的证据表。",
+      "should_trigger": true,
+      "expected_primary_skill": "variant-genomics-interpretation",
+      "rationale": "GWAS locus evidence synthesis is core statistical-genetics interpretation."
+    },
+    {
+      "id": "variant-positive-04",
+      "split": "train",
+      "query": "审查 SuSiE credible set 的 LD reference、priors、variant coverage 和多信号假设。",
+      "should_trigger": true,
+      "expected_primary_skill": "variant-genomics-interpretation",
+      "rationale": "Fine-mapping assumption review belongs to this Skill."
+    },
+    {
+      "id": "variant-positive-05",
+      "split": "train",
+      "query": "解释 eQTL 与 disease GWAS 的 coloc posterior，并说明 shared signal 为什么不等于 causal gene。",
+      "should_trigger": true,
+      "expected_primary_skill": "variant-genomics-interpretation",
+      "rationale": "Colocalization evidence and claim boundaries are core scope."
+    },
+    {
+      "id": "variant-positive-06",
+      "split": "validation",
+      "query": "比较同一 variant 在两个数据库中 allele direction 相反的问题，检查 strand、palindromic allele 和 build mismatch。",
+      "should_trigger": true,
+      "expected_primary_skill": "variant-genomics-interpretation",
+      "rationale": "Allele/build conflict resolution is a central workflow."
+    },
+    {
+      "id": "variant-positive-07",
+      "split": "validation",
+      "query": "审查 rare-variant burden test 的 mask、频率阈值、ancestry、qualifying variants 和单个变异主导风险。",
+      "should_trigger": true,
+      "expected_primary_skill": "variant-genomics-interpretation",
+      "rationale": "Rare-variant aggregate evidence review is supported."
+    },
+    {
+      "id": "variant-positive-08",
+      "split": "validation",
+      "query": "评估一个 PRS 在不同 ancestry 外部队列中的 discrimination、calibration 和 transfer limitation，仅用于研究。",
+      "should_trigger": true,
+      "expected_primary_skill": "variant-genomics-interpretation",
+      "rationale": "Research PRS interpretation with population boundaries is core scope."
+    },
+    {
+      "id": "variant-positive-09",
+      "split": "validation",
+      "query": "审查 TwoSampleMR 结果的 instrument strength、sample overlap、方向性、异质性和 horizontal pleiotropy。",
+      "should_trigger": true,
+      "expected_primary_skill": "variant-genomics-interpretation",
+      "rationale": "MR assumption and sensitivity review belongs here."
+    },
+    {
+      "id": "variant-positive-10",
+      "split": "validation",
+      "query": "整合 conservation、TFBS、eQTL 和 reporter assay 结果，判断这个非编码 variant 最多能支持到哪一级 claim。",
+      "should_trigger": true,
+      "expected_primary_skill": "variant-genomics-interpretation",
+      "rationale": "Multi-source regulatory variant interpretation is core scope."
+    },
+    {
+      "id": "variant-negative-01",
+      "split": "train",
+      "query": "从 FASTQ 建立 germline variant calling pipeline，运行比对、BQSR、joint genotyping 和 VQSR。",
+      "should_trigger": false,
+      "expected_primary_skill": "bioinfo-analysis-code",
+      "rationale": "Variant-calling implementation is outside this interpretation Skill."
+    },
+    {
+      "id": "variant-negative-02",
+      "split": "train",
+      "query": "只查询 rs123456 对应的 dbSNP 页面和当前 Ensembl ID，不做跨来源解释。",
+      "should_trigger": false,
+      "expected_primary_skill": "scientific-database-grounding",
+      "rationale": "A simple database lookup belongs to database grounding."
+    },
+    {
+      "id": "variant-negative-03",
+      "split": "train",
+      "query": "根据我的基因检测结果告诉我是否会患病、是否需要筛查以及家人该怎么办。",
+      "should_trigger": false,
+      "expected_primary_skill": "clinical-bioinformatics-evidence",
+      "rationale": "Personal diagnosis and screening advice are outside this research Skill and must route to the clinical safety boundary."
+    },
+    {
+      "id": "variant-negative-04",
+      "split": "train",
+      "query": "整理携带该 biomarker 的患者在临床试验中的 response、endpoint 和 safety evidence。",
+      "should_trigger": false,
+      "expected_primary_skill": "clinical-bioinformatics-evidence",
+      "rationale": "Patient-cohort and trial evidence belong to clinical evidence review."
+    },
+    {
+      "id": "variant-negative-05",
+      "split": "train",
+      "query": "对病例和对照 bulk RNA-seq 做 DE、splicing 和 pathway analysis。",
+      "should_trigger": false,
+      "expected_primary_skill": "rnaseq-singlecell-workflow",
+      "rationale": "RNA expression analysis is outside variant interpretation."
+    },
+    {
+      "id": "variant-negative-06",
+      "split": "validation",
+      "query": "系统检索所有关于这个 locus 的 functional genomics 论文并制作引用矩阵。",
+      "should_trigger": false,
+      "expected_primary_skill": "literature-search-workflow",
+      "rationale": "The primary task is literature retrieval rather than result interpretation."
+    },
+    {
+      "id": "variant-negative-07",
+      "split": "validation",
+      "query": "检查稿件里‘这个 SNP 直接导致疾病’的 claim 是否被所有 figure、table 和 citation 支持。",
+      "should_trigger": false,
+      "expected_primary_skill": "claim-evidence-audit",
+      "rationale": "A manuscript-wide claim audit has a dedicated Skill."
+    },
+    {
+      "id": "variant-negative-08",
+      "split": "validation",
+      "query": "把已核验的 locus evidence 画成 publication-ready regional association plot。",
+      "should_trigger": false,
+      "expected_primary_skill": "publication-plotting",
+      "rationale": "The requested deliverable is figure production."
+    },
+    {
+      "id": "variant-negative-09",
+      "split": "validation",
+      "query": "为这个新遗传学项目定义六个月的 aims、里程碑、资源和停止条件。",
+      "should_trigger": false,
+      "expected_primary_skill": "research-project-planner",
+      "rationale": "Long-range project planning is not variant interpretation."
+    },
+    {
+      "id": "variant-negative-10",
+      "split": "validation",
+      "query": "核对 manuscript 中所有 PMID、DOI、作者、年份和引用位置。",
+      "should_trigger": false,
+      "expected_primary_skill": "citation-verifier",
+      "rationale": "Citation verification is outside genomics interpretation."
+    }
+  ]
+}

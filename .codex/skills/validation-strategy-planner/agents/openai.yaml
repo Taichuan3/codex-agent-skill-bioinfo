@@ -1,4 +1,4 @@
 interface:
   display_name: "Validation Strategy Planner"
-  short_description: "Plan validation for exploratory findings"
-  default_prompt: "Use $validation-strategy-planner to design validation options for this exploratory finding."
+  short_description: "Design claim-linked validation paths"
+  default_prompt: "Use $validation-strategy-planner to design tiered validation paths, success criteria, and claim limits for this exploratory finding."

@@ -1,0 +1,38 @@
+case_id	group	query	expected	observed	runtime	date	pass
+research-01	research-evidence	我只有一个模糊的基因组学想法，请先压成一页问题简报，不要规划完整项目。	research-question-brief	research-question-brief	Codex Desktop collaboration subagent; build not exposed	2026-07-25	true
+research-02	research-evidence	已经明确研究问题，请设计完整证据路线、里程碑和 stop/pivot criteria。	research-project-planner	research-project-planner	Codex Desktop collaboration subagent; build not exposed	2026-07-25	true
+research-03	research-evidence	两个分析方案已经形成，我需要判断继续、转向还是停止。	research-decision-review	research-decision-review	Codex Desktop collaboration subagent; build not exposed	2026-07-25	true
+research-04	research-evidence	针对一个探索性富集结果，设计计算复核、独立数据和实验验证的三级路线。	validation-strategy-planner	validation-strategy-planner	Codex Desktop collaboration subagent; build not exposed	2026-07-25	true
+research-05	research-evidence	交付这个分析报告前做一次轻量最终 QA。	task-self-check	task-self-check	Codex Desktop collaboration subagent; build not exposed	2026-07-25	true
+research-06	research-evidence	精读我指定的一篇论文，按图表和原文证据总结。	paper-reader	paper-reader	Codex Desktop collaboration subagent; build not exposed	2026-07-25	true
+research-07	research-evidence	围绕一个开放研究问题系统检索文献并建立 evidence table。	literature-search-workflow	literature-search-workflow	Codex Desktop collaboration subagent; build not exposed	2026-07-25	true
+research-08	research-evidence	核对 ClinVar/Ensembl/UniProt 中某条记录的 ID、版本和数据库证据。	scientific-database-grounding	scientific-database-grounding	Codex Desktop collaboration subagent; build not exposed	2026-07-25	true
+research-09	research-evidence	检查参考文献是否真实存在并真正支持对应句子。	citation-verifier	citation-verifier	Codex Desktop collaboration subagent; build not exposed	2026-07-25	true
+research-10	research-evidence	找出当前结论最缺的证据，并给最小补证方案。	evidence-gap-finder	evidence-gap-finder	Codex Desktop collaboration subagent; build not exposed	2026-07-25	true
+publication-01	writing-publication	根据 panels、统计和分析信息从头写完整 figure title/panel legend/caption。	figure-caption	figure-caption	Codex Desktop collaboration subagent; build not exposed	2026-07-25	true
+publication-02	writing-publication	只润色一段已经写好的中文图注。	chinese-scientific-polishing	chinese-scientific-polishing	Codex Desktop collaboration subagent; build not exposed	2026-07-25	true
+publication-03	writing-publication	把中文 Methods 忠实翻译成英文。	scientific-english-translation	scientific-english-translation	Codex Desktop collaboration subagent; build not exposed	2026-07-25	true
+publication-04	writing-publication	润色已有英文 Results，不改变 claim strength。	scientific-english-polishing	scientific-english-polishing	Codex Desktop collaboration subagent; build not exposed	2026-07-25	true
+publication-05	writing-publication	用 R/Python 绘制并导出 publication-ready PNG/SVG 主图。	publication-plotting	publication-plotting	Codex Desktop collaboration subagent; build not exposed	2026-07-25	true
+publication-06	writing-publication	审计稿件中每条 claim 是否被数据支持。	claim-evidence-audit	claim-evidence-audit	Codex Desktop collaboration subagent; build not exposed	2026-07-25	true
+publication-07	writing-publication	建立每个 figure panel 到 source file、producer 和统计定义的清单。	source-data-audit	source-data-audit	Codex Desktop collaboration subagent; build not exposed	2026-07-25	true
+publication-08	writing-publication	检查全稿数字、术语、figure/table 引用是否一致。	manuscript-consistency-audit	manuscript-consistency-audit	Codex Desktop collaboration subagent; build not exposed	2026-07-25	true
+publication-09	writing-publication	判断完整 manuscript package 是否达到投稿门槛。	submission-readiness-audit	submission-readiness-audit	Codex Desktop collaboration subagent; build not exposed	2026-07-25	true
+publication-10	writing-publication	在还没有真实评审意见时模拟审稿人攻击。	reviewer-simulation	reviewer-simulation	Codex Desktop collaboration subagent; build not exposed	2026-07-25	true
+publication-11	writing-publication	已收到真实 reviewer comments，逐条构建 response-action-change 记录。	reviewer-response-builder	reviewer-response-builder	Codex Desktop collaboration subagent; build not exposed	2026-07-25	true
+domain-01	domain-environment	写一个可重复运行的 Python 生信分析脚本并补测试。	bioinfo-analysis-code	bioinfo-analysis-code	Codex Desktop collaboration subagent; build not exposed	2026-07-25	true
+domain-02	domain-environment	做 pathway enrichment 和 network 模块解释。	pathway-network-analysis	pathway-network-analysis	Codex Desktop collaboration subagent; build not exposed	2026-07-25	true
+domain-03	domain-environment	设计 bulk RNA-seq 差异表达与单细胞 pseudo-bulk 工作流。	rnaseq-singlecell-workflow	rnaseq-singlecell-workflow	Codex Desktop collaboration subagent; build not exposed	2026-07-25	true
+domain-04	domain-environment	解释 VCF variant、GWAS fine-mapping 和 coloc 证据。	variant-genomics-interpretation	variant-genomics-interpretation	Codex Desktop collaboration subagent; build not exposed	2026-07-25	true
+domain-05	domain-environment	整理 trial/cohort/biomarker 的 research-only 临床证据图。	clinical-bioinformatics-evidence	clinical-bioinformatics-evidence	Codex Desktop collaboration subagent; build not exposed	2026-07-25	true
+domain-06	domain-environment	评估 docking pose、protein interface 和 matched mutant comparison。	protein-structure-docking	protein-structure-docking	Codex Desktop collaboration subagent; build not exposed	2026-07-25	true
+domain-07	domain-environment	做 compound 筛选、QSAR/ADMET 排序和 stop rules。	drug-discovery-admet-screening	drug-discovery-admet-screening	Codex Desktop collaboration subagent; build not exposed	2026-07-25	true
+domain-08	domain-environment	设计避免 leakage 的生物医学 ML benchmark。	ml-benchmarking	ml-benchmarking	Codex Desktop collaboration subagent; build not exposed	2026-07-25	true
+domain-09	domain-environment	为新项目建立 conda/Jupyter/Slurm readiness 和本机环境记录。	project-environment-bootstrap	project-environment-bootstrap	Codex Desktop collaboration subagent; build not exposed	2026-07-25	true
+domain-10	domain-environment	评估并安装一个新的生信工具，记录版本和 license。	environment-and-tool-adoption	environment-and-tool-adoption	Codex Desktop collaboration subagent; build not exposed	2026-07-25	true
+domain-11	domain-environment	审计一个 Skill 的 trigger、resources、metadata 和 eval。	skill-quality-audit	skill-quality-audit	Codex Desktop collaboration subagent; build not exposed	2026-07-25	true
+domain-12	domain-environment	把“以后所有项目都这样”的长期纠正转成候选、diff、验证、发布与回滚闭环。	controlled-self-improvement	controlled-self-improvement	Codex Desktop collaboration subagent; build not exposed	2026-07-25	true
+domain-13	domain-environment	只读盘点散落的 data/results/figures 并设计 manifest。	research-data-organization	research-data-organization	Codex Desktop collaboration subagent; build not exposed	2026-07-25	true
+domain-14	domain-environment	只更新 PROJECT_GUIDE 的 current story。	project-guide-maintainer	project-guide-maintainer	Codex Desktop collaboration subagent; build not exposed	2026-07-25	true
+domain-15	domain-environment	在不读完整 PROJECT_PLAN 的情况下追加 material-action 记录。	project-state-maintenance	project-state-maintenance	Codex Desktop collaboration subagent; build not exposed	2026-07-25	true
+domain-16	domain-environment	为 reports/figures 建立短 README 导航卡。	project-directory-card-maintenance	project-directory-card-maintenance	Codex Desktop collaboration subagent; build not exposed	2026-07-25	true

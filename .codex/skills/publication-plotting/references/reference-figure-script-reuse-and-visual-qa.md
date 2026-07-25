@@ -1,10 +1,10 @@
 # Reference figure script reuse and visual QA
 
-Session lesson from model-output report figure revision.
+Use this pattern to preserve a figure family's visual and reproducibility contracts during revision.
 
 ## Trigger
 
-Use this when the user says a new or revised figure should “参考” an existing figure, e.g. “参考 `result3_06_matched_cage_external_vs_alphagenome.png` 的画法”.
+Use this when the user asks a new or revised figure to follow an existing project figure's layout or style.
 
 ## Durable workflow
 

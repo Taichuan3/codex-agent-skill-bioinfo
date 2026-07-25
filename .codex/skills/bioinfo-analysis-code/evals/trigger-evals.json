@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "skill_name": "bioinfo-analysis-code",
+  "purpose": "Evaluate analysis-code implementation routing against plotting, pathway interpretation, audits, environments, and project organization.",
+  "cases": [
+    {
+      "id": "code-positive-01",
+      "split": "train",
+      "query": "写一个 Python CLI，把 sample metadata 和 count summary 按 sample_id 合并，并检查重复键和未匹配样本。",
+      "should_trigger": true,
+      "expected_primary_skill": "bioinfo-analysis-code",
+      "rationale": "A validated table-processing CLI is core analysis-code implementation."
+    },
+    {
+      "id": "code-positive-02",
+      "split": "train",
+      "query": "把这个探索 notebook 重构成可重复运行的编号脚本，参数移到 YAML，并保留输入输出记录。",
+      "should_trigger": true,
+      "expected_primary_skill": "bioinfo-analysis-code",
+      "rationale": "Notebook-to-script refactoring and explicit configuration are core capabilities."
+    },
+    {
+      "id": "code-positive-03",
+      "split": "train",
+      "query": "这个 Snakemake workflow 在 rule all 之后没有生成预期 TSV，帮我定位并修复依赖和输出声明。",
+      "should_trigger": true,
+      "expected_primary_skill": "bioinfo-analysis-code",
+      "rationale": "Debugging a bioinformatics workflow and its declared artifacts belongs here."
+    },
+    {
+      "id": "code-positive-04",
+      "split": "train",
+      "query": "为 800 个 BAM 的解析任务写可重跑脚本；先用两个样本 smoke test，再检查日志、行数和磁盘用量。",
+      "should_trigger": true,
+      "expected_primary_skill": "bioinfo-analysis-code",
+      "rationale": "Large-job implementation with bounded smoke testing is a core execution pattern."
+    },
+    {
+      "id": "code-positive-05",
+      "split": "train",
+      "query": "把分析脚本、environment.yml、commands.sh、关键 source tables 和 MANIFEST.tsv 整理成一个复现包。",
+      "should_trigger": true,
+      "expected_primary_skill": "bioinfo-analysis-code",
+      "rationale": "A report-level reproducibility package is an owned code-delivery capability."
+    },
+    {
+      "id": "code-positive-06",
+      "split": "validation",
+      "query": "从 TSV 计算每个样本的 median、IQR 和 missing-rate，输出机器可读 summary 并验证分组数量。",
+      "should_trigger": true,
+      "expected_primary_skill": "bioinfo-analysis-code",
+      "rationale": "Lightweight statistics plus validated table output belongs here."
+    },
+    {
+      "id": "code-positive-07",
+      "split": "validation",
+      "query": "已有 docking 方法方案，请实现批量解析 score、coverage 和 clash metrics 的脚本并保存参数与日志。",
+      "should_trigger": true,
+      "expected_primary_skill": "bioinfo-analysis-code",
+      "rationale": "The method is fixed and the requested deliverable is reusable result-parsing code."
+    },
+    {
+      "id": "code-positive-08",
+      "split": "validation",
+      "query": "直接原地改写 data/raw 里的表达矩阵并覆盖旧文件，省得另建输出目录。",
+      "should_trigger": true,
+      "expected_primary_skill": "bioinfo-analysis-code",
+      "rationale": "An unsafe implementation request should activate raw-data and output guardrails."
+    },
+    {
+      "id": "code-positive-09",
+      "split": "validation",
+      "query": "把预处理、QC、统计和结果汇总组织成 00 到 04 的脚本与 run_all.sh，现有稳定编号不要静默重排。",
+      "should_trigger": true,
+      "expected_primary_skill": "bioinfo-analysis-code",
+      "rationale": "Numbered executable workflow design is a core reproducibility task."
+    },
+    {
+      "id": "code-positive-10",
+      "split": "validation",
+      "query": "审查这个 R 脚本的输入输出、随机种子、reference version 和 leakage 风险，并补最小测试。",
+      "should_trigger": true,
+      "expected_primary_skill": "bioinfo-analysis-code",
+      "rationale": "Code-focused reproducibility review and validation belong here."
+    },
+    {
+      "id": "code-negative-01",
+      "split": "train",
+      "query": "把现有 PCA 主图改成色盲友好配色，统一字体并导出 PNG 和 SVG。",
+      "should_trigger": false,
+      "expected_primary_skill": "publication-plotting",
+      "rationale": "The primary deliverable is visual redesign and export."
+    },
+    {
+      "id": "code-negative-02",
+      "split": "train",
+      "query": "不改图，只为 Figure 2 写一个完整 caption，解释 panel、n 和统计符号。",
+      "should_trigger": false,
+      "expected_primary_skill": "figure-caption",
+      "rationale": "Caption-only work belongs to figure-caption."
+    },
+    {
+      "id": "code-negative-03",
+      "split": "train",
+      "query": "只读核查 Figure 4 每个 panel 的 source data、producer script 和 statistical definition。",
+      "should_trigger": false,
+      "expected_primary_skill": "source-data-audit",
+      "rationale": "Traceability-only auditing belongs to source-data-audit."
+    },
+    {
+      "id": "code-negative-04",
+      "split": "train",
+      "query": "解释这份 GSEA 结果的 background、leading edge、term redundancy 和可支持的生物学结论。",
+      "should_trigger": false,
+      "expected_primary_skill": "pathway-network-analysis",
+      "rationale": "Pathway method QC and interpretation are not generic code implementation."
+    },
+    {
+      "id": "code-negative-05",
+      "split": "train",
+      "query": "把整个项目按 CCDS 重排 data、reports、source_data 和 manifest，并规划迁移回滚。",
+      "should_trigger": false,
+      "expected_primary_skill": "research-data-organization",
+      "rationale": "Project-wide layout and migration belong to research-data-organization."
+    },
+    {
+      "id": "code-negative-06",
+      "split": "validation",
+      "query": "评估并安装一个新的 single-cell 包，比较 license、版本、依赖和环境影响。",
+      "should_trigger": false,
+      "expected_primary_skill": "environment-and-tool-adoption",
+      "rationale": "Tool adoption and environment mutation require the specialized adoption skill."
+    },
+    {
+      "id": "code-negative-07",
+      "split": "validation",
+      "query": "从 FASTQ 规划一套 single-cell QC、doublet、batch correction 和 pseudobulk 分析策略。",
+      "should_trigger": false,
+      "expected_primary_skill": "rnaseq-singlecell-workflow",
+      "rationale": "Upstream domain-method planning should use the specialized workflow skill."
+    },
+    {
+      "id": "code-negative-08",
+      "split": "validation",
+      "query": "判断 Figure 3 是否足以支持基因 X 直接驱动耐药机制的 claim。",
+      "should_trigger": false,
+      "expected_primary_skill": "claim-evidence-audit",
+      "rationale": "Claim-to-evidence judgment belongs to claim-evidence-audit."
+    },
+    {
+      "id": "code-negative-09",
+      "split": "validation",
+      "query": "查找并综合过去五年关于该蛋白复合物的实验研究。",
+      "should_trigger": false,
+      "expected_primary_skill": "literature-search-workflow",
+      "rationale": "Literature retrieval and synthesis are not code implementation."
+    },
+    {
+      "id": "code-negative-10",
+      "split": "validation",
+      "query": "根据 ADMET endpoints 设计候选化合物筛选规则并解释 go/no-go 边界。",
+      "should_trigger": false,
+      "expected_primary_skill": "drug-discovery-admet-screening",
+      "rationale": "Drug-screening method and decision boundaries belong to the specialized skill."
+    }
+  ]
+}

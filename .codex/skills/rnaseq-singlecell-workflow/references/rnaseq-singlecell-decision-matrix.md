@@ -1,12 +1,21 @@
 # RNA-seq / Single-cell Decision Matrix
 
-| Need | Common tools/workflows | Main checks | Caveat |
-|---|---|---|---|
-| bulk RNA-seq preprocessing | nf-core/rnaseq, STAR/Salmon/RSEM, featureCounts | reference/annotation, strandedness, mapping rate, sample sheet | preprocessing choices affect downstream DE |
-| bulk DE | DESeq2, edgeR, limma-voom | design matrix, batch, dispersion, contrasts, FDR | DE is association, not mechanism |
-| scRNA-seq clustering/markers | Scanpy, Seurat, scVI/scANVI | QC thresholds, doublets, batch, marker specificity | clusters are model-dependent |
-| pseudo-bulk | edgeR/DESeq2 on sample-level aggregates | biological replicate count, cluster identity, library size | cell-level p-values can inflate evidence |
-| splicing/isoform | rMATS, LeafCutter, MAJIQ, SUPPA2, long-read tools | junction support, coverage, event definition | 3' scRNA-seq is weak for most splicing claims |
-| count-matrix QC | DESeq2 VST/rlog, edgeR filterByExpr, PCA/correlation | raw counts, sample roster, depth, detected genes, outliers | transformed matrices are for QC, not DE testing |
-| automated QC report | MultiQC plus upstream logs | expected sample count, module scope, upstream tool versions | MultiQC aggregates existing metrics; it does not measure or gate by itself |
-| GRN/regulon | pySCENIC/SCENIC+, arboreto, AUCell | motif database/species, random seed, motif pruning, AUC matrix | co-expression modules are not regulons until motif-pruned |
+Use this matrix only after the common input, replicate, reference, and contrast contract is explicit.
+
+| Question | Analysis unit | Typical method class | Required checks | Claim limit |
+|---|---|---|---|---|
+| Bulk abundance | biological sample | splice-aware alignment plus counting, or transcript-aware quantification | strandedness, annotation, mapping/assignment, composition, replicate structure | expression association |
+| Bulk differential expression | biological sample | count-aware GLM or voom-style model | raw counts, full-rank design, contrast, dispersion, multiple testing | design-conditional association |
+| Transcript usage / splicing | sample × transcript/event/junction | DTU, event- or junction-based model | read support, event definition, annotation dependence, replicate coverage | isoform/event evidence, not protein function |
+| scRNA structure | cell, nested in sample | feature selection, dimension reduction, neighbor graph, clustering | raw counts, QC, doublets, batch, stability | model-dependent cell-state structure |
+| scRNA condition effect | sample × cell type/state | pseudo-bulk or donor-aware mixed model | biological replicates, composition, aggregation rule, covariates | condition association within defined state |
+| Cell-type proportion | sample | compositional or sample-level model | denominator, sampling depth, replicate count, uncertainty | abundance association |
+| Multiome RNA layer | cell, nested in sample | scRNA workflow with cross-modality linkage | modality-specific QC, shared cell identity, batch, linkage definition | cross-modality association |
+| Regulon / GRN | cell or sample score | co-expression, motif pruning, activity scoring | species/motif collection, seed, null/background, stability | inferred network/activity, not causal regulation |
+
+## Selection rules
+
+- Prefer a mature, documented workflow when it matches the assay; record versions and config instead of treating a wrapper as evidence.
+- Use transformed or normalized matrices for QC and visualization; use model-appropriate counts or sufficient statistics for testing.
+- Choose the statistical unit from the experimental replication, not from the largest row count.
+- If two methods answer different estimands, preserve both definitions rather than averaging their scores.

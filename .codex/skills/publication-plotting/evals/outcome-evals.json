@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "skill_name": "publication-plotting",
+  "purpose": "Evaluate contract-first figure production, traceability, export, integration, and visual QA.",
+  "cases": [
+    {
+      "id": "plot-outcome-new-01",
+      "mode": "new figure",
+      "task": "Create a manuscript-ready quantitative figure from an analysis table.",
+      "must_include": [
+        "figure contract and panel role",
+        "data universe n and denominator",
+        "source-data and generating-script paths",
+        "PNG and SVG exports",
+        "reopened visual QA"
+      ],
+      "must_not": [
+        "modify raw data",
+        "hide filtering or exclusions",
+        "infer mechanism from visual appearance"
+      ]
+    },
+    {
+      "id": "plot-outcome-redraw-01",
+      "mode": "redraw existing figure",
+      "task": "Restyle and re-export an existing manuscript figure.",
+      "must_include": [
+        "original script and source-data search",
+        "preserved statistical definition",
+        "consistent encodings and final size",
+        "canonical output or explicit version decision",
+        "before-after QA risks"
+      ],
+      "must_not": [
+        "silently change the sample universe",
+        "create an unrelated generator without checking reuse",
+        "leave stale report links"
+      ]
+    },
+    {
+      "id": "plot-outcome-integration-01",
+      "mode": "reader-facing integration",
+      "task": "Promote a revised figure into a report and demote its old version.",
+      "must_include": [
+        "unique main or supplement placement",
+        "updated link caption alt text and numbering",
+        "source-data and provenance continuity",
+        "document-facing visual inspection",
+        "removed duplicate display"
+      ],
+      "must_not": [
+        "edit report links without checking targets",
+        "retain conflicting chart-type wording",
+        "treat placement as final without user-confirmed figure logic"
+      ]
+    },
+    {
+      "id": "plot-outcome-crop-01",
+      "mode": "crop and visual QA",
+      "task": "Crop a source image into a panel and replace the report-facing copy.",
+      "must_include": [
+        "source image and crop bounds",
+        "preserved labels scale and semantic context",
+        "replacement and relinking record",
+        "inspection for fragments and clipping",
+        "statement that evidence strength is unchanged"
+      ],
+      "must_not": [
+        "crop away contradictory observations without disclosure",
+        "remove required scale information",
+        "inspect only the pre-crop source"
+      ]
+    },
+    {
+      "id": "plot-outcome-pdf-01",
+      "mode": "figure-rich PDF export",
+      "task": "Export a Markdown report with local figures to PDF.",
+      "must_include": [
+        "source Markdown preservation boundary",
+        "export stylesheet and command",
+        "exact PDF path",
+        "PDF signature page and image checks",
+        "visual preview inspection"
+      ],
+      "must_not": [
+        "expose private contact details without review",
+        "claim image embedding without checking",
+        "replace the source report unless requested"
+      ]
+    }
+  ]
+}

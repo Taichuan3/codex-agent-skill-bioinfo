@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "skill_name": "project-guide-maintainer",
+  "purpose": "Evaluate current-state compression, evidence boundaries, user confirmation, and state synchronization.",
+  "cases": [
+    {
+      "id": "guide-outcome-create-01",
+      "mode": "create",
+      "task": "Create a GUIDE from confirmed project evidence and an upstream brief.",
+      "must_include": [
+        "one-line summary and central question",
+        "current story and evidence pointers",
+        "caveats and current stage",
+        "no more than three next decisions",
+        "unconfirmed fields"
+      ],
+      "must_not": [
+        "invent durable facts",
+        "copy a full literature review",
+        "turn the guide into a chronology"
+      ]
+    },
+    {
+      "id": "guide-outcome-update-01",
+      "mode": "durable update",
+      "task": "Replace a stale baseline finding with a user-confirmed result.",
+      "must_include": [
+        "old and replacement current fact",
+        "artifact or run evidence pointer",
+        "evidence level and caveat",
+        "affected story or figure section",
+        "PLAN synchronization requirement"
+      ],
+      "must_not": [
+        "append a duplicate chronology",
+        "upgrade claim strength",
+        "erase unresolved contrary evidence"
+      ]
+    },
+    {
+      "id": "guide-outcome-compress-01",
+      "mode": "compress/replace",
+      "task": "Compress an over-budget GUIDE while preserving current decisions.",
+      "must_include": [
+        "content kept",
+        "chronology and detail moved out",
+        "artifact or log pointers",
+        "budget check",
+        "complete replacement GUIDE"
+      ],
+      "must_not": [
+        "summarize by blindly truncating",
+        "drop active caveats",
+        "copy PLAN history into the GUIDE"
+      ]
+    },
+    {
+      "id": "guide-outcome-draft-01",
+      "mode": "draft proposal",
+      "task": "Add an agent-proposed mechanism to a GUIDE draft.",
+      "must_include": [
+        "Draft or Assumption label",
+        "Needs evidence",
+        "separation from confirmed findings",
+        "explicit user confirmation request"
+      ],
+      "must_not": [
+        "state the mechanism as fact",
+        "create a causal claim",
+        "silently change the project direction"
+      ]
+    },
+    {
+      "id": "guide-outcome-routing-01",
+      "mode": "history-dependent guide update",
+      "task": "Update GUIDE content that depends on one prior PLAN decision.",
+      "must_include": [
+        "targeted history handoff to project-state-maintenance",
+        "bounded log_id or search scope",
+        "current-state replacement",
+        "shared change_id",
+        "prepared PLAN record before atomic GUIDE replacement",
+        "committed or recoverable partial-failure status"
+      ],
+      "must_not": [
+        "read the full PLAN",
+        "take over PLAN lifecycle",
+        "treat a directory README as project truth"
+      ]
+    }
+  ]
+}

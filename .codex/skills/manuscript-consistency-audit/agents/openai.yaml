@@ -1,4 +1,4 @@
 interface:
   display_name: "Manuscript Consistency Audit"
-  short_description: "Check manuscript numbers terms and figures"
-  default_prompt: "Use $manuscript-consistency-audit to check this manuscript for number term and figure consistency."
+  short_description: "Find cross-manuscript factual inconsistencies"
+  default_prompt: "Use $manuscript-consistency-audit to find conflicts in numbers, terms, samples, methods, and figure references across this manuscript."

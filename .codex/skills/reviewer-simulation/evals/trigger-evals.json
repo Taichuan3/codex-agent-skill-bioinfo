@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "skill_name": "reviewer-simulation",
+  "purpose": "Evaluate prospective reviewer red-team routing against real-comment response and specialist audit workflows.",
+  "cases": [
+    {
+      "id": "simulation-positive-01",
+      "split": "train",
+      "query": "投稿前模拟审稿人，给出这篇生信稿件最可能的 Critical、Major 和 Minor concerns。",
+      "should_trigger": true,
+      "expected_primary_skill": "reviewer-simulation",
+      "rationale": "Prospective hypothetical reviewer critique is the core task."
+    },
+    {
+      "id": "simulation-positive-02",
+      "split": "train",
+      "query": "从 novelty、technical rigor 和 reader clarity 三个匿名 reviewer 视角 red-team 这份稿件。",
+      "should_trigger": true,
+      "expected_primary_skill": "reviewer-simulation",
+      "rationale": "Multiple prospective reviewer emphases are in scope without inventing identities."
+    },
+    {
+      "id": "simulation-positive-03",
+      "split": "train",
+      "query": "预测审稿人会如何攻击我们的 sample universe、multiple testing 和 external validation。",
+      "should_trigger": true,
+      "expected_primary_skill": "reviewer-simulation",
+      "rationale": "Anticipating methodological attack points is core simulation."
+    },
+    {
+      "id": "simulation-positive-04",
+      "split": "train",
+      "query": "把潜在 reviewer concerns 分成可文字澄清、重分析、新验证和新实验，并排优先级。",
+      "should_trigger": true,
+      "expected_primary_skill": "reviewer-simulation",
+      "rationale": "Classifying prospective responses and work priorities is a core output."
+    },
+    {
+      "id": "simulation-positive-05",
+      "split": "train",
+      "query": "只有摘要和四张主图，请做有边界的模拟审稿并列 missing materials。",
+      "should_trigger": true,
+      "expected_primary_skill": "reviewer-simulation",
+      "rationale": "Partial-material simulation is appropriate with an explicit assessment boundary."
+    },
+    {
+      "id": "simulation-positive-06",
+      "split": "validation",
+      "query": "找出最可能推翻中心结论的替代解释、confounder 和 data leakage 风险。",
+      "should_trigger": true,
+      "expected_primary_skill": "reviewer-simulation",
+      "rationale": "Adversarial testing of the central conclusion is core reviewer simulation."
+    },
+    {
+      "id": "simulation-positive-07",
+      "split": "validation",
+      "query": "模拟一个技术审稿人检查 reference build、coordinate、ID mapping loss、seed 和 database date。",
+      "should_trigger": true,
+      "expected_primary_skill": "reviewer-simulation",
+      "rationale": "A prospective reproducibility-focused reviewer perspective is in scope."
+    },
+    {
+      "id": "simulation-positive-08",
+      "split": "validation",
+      "query": "预判 docking 和 ADMET 结果最容易被审稿人指出的证据越界，并给最小应对工作。",
+      "should_trigger": true,
+      "expected_primary_skill": "reviewer-simulation",
+      "rationale": "Prospective domain-specific attack prioritization belongs here."
+    },
+    {
+      "id": "simulation-positive-09",
+      "split": "validation",
+      "query": "不要给 editorial decision，只生成 evidence-linked hypothetical concerns 和 rebuttal-enabling work。",
+      "should_trigger": true,
+      "expected_primary_skill": "reviewer-simulation",
+      "rationale": "The request precisely matches the simulation boundary."
+    },
+    {
+      "id": "simulation-positive-10",
+      "split": "validation",
+      "query": "以目标期刊读者价值为背景，检查主图顺序和机制叙事会遭到哪些质疑。",
+      "should_trigger": true,
+      "expected_primary_skill": "reviewer-simulation",
+      "rationale": "Prospective narrative and figure-logic critique is in scope."
+    },
+    {
+      "id": "simulation-negative-01",
+      "split": "train",
+      "query": "这里是 Reviewer 1 和 Reviewer 2 的真实 comments，请逐条写 response letter。",
+      "should_trigger": false,
+      "expected_primary_skill": "reviewer-response-builder",
+      "rationale": "Actual reviewer comments must route to the response builder."
+    },
+    {
+      "id": "simulation-negative-02",
+      "split": "train",
+      "query": "判断整套 manuscript package 是否达到投稿状态并给 blocking checklist。",
+      "should_trigger": false,
+      "expected_primary_skill": "submission-readiness-audit",
+      "rationale": "Package completeness gating is not prospective red-teaming."
+    },
+    {
+      "id": "simulation-negative-03",
+      "split": "train",
+      "query": "只审查这句 causality claim 是否被当前 figure 和统计支持。",
+      "should_trigger": false,
+      "expected_primary_skill": "claim-evidence-audit",
+      "rationale": "A bounded claim-support judgment belongs to claim evidence audit."
+    },
+    {
+      "id": "simulation-negative-04",
+      "split": "train",
+      "query": "建立所有 figure panel 的 source-data traceability 表。",
+      "should_trigger": false,
+      "expected_primary_skill": "source-data-audit",
+      "rationale": "Source-data inventory is a specialist audit, not reviewer simulation."
+    },
+    {
+      "id": "simulation-negative-05",
+      "split": "train",
+      "query": "检查摘要和图注里的样本数、术语和图号是否一致。",
+      "should_trigger": false,
+      "expected_primary_skill": "manuscript-consistency-audit",
+      "rationale": "Cross-location conflicts belong to manuscript consistency audit."
+    },
+    {
+      "id": "simulation-negative-06",
+      "split": "validation",
+      "query": "请扮演这位具名领域专家并断言他会拒稿。",
+      "should_trigger": false,
+      "expected_primary_skill": "none",
+      "rationale": "Impersonating a named reviewer and predicting an actual decision is outside the skill boundary."
+    },
+    {
+      "id": "simulation-negative-07",
+      "split": "validation",
+      "query": "把 Results 润色得更像 Nature 风格。",
+      "should_trigger": false,
+      "expected_primary_skill": "chinese-scientific-polishing",
+      "rationale": "Style polishing is not reviewer simulation."
+    },
+    {
+      "id": "simulation-negative-08",
+      "split": "validation",
+      "query": "检索这个主题最新的审稿标准和领域综述。",
+      "should_trigger": false,
+      "expected_primary_skill": "literature-search-workflow",
+      "rationale": "Literature discovery may inform simulation but is a distinct primary deliverable."
+    },
+    {
+      "id": "simulation-negative-09",
+      "split": "validation",
+      "query": "根据现有分析结果直接决定补做哪个昂贵实验并开始执行。",
+      "should_trigger": false,
+      "expected_primary_skill": "validation-strategy-planner",
+      "rationale": "Experimental validation planning and execution decisions are not implied by reviewer simulation."
+    },
+    {
+      "id": "simulation-negative-10",
+      "split": "validation",
+      "query": "核验 manuscript 里 50 条 citation 的 DOI 和 PMID。",
+      "should_trigger": false,
+      "expected_primary_skill": "citation-verifier",
+      "rationale": "Citation identity verification is not prospective reviewer critique."
+    }
+  ]
+}

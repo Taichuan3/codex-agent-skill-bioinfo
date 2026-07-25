@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "skill_name": "project-directory-card-maintenance",
+  "purpose": "Evaluate local artifact README routing against project-wide organization, state files, plotting, and ordinary documentation.",
+  "cases": [
+    {
+      "id": "card-positive-01",
+      "split": "train",
+      "query": "给 reports/figures 创建一个短 README Directory Card，列出当前主图、source data 和生成脚本。",
+      "should_trigger": true,
+      "expected_primary_skill": "project-directory-card-maintenance",
+      "rationale": "A figure artifact Directory Card is a core task."
+    },
+    {
+      "id": "card-positive-02",
+      "split": "train",
+      "query": "更新 data/processed/README，说明 canonical dataset、producer、manifest 和 deprecated 版本。",
+      "should_trigger": true,
+      "expected_primary_skill": "project-directory-card-maintenance",
+      "rationale": "Maintaining a processed-data Directory Card is a core task."
+    },
+    {
+      "id": "card-positive-03",
+      "split": "train",
+      "query": "models 目录有很多 run，请写一个导航卡，标出 baseline、current_best 和读取顺序。",
+      "should_trigger": true,
+      "expected_primary_skill": "project-directory-card-maintenance",
+      "rationale": "A model artifact navigation card is a core task."
+    },
+    {
+      "id": "card-positive-04",
+      "split": "train",
+      "query": "现有目录 README 说 v2 是 current，但 registry 指向 v3；核验后修复 stale card。",
+      "should_trigger": true,
+      "expected_primary_skill": "project-directory-card-maintenance",
+      "rationale": "Repairing a stale card after structured verification is a core mode."
+    },
+    {
+      "id": "card-positive-05",
+      "split": "train",
+      "query": "这个结构结果目录有 15 个相似文件，帮我建立 current/candidate/deprecated 的 README 入口。",
+      "should_trigger": true,
+      "expected_primary_skill": "project-directory-card-maintenance",
+      "rationale": "A durable directory with ambiguous versions merits a card."
+    },
+    {
+      "id": "card-positive-06",
+      "split": "validation",
+      "query": "只读检查 reports/tables 需要怎样的 Directory Card，不要创建文件。",
+      "should_trigger": true,
+      "expected_primary_skill": "project-directory-card-maintenance",
+      "rationale": "Read-only card proposal is an explicit supported mode."
+    },
+    {
+      "id": "card-positive-07",
+      "split": "validation",
+      "query": "迁移已经批准并完成，现在更新新目录 README 的 read-first 和 reproduction command。",
+      "should_trigger": true,
+      "expected_primary_skill": "project-directory-card-maintenance",
+      "rationale": "Navigation maintenance after an authorized migration belongs here."
+    },
+    {
+      "id": "card-positive-08",
+      "split": "validation",
+      "query": "为外部参考数据目录写 README，指向 license、checksum、manifest 和下载命令。",
+      "should_trigger": true,
+      "expected_primary_skill": "project-directory-card-maintenance",
+      "rationale": "A durable external-data artifact directory benefits from a card."
+    },
+    {
+      "id": "card-positive-09",
+      "split": "validation",
+      "query": "更新 screening 目录的 README，只保留 top-level campaign、当前结果和忽略模式。",
+      "should_trigger": true,
+      "expected_primary_skill": "project-directory-card-maintenance",
+      "rationale": "A bounded screening artifact navigation update is a core task."
+    },
+    {
+      "id": "card-positive-10",
+      "split": "validation",
+      "query": "给编号分析目录写一个短 card，告诉未来 Agent 先看哪个 manifest 和脚本。",
+      "should_trigger": true,
+      "expected_primary_skill": "project-directory-card-maintenance",
+      "rationale": "A read-first artifact card is a core navigation task."
+    },
+    {
+      "id": "card-negative-01",
+      "split": "train",
+      "query": "按 CCDS 盘点整个项目并设计 data、reports、latest 和跨目录迁移。",
+      "should_trigger": false,
+      "expected_primary_skill": "research-data-organization",
+      "rationale": "Project-wide layout and migration belong to research-data-organization."
+    },
+    {
+      "id": "card-negative-02",
+      "split": "train",
+      "query": "创建 PROJECT_GUIDE，整理当前研究问题、story chain 和 next decisions。",
+      "should_trigger": false,
+      "expected_primary_skill": "project-guide-maintainer",
+      "rationale": "Project current-state content belongs to the guide skill."
+    },
+    {
+      "id": "card-negative-03",
+      "split": "train",
+      "query": "给 PROJECT_PLAN 追加这次分析记录并判断是否更新 GUIDE。",
+      "should_trigger": false,
+      "expected_primary_skill": "project-state-maintenance",
+      "rationale": "State-file lifecycle work belongs to project-state-maintenance."
+    },
+    {
+      "id": "card-negative-04",
+      "split": "train",
+      "query": "为仓库根 README 写项目介绍、安装步骤和贡献指南。",
+      "should_trigger": false,
+      "expected_primary_skill": "none",
+      "rationale": "An ordinary repository README is not an artifact Directory Card."
+    },
+    {
+      "id": "card-negative-05",
+      "split": "train",
+      "query": "重画 Figure 2，统一 panel labels、字体和色盲配色。",
+      "should_trigger": false,
+      "expected_primary_skill": "publication-plotting",
+      "rationale": "Figure production and visual QA belong to publication-plotting."
+    },
+    {
+      "id": "card-negative-06",
+      "split": "validation",
+      "query": "核查论文每个 figure panel 的 source data、统计定义和脚本是否完整。",
+      "should_trigger": false,
+      "expected_primary_skill": "source-data-audit",
+      "rationale": "A manuscript-wide source-data audit belongs to source-data-audit."
+    },
+    {
+      "id": "card-negative-07",
+      "split": "validation",
+      "query": "把 figures、scripts 和 raw data 移到新的 CCDS 路径，并保留兼容链接。",
+      "should_trigger": false,
+      "expected_primary_skill": "research-data-organization",
+      "rationale": "Physical project migration is outside card authority."
+    },
+    {
+      "id": "card-negative-08",
+      "split": "validation",
+      "query": "在子目录 AGENTS.md 中增加禁止删除 raw data 的行为规则。",
+      "should_trigger": false,
+      "expected_primary_skill": "none",
+      "rationale": "Behavior rules belong to an Agent file, not a Directory Card."
+    },
+    {
+      "id": "card-negative-09",
+      "split": "validation",
+      "query": "为全项目建立精确的 artifact manifest，记录 path、hash、producer 和 consumer。",
+      "should_trigger": false,
+      "expected_primary_skill": "research-data-organization",
+      "rationale": "A project-wide machine-readable registry belongs to research-data-organization."
+    },
+    {
+      "id": "card-negative-10",
+      "split": "validation",
+      "query": "把论文的中文 Results 改写成以 Figure 1 到 Figure 4 为主线的叙事。",
+      "should_trigger": false,
+      "expected_primary_skill": "chinese-scientific-polishing",
+      "rationale": "Manuscript narrative editing is not directory navigation."
+    }
+  ]
+}

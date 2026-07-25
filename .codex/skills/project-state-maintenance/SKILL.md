@@ -1,153 +1,67 @@
 ---
 name: project-state-maintenance
-description: 用于维护研究项目的 PROJECT_GUIDE hot context 与 PROJECT_PLAN cold append-only log，处理初始化、追加、压缩、修复和读取边界。
-metadata:
-  hermes:
-    tags: [bioinformatics, project-state, project-guide, project-plan, provenance, context-budget]
-    related_skills: [project-guide-maintainer, research-data-organization, bioinfo-agent-workflow]
+description: 用于 PROJECT_GUIDE/PROJECT_PLAN 状态系统初始化修复、material-action 日志、定向历史读取和 GUIDE 更新判定；不用于 GUIDE 内容写作、单目录 README 或项目布局迁移。
 ---
 
 # Project State Maintenance
 
 ## 核心问题
 
-如何用 hot `PROJECT_GUIDE.md` 和 cold append-only `PROJECT_PLAN.md` 同时保持当前上下文精简与历史 provenance 完整？
+如何让 hot `PROJECT_GUIDE.md` 保持当前真值，同时用 cold append-only `PROJECT_PLAN.md` 保存可定向检索的历史 provenance？
 
-## 使用场景
-
-Maintain two local project state files for research repos:
-
-- `PROJECT_GUIDE.md` = hot project context, current project card, short source of current truth.
-- `PROJECT_PLAN.md` = cold append-only project log, audit/provenance/electronic-lab-notebook style record.
-
-Use this skill when initializing, repairing, reading, appending, compressing, or updating project state files; also when the user says “state maintenance”, “项目状态文件”, “PROJECT_PLAN”, “PROJECT_GUIDE”, “项目日志”, “项目卡片”, or asks to make project records easier for future Hermes/Codex sessions.
-
-## Core distinction
+## 能力边界
 
 ```text
-AGENTS.md          behavior/routing rules, short and stable
-PROJECT_GUIDE.md  hot current context, read for project tasks
-PROJECT_PLAN.md   cold append-only log, write by default after material actions, do not read by default
+AGENTS.md          稳定行为与项目边界
+PROJECT_GUIDE.md  hot current state，按需读取
+PROJECT_PLAN.md   cold append-only log，默认只写不读
+*/README.md       局部目录导航
 ```
 
-Do not let `PROJECT_GUIDE.md` become a second log. Do not let `PROJECT_PLAN.md` enter normal context.
+- 本 Skill 负责两个状态文件的生命周期、读写边界、material-action 记录和 GUIDE 更新判定。
+- 只创建、替换或压缩 GUIDE 内容时，组合或改用 `project-guide-maintainer`。
+- 只维护局部 artifact 目录 README 时，改用 `project-directory-card-maintenance`。
+- 项目级布局、manifest 或物理迁移交给 `research-data-organization`。
 
-## Startup policy
+## 权限与安全
 
-For project tasks:
+- 只在具体项目根维护状态文件；不得在仅用于容纳多个项目的父目录创建它们。
+- `PROJECT_PLAN.md` 默认 append-only；除非用户明确要求修复损坏记录，否则不重写、重排或删除历史条目。
+- 正常任务不得全文读取 PLAN；仅在 audit/history/reconstruction/methods/reviewer response/retrospective、指定 `log_id` 或状态冲突时用 `rg`、`tail` 或行范围定向读取。
+- read-only 任务不创建或更新状态文件。
+- 不写入原始日志、长命令输出、完整 diff/表格、凭证、患者可识别信息、原始数据内容或未必要暴露的机器路径。
+- 用户未确认的研究问题、claim、解释和优先级不得升级为 GUIDE 当前事实；标记为 `Draft`、`Assumption` 或 `Needs confirmation`。
 
-1. Read `AGENTS.md` if loaded or inspect project rules when needed.
-2. Decide whether the task depends on project background/current state.
-3. If yes, read `PROJECT_GUIDE.md`.
-4. Do **not** read `PROJECT_PLAN.md` by default.
-5. Read `PROJECT_PLAN.md` only by targeted grep/tail/log_id/line range when the user asks for audit/history/reconstruction/methods/reviewer response/retrospective, when `PROJECT_GUIDE.md` points to a needed `log_id`, or when project state is inconsistent.
+## 工作流程
 
-## End-of-task policy
+1. 锁定模式：`initialize`、`material append`、`targeted history read`、`state repair` 或 `GUIDE update decision`。
+2. 读取项目 `AGENTS.md`；只有任务依赖项目背景、当前结果或下一步时才读取 GUIDE。
+3. 判断是否发生 material action：数据/manifest/QC、模型或结构分析、重要图表/claim/稿件、重大失败、工作流规则或未来决策发生实质变化。
+4. 若是 material action，在不全文读取 PLAN 的前提下追加一条结构化记录；不要记录每条 shell 命令。
+5. 判断 durable fact 是否改变：它是否影响下一决策、paper claim/figure、数据/模型/结构协议或默认项目知识，并且是否有 artifact/run/config/log 证据。
+6. “满足至少两个 durable 条件”只是默认启发式；用户明确确认且有证据的单一关键事实也可更新 GUIDE。内容编辑交给 `project-guide-maintainer`，耦合写入按下述两阶段协议执行。
+7. 若 GUIDE 与 PLAN、manifest 或 artifact 冲突，报告证据差异并停在候选修复；不得静默选择“最新”版本。
+8. 交付时报告 PLAN 追加状态、GUIDE 更新状态、定向读取范围、精确文件和未决风险。
 
-Before finalizing a material project task:
+## GUIDE/PLAN 两阶段写入
 
-1. Decide whether the turn produced a material project action.
-2. If yes, append a concise structured entry to `PROJECT_PLAN.md` **without reading the full file**.
-3. Decide whether a durable project fact changed.
-4. If yes, read and update `PROJECT_GUIDE.md` by replacement/compression, not endless append.
-5. In final reply, report `PROJECT_PLAN.md` append status and `PROJECT_GUIDE.md` update status.
+1. 先准备完整 GUIDE 候选和 PLAN `prepared` 记录，共用一个 `change_id`，记录目标 GUIDE 摘要或 hash；此时不改 GUIDE。
+2. PLAN `prepared` 追加成功后，才原子替换 GUIDE；成功后再追加同一 `change_id` 的 `committed` 记录。
+3. `prepared` 追加失败：不写 GUIDE。GUIDE 替换失败：保持旧 GUIDE，并尽力追加 `aborted`。最终 `committed` 追加失败：不回滚已确认 GUIDE，报告 `reconciliation required`，下一次先核验 GUIDE hash 再补记。
+4. 任一部分失败都必须报告实际落盘状态和恢复动作；不得把 `prepared` 冒充已完成更新，也不得重写既有 PLAN 历史。
 
-Material actions include: data download/transform/QC, manifest/checksum changes, model training/evaluation/ablation/validation, structure modeling/docking/MD, important figure/claim/manuscript changes, major failures, rejected hypotheses, project-level constraints, workflow rule changes, user corrections that affect future behavior, or decisions that affect future analysis.
+## 模式化输出
 
-Non-material actions include: generic Q&A, read-only inspection with no decision, trivial formatting/spelling, or temporary debug output already saved elsewhere with no conclusion.
+- `initialize`：创建最小 PLAN header，并协调 `project-guide-maintainer` 生成 GUIDE；报告项目根和未填写字段。
+- `material append`：输出一条 MINI、STANDARD 或 DECISION/MILESTONE 记录及追加位置，不读取完整 PLAN。
+- `targeted history read`：报告查询词或 `log_id`、读取范围、找到的证据与缺口，不把局部记录冒充完整历史。
+- `state repair`：给出冲突表、保留/修复建议和回滚路径；重写历史需要单独授权。
+- `GUIDE update decision`：说明 durable 条件、证据指针、是否调用 GUIDE 维护，以及不更新的理由。
 
-## PROJECT_PLAN.md write budget
+## 按需读取和验证
 
-- `MINI`: 3–5 lines, small modification or no major conclusion.
-- `STANDARD`: default, 6–10 lines; intent, actions, artifacts, evidence, decision, next.
-- `DECISION/MILESTONE`: 600–1000 Chinese chars for direction-changing decisions; if longer, create `docs/decisions/ADR-*.md` and link from PLAN.
+- 初始化状态文件、选择 PLAN 记录预算、生成 entry 或执行 GUIDE/PLAN 耦合写入时，读取 `references/state-file-templates.md`。
+- 初始化或修复项目 `AGENTS.md` 的状态规则时，读取 `references/agents-state-files-patch.md`。
+- 只编辑状态规则后运行 `scripts/verify_agents_state_rules.py --mode state <AGENTS.md>`；状态与 Directory Card 规则组合后运行 `--mode combined`。它是 focused ad-hoc verifier，不是完整测试套件。
 
-One normal Hermes turn should usually append at most one STANDARD entry. Do not log every shell command.
-
-## PROJECT_PLAN.md entry template
-
-```markdown
-## YYYY-MM-DD HH:MM JST | PHASE | log_id=YYYYMMDD-HHMM-short-slug | status=done/blocked/failed/superseded
-
-Intent:
-- Why this step was done.
-
-Actions:
-- What was changed or executed, in 1-3 bullets.
-
-Inputs:
-- Data/config/code references. Include version, build, commit, checksum, or run_id when relevant.
-
-Outputs / evidence:
-- Files, figures, tables, metrics, structures, run IDs, or short observations.
-
-Decision / interpretation:
-- What this means for the project. Separate evidence from interpretation.
-
-Next:
-- Immediate next action or blocker.
-
-Guide update:
-- yes/no. If yes, state the exact PROJECT_GUIDE.md section.
-```
-
-## PROJECT_GUIDE.md rules
-
-Read `PROJECT_GUIDE.md` at the beginning of tasks that depend on project background, current results, data/model/figure state, paper storyline, or next-step planning.
-
-Update it only when a durable project fact changes: research question, hypothesis, accepted/rejected dataset, QC caveat, baseline/model result, structural result, figure claim, paper storyline, major risk, or next milestone.
-
-Research questions, working models, durable claims and next decisions become current GUIDE facts only after user confirmation. Agent-proposed interpretations or priorities remain marked as draft/assumption until confirmed.
-
-Budget:
-
-- Target: 2,000–4,000 Chinese characters.
-- Hard cap: 6,000 characters or 120 lines.
-- Main findings: 5–7 items max.
-- Next actions: 3 max.
-- Risks: 5 max.
-
-If too long, compress old details into `log_id` or artifact pointers. Do not copy `PROJECT_PLAN.md` content into the guide.
-
-## GUIDE update algorithm
-
-1. Append PLAN first for complete provenance.
-2. Ask whether the new information affects next decisions, paper claim/figure, data/model/structure protocol, default project knowledge, and has artifact/run/config/log support.
-3. If fewer than two are yes, keep it only in PLAN.
-4. If durable, update GUIDE current-state sections and keep within budget.
-5. Record the GUIDE update status in the PLAN entry.
-
-## Project-specific phase tags
-
-Use phases such as:
-
-`IDEA`, `LITERATURE`, `DATA-DISCOVERY`, `DATA-DOWNLOAD`, `DATA-QC`, `GENETICS-QC`, `VARIANT-ANNOTATION`, `ASSOCIATION`, `STRUCTURE-PREP`, `STRUCTURE-MODELING`, `DOCKING`, `ML-DATASET`, `ML-BASELINE`, `ML-ABLATION`, `ML-VALIDATION`, `FIGURE`, `MANUSCRIPT`, `REVISION`, `RETROSPECTIVE`, `GUIDE-COMPRESSION`.
-
-## AGENTS.md patch
-
-When initializing or repairing a repo, add a concise “Project state files” section from `references/agents-state-files-patch.md`.
-
-## Pitfalls
-
-- Do not read `PROJECT_PLAN.md` in full at normal task start.
-- Do not paste raw logs, long command outputs, full code diffs, full tables, VCF/PDB contents, credentials, or patient-identifiable data into PLAN/GUIDE.
-- Do not update GUIDE for temporary failed experiments, small formatting changes, or unvalidated exploratory outputs.
-- Do not turn GUIDE into a chronology; it is current-state only.
-
-## Verification after rule-file edits
-
-When editing `AGENTS.md`, `PROJECT_GUIDE.md`, `PROJECT_PLAN.md` templates, or state-file routing rules, do not claim the behavior is verified without fresh evidence. If the repo has no canonical lint/test command, run a focused temporary ad-hoc verifier and label it as such, not as suite green.
-
-Recommended pattern:
-
-1. Create a temporary script with an OS-safe tempfile path and `hermes-verify-` prefix.
-2. Check the changed file for required hot/cold state rules, targeted PLAN read policy, Directory Card policy if relevant, and context-budget sanity.
-3. Run it against the changed file.
-4. Remove the temporary script when possible.
-5. Summarize explicitly as `ad-hoc verification`, including what was checked.
-
-A reusable verifier is available at `scripts/verify_agents_state_rules.py`; copy or run it when appropriate, adapting checks to the project.
-
-## Completion message
-
-Use a short but complete delivery report. State the task outcome and changed artifacts first; then give verification and its boundary, project-state update status, remaining risk and next decision. Verification output, a temporary script path or a bare pass token is evidence only and must not replace the task report. Keep Markdown fences balanced and label ad-hoc checks accurately.
+最终回复先给状态维护结果，再给文件、验证边界、剩余风险和下一决策。

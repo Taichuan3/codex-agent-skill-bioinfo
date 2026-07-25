@@ -1,4 +1,4 @@
 interface:
   display_name: "Scientific English Polishing"
-  short_description: "Polish existing English scientific text"
-  default_prompt: "Use $scientific-english-polishing to polish this existing English scientific text safely."
+  short_description: "Polish existing English scientific prose safely"
+  default_prompt: "Use $scientific-english-polishing to make this existing English scientific text clearer and more concise while preserving its evidence strength."

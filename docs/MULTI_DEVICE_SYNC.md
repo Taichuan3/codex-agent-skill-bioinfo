@@ -4,6 +4,13 @@
 
 本仓库是可复现的生信 Codex 控制面，不是 `~/.codex` 的完整镜像。MacBook、Home/Lab 电脑和服务器安装同一 Git release，再叠加各自的本机认证、路径和环境。
 
+运行时 Agent 只采用两层：
+
+1. 用户级全局 `$HOME/.codex/AGENTS.md`：稳定方法、证据边界、默认数据布局、Skill 路由和安全规则。
+2. 具体项目根 `AGENTS.md`：项目事实、环境、实际输入输出、禁止修改路径和对默认布局的偏离。
+
+`~/bioinfo` 等只用于容纳多个项目的父目录不是 Codex 工作区层，不应放 `AGENTS.md`、`PROJECT_GUIDE.md` 或 `PROJECT_PLAN.md`。
+
 ## 四类内容
 
 | 层 | 归属 | 是否进入本公共仓库 |
@@ -65,6 +72,18 @@ python3 scripts/install_codex_bioinfo.py --apply
 - `$HOME/.codex/agents/*.toml`
 - `$HOME/.codex/AGENTS.md` 中的受管 bioinfo block
 
+`--apply` 在 Git checkout 中只接受干净 source，并记录 commit 与 package digest；安装失败时事务性恢复已触及的 Skill symlink、global guidance、legacy Skills 和 custom Agents。开发态 dirty symlink 只能用于本机迭代，不能作为已审查 release parity 证据。
+
+`$HOME/.agents/skills` 是用户级全局发现入口，因此 37 个 Skills 在任意项目目录均可用，不依赖项目是否位于 `~/bioinfo`。若历史安装在 `$HOME/.codex/skills` 留下重名用户 Skills，使用：
+
+```bash
+python3 scripts/install_codex_bioinfo.py --apply \
+  --replace-global-guidance \
+  --retire-legacy-codex-skills
+```
+
+安装器会把这些旧用户 Skill 移入可恢复备份并保留 `.system`。
+
 安装器不管理：
 
 - `$HOME/.codex/config.toml` 的模型、网络、MCP、插件和权限
@@ -72,7 +91,7 @@ python3 scripts/install_codex_bioinfo.py --apply
 - conda、Jupyter、服务器调度器
 - 项目数据或项目级 Agent
 
-把 `.codex/config.toml.example` 的 `[agents]` 片段按机器手工合并到用户配置；不要用公共模板覆盖已有配置。
+把 `.codex/config.toml.example` 的 `[features]` 与 `[agents]` 片段按机器手工合并到用户配置；不要用公共模板覆盖已有配置。示例以本轮实际安装的 Codex CLI 版本验证，升级 Codex 后应重新运行 config/doctor 检查并与官方 config reference 对照。
 
 ## 跨设备交接
 

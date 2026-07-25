@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "skill_name": "citation-verifier",
+  "purpose": "Evaluate identity resolution, metadata correction, claim fit, access uncertainty, and batch reporting.",
+  "cases": [
+    {"id":"citation-outcome-identity-01","mode":"identity verification","task":"Verify a DOI, PMID, and bibliography entry for one citation.","must_include":["resolved identifiers","author/title/year/journal comparison","authoritative metadata sources","version or correction status","verification status"],"must_not":["verify from memory","conflate similar titles","omit identifier conflicts"]},
+    {"id":"citation-outcome-claim-01","mode":"claim support","task":"Determine whether a citation supports a mechanistic sentence.","must_include":["minimal claim","evidence location inspected","system and condition match","support strength","keep, narrow, replace, or remove action"],"must_not":["treat metadata as claim evidence","upgrade association to mechanism","ignore population or organism scope"]},
+    {"id":"citation-outcome-partial-01","mode":"partial access","task":"Verify a citation when only metadata and abstract are accessible.","must_include":["verified metadata fields","abstract-only label","what the abstract supports","unverified full-text-dependent claim","needs-full-text action"],"must_not":["mark fully verified","invent figures or methods","label inaccessible evidence fabricated"]},
+    {"id":"citation-outcome-batch-01","mode":"batch audit","task":"Audit a bibliography with duplicate and version conflicts.","must_include":["total and status counts","duplicate or preprint-version groups","metadata errors","claim-fit sampling or coverage","uninspected scope"],"must_not":["silently delete entries","rewrite the bibliography without authorization","report only a PASS label"]},
+    {"id":"citation-outcome-risk-01","mode":"risk classification","task":"Classify a real paper that is cited for the wrong scope.","must_include":["citation exists","specific scope mismatch","evidence type","safe narrower wording","replacement-search handoff if needed"],"must_not":["call the citation fabricated","claim no evidence exists","launch an unbounded literature search"]}
+  ]
+}

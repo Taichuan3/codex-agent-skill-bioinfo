@@ -1,4 +1,4 @@
 interface:
   display_name: "Protein Structure Docking"
-  short_description: "Lock inputs and interpret protein structure/docking workflows"
-  default_prompt: "Use $protein-structure-docking to lock docking inputs, choose structure/docking tools, and interpret results with caveats."
+  short_description: "Plan and audit structure and docking evidence"
+  default_prompt: "Use $protein-structure-docking to lock inputs, choose a bounded docking workflow, and interpret poses and scores within their evidence limits."

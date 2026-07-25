@@ -1,4 +1,4 @@
 interface:
   display_name: "Task Self Check"
-  short_description: "Run lightweight delivery QA checks"
-  default_prompt: "Use $task-self-check to run a lightweight final QA before delivering this research task."
+  short_description: "Gate concrete research deliverables before handoff"
+  default_prompt: "Use $task-self-check to run a bounded final QA on this research deliverable and distinguish pass, fix, and not-checked items."

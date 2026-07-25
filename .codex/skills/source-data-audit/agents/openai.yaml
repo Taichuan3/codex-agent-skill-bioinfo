@@ -1,4 +1,4 @@
 interface:
   display_name: "Source Data Audit"
-  short_description: "Audit source data and availability records"
-  default_prompt: "Use $source-data-audit to check figure source data and data availability readiness."
+  short_description: "Audit figure source data and access traceability"
+  default_prompt: "Use $source-data-audit to trace every figure panel to source data, producers, statistics, and an honest access route."

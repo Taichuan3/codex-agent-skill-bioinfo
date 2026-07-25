@@ -1,164 +1,60 @@
 ---
 name: project-directory-card-maintenance
-description: 用于维护重要研究 artifact 目录的短 README Directory Card，说明目录用途、当前关键文件、生成来源、读取顺序和废弃状态。
-metadata:
-  hermes:
-    tags: [bioinformatics, directory-card, readme, project-organization, cookiecutter-data-science, artifact-index]
-    related_skills: [research-data-organization, project-state-maintenance, publication-plotting, ml-benchmarking]
+description: 用于审计、创建或更新重要 artifact 目录的短 README Directory Card，维护文件状态、producer、读取顺序和 manifest 指针；不用于项目迁移、GUIDE/PLAN 或普通 README。
 ---
 
 # Project Directory Card Maintenance
 
 ## 核心问题
 
-如何用选择性的短 README 为重要研究 artifact 目录提供可维护、按需读取且可追踪的导航入口？
+如何用选择性的短 README 提供可信、按需读取且不复制完整 inventory 的局部 artifact 导航？
 
-## 使用场景
+## 能力边界
 
-Maintain selective short directory-level `README.md` files as **Directory Cards** for important research artifact folders. A Directory Card explains what a folder contains, which files are current/important, how they were produced, what to read first, and which files to ignore.
+- Directory Card 只描述已验证的当前布局；它不是科学真值、项目 GUIDE、历史日志、manifest 或行为规则。
+- 本 Skill 可创建或更新局部 README，但不得移动、重命名、删除、归档或重新分类整个项目。
+- 项目级 artifact 盘点、manifest/latest/priority 入口或迁移交给 `research-data-organization`。
+- GUIDE/PLAN 生命周期交给 `project-state-maintenance`；GUIDE 内容编辑交给 `project-guide-maintainer`。
+- 普通仓库介绍、安装教程或非 artifact README 不使用本 Skill。
 
-Use this skill when the user asks for “Directory Card”, “folder README”, “目录索引”, “结果目录说明” or “更新目录 README”. If the request includes project-wide classification, a migration plan or physical moves, route that work to `research-data-organization`; this skill only maintains navigation after the layout decision is authorized.
+## 权限与证据
 
-## Scope and authority
+- read-only 请求只报告候选 card 内容，不创建文件。
+- 写卡片前从 manifest/registry、producer、consumer、报告链接或用户确认状态核验 current/candidate/deprecated；不得只凭文件名或日期判断。
+- README 与结构化记录冲突时，以可验证证据为准，报告冲突后再更新 card。
+- 不把完整文件列表、全量指标/样本/变异/候选分子表、原始日志、凭证或患者可识别信息复制进 README。
+- 不为每个 run、临时图、cache 或快速变化的 interim 目录创建 card。
 
-- A Directory Card describes the current layout; it does not decide research priorities or become a source of scientific truth.
-- Default work is navigation-only: inspect verified artifacts, then create or update selective README cards.
-- Do not rename, move, delete or archive artifacts under this skill. Physical changes require a migration plan from `research-data-organization` and explicit user authorization.
-- If a card reveals stale paths or conflicting artifact status, report the inconsistency and propose the smallest navigation update; do not silently reorganize the directory.
+## 工作流程
 
-## Relationship to project state files
+1. 锁定模式：`read-only proposal`、`create`、`durable update` 或 `stale-card repair`。
+2. 读取项目 `AGENTS.md`、目标目录现有 README 和最近的 manifest/registry；限制扫描范围，不默认打开全部文件。
+3. 判断目录是否值得维护 card：会复用/引用/共享、版本难辨、支持独立 claim、需要特定读取顺序或重建入口。
+4. 核验当前重要 artifact、状态、producer、consumer、source-data/manifest 指针和 reproduction command。
+5. 写最小导航：purpose、current important files、read first、reproduce/update、ignore/deprecated、last updated。
+6. 用链接或 manifest 指针替代长表；状态不确定时写 `candidate`、`provenance_pending` 或 `not assessed`。
+7. 若核验暴露项目级路径问题，停在 navigation/migration handoff，不执行物理整理。
+8. Card 写入属于 material action：调用 `project-state-maintenance` 追加 PLAN；只有项目真值或下一决策改变时才更新 GUIDE。
+9. 交付时报告精确 README 路径、验证来源、未扫描范围、状态冲突和后续 handoff。
 
-```text
-AGENTS.md             agent behavior rules and routing
-PROJECT_GUIDE.md      hot current project state
-PROJECT_PLAN.md       cold append-only project log
-*/README.md           on-demand local directory navigation aid
-manifest/registry TSV exact machine-readable file/run metadata
-```
+## 长度与内容契约
 
-A Directory Card is not a log, not a second project guide, and not an agent behavior file.
+- 普通 card 目标 800–1,500 字符，硬上限约 2,000。
+- 复杂 data/model/structure card 可到 2,500 字符，硬上限约 3,000。
+- `reports/figures/README.md` 可为 1–2 页，硬上限约 4,000。
+- 优先使用短表、relative path、manifest/registry、script/command 和明确状态；不要写背景长文。
 
-## Read policy
+## 模式化输出
 
-- Do not read every directory README at session start.
-- Before scanning a large artifact directory under `data/`, `models/`, `reports/`, or `experiments/`, check for local `README.md` and read it first.
-- Treat `README.md` as a navigation aid, not the final source of truth.
-- If README points to manifest/registry/script/config, use those structured files for exact details.
-- If README is stale or contradicts structured artifacts, report inconsistency and update only after verifying current truth.
+- `read-only proposal`：给出候选 card、证据和不确定项，不创建文件。
+- `create`：报告新 README、current artifact 证据、读取顺序和 reproduction 入口。
+- `durable update`：列出状态变化、替换关系、证据来源和 PLAN 同步。
+- `stale-card repair`：列出旧指针、真实 consumer/producer、修复内容和仍未解决的冲突。
 
-## Creation criteria
+## 按需读取
 
-Create a Directory Card when any condition is true:
+- 需要具体 card 结构或 data/model/figure 示例时，读取 `references/directory-card-templates.md`。
+- 初始化或修复项目 `AGENTS.md` 的 Directory Card 规则时，读取 `references/agents-directory-cards-patch.md`，并运行 `project-state-maintenance` verifier 的 `--mode combined` 检查组合规则。
+- 版本化 artifact 家族难以导航时，读取 `references/versioned-research-artifact-layout.md`；如需移动路径，转交 `research-data-organization`。
 
-1. The directory contains results that will be reused, cited, shared, or used in a paper/report.
-2. The directory has >8–10 files and filenames alone do not reveal priority.
-3. There are multiple similar versions requiring current/deprecated labels.
-4. The directory supports an independent scientific claim.
-5. It contains external data, canonical processed data, models, structures, figures, supplementary tables, or screening/design outputs.
-6. It needs a special read order or reproduction command.
-
-Do not create cards for every run directory, every temporary figure folder, or rapidly changing interim/cache folders.
-
-## Update criteria
-
-Update a Directory Card only when a durable artifact changes:
-
-- canonical dataset changes;
-- best/baseline model or validation result changes;
-- candidate/final figure or paper claim changes;
-- structure result, candidate molecule, top hit, screening campaign, reproduction command, deprecation status, or file layout changes;
-- project moves from exploratory to candidate/current/final state.
-
-Do not update for failed temporary experiments, unchanged reruns, intermediate cache changes, or exploratory plots not meant for reuse. Log those in `PROJECT_PLAN.md` instead.
-
-## Minimum recommended cards
-
-For Cookiecutter Data Science style projects, the minimal useful set is:
-
-```text
-data/README.md
-data/processed/README.md
-models/README.md
-reports/figures/README.md
-```
-
-Add only when needed:
-
-```text
-reports/genetics/README.md
-reports/structures/README.md
-reports/tables/README.md
-reports/model_eval/README.md
-experiments/design/README.md
-experiments/screening/README.md
-notebooks/README.md
-references/README.md
-```
-
-## Directory Card template
-
-```markdown
-# Directory Card: <relative/path>
-
-## Purpose
-<One sentence: what this directory contains and why it exists.>
-
-## Current important files
-| path | status | meaning | produced by |
-|---|---|---|---|
-| <file> | current / candidate / deprecated | <what it is> | <script/notebook/command> |
-
-## Read first
-- Start with: <file/manifest/script>
-- For exact file metadata, use: <manifest.tsv / registry.tsv>
-- For history, search: `PROJECT_PLAN.md` by `<log_id / keyword>` only if needed.
-
-## Reproduce / update
-Command: `<make command or python script>`
-
-## Ignore / deprecated
-- Ignore: `<pattern>` because <reason>.
-- Deprecated: `<file>` replaced by `<file>` on <date>.
-
-## Notes for Hermes/Codex
-- Do not inspect all files unless the task requires it.
-- Prefer the current files listed above.
-
-## Last updated
-YYYY-MM-DD - <reason>
-```
-
-## Length budget
-
-- Ordinary card: 800–1,500 chars; hard cap ~2,000.
-- Complex data/model/structure card: 1,500–2,500 chars; hard cap ~3,000.
-- `reports/figures/README.md`: 1–2 pages; hard cap ~4,000.
-- Artifact subdirectory card: 500–1,200 chars; hard cap ~1,500.
-
-Prefer tables and links to manifests over long prose or full file lists.
-
-## AGENTS.md patch
-
-When initializing or repairing a project, add the concise Directory Cards rules from `references/agents-directory-cards-patch.md`. If this edits `AGENTS.md`, pair it with `project-state-maintenance` and perform focused ad-hoc verification of the routing rules when no canonical test/lint command exists.
-
-For a versioned artifact tree whose current files and report families are difficult to navigate, read `references/versioned-research-artifact-layout.md`. Use it to classify navigation entries and design cards; hand any physical migration to `research-data-organization` for a user-approved migration plan.
-
-## Synchronization with GUIDE/PLAN
-
-- Any Directory Card update is a material project action: write a concise `PROJECT_PLAN.md` entry.
-- Update `PROJECT_GUIDE.md` only if the Directory Card change affects current project truth, next actions, major findings, risk, or paper/model/structure claim.
-- Directory Card updates do not automatically imply GUIDE updates.
-
-## Pitfalls
-
-- Do not use subdirectory `AGENTS.md` as a result catalog. Use nested `AGENTS.md` only for behavior rules.
-- Do not copy full metrics tables, sample metadata, variant tables, candidate molecules, all figure versions, or complete file lists into README.
-- Do not update README after every exploratory run.
-- Do not treat README as exact truth when manifest/registry/script says otherwise.
-- Do not turn a request for a Directory Card into an unapproved physical restructure.
-- For this user's research projects, Directory Cards, `PROJECT_GUIDE.md`, `PROJECT_PLAN.md`, audit/comparison summaries, and README/index files should default to Chinese unless the user explicitly asks for English or the artifact is formal English manuscript/code/API text.
-- When the user asks to understand and reorganize project data structure, do not stop after incidental cleanup or verification; deliver the requested Directory Cards/README/audit files that make the data and analyses understandable.
-- After long README/structure refactors, the chat summary must be self-contained: what changed, key files, classification decisions, audit/comparison findings, verification boundary, risks, and next decision. Do not make the user open files to learn the result.
-- Status updates for README refactors should be task-centered: summarize what entry points were rewritten, how directories are classified, what was verified, and what remains. Avoid making temporary verification-script details the main content.
-- When a Hermes/Codex split is expected, use Codex for broad read-only scans or second-pass audits, then compare Codex findings against Hermes findings in the final summary instead of treating Codex output as a hidden artifact.
-- For cross-project workflow/self-check tasks, do not stop at the current project. Check whether the governing rule lives in a global workspace `AGENTS.md`, a project-local `AGENTS.md`, memory, and any Codex-visible skill source. If a rule is only present in one project, report the boundary and either patch the global/class-level skill or state the required project initialization step.
+最终回复先给导航成果，再给文件、证据、PLAN/GUIDE 同步状态、剩余风险和下一决策。

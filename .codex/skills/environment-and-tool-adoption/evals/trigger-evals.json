@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "skill_name": "environment-and-tool-adoption",
+  "purpose": "Evaluate tool selection, installation, repair, and external-code adoption routing against bootstrap, domain analysis, and Skill governance.",
+  "cases": [
+    {
+      "id": "adoption-positive-01",
+      "split": "train",
+      "query": "在指定 conda 环境中安装固定版本的 bcftools，记录来源并运行最小验证。",
+      "should_trigger": true,
+      "expected_primary_skill": "environment-and-tool-adoption",
+      "rationale": "A bounded package installation with provenance and validation is a core mode."
+    },
+    {
+      "id": "adoption-positive-02",
+      "split": "train",
+      "query": "比较三个 RNA-seq quantification 工具的适用范围、license 和维护状态，只给建议不要安装。",
+      "should_trigger": true,
+      "expected_primary_skill": "environment-and-tool-adoption",
+      "rationale": "Recommendation-only tool comparison is a core mode."
+    },
+    {
+      "id": "adoption-positive-03",
+      "split": "train",
+      "query": "这个论文仓库能不能用于我的输入格式？请审查依赖并决定 direct use、wrap 还是 rewrite。",
+      "should_trigger": true,
+      "expected_primary_skill": "environment-and-tool-adoption",
+      "rationale": "External research-code adoption is a core responsibility."
+    },
+    {
+      "id": "adoption-positive-04",
+      "split": "train",
+      "query": "R 包升级后 workflow 坏了，复现错误、查明版本漂移并做最小修复。",
+      "should_trigger": true,
+      "expected_primary_skill": "environment-and-tool-adoption",
+      "rationale": "Dependency repair and regression validation are core modes."
+    },
+    {
+      "id": "adoption-positive-05",
+      "split": "train",
+      "query": "评估用官方容器、conda 包还是源码构建安装这个结构预测工具。",
+      "should_trigger": true,
+      "expected_primary_skill": "environment-and-tool-adoption",
+      "rationale": "Choosing a reproducible installation route belongs here."
+    },
+    {
+      "id": "adoption-positive-06",
+      "split": "validation",
+      "query": "不要执行 curl pipe shell；先检查官方安装脚本、checksum、license 和系统依赖。",
+      "should_trigger": true,
+      "expected_primary_skill": "environment-and-tool-adoption",
+      "rationale": "Safe review of an installation mechanism is a core guardrail."
+    },
+    {
+      "id": "adoption-positive-07",
+      "split": "validation",
+      "query": "给现有 Python 环境补充一个缺失包，并把精确版本写入 environment lock 后做 import test。",
+      "should_trigger": true,
+      "expected_primary_skill": "environment-and-tool-adoption",
+      "rationale": "A dependency change plus reproducibility record belongs here."
+    },
+    {
+      "id": "adoption-positive-08",
+      "split": "validation",
+      "query": "采用外部单细胞工具前，用小样本检查输入输出 schema、日志和内存，再决定是否跑全量。",
+      "should_trigger": true,
+      "expected_primary_skill": "environment-and-tool-adoption",
+      "rationale": "Small-sample integration validation before scale-up is core adoption work."
+    },
+    {
+      "id": "adoption-positive-09",
+      "split": "validation",
+      "query": "这个 GitHub 项目没有明确 license，但算法很短；判断是借鉴思路、重写还是放弃。",
+      "should_trigger": true,
+      "expected_primary_skill": "environment-and-tool-adoption",
+      "rationale": "License-aware borrow/rewrite/reject decisions belong here."
+    },
+    {
+      "id": "adoption-positive-10",
+      "split": "validation",
+      "query": "请升级命令行工具但不要静默改变参考数据库，报告 rollback 和不能从 smoke test 得出的结论。",
+      "should_trigger": true,
+      "expected_primary_skill": "environment-and-tool-adoption",
+      "rationale": "A bounded upgrade with scientific and rollback boundaries is a core mode."
+    },
+    {
+      "id": "adoption-negative-01",
+      "split": "train",
+      "query": "我刚换到新服务器，检查 cwd、conda、kernel、Git upstream 和本地环境记录。",
+      "should_trigger": false,
+      "expected_primary_skill": "project-environment-bootstrap",
+      "rationale": "Baseline environment readiness belongs to project bootstrap."
+    },
+    {
+      "id": "adoption-negative-02",
+      "split": "train",
+      "query": "环境和依赖都已经确认，对 bulk RNA-seq counts 做差异表达分析。",
+      "should_trigger": false,
+      "expected_primary_skill": "bioinfo-analysis-code",
+      "rationale": "Domain analysis with a known environment is not tool adoption."
+    },
+    {
+      "id": "adoption-negative-03",
+      "split": "train",
+      "query": "审计这个 Skill 的 description、资源路由和触发 evals。",
+      "should_trigger": false,
+      "expected_primary_skill": "skill-quality-audit",
+      "rationale": "Skill quality assurance belongs to the QA skill."
+    },
+    {
+      "id": "adoption-negative-04",
+      "split": "train",
+      "query": "以后所有项目都默认记录 seed；把这条长期规则写入合适的 Agent 或 Skill。",
+      "should_trigger": false,
+      "expected_primary_skill": "controlled-self-improvement",
+      "rationale": "A durable rule-routing request belongs to governed self-improvement."
+    },
+    {
+      "id": "adoption-negative-05",
+      "split": "train",
+      "query": "只核对 Methods 中报告的软件版本是否与运行 manifest 一致。",
+      "should_trigger": false,
+      "expected_primary_skill": "manuscript-consistency-audit",
+      "rationale": "Manuscript-to-manifest consistency is not an adoption decision."
+    },
+    {
+      "id": "adoption-negative-06",
+      "split": "validation",
+      "query": "解释 conda environment、kernel 和 VS Code interpreter 为什么可能不一致，不要安装任何东西。",
+      "should_trigger": false,
+      "expected_primary_skill": "project-environment-bootstrap",
+      "rationale": "Read-only execution-context diagnosis belongs to bootstrap."
+    },
+    {
+      "id": "adoption-negative-07",
+      "split": "validation",
+      "query": "用已经安装好的 minimap2 比对十个样本并生成 QC。",
+      "should_trigger": false,
+      "expected_primary_skill": "bioinfo-analysis-code",
+      "rationale": "Running an established analysis is not tool adoption."
+    },
+    {
+      "id": "adoption-negative-08",
+      "split": "validation",
+      "query": "搜索支持某个基因功能 claim 的最新文献。",
+      "should_trigger": false,
+      "expected_primary_skill": "literature-search-workflow",
+      "rationale": "Literature evidence retrieval is not software adoption."
+    },
+    {
+      "id": "adoption-negative-09",
+      "split": "validation",
+      "query": "把 data/raw 和 data/processed 重新整理并更新 latest_manifest.tsv。",
+      "should_trigger": false,
+      "expected_primary_skill": "research-data-organization",
+      "rationale": "Artifact organization is outside tool-adoption scope."
+    },
+    {
+      "id": "adoption-negative-10",
+      "split": "validation",
+      "query": "登录付费软件账号并接受新的机构 license 条款。",
+      "should_trigger": false,
+      "expected_primary_skill": "none",
+      "rationale": "Account and legal acceptance decisions remain user-controlled."
+    }
+  ]
+}

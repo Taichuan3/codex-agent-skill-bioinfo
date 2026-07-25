@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "skill_name": "submission-readiness-audit",
+  "purpose": "Evaluate complete-package submission gating against specialist audits, reviewer workflows, and routine QA.",
+  "cases": [
+    {
+      "id": "submission-positive-01",
+      "split": "train",
+      "query": "主文、图表、补充材料和代码都已组装，请做投稿前综合 gate 并列 blocking fixes。",
+      "should_trigger": true,
+      "expected_primary_skill": "submission-readiness-audit",
+      "rationale": "A complete manuscript-package gate is the core deliverable."
+    },
+    {
+      "id": "submission-positive-02",
+      "split": "train",
+      "query": "发给合作者最终审阅前，判断 manuscript package 是 Ready、Conditionally ready 还是 Not ready。",
+      "should_trigger": true,
+      "expected_primary_skill": "submission-readiness-audit",
+      "rationale": "A pre-circulation readiness recommendation is in scope."
+    },
+    {
+      "id": "submission-positive-03",
+      "split": "train",
+      "query": "检查主 claim、figure logic、Methods、source data、Data Availability 和 citations 是否有投稿阻断项。",
+      "should_trigger": true,
+      "expected_primary_skill": "submission-readiness-audit",
+      "rationale": "This explicitly requests a cross-component readiness audit."
+    },
+    {
+      "id": "submission-positive-04",
+      "split": "train",
+      "query": "我们准备预投稿，请先做 package inventory，缺材料的维度标 Not assessed，不要假装完整。",
+      "should_trigger": true,
+      "expected_primary_skill": "submission-readiness-audit",
+      "rationale": "A bounded pre-submission inventory and gate is core scope."
+    },
+    {
+      "id": "submission-positive-05",
+      "split": "train",
+      "query": "整合已有 claim audit、source-data audit 和 consistency audit，给出按依赖排序的投稿修复计划。",
+      "should_trigger": true,
+      "expected_primary_skill": "submission-readiness-audit",
+      "rationale": "Synthesizing specialist audit outputs into a package gate belongs here."
+    },
+    {
+      "id": "submission-positive-06",
+      "split": "validation",
+      "query": "大版本收尾后复核此前 blocking issues 是否关闭，并说明哪些 gate 仍未验证。",
+      "should_trigger": true,
+      "expected_primary_skill": "submission-readiness-audit",
+      "rationale": "Rechecking readiness gates after fixes is a supported mode."
+    },
+    {
+      "id": "submission-positive-07",
+      "split": "validation",
+      "query": "投稿包只有摘要、主图和 Methods 草稿，请给条件性 readiness，不要给无条件 Go。",
+      "should_trigger": true,
+      "expected_primary_skill": "submission-readiness-audit",
+      "rationale": "A partial-package gate is valid when the conclusion is explicitly bounded."
+    },
+    {
+      "id": "submission-positive-08",
+      "split": "validation",
+      "query": "请区分哪些问题必须投稿前解决、哪些只是 nice-to-have，并给 owner 和复核条件。",
+      "should_trigger": true,
+      "expected_primary_skill": "submission-readiness-audit",
+      "rationale": "Prioritized readiness actions and closure criteria are core outputs."
+    },
+    {
+      "id": "submission-positive-09",
+      "split": "validation",
+      "query": "Methods、代码环境和 source-data 都存在，但没验证能否重建主图；这会不会阻断投稿？",
+      "should_trigger": true,
+      "expected_primary_skill": "submission-readiness-audit",
+      "rationale": "Reproducibility evidence is a package-level readiness gate."
+    },
+    {
+      "id": "submission-positive-10",
+      "split": "validation",
+      "query": "目标期刊要求尚未提供，请先做通用生信稿件 readiness audit，并明确 journal-specific 未评估。",
+      "should_trigger": true,
+      "expected_primary_skill": "submission-readiness-audit",
+      "rationale": "A generic gate with an explicit journal-policy boundary is in scope."
+    },
+    {
+      "id": "submission-negative-01",
+      "split": "train",
+      "query": "只判断这句机制结论是否被 Figure 2 支持，并给安全改写。",
+      "should_trigger": false,
+      "expected_primary_skill": "claim-evidence-audit",
+      "rationale": "A single claim-support judgment belongs to claim evidence audit."
+    },
+    {
+      "id": "submission-negative-02",
+      "split": "train",
+      "query": "为所有主图 panel 建 source-data inventory 和 repository plan。",
+      "should_trigger": false,
+      "expected_primary_skill": "source-data-audit",
+      "rationale": "Deep source-data traceability is a specialist audit."
+    },
+    {
+      "id": "submission-negative-03",
+      "split": "train",
+      "query": "检查摘要、正文和图注里的数字及样本数是否一致。",
+      "should_trigger": false,
+      "expected_primary_skill": "manuscript-consistency-audit",
+      "rationale": "Cross-location factual consistency belongs to its specialist audit."
+    },
+    {
+      "id": "submission-negative-04",
+      "split": "train",
+      "query": "在尚未投稿前模拟 reviewer，提出最可能的 Critical 和 Major concerns。",
+      "should_trigger": false,
+      "expected_primary_skill": "reviewer-simulation",
+      "rationale": "Prospective red-team critique is not the same as completeness gating."
+    },
+    {
+      "id": "submission-negative-05",
+      "split": "train",
+      "query": "这是 editor decision 和真实审稿意见，请写 point-by-point response。",
+      "should_trigger": false,
+      "expected_primary_skill": "reviewer-response-builder",
+      "rationale": "Real-review response construction belongs to reviewer response builder."
+    },
+    {
+      "id": "submission-negative-06",
+      "split": "validation",
+      "query": "我刚改完一个脚本，请做普通交付前自检。",
+      "should_trigger": false,
+      "expected_primary_skill": "task-self-check",
+      "rationale": "Routine task QA is not a manuscript submission gate."
+    },
+    {
+      "id": "submission-negative-07",
+      "split": "validation",
+      "query": "把稿件排版成目标期刊的 reference style 和页边距。",
+      "should_trigger": false,
+      "expected_primary_skill": "none",
+      "rationale": "Journal formatting alone is outside readiness-audit scope."
+    },
+    {
+      "id": "submission-negative-08",
+      "split": "validation",
+      "query": "把中文 Discussion 润色得更符合期刊写作风格。",
+      "should_trigger": false,
+      "expected_primary_skill": "chinese-scientific-polishing",
+      "rationale": "Language polishing is not package readiness gating."
+    },
+    {
+      "id": "submission-negative-09",
+      "split": "validation",
+      "query": "核对 reference list 中所有 DOI 和 PMID。",
+      "should_trigger": false,
+      "expected_primary_skill": "citation-verifier",
+      "rationale": "A bounded citation-identity task belongs to citation verifier."
+    },
+    {
+      "id": "submission-negative-10",
+      "split": "validation",
+      "query": "替作者决定立刻投稿并上传到期刊系统。",
+      "should_trigger": false,
+      "expected_primary_skill": "none",
+      "rationale": "Final go/no-go and submission are user-owned actions, not implied by an audit."
+    }
+  ]
+}

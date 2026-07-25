@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "skill_name": "scientific-english-polishing",
+  "purpose": "Evaluate meaning-preserving English editing, compression, terminology, reproducibility, and response tone.",
+  "cases": [
+    {
+      "id": "english-polish-outcome-results-01",
+      "mode": "Results paragraph polishing",
+      "task": "Polish an existing English Results paragraph containing quantitative associations.",
+      "must_include": [
+        "directly usable polished version",
+        "numbers preserved",
+        "association wording preserved",
+        "stable terminology",
+        "meaning checked against the source"
+      ],
+      "must_not": [
+        "upgrade causality",
+        "invent mechanism or novelty",
+        "add unprovided statistics"
+      ]
+    },
+    {
+      "id": "english-polish-outcome-abstract-01",
+      "mode": "abstract compression",
+      "task": "Reduce an English abstract to a strict word limit.",
+      "must_include": [
+        "word-limit-compliant version",
+        "context-gap-action-result flow",
+        "central evidence retained",
+        "key caveat retained",
+        "claim strength preserved"
+      ],
+      "must_not": [
+        "remove scope limitations",
+        "add broad significance claims",
+        "retain a full data inventory"
+      ]
+    },
+    {
+      "id": "english-polish-outcome-methods-01",
+      "mode": "Methods polishing",
+      "task": "Improve existing English Methods containing software versions, parameters, and filters.",
+      "must_include": [
+        "clear reproducible prose",
+        "versions and parameters preserved",
+        "filters and samples preserved",
+        "uncertain values flagged",
+        "technical meaning retained"
+      ],
+      "must_not": [
+        "remove details for style",
+        "silently correct values",
+        "invent procedural steps"
+      ]
+    },
+    {
+      "id": "english-polish-outcome-response-01",
+      "mode": "reviewer response polishing",
+      "task": "Polish an English reviewer response that acknowledges a limitation and describes a bounded revision.",
+      "must_include": [
+        "professional direct tone",
+        "reviewer concern addressed",
+        "limitation retained",
+        "actual revision distinguished from planned work",
+        "no unsupported concession or claim"
+      ],
+      "must_not": [
+        "claim an experiment was completed when it was not",
+        "erase the limitation",
+        "become defensive or dismissive"
+      ]
+    },
+    {
+      "id": "english-polish-outcome-legend-01",
+      "mode": "existing legend language edit",
+      "task": "Improve the wording of an already complete English figure legend.",
+      "must_include": [
+        "polished English legend",
+        "panel order preserved",
+        "numbers and tests preserved",
+        "abbreviations retained or clarified",
+        "no guessed content"
+      ],
+      "must_not": [
+        "redesign the figure",
+        "add unprovided n or statistics",
+        "change the scientific interpretation"
+      ]
+    }
+  ]
+}

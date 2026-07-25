@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "skill_name": "evidence-gap-finder",
+  "purpose": "Evaluate minimal evidence-gap prioritization against claim auditing, literature search, citation checks, source-data audits, and analysis execution.",
+  "cases": [
+    {"id":"gap-positive-01","split":"train","query":"根据现有 Figure 1–4 和 claims，找出投稿前 P0/P1 缺口与最小补分析。","should_trigger":true,"expected_primary_skill":"evidence-gap-finder","rationale":"Prioritizing gaps in an existing evidence package is the core task."},
+    {"id":"gap-positive-02","split":"train","query":"把审稿意见整理成 1–3 个最小 work packages，写清成本、依赖和验收标准。","should_trigger":true,"expected_primary_skill":"evidence-gap-finder","rationale":"Reviewer-driven minimal-fix planning belongs here."},
+    {"id":"gap-positive-03","split":"train","query":"这套结果不足以支持机制 claim，比较补 control、降级写法和删除 claim 三条路径。","should_trigger":true,"expected_primary_skill":"evidence-gap-finder","rationale":"Alternative gap-closing paths are a core output."},
+    {"id":"gap-positive-04","split":"train","query":"从 claim-evidence map 中识别缺数据、缺统计、缺外部验证和复现缺口。","should_trigger":true,"expected_primary_skill":"evidence-gap-finder","rationale":"Typed gap extraction from an existing map belongs here."},
+    {"id":"gap-positive-05","split":"train","query":"先汇总草稿括号批注为 revision backlog，不要直接改正文。","should_trigger":true,"expected_primary_skill":"evidence-gap-finder","rationale":"Revision-backlog extraction is an explicit supported mode."},
+    {"id":"gap-positive-06","split":"validation","query":"在两周和现有数据限制下，哪些补强会真正改变 claim strength？","should_trigger":true,"expected_primary_skill":"evidence-gap-finder","rationale":"Decision-value prioritization under constraints belongs here."},
+    {"id":"gap-positive-07","split":"validation","query":"给每个 reviewer risk 绑定最小 fix、stop condition 和无法关闭的 limitation。","should_trigger":true,"expected_primary_skill":"evidence-gap-finder","rationale":"Risk-bound work packages and stop conditions are core."},
+    {"id":"gap-positive-08","split":"validation","query":"比较 rerun existing script、补 sensitivity analysis 和新增 dataset 的成本与收益。","should_trigger":true,"expected_primary_skill":"evidence-gap-finder","rationale":"Cost-benefit triage of gap-closing options belongs here."},
+    {"id":"gap-positive-09","split":"validation","query":"删掉不会改变结论的 nice-to-have 分析，只保留 blocking evidence。","should_trigger":true,"expected_primary_skill":"evidence-gap-finder","rationale":"Preventing unbounded analysis is a central principle."},
+    {"id":"gap-positive-10","split":"validation","query":"为 exploratory result 设计补证据或安全降级到 Discussion 的验收路径。","should_trigger":true,"expected_primary_skill":"evidence-gap-finder","rationale":"Evidence addition versus wording downgrade is a core gap decision."},
+    {"id":"gap-negative-01","split":"train","query":"逐句判断 Results 是否 overclaim，并给出安全措辞。","should_trigger":false,"expected_primary_skill":"claim-evidence-audit","rationale":"Sentence-level support auditing is owned by claim-evidence-audit."},
+    {"id":"gap-negative-02","split":"train","query":"系统检索最新文献来补 Introduction。","should_trigger":false,"expected_primary_skill":"literature-search-workflow","rationale":"Open-ended paper discovery belongs to literature search."},
+    {"id":"gap-negative-03","split":"train","query":"核验这些 DOI 是否真实并支持相邻句子。","should_trigger":false,"expected_primary_skill":"citation-verifier","rationale":"Citation identity and fit belong to citation-verifier."},
+    {"id":"gap-negative-04","split":"train","query":"检查 Figure 2 每个 panel 是否有 source data、脚本和统计定义。","should_trigger":false,"expected_primary_skill":"source-data-audit","rationale":"A bounded source-data traceability audit belongs elsewhere."},
+    {"id":"gap-negative-05","split":"train","query":"执行差异表达、补画火山图并更新结果表。","should_trigger":false,"expected_primary_skill":"bioinfo-analysis-code","rationale":"Analysis execution is not evidence-gap planning."},
+    {"id":"gap-negative-06","split":"validation","query":"只润色 Discussion，让行文更简洁。","should_trigger":false,"expected_primary_skill":"chinese-scientific-polishing","rationale":"Language polishing without evidence triage is outside scope."},
+    {"id":"gap-negative-07","split":"validation","query":"检查摘要、正文和补充表中的样本数是否一致。","should_trigger":false,"expected_primary_skill":"manuscript-consistency-audit","rationale":"Cross-document consistency belongs to manuscript-consistency-audit."},
+    {"id":"gap-negative-08","split":"validation","query":"精读这篇指定论文并解释 Figure 4。","should_trigger":false,"expected_primary_skill":"paper-reader","rationale":"Specified-paper reading belongs to paper-reader."},
+    {"id":"gap-negative-09","split":"validation","query":"查 Open Targets 和 ChEMBL 的 target evidence 与 activity records。","should_trigger":false,"expected_primary_skill":"scientific-database-grounding","rationale":"Database lookup is not gap prioritization."},
+    {"id":"gap-negative-10","split":"validation","query":"按审稿人要求立即新增一个 cohort 并重跑全部 pipeline。","should_trigger":false,"expected_primary_skill":"bioinfo-analysis-code","rationale":"Execution of a chosen analysis belongs to implementation, after the decision is made."}
+  ]
+}

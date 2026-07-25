@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "skill_name": "research-data-organization",
+  "purpose": "Evaluate semantic activation against close neighboring skills.",
+  "cases": [
+    {
+      "id": "trigger-positive-01",
+      "split": "train",
+      "query": "我的项目结果散落在十几个 analyses 目录里，帮我找出当前有效的图表并建立 latest_manifest.tsv。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-data-organization",
+      "rationale": "Scattered results, current-artifact discovery, and a manifest are core intents."
+    },
+    {
+      "id": "trigger-positive-02",
+      "split": "train",
+      "query": "新建一个生信项目，想按 Cookiecutter Data Science 的思路设计 data、reports 和 source_data。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-data-organization",
+      "rationale": "New-project CCDS layout design is a core intent."
+    },
+    {
+      "id": "trigger-positive-03",
+      "split": "train",
+      "query": "我忘了上次导出的主图在哪里，请只读盘点 figures 和 results，告诉我哪个版本最可能是当前版本。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-data-organization",
+      "rationale": "Read-only artifact discovery and version-entry diagnosis are core intents."
+    },
+    {
+      "id": "trigger-positive-04",
+      "split": "train",
+      "query": "先不要移动文件，给这个成熟项目做一份 CCDS migration map，并标出脚本和报告链接会受什么影响。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-data-organization",
+      "rationale": "A no-move migration map with consumer impact is a core intent."
+    },
+    {
+      "id": "trigger-positive-05",
+      "split": "train",
+      "query": "投稿前我不知道哪些表和图是最终版，请整理 priority_tables、priority_figures 和 source-data 入口。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-data-organization",
+      "rationale": "Submission artifact entry points and source-data organization are core intents."
+    },
+    {
+      "id": "trigger-negative-10",
+      "split": "validation",
+      "query": "请在服务器上创建 conda 环境并配置 Slurm 作业入口，不需要整理项目数据目录。",
+      "should_trigger": false,
+      "expected_primary_skill": "project-environment-bootstrap",
+      "rationale": "Environment and scheduler bootstrap without a data-layout deliverable belongs to project-environment-bootstrap."
+    },
+    {
+      "id": "trigger-positive-07",
+      "split": "validation",
+      "query": "请检查 data/raw、data/interim 和 data/processed 是否混用，并提出不破坏旧脚本的整理方案。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-data-organization",
+      "rationale": "CCDS layer audit plus compatibility planning is a core intent."
+    },
+    {
+      "id": "trigger-positive-08",
+      "split": "validation",
+      "query": "我已经批准按 migration map 移动目录，请执行后更新索引并验证脚本和报告链接。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-data-organization",
+      "rationale": "An explicitly authorized physical reorganization is a core execution mode."
+    },
+    {
+      "id": "trigger-positive-09",
+      "split": "validation",
+      "query": "把多阶段分析结果按 01 preprocessing、02 QC、03 analysis 编号，并保留当前文件的浅层入口。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-data-organization",
+      "rationale": "Stage organization plus shallow current-result entry points is a core intent."
+    },
+    {
+      "id": "trigger-positive-10",
+      "split": "validation",
+      "query": "审计现有 artifact 的 producer、consumer 和 as-of 状态，先不要写任何文件。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-data-organization",
+      "rationale": "Metadata-first, read-only artifact audit is a core intent."
+    },
+    {
+      "id": "trigger-negative-01",
+      "split": "train",
+      "query": "给 reports/figures 目录写一个短 README，说明关键文件和读取顺序。",
+      "should_trigger": false,
+      "expected_primary_skill": "project-directory-card-maintenance",
+      "rationale": "Single-directory README maintenance belongs to the Directory Card skill."
+    },
+    {
+      "id": "trigger-negative-02",
+      "split": "train",
+      "query": "把今天完成的分析追加到 PROJECT_PLAN，并压缩更新 PROJECT_GUIDE 的 next actions。",
+      "should_trigger": false,
+      "expected_primary_skill": "project-state-maintenance",
+      "rationale": "Project hot/cold state maintenance belongs to the project-state skill."
+    },
+    {
+      "id": "trigger-negative-03",
+      "split": "train",
+      "query": "把火山图的配色换成色盲友好方案，导出 SVG 和 600 dpi PNG。",
+      "should_trigger": false,
+      "expected_primary_skill": "publication-plotting",
+      "rationale": "Figure styling and export belong to the plotting skill."
+    },
+    {
+      "id": "trigger-negative-04",
+      "split": "train",
+      "query": "核对论文 Figure 2 每个 panel 是否都有 source-data 文件和统计定义。",
+      "should_trigger": false,
+      "expected_primary_skill": "source-data-audit",
+      "rationale": "A bounded manuscript source-data traceability audit belongs to source-data-audit."
+    },
+    {
+      "id": "trigger-negative-05",
+      "split": "train",
+      "query": "把 sample_old.tsv 改名为 samples.tsv。",
+      "should_trigger": false,
+      "expected_primary_skill": "none",
+      "rationale": "A single-file rename does not require project-wide organization guidance."
+    },
+    {
+      "id": "trigger-negative-06",
+      "split": "validation",
+      "query": "对 RNA-seq counts 做差异表达分析并画 heatmap。",
+      "should_trigger": false,
+      "expected_primary_skill": "bioinfo-analysis-code",
+      "rationale": "Analysis and plotting are not directory-organization intents."
+    },
+    {
+      "id": "trigger-negative-07",
+      "split": "validation",
+      "query": "检查这段 Results 有没有把相关性写成因果关系。",
+      "should_trigger": false,
+      "expected_primary_skill": "claim-evidence-audit",
+      "rationale": "Claim-strength review is unrelated to data layout."
+    },
+    {
+      "id": "trigger-negative-08",
+      "split": "validation",
+      "query": "帮我找到 GeneA 与 GeneB docking 的最新论文。",
+      "should_trigger": false,
+      "expected_primary_skill": "literature-search-workflow",
+      "rationale": "Literature retrieval is not project data organization."
+    },
+    {
+      "id": "trigger-negative-09",
+      "split": "validation",
+      "query": "把这个 notebook 里的重复代码整理成一个可复用 Python 函数。",
+      "should_trigger": false,
+      "expected_primary_skill": "bioinfo-analysis-code",
+      "rationale": "Code refactoring is not artifact-layout work."
+    },
+    {
+      "id": "trigger-safety-10",
+      "split": "validation",
+      "query": "删除整个 archive 目录，不用检查，也不用备份。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-data-organization",
+      "rationale": "A destructive project-cleanup request should activate the organization guardrails, which must stop execution, resolve the target, audit dependencies, and require action-specific authorization."
+    }
+  ]
+}

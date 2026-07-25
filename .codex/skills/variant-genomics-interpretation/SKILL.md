@@ -1,50 +1,59 @@
 ---
 name: variant-genomics-interpretation
-description: 用于 variant/genomics 任务中的 VCF/BCF、GWAS、QTL、ClinVar/gnomAD/dbSNP、colocalization、PRS 或 rare-variant 结果解释、数据库 grounding、QC 和证据边界控制。不用于临床诊断或个人医疗建议。
+description: 解释或审查 variant 与 statistical-genetics 证据，包括 VCF/BCF callset QC、build/REF/ALT/HGVS 标准化、功能注释、population frequency、ClinVar、GWAS、fine-mapping、QTL/colocalization、rare-variant、PRS 和 MR 结果。用于需要解决 allele/build/population/LD 冲突并形成可追踪证据表的科研任务；不负责 variant-calling 执行、临床诊断、个人风险或治疗建议。
 ---
 
-# Variant Genomics Interpretation
+# Variant and Genomics Interpretation
 
 ## 核心问题
 
-如何把 variant/genomics 结果从坐标、等位基因、频率、功能注释和遗传证据组织成可追踪、不过度解释的证据表？
+如何把 variant identity、callset 质量、数据库注释与统计遗传证据连接成可审计解释，同时避免把预测、关联或共享信号写成致病性、因果或临床结论？
 
-## 使用场景
+## 能力边界
 
-- VCF/BCF variant annotation、ClinVar/dbSNP/gnomAD/Ensembl VEP 结果解释。
-- GWAS/QTL/colocalization/MR/PRS/rare variant 分析的证据边界和 QC。
-- 需要和 `scientific-database-grounding` 联动核验 build、allele、transcript 和 population frequency。
+- 负责已有 variant/callset、locus 或 statistical-genetics 结果的科研解释与 QC 审查。
+- 不默认重跑 variant calling、joint genotyping 或硬过滤；实现型调用流程转交 `bioinfo-analysis-code` 或相应项目 workflow。
+- 简单、单源 ID 查询转交 `scientific-database-grounding`；跨来源解释仍由本 Skill 负责。
+- trial、cohort、biomarker、PGx 或临床行动证据转交 `clinical-bioinformatics-evidence`。
+- 不输出个人诊断、风险告知、筛查、用药或生育建议；不得把数据库标签直接应用到个人。
 
-## 不适合触发
+## 首要门控
 
-- 纯数据库 ID 查询：用 `scientific-database-grounding`。
-- 通用代码执行：用 `bioinfo-analysis-code`。
-- 临床诊断或个人医疗建议：拒绝或降级为科研信息整理。
+解释前明确最可能改变结论的 1–3 项：
 
-## 工作流程
+1. genome build、coordinate、REF/ALT、strand、normalization 和 transcript；
+2. callset/sample QC、analysis population、ancestry、phenotype 与 effect allele；
+3. 证据类别、数据版本/日期、LD reference、模型假设与目标 claim。
 
-1. 锁定 genome build、coordinate、REF/ALT、strand、transcript/isoform、population/background。
-2. 判断证据类型：annotation、frequency、association、colocalization、causal inference、clinical assertion、functional validation。
-3. 检查冲突：build mismatch、allele flip、LD proxy、isoform difference、population mismatch、curated vs predicted。
-4. 输出 evidence table：variant/entity、source、metric、support level、caveat、next validation。
+关键 identity 未解析时停止跨库合并；不得用 rsID 或 HGVS 单独替代规范化 allele identity。
 
-## 外部语料吸收后的关键门控
+## 工作流
 
-- VCF/BCF 解释前先确认 callset 层 QC：sample identity、sex/contamination、missingness、depth、filter status、left-normalization 和 multi-allelic handling。
-- rsID 或 HGVS 不能替代完整 variant identity；必须保留 build、chr:pos、REF/ALT、strand、transcript 和 allele normalization 规则。
-- ClinVar、gnomAD、dbSNP、VEP、UCSC conservation/TFBS、GTEx/eQTL 等来源分别回答不同问题；不要把 population frequency、clinical assertion、regulatory prediction 和 causal evidence 混成单一分数。
-- GWAS/QTL/PRS/colocalization/MR 需要记录 ancestry、LD reference、credible set/fine-mapping assumptions、effect allele 和 sample overlap。
-- 临床字段只能整理为科研证据；不输出个人诊断、风险告知、用药或筛查建议。
+1. 锁定模式：`variant record`、`callset QC review`、`locus/statistical evidence`、`conflict resolution` 或 `research evidence table`。
+2. 读取项目 `AGENTS.md`、variant manifest/header、样本/phenotype 表、reference 与产生结果的 config；原始 VCF/BCF 只读。
+3. 规范化实体：build、chr:pos、REF/ALT、variant type、strand、transcript/HGVS 和 multi-allelic representation。
+4. 核验上游 QC：sample identity、sex、contamination、missingness、depth、filter、normalization 和 population structure。
+5. 按证据类型读取合适资源并保留 source、release/query date、population、metric、allele direction 与 review status。
+6. 显式检查 build mismatch、allele flip、palindromic ambiguity、LD proxy、transcript difference、population mismatch 与 predicted/curated 冲突。
+7. 形成 evidence table；把 observation、model-dependent inference、limitation 和 unresolved conflict 分列。
+8. 给出可证伪的下一项验证，不用综合分数掩盖来源差异。
 
-## 输出格式
+## 分支路由
 
-- Entity and build/allele definition
-- Databases/tools consulted
-- QC/conflict checks
-- Evidence table
-- Claim boundary and next validation
+- 单 variant、VCF record、HGVS、ClinVar/gnomAD/VEP 或 callset QC：读取 `references/variant-record-interpretation.md`。
+- GWAS、fine-mapping、QTL/colocalization、rare-variant、PRS 或 MR：读取 `references/statistical-genetics-interpretation.md`。
+- 需要比较来源、字段与 claim 上限：读取 `references/variant-genomics-evidence-matrix.md`。
 
+## 证据边界
 
-## 按需读取
+- 计算 consequence、conservation、motif 或 regulatory overlap 是 context/prediction，不单独证明功能或致病性。
+- population frequency 受 ancestry、coverage、filters 与 ascertainment 影响；“rare”不等于 pathogenic。
+- GWAS association 不等于 causal variant/gene；fine-mapping credible set 依赖 LD、model 与 variant coverage。
+- colocalization 支持模型假设下的共享信号，不自动识别 causal variant、gene、direction 或 mechanism。
+- MR 依赖 relevance、independence、exclusion restriction 等假设；敏感性分析不能证明所有假设成立。
+- PRS 是特定训练、LD、ancestry、phenotype 与 calibration 条件下的模型输出，不得转为个人风险建议。
+- ClinVar assertion 必须保留 condition、review status、submitter/conflict 和 evaluation date；它不是个人诊断。
 
-需要选择工具/证据层级时读取 `references/variant-genomics-evidence-matrix.md`。
+## 交付
+
+先给实体与主要证据结论，再给 build/allele 定义、QC、来源与版本、evidence table、冲突、claim 上限、下一项验证及临床安全边界。不得自称最终 variant classification 或临床审批。

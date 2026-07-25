@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "skill_name": "project-guide-maintainer",
+  "purpose": "Evaluate GUIDE content maintenance against state lifecycle, planning, directory navigation, and manuscript work.",
+  "cases": [
+    {
+      "id": "guide-positive-01",
+      "split": "train",
+      "query": "根据已确认的项目背景和结果创建一份轻量 PROJECT_GUIDE.md。",
+      "should_trigger": true,
+      "expected_primary_skill": "project-guide-maintainer",
+      "rationale": "Creating current-state GUIDE content is the core task."
+    },
+    {
+      "id": "guide-positive-02",
+      "split": "train",
+      "query": "把 9000 字的 PROJECT_GUIDE 压缩到 3000 字，只保留当前主线、证据、风险和 next decisions。",
+      "should_trigger": true,
+      "expected_primary_skill": "project-guide-maintainer",
+      "rationale": "Guide-only current-state compression is a core task."
+    },
+    {
+      "id": "guide-positive-03",
+      "split": "train",
+      "query": "用户已确认新的 baseline 结果，请替换 GUIDE 中过期的 current finding 并保留 caveat。",
+      "should_trigger": true,
+      "expected_primary_skill": "project-guide-maintainer",
+      "rationale": "Replacing a durable confirmed current fact belongs to guide maintenance."
+    },
+    {
+      "id": "guide-positive-04",
+      "split": "train",
+      "query": "更新 PROJECT_GUIDE 的 result/figure skeleton 和 evidence pointers，不要写成最终 manuscript。",
+      "should_trigger": true,
+      "expected_primary_skill": "project-guide-maintainer",
+      "rationale": "Maintaining the GUIDE figure/story skeleton is a core task."
+    },
+    {
+      "id": "guide-positive-05",
+      "split": "train",
+      "query": "把 Agent 提出的新机制放进 GUIDE 草案，但必须标记 Assumption 和 Needs evidence。",
+      "should_trigger": true,
+      "expected_primary_skill": "project-guide-maintainer",
+      "rationale": "Drafting unconfirmed GUIDE content with correct epistemic labels belongs here."
+    },
+    {
+      "id": "guide-positive-06",
+      "split": "validation",
+      "query": "把 research-question brief 和研究路线压缩成 GUIDE 的 central question、current story 和 next decisions。",
+      "should_trigger": true,
+      "expected_primary_skill": "project-guide-maintainer",
+      "rationale": "Integrating upstream briefs into current GUIDE content is a core task."
+    },
+    {
+      "id": "guide-positive-07",
+      "split": "validation",
+      "query": "只更新 PROJECT_GUIDE 里的当前风险、blocked 项和三个下一决策。",
+      "should_trigger": true,
+      "expected_primary_skill": "project-guide-maintainer",
+      "rationale": "A GUIDE-only current-state update belongs here."
+    },
+    {
+      "id": "guide-positive-08",
+      "split": "validation",
+      "query": "PROJECT_GUIDE 仍保留已放弃路线，请用当前证据替换旧叙事并指向历史 log_id。",
+      "should_trigger": true,
+      "expected_primary_skill": "project-guide-maintainer",
+      "rationale": "Replacing stale current-state narrative while preserving pointers is a core task."
+    },
+    {
+      "id": "guide-positive-09",
+      "split": "validation",
+      "query": "先给我一个 PROJECT_GUIDE draft，所有未确认的工作模型都不要写成事实。",
+      "should_trigger": true,
+      "expected_primary_skill": "project-guide-maintainer",
+      "rationale": "A GUIDE draft with confirmation boundaries is a core mode."
+    },
+    {
+      "id": "guide-positive-10",
+      "split": "validation",
+      "query": "维护 GUIDE 的 Known/Unknown/Question/Finding/Advance 和 exploration/validation 状态。",
+      "should_trigger": true,
+      "expected_primary_skill": "project-guide-maintainer",
+      "rationale": "These are current-state guide content fields."
+    },
+    {
+      "id": "guide-negative-01",
+      "split": "train",
+      "query": "QC 完成后追加 PROJECT_PLAN，并判断要不要更新 GUIDE。",
+      "should_trigger": false,
+      "expected_primary_skill": "project-state-maintenance",
+      "rationale": "PLAN append plus GUIDE decision is lifecycle orchestration."
+    },
+    {
+      "id": "guide-negative-02",
+      "split": "train",
+      "query": "初始化 PROJECT_GUIDE 与 PROJECT_PLAN 两个状态文件并写入项目规则。",
+      "should_trigger": false,
+      "expected_primary_skill": "project-state-maintenance",
+      "rationale": "Two-file system initialization belongs to state maintenance."
+    },
+    {
+      "id": "guide-negative-03",
+      "split": "train",
+      "query": "给 models 目录创建 README，列出 current_best 和 baseline 模型。",
+      "should_trigger": false,
+      "expected_primary_skill": "project-directory-card-maintenance",
+      "rationale": "A local model Directory Card belongs to the card skill."
+    },
+    {
+      "id": "guide-negative-04",
+      "split": "train",
+      "query": "盘点所有结果并设计 project-wide manifest 和 latest/priority 入口。",
+      "should_trigger": false,
+      "expected_primary_skill": "research-data-organization",
+      "rationale": "Project-wide artifact organization belongs to research-data-organization."
+    },
+    {
+      "id": "guide-negative-05",
+      "split": "train",
+      "query": "从零设计一个新课题的研究路线、备选方案、里程碑和停止条件。",
+      "should_trigger": false,
+      "expected_primary_skill": "research-project-planner",
+      "rationale": "Planning a new project is upstream of GUIDE maintenance."
+    },
+    {
+      "id": "guide-negative-06",
+      "split": "validation",
+      "query": "把用户的原始研究想法整理成一个边界明确的问题简报。",
+      "should_trigger": false,
+      "expected_primary_skill": "research-question-brief",
+      "rationale": "An initial question brief belongs to research-question-brief."
+    },
+    {
+      "id": "guide-negative-07",
+      "split": "validation",
+      "query": "把 Results 段润色成期刊风格英文并保持证据强度。",
+      "should_trigger": false,
+      "expected_primary_skill": "none",
+      "rationale": "English manuscript prose editing is not GUIDE maintenance, and the available Chinese polishing Skill explicitly does not own English translation."
+    },
+    {
+      "id": "guide-negative-08",
+      "split": "validation",
+      "query": "检查稿件的 Results、Methods、图注和表格是否一致。",
+      "should_trigger": false,
+      "expected_primary_skill": "manuscript-consistency-audit",
+      "rationale": "Manuscript consistency belongs to the manuscript audit skill."
+    },
+    {
+      "id": "guide-negative-09",
+      "split": "validation",
+      "query": "按 log_id 定向查找两个月前的参数选择和失败实验。",
+      "should_trigger": false,
+      "expected_primary_skill": "project-state-maintenance",
+      "rationale": "Targeted PLAN history retrieval belongs to state maintenance."
+    },
+    {
+      "id": "guide-negative-10",
+      "split": "validation",
+      "query": "更新项目 AGENTS.md 里的环境、禁止修改路径和运行命令。",
+      "should_trigger": false,
+      "expected_primary_skill": "project-environment-bootstrap",
+      "rationale": "Project operation and environment rules are not GUIDE content maintenance."
+    }
+  ]
+}

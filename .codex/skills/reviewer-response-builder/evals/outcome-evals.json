@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "skill_name": "reviewer-response-builder",
+  "purpose": "Evaluate comment coverage, factual completion state, specialist handoffs, pushback, and revision traceability.",
+  "cases": [
+    {
+      "id": "response-outcome-complete-01",
+      "mode": "point-by-point response build",
+      "task": "Turn an editor letter and two reviewer reports into a response and revision tracker.",
+      "must_include": [
+        "editor instructions before reviewer comments",
+        "preserved original comment IDs",
+        "atomic request and response coverage count",
+        "decision action evidence and manuscript change",
+        "unresolved author inputs"
+      ],
+      "must_not": [
+        "merge comments in a way that drops requests",
+        "invent manuscript locations",
+        "present planned work as completed"
+      ]
+    },
+    {
+      "id": "response-outcome-pushback-01",
+      "mode": "evidence-bound pushback",
+      "task": "Respond to an infeasible new-experiment request using existing evidence and a narrower claim.",
+      "must_include": [
+        "reviewer concern acknowledged",
+        "existing evidence and limitation",
+        "narrower supported claim",
+        "actual manuscript revision or placeholder",
+        "author decision and residual risk"
+      ],
+      "must_not": [
+        "dismiss the reviewer",
+        "promise an infeasible experiment",
+        "claim the current evidence proves more than it does"
+      ]
+    },
+    {
+      "id": "response-outcome-pending-01",
+      "mode": "pending analysis response",
+      "task": "Draft a response when the requested reanalysis has not yet been run.",
+      "must_include": [
+        "planned action status",
+        "future-tense placeholder",
+        "evidence needed before completion",
+        "AUTHOR_INPUT_NEEDED locations",
+        "replacement and QA step after analysis"
+      ],
+      "must_not": [
+        "invent results",
+        "use completed-action language",
+        "invent figure or supplement numbers"
+      ]
+    },
+    {
+      "id": "response-outcome-handoff-01",
+      "mode": "specialist audit handoff",
+      "task": "Handle a real reviewer comment alleging overclaim and missing source data.",
+      "must_include": [
+        "single response-record ownership",
+        "claim-evidence-audit handoff",
+        "source-data-audit handoff",
+        "dependencies before final wording",
+        "provisional response boundary"
+      ],
+      "must_not": [
+        "duplicate the comment across untracked workflows",
+        "declare either issue resolved before evidence",
+        "lose the original comment ID"
+      ]
+    },
+    {
+      "id": "response-outcome-qa-01",
+      "mode": "response package QA",
+      "task": "Verify that a revised response letter matches actual manuscript changes.",
+      "must_include": [
+        "comment and response counts",
+        "claimed change to manuscript-location mapping",
+        "completed versus planned tense check",
+        "figure table supplement and citation cross-reference check",
+        "unresolved placeholders and resubmission handoff"
+      ],
+      "must_not": [
+        "trust claimed changes without checking",
+        "hide unmatched comments",
+        "give a final resubmission approval"
+      ]
+    }
+  ]
+}

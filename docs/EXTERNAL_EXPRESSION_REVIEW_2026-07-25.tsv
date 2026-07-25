@@ -1,0 +1,19 @@
+local_path	source_id	upstream_ref	upstream_path	method	shared_40_char_shingles	shared_lines_ge_35	result
+.codex/skills/rnaseq-singlecell-workflow/SKILL.md	clawbio	fbb0910761ab12a9a403060d04248e155b862437	skills/nfcore-rnaseq-wrapper/SKILL.md	normalized exact-set comparison	0	0	pass
+.codex/skills/rnaseq-singlecell-workflow/SKILL.md	clawbio	fbb0910761ab12a9a403060d04248e155b862437	skills/scrna-orchestrator/SKILL.md	normalized exact-set comparison	0	0	pass
+.codex/skills/rnaseq-singlecell-workflow/SKILL.md	clawbio	fbb0910761ab12a9a403060d04248e155b862437	skills/rnaseq-de/SKILL.md	normalized exact-set comparison	0	0	pass
+.codex/skills/variant-genomics-interpretation/SKILL.md	clawbio	fbb0910761ab12a9a403060d04248e155b862437	skills/clinical-variant-reporter/SKILL.md	normalized exact-set comparison	0	0	pass
+.codex/skills/variant-genomics-interpretation/SKILL.md	clawbio	fbb0910761ab12a9a403060d04248e155b862437	skills/gwas-lookup/SKILL.md	normalized exact-set comparison	0	0	pass
+.codex/skills/pathway-network-analysis/SKILL.md	clawbio	fbb0910761ab12a9a403060d04248e155b862437	skills/pathway-enricher/SKILL.md	normalized exact-set comparison	0	0	pass
+.codex/skills/clinical-bioinformatics-evidence/SKILL.md	clawbio	fbb0910761ab12a9a403060d04248e155b862437	skills/clinical-trial-finder/SKILL.md	normalized exact-set comparison	0	0	pass
+.codex/skills/pathway-network-analysis/SKILL.md	gptomics	c8d403984b1f35c14861b0064d24695f82d44904	pathway-analysis/reactome-pathways/SKILL.md	normalized exact-set comparison	0	0	pass
+.codex/skills/pathway-network-analysis/SKILL.md	gptomics	c8d403984b1f35c14861b0064d24695f82d44904	pathway-analysis/wikipathways/SKILL.md	normalized exact-set comparison	0	0	pass
+.codex/skills/clinical-bioinformatics-evidence/SKILL.md	gptomics	c8d403984b1f35c14861b0064d24695f82d44904	clinical-databases/polygenic-risk/SKILL.md	normalized exact-set comparison	0	0	pass
+.codex/skills/rnaseq-singlecell-workflow/SKILL.md	gptomics	c8d403984b1f35c14861b0064d24695f82d44904	single-cell/cell-communication/SKILL.md	normalized exact-set comparison	0	0	pass
+.codex/skills/protein-structure-docking/SKILL.md	adaptyv	59dd63374314baa2fb1f9864f190775bd7466647	skills/alphafold/SKILL.md	normalized exact-set comparison	0	0	pass
+.codex/skills/protein-structure-docking/SKILL.md	adaptyv	59dd63374314baa2fb1f9864f190775bd7466647	skills/bindcraft/SKILL.md	normalized exact-set comparison	0	0	pass
+.codex/skills/drug-discovery-admet-screening/SKILL.md	bionemo	54fc67cd87b240f98ffc3223268c77c5eae6e028	nim-skills/meta-skills/drug-discovery-pipeline/SKILL.md	normalized exact-set comparison	0	0	pass
+.codex/skills/protein-structure-docking/SKILL.md	bionemo	54fc67cd87b240f98ffc3223268c77c5eae6e028	nim-skills/diffdock-nim/SKILL.md	normalized exact-set comparison	0	0	pass
+.codex/skills/protein-structure-docking/SKILL.md	atomistic	ca695e1b89ea48613291c88bd8c73e71af2025c7	.agents/skills/drug-docking-vina/SKILL.md	normalized exact-set comparison	0	0	pass
+.codex/skills/scientific-database-grounding/SKILL.md	science-skills	33557e0f1faf0f281d255940de58935c61b2143b	skills/clinical_trials_database/SKILL.md	normalized exact-set comparison	0	0	pass
+.codex/skills/variant-genomics-interpretation/SKILL.md	science-skills	33557e0f1faf0f281d255940de58935c61b2143b	skills/clinvar_database/SKILL.md	normalized exact-set comparison	0	0	pass

@@ -1,6 +1,6 @@
 # External-facing bioinformatics report polishing and bundling notes
 
-Use when a Chinese scientific report is intended for an external reader (TA, collaborator, reviewer) rather than the author.
+Use when a Chinese scientific report is intended for an external reader rather than the author. Report bundling is a separate material action: do it only when the user requests a bundle, and combine with `research-data-organization` when artifact selection or manifest work is needed.
 
 ## Text cleanup
 
@@ -17,11 +17,11 @@ Use when a Chinese scientific report is intended for an external reader (TA, col
   - optional unpacked package for local inspection;
   - source-data index;
   - README and MANIFEST/checksums.
-- For a small report-level reproducibility package, include curated inputs, summary/source tables, selected scripts, environment files and checksums; exclude raw FASTQ/BAM/full reference/API-cache unless explicitly requested.
+- For a small report-level reproducibility package, include curated inputs, summary/source tables, selected scripts, environment files and checksums; exclude raw sequencing files, full references and caches unless explicitly requested and appropriate.
 - Prefer English filenames and README/MANIFEST in the package, even if the report body is Chinese.
 
 ## Citations and conversion compatibility
 
 - For Markdown that will later be translated and exported to DOCX/PDF, numbered Nature-style references with HTML superscripts (`<sup>1</sup>`, `<sup>1,2</sup>`) are robust and simple.
 - Avoid Zotero field codes in plain Markdown unless the downstream DOCX workflow explicitly requires them.
-- When using Zotero metadata, query a temporary copy of `zotero.sqlite` read-only if the live database is locked; never modify Zotero directly from a report-polishing session.
+- When using reference-manager metadata, keep the source database read-only; never modify a live citation database from a report-polishing session.

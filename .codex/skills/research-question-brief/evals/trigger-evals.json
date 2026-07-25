@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "skill_name": "research-question-brief",
+  "purpose": "Evaluate early question clarification against project planning, decision review, validation design, execution, and state maintenance.",
+  "cases": [
+    {
+      "id": "question-brief-positive-01",
+      "split": "train",
+      "query": "我只有一个零散想法：比较不同组织中的衰老相关调控变化。先帮我整理成一页研究问题简报。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-question-brief",
+      "rationale": "The requested deliverable is a one-page early question brief."
+    },
+    {
+      "id": "question-brief-positive-02",
+      "split": "train",
+      "query": "把这几轮讨论压缩成 working question、why it matters、constraints 和 next decision，不要设计完整路线。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-question-brief",
+      "rationale": "The user explicitly requests bounded question clarification rather than planning."
+    },
+    {
+      "id": "question-brief-positive-03",
+      "split": "train",
+      "query": "我的课题方向太宽了，请给出最多两个可确认的研究问题表述，并标出 Assumption。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-question-brief",
+      "rationale": "Narrowing a broad direction into candidate working questions is core."
+    },
+    {
+      "id": "question-brief-positive-04",
+      "split": "train",
+      "query": "从这段口头描述中提取研究对象、比较、意义、需要什么证据以及开放问题。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-question-brief",
+      "rationale": "Extracting bounded brief fields from spoken ideas is core."
+    },
+    {
+      "id": "question-brief-positive-05",
+      "split": "train",
+      "query": "更新现有 research question brief：合并新约束并替换旧表述，不要追加讨论流水账。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-question-brief",
+      "rationale": "Iterative compression of an existing question brief belongs here."
+    },
+    {
+      "id": "question-brief-positive-06",
+      "split": "validation",
+      "query": "我想研究一个候选基因但还没想清具体问题，请只问会改变研究边界的三个问题。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-question-brief",
+      "rationale": "Minimal route-changing clarification is an early brief task."
+    },
+    {
+      "id": "question-brief-positive-07",
+      "split": "validation",
+      "query": "写一个不预设结论的 Current working question，并区分用户已知信息和 Open question。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-question-brief",
+      "rationale": "Epistemically safe working-question formulation is core."
+    },
+    {
+      "id": "question-brief-positive-08",
+      "split": "validation",
+      "query": "把跨队列表型差异这个模糊方向压缩成 one-line idea、evidence needed 和下一项用户决策。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-question-brief",
+      "rationale": "The requested fields define a short question brief."
+    },
+    {
+      "id": "question-brief-positive-09",
+      "split": "validation",
+      "query": "我还没准备开题计划，只想先确认这个研究问题是否边界清楚、需要哪些类别的证据。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-question-brief",
+      "rationale": "The task stops before full project planning."
+    },
+    {
+      "id": "question-brief-positive-10",
+      "split": "validation",
+      "query": "请把学生和导师的零散意见整理成一个等待双方确认的短方向契约。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-question-brief",
+      "rationale": "A confirmation-ready direction contract is the intended artifact."
+    },
+    {
+      "id": "question-brief-negative-01",
+      "split": "train",
+      "query": "为这个已确定方向设计 evidence package、figure skeleton、技术模块和 stop/pivot criteria。",
+      "should_trigger": false,
+      "expected_primary_skill": "research-project-planner",
+      "rationale": "A full project route belongs to research-project-planner."
+    },
+    {
+      "id": "question-brief-negative-02",
+      "split": "train",
+      "query": "现有工具 A 和自己重写之间该怎么选？请比较长期维护成本并给建议。",
+      "should_trigger": false,
+      "expected_primary_skill": "research-decision-review",
+      "rationale": "This is an existing high-impact trade-off."
+    },
+    {
+      "id": "question-brief-negative-03",
+      "split": "train",
+      "query": "针对这个探索性富集结果设计 minimal、balanced 和投稿强度验证路线。",
+      "should_trigger": false,
+      "expected_primary_skill": "validation-strategy-planner",
+      "rationale": "A claim-linked validation matrix is downstream."
+    },
+    {
+      "id": "question-brief-negative-04",
+      "split": "train",
+      "query": "对刚完成的分析报告做最终 QA，区分 Pass、Needs fix 和 Not checked。",
+      "should_trigger": false,
+      "expected_primary_skill": "task-self-check",
+      "rationale": "Final delivery gating belongs to task-self-check."
+    },
+    {
+      "id": "question-brief-negative-05",
+      "split": "train",
+      "query": "把已确认的 central question 和当前结果更新到 PROJECT_GUIDE。",
+      "should_trigger": false,
+      "expected_primary_skill": "project-guide-maintainer",
+      "rationale": "Current project state content belongs to project-guide-maintainer."
+    },
+    {
+      "id": "question-brief-negative-06",
+      "split": "validation",
+      "query": "系统检索这个研究方向的综述、经典论文和近五年证据。",
+      "should_trigger": false,
+      "expected_primary_skill": "literature-search-workflow",
+      "rationale": "Systematic literature retrieval is not question-brief writing."
+    },
+    {
+      "id": "question-brief-negative-07",
+      "split": "validation",
+      "query": "根据给定输入表实现差异表达脚本并生成结果文件。",
+      "should_trigger": false,
+      "expected_primary_skill": "bioinfo-analysis-code",
+      "rationale": "A concrete analysis implementation task is downstream execution."
+    },
+    {
+      "id": "question-brief-negative-08",
+      "split": "validation",
+      "query": "逐段阅读并解释这篇论文的方法、结果和局限。",
+      "should_trigger": false,
+      "expected_primary_skill": "paper-reader",
+      "rationale": "Single-paper reading belongs to paper-reader."
+    },
+    {
+      "id": "question-brief-negative-09",
+      "split": "validation",
+      "query": "把这段已经写好的研究目标翻译成英文，不改变含义。",
+      "should_trigger": false,
+      "expected_primary_skill": "none",
+      "rationale": "Simple translation is not research question clarification."
+    },
+    {
+      "id": "question-brief-negative-10",
+      "split": "validation",
+      "query": "初始化 PROJECT_GUIDE 和 PROJECT_PLAN，并建立 material-action 记录规则。",
+      "should_trigger": false,
+      "expected_primary_skill": "project-state-maintenance",
+      "rationale": "Project state lifecycle initialization belongs to state maintenance."
+    }
+  ]
+}

@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "skill_name": "project-environment-bootstrap",
+  "purpose": "Evaluate project environment readiness routing against tool installation, analysis, project organization, and Git publication.",
+  "cases": [
+    {
+      "id": "bootstrap-positive-01",
+      "split": "train",
+      "query": "新建一个生信项目，先只读检查项目根、conda、Python、Jupyter 和 Git 状态。",
+      "should_trigger": true,
+      "expected_primary_skill": "project-environment-bootstrap",
+      "rationale": "A new-project read-only environment preflight is a core mode."
+    },
+    {
+      "id": "bootstrap-positive-02",
+      "split": "train",
+      "query": "我刚切换到实验室服务器，帮我确认当前执行主机、工作目录、kernel 和 Git upstream。",
+      "should_trigger": true,
+      "expected_primary_skill": "project-environment-bootstrap",
+      "rationale": "A machine and execution-context change requires environment re-verification."
+    },
+    {
+      "id": "bootstrap-positive-03",
+      "split": "train",
+      "query": "这个项目没有 PROJECT_ENVIRONMENT.md，请先问必要问题并初始化本地记录。",
+      "should_trigger": true,
+      "expected_primary_skill": "project-environment-bootstrap",
+      "rationale": "Initializing a local-only environment record is a core deliverable."
+    },
+    {
+      "id": "bootstrap-positive-04",
+      "split": "train",
+      "query": "项目目录搬家了，核对现有环境记录里的 root、remote 和 kernel，并只更新确认变化的字段。",
+      "should_trigger": true,
+      "expected_primary_skill": "project-environment-bootstrap",
+      "rationale": "Refreshing environment state after a workspace move is a core mode."
+    },
+    {
+      "id": "bootstrap-positive-05",
+      "split": "train",
+      "query": "VS Code 显示的 Python 和 notebook kernel 不一致，请先检查它们分别来自哪个环境，不要安装包。",
+      "should_trigger": true,
+      "expected_primary_skill": "project-environment-bootstrap",
+      "rationale": "Diagnosing editor, interpreter, and kernel identity without installation belongs here."
+    },
+    {
+      "id": "bootstrap-positive-06",
+      "split": "validation",
+      "query": "只读确认这个仓库的 branch、upstream、remote protocol 和 local-only 文件是否被追踪，不要 push。",
+      "should_trigger": true,
+      "expected_primary_skill": "project-environment-bootstrap",
+      "rationale": "Bounded Git readiness inspection is part of environment bootstrap."
+    },
+    {
+      "id": "bootstrap-positive-07",
+      "split": "validation",
+      "query": "我在借用电脑上临时工作，帮我用最小字段检查环境，并给出任务结束后的清理提醒。",
+      "should_trigger": true,
+      "expected_primary_skill": "project-environment-bootstrap",
+      "rationale": "Temporary-machine safety is an explicit bootstrap mode."
+    },
+    {
+      "id": "bootstrap-positive-08",
+      "split": "validation",
+      "query": "检查 PROJECT_ENVIRONMENT.md 是否被 .gitignore 保护；若未被保护，给出安全修复方案。",
+      "should_trigger": true,
+      "expected_primary_skill": "project-environment-bootstrap",
+      "rationale": "Protecting the local environment record is a core safety responsibility."
+    },
+    {
+      "id": "bootstrap-positive-09",
+      "split": "validation",
+      "query": "我用 Windows 上的 VS Code Remote 连 WSL，确认 editor host、execution host、路径和 conda env。",
+      "should_trigger": true,
+      "expected_primary_skill": "project-environment-bootstrap",
+      "rationale": "Separating editor and execution contexts across WSL is environment bootstrap."
+    },
+    {
+      "id": "bootstrap-positive-10",
+      "split": "validation",
+      "query": "分析前环境完全不明，请告诉我当前 Python、R、Jupyter 和 conda 是否可用以及哪些项未测试。",
+      "should_trigger": true,
+      "expected_primary_skill": "project-environment-bootstrap",
+      "rationale": "Unknown execution readiness before analysis is the core trigger."
+    },
+    {
+      "id": "bootstrap-negative-01",
+      "split": "train",
+      "query": "在项目 conda 环境里安装固定版本的 samtools，并做 smoke test。",
+      "should_trigger": false,
+      "expected_primary_skill": "environment-and-tool-adoption",
+      "rationale": "Installing and validating a dependency belongs to tool adoption."
+    },
+    {
+      "id": "bootstrap-negative-02",
+      "split": "train",
+      "query": "比较两个 GitHub 上的单细胞去批次工具，检查 license 后选择一个包装到 workflow。",
+      "should_trigger": false,
+      "expected_primary_skill": "environment-and-tool-adoption",
+      "rationale": "External tool selection and wrapping belong to tool adoption."
+    },
+    {
+      "id": "bootstrap-negative-03",
+      "split": "train",
+      "query": "对 counts matrix 做差异表达并输出 volcano plot。",
+      "should_trigger": false,
+      "expected_primary_skill": "bioinfo-analysis-code",
+      "rationale": "Analysis execution is not environment bootstrap."
+    },
+    {
+      "id": "bootstrap-negative-04",
+      "split": "train",
+      "query": "把当前修改 commit 并 push 到远端 review branch。",
+      "should_trigger": false,
+      "expected_primary_skill": "none",
+      "rationale": "Git publication is outside bootstrap authority."
+    },
+    {
+      "id": "bootstrap-negative-05",
+      "split": "train",
+      "query": "环境已经确认，帮我修复脚本里的一个 pandas merge bug。",
+      "should_trigger": false,
+      "expected_primary_skill": "bioinfo-analysis-code",
+      "rationale": "Routine code repair in a known environment should not retrigger bootstrap."
+    },
+    {
+      "id": "bootstrap-negative-06",
+      "split": "validation",
+      "query": "按 CCDS 设计 data/raw、data/processed、reports 和 manifest。",
+      "should_trigger": false,
+      "expected_primary_skill": "research-data-organization",
+      "rationale": "Project artifact layout belongs to research data organization."
+    },
+    {
+      "id": "bootstrap-negative-07",
+      "split": "validation",
+      "query": "创建一个新的 conda environment.yml，安装 R、Bioconductor 和系统依赖。",
+      "should_trigger": false,
+      "expected_primary_skill": "environment-and-tool-adoption",
+      "rationale": "Creating and populating an environment is an installation task."
+    },
+    {
+      "id": "bootstrap-negative-08",
+      "split": "validation",
+      "query": "把 Methods 中的软件版本和参数写成投稿英文。",
+      "should_trigger": false,
+      "expected_primary_skill": "scientific-english-polishing",
+      "rationale": "Methods prose editing is not environment readiness work."
+    },
+    {
+      "id": "bootstrap-negative-09",
+      "split": "validation",
+      "query": "登录 GitHub 并授权新的 OAuth app 访问我的账号。",
+      "should_trigger": false,
+      "expected_primary_skill": "none",
+      "rationale": "Account authorization is a separate user-controlled action."
+    },
+    {
+      "id": "bootstrap-negative-10",
+      "split": "validation",
+      "query": "检查一个 Skill 的 trigger、references、metadata 和 evals 是否符合规范。",
+      "should_trigger": false,
+      "expected_primary_skill": "skill-quality-audit",
+      "rationale": "Skill quality assurance is unrelated to project environment state."
+    }
+  ]
+}

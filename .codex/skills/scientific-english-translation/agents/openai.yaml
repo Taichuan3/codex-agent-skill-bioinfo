@@ -1,4 +1,4 @@
 interface:
   display_name: "Scientific English Translation"
-  short_description: "Translate Chinese scientific text to English"
-  default_prompt: "Use $scientific-english-translation to translate this Chinese scientific text into English."
+  short_description: "Translate Chinese scientific text into safe English"
+  default_prompt: "Use $scientific-english-translation to translate this Chinese scientific text into clear English without changing claims, numbers, or terminology."

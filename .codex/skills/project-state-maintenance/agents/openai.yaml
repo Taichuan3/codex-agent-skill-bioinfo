@@ -1,4 +1,4 @@
 interface:
   display_name: "Project State Maintenance"
-  short_description: "project state maintenance"
-  default_prompt: "Use $project-state-maintenance for the matching bioinformatics research task."
+  short_description: "Maintain hot and cold research project state"
+  default_prompt: "Use $project-state-maintenance to update this project state without loading the full history log."

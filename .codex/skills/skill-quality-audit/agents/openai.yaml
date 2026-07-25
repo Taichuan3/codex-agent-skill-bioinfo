@@ -1,4 +1,4 @@
 interface:
   display_name: "Skill Quality Audit"
-  short_description: "Audit Codex skill quality and triggers"
-  default_prompt: "Use $skill-quality-audit to audit this local skill for trigger precision and maintainability."
+  short_description: "Audit Skill triggers, structure, provenance, and evals"
+  default_prompt: "Use $skill-quality-audit to audit this Skill for precise routing, progressive disclosure, provenance, and validation coverage."

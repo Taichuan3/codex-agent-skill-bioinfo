@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "skill_name": "skill-quality-audit",
+  "purpose": "Evaluate single-Skill QA, authorized repair, library provenance, external absorption, and governance handoff.",
+  "cases": [
+    {
+      "id": "skillqa-outcome-audit-01",
+      "mode": "single-skill audit",
+      "task": "Audit one Skill without changing files.",
+      "must_include": [
+        "verdict and core question",
+        "P0, P1, and P2 findings",
+        "close-neighbor trigger analysis",
+        "resource-routing and eval coverage",
+        "read-only statement"
+      ],
+      "must_not": [
+        "modify the Skill",
+        "expand to a library-wide refactor",
+        "claim final scientific approval"
+      ]
+    },
+    {
+      "id": "skillqa-outcome-repair-01",
+      "mode": "authorized repair",
+      "task": "Repair a bounded set of Skill source files.",
+      "must_include": [
+        "exact authorized files",
+        "keep, merge, split, or reject decisions",
+        "direct routing for every resource",
+        "balanced trigger and outcome evals",
+        "structural and diff validation"
+      ],
+      "must_not": [
+        "edit unowned Skills",
+        "install or publish the changes",
+        "overwrite unrelated dirty changes"
+      ]
+    },
+    {
+      "id": "skillqa-outcome-inventory-01",
+      "mode": "library inventory",
+      "task": "Inventory a mixed source/runtime/project/upstream Skill library.",
+      "must_include": [
+        "raw versus curated counts",
+        "provenance classes and hashes",
+        "canonical map and drift",
+        "upload policy and excluded assets",
+        "dirty-worktree boundary"
+      ],
+      "must_not": [
+        "bulk-copy discovered files",
+        "treat path or mtime as canonical proof",
+        "export sessions, credentials, or private project facts"
+      ]
+    },
+    {
+      "id": "skillqa-outcome-absorb-01",
+      "mode": "external absorption review",
+      "task": "Review mechanisms from an external Skill corpus.",
+      "must_include": [
+        "source and license provenance",
+        "strengthen, new candidate, reference, or reject decision",
+        "mechanism-level semantic diff",
+        "existing-owner check",
+        "local pilot or validation requirement"
+      ],
+      "must_not": [
+        "vendor the whole corpus",
+        "create near-duplicate Skills from taxonomy alone",
+        "promote unsafe or unsupported claims"
+      ]
+    },
+    {
+      "id": "skillqa-outcome-handoff-01",
+      "mode": "governance handoff",
+      "task": "Handle a QA finding that should become a permanent cross-device capability change.",
+      "must_include": [
+        "QA evidence and candidate diff",
+        "Skill QA scope boundary",
+        "handoff to controlled-self-improvement",
+        "publication and installation not approved",
+        "next action-specific decision"
+      ],
+      "must_not": [
+        "treat QA pass as approval",
+        "commit, push, install, or merge",
+        "update memory automatically"
+      ]
+    }
+  ]
+}

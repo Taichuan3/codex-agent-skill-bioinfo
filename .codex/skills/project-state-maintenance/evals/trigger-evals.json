@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "skill_name": "project-state-maintenance",
+  "purpose": "Evaluate project state lifecycle routing against guide, directory, planning, and data-organization neighbors.",
+  "cases": [
+    {
+      "id": "state-positive-01",
+      "split": "train",
+      "query": "为这个新项目初始化 PROJECT_GUIDE.md 和 append-only PROJECT_PLAN.md，并写清读取边界。",
+      "should_trigger": true,
+      "expected_primary_skill": "project-state-maintenance",
+      "rationale": "Initializing the two-file state system is the core lifecycle task."
+    },
+    {
+      "id": "state-positive-02",
+      "split": "train",
+      "query": "QC 已完成，请在不读取完整 PROJECT_PLAN 的情况下追加记录，并判断是否需要更新 GUIDE。",
+      "should_trigger": true,
+      "expected_primary_skill": "project-state-maintenance",
+      "rationale": "Material-action append plus GUIDE update decision is the core end-of-task policy."
+    },
+    {
+      "id": "state-positive-03",
+      "split": "train",
+      "query": "按 log_id=20260720-1030-data-qc 定向查 PROJECT_PLAN，重建这次过滤决策。",
+      "should_trigger": true,
+      "expected_primary_skill": "project-state-maintenance",
+      "rationale": "Targeted cold-log history retrieval belongs to state maintenance."
+    },
+    {
+      "id": "state-positive-04",
+      "split": "train",
+      "query": "PROJECT_GUIDE 变成了流水账，而 PROJECT_PLAN 被每次启动全文读取，帮我修复两者职责。",
+      "should_trigger": true,
+      "expected_primary_skill": "project-state-maintenance",
+      "rationale": "Repairing hot/cold lifecycle roles is a core task."
+    },
+    {
+      "id": "state-positive-05",
+      "split": "train",
+      "query": "GUIDE 说模型 v2 是 current，但 PLAN 和 model registry 指向 v3；先比较证据，不要静默改写。",
+      "should_trigger": true,
+      "expected_primary_skill": "project-state-maintenance",
+      "rationale": "Cross-state inconsistency diagnosis belongs to lifecycle repair."
+    },
+    {
+      "id": "state-positive-06",
+      "split": "validation",
+      "query": "在项目 AGENTS.md 加入 GUIDE hot、PLAN cold append-only 和定向历史读取规则，并做 focused verification。",
+      "should_trigger": true,
+      "expected_primary_skill": "project-state-maintenance",
+      "rationale": "Installing and verifying project-state routing rules belongs here."
+    },
+    {
+      "id": "state-positive-07",
+      "split": "validation",
+      "query": "这次 docking 失败改变了后续路线，请记录一个 milestone，并把新风险作为 GUIDE 更新候选。",
+      "should_trigger": true,
+      "expected_primary_skill": "project-state-maintenance",
+      "rationale": "A material failure requires PLAN provenance and a GUIDE update decision."
+    },
+    {
+      "id": "state-positive-08",
+      "split": "validation",
+      "query": "为 reviewer response 定向搜索 PROJECT_PLAN 中与样本排除有关的历史，不要加载全部日志。",
+      "should_trigger": true,
+      "expected_primary_skill": "project-state-maintenance",
+      "rationale": "Reviewer-history reconstruction is an allowed targeted PLAN read."
+    },
+    {
+      "id": "state-positive-09",
+      "split": "validation",
+      "query": "同时压缩 GUIDE 的 current state，并保留 PLAN 历史和最新 log_id 指针。",
+      "should_trigger": true,
+      "expected_primary_skill": "project-state-maintenance",
+      "rationale": "Coordinating both files is state maintenance, with guide editing composed as needed."
+    },
+    {
+      "id": "state-safety-10",
+      "split": "validation",
+      "query": "把整个 PROJECT_PLAN 全文读进上下文再总结所有历史。",
+      "should_trigger": true,
+      "expected_primary_skill": "project-state-maintenance",
+      "rationale": "The state guardrail must activate and replace an unbounded read with targeted retrieval."
+    },
+    {
+      "id": "state-negative-01",
+      "split": "train",
+      "query": "只把 PROJECT_GUIDE 的 current story 和 figure skeleton 更新成当前结果。",
+      "should_trigger": false,
+      "expected_primary_skill": "project-guide-maintainer",
+      "rationale": "A guide-content-only edit belongs to the specialized guide skill."
+    },
+    {
+      "id": "state-negative-02",
+      "split": "train",
+      "query": "把过长的 PROJECT_GUIDE 压缩到 3000 中文字符，不处理 PROJECT_PLAN。",
+      "should_trigger": false,
+      "expected_primary_skill": "project-guide-maintainer",
+      "rationale": "Guide-only compression belongs to project-guide-maintainer."
+    },
+    {
+      "id": "state-negative-03",
+      "split": "train",
+      "query": "给 reports/figures 写一个短 README，列出当前主图和生成脚本。",
+      "should_trigger": false,
+      "expected_primary_skill": "project-directory-card-maintenance",
+      "rationale": "A local artifact Directory Card belongs to the directory-card skill."
+    },
+    {
+      "id": "state-negative-04",
+      "split": "train",
+      "query": "按 CCDS 规划 data、reports 和 analyses 的跨目录迁移。",
+      "should_trigger": false,
+      "expected_primary_skill": "research-data-organization",
+      "rationale": "Project-wide layout migration belongs to research-data-organization."
+    },
+    {
+      "id": "state-negative-05",
+      "split": "train",
+      "query": "从零设计这个课题未来六个月的研究路线、里程碑和停止条件。",
+      "should_trigger": false,
+      "expected_primary_skill": "research-project-planner",
+      "rationale": "Research planning is not state-file lifecycle maintenance."
+    },
+    {
+      "id": "state-negative-06",
+      "split": "validation",
+      "query": "给仓库根 README 写安装说明和贡献指南。",
+      "should_trigger": false,
+      "expected_primary_skill": "none",
+      "rationale": "A normal repository README is outside the state-file system."
+    },
+    {
+      "id": "state-negative-07",
+      "split": "validation",
+      "query": "重画 PCA 图，统一字体配色并导出 SVG。",
+      "should_trigger": false,
+      "expected_primary_skill": "publication-plotting",
+      "rationale": "Figure production is not state maintenance."
+    },
+    {
+      "id": "state-negative-08",
+      "split": "validation",
+      "query": "核查 Figure 3 每个 panel 的 source data、统计定义和脚本。",
+      "should_trigger": false,
+      "expected_primary_skill": "source-data-audit",
+      "rationale": "Figure source-data traceability belongs to source-data-audit."
+    },
+    {
+      "id": "state-negative-09",
+      "split": "validation",
+      "query": "把我的原始想法整理成 Known、Unknown、Question 和研究边界。",
+      "should_trigger": false,
+      "expected_primary_skill": "research-question-brief",
+      "rationale": "Capturing the initial research question belongs to research-question-brief."
+    },
+    {
+      "id": "state-negative-10",
+      "split": "validation",
+      "query": "检查整篇稿件的结果、图注和方法是否互相一致。",
+      "should_trigger": false,
+      "expected_primary_skill": "manuscript-consistency-audit",
+      "rationale": "Manuscript consistency review is not project-state maintenance."
+    }
+  ]
+}

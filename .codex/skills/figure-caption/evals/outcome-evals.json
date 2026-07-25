@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "skill_name": "figure-caption",
+  "purpose": "Evaluate panel-aware caption drafting, missing-information handling, statistical-unit clarity, and claim boundaries.",
+  "cases": [
+    {
+      "id": "figure-caption-outcome-complete-01",
+      "mode": "complete caption drafting",
+      "task": "Draft a title and caption from a supplied multi-panel figure and complete analysis notes.",
+      "must_include": [
+        "concise evidence-bounded title",
+        "panel descriptions in actual order",
+        "comparison and visual encodings",
+        "n, tests, and abbreviations",
+        "source-data pointer when provided"
+      ],
+      "must_not": [
+        "invent missing methods",
+        "add mechanism beyond the figure",
+        "confuse figure production with caption writing"
+      ]
+    },
+    {
+      "id": "figure-caption-outcome-missing-01",
+      "mode": "incomplete-information review",
+      "task": "Review a caption whose figure uses colors and significance stars but provides no legend, test, or threshold.",
+      "must_include": [
+        "specific missing items",
+        "explicit placeholders",
+        "no inferred test or threshold",
+        "usable partial caption",
+        "source-data or author follow-up checklist"
+      ],
+      "must_not": [
+        "guess color meanings",
+        "infer p-value thresholds from stars",
+        "claim the caption is complete"
+      ]
+    },
+    {
+      "id": "figure-caption-outcome-exploratory-01",
+      "mode": "exploratory figure caption",
+      "task": "Write a caption for an exploratory candidate-screening figure.",
+      "must_include": [
+        "candidate or exploratory status",
+        "screening population and denominator",
+        "selection or filtering described",
+        "bounded figure title",
+        "caveat separated from mechanism"
+      ],
+      "must_not": [
+        "call candidates validated mechanisms",
+        "claim efficacy or causality",
+        "hide filtering or denominator"
+      ]
+    },
+    {
+      "id": "figure-caption-outcome-statistics-01",
+      "mode": "statistical-unit repair",
+      "task": "Repair a caption that reports n without saying whether it means donors, samples, cells, or observations.",
+      "must_include": [
+        "statistical unit ambiguity identified",
+        "author-provided unit used when available",
+        "biological and technical replicates distinguished",
+        "test and correction fields checked",
+        "unresolved unit left explicit"
+      ],
+      "must_not": [
+        "assume cells are independent biological replicates",
+        "invent n",
+        "silently reinterpret the analysis unit"
+      ]
+    },
+    {
+      "id": "figure-caption-outcome-claim-01",
+      "mode": "caption claim-boundary review",
+      "task": "Revise a legend that describes an observed association as a proven causal mechanism.",
+      "must_include": [
+        "directly observed evidence identified",
+        "causal language downgraded",
+        "interpretation separated from depiction",
+        "safe revised caption",
+        "remaining evidence gap noted"
+      ],
+      "must_not": [
+        "preserve unsupported mechanism language",
+        "move speculative discussion into the caption",
+        "claim final scientific approval"
+      ]
+    }
+  ]
+}

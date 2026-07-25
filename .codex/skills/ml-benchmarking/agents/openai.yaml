@@ -1,4 +1,4 @@
 interface:
-  display_name: "Ml Benchmarking"
-  short_description: "ml benchmarking"
-  default_prompt: "Use $ml-benchmarking for the matching bioinformatics research task."
+  display_name: "ML Benchmarking"
+  short_description: "Design leakage-aware biomedical ML benchmarks"
+  default_prompt: "Use $ml-benchmarking to design or audit a fair, leakage-aware, reproducible biomedical machine-learning benchmark."

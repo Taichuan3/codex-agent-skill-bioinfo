@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "skill_name": "research-decision-review",
+  "purpose": "Evaluate evidence-aware option comparison, conditional recommendations, and user decision ownership.",
+  "cases": [
+    {
+      "id": "decision-review-outcome-options-01",
+      "mode": "option comparison",
+      "task": "Compare two high-impact research routes.",
+      "must_include": ["decision and owner", "current option and credible alternative", "evidence versus judgment", "conditional recommendation", "confidence"],
+      "must_not": ["hide value trade-offs", "choose silently for the user", "present speculation as evidence"]
+    },
+    {
+      "id": "decision-review-outcome-tool-01",
+      "mode": "use adapt rewrite",
+      "task": "Decide whether to use, adapt, or rewrite an external tool.",
+      "must_include": ["source and license", "maintenance and reproducibility", "fit to inputs and outputs", "ownership cost", "recommendation flip condition"],
+      "must_not": ["prefer rewriting by default", "equate popularity with fit", "ignore long-term maintenance"]
+    },
+    {
+      "id": "decision-review-outcome-stop-01",
+      "mode": "continue pivot stop",
+      "task": "Review whether a weak project should continue.",
+      "must_include": ["remaining scientific value", "data fitness", "next information value", "opportunity cost", "observable checkpoint"],
+      "must_not": ["justify continuation with sunk cost", "recommend stopping without an alternative or reason", "invent missing evidence"]
+    },
+    {
+      "id": "decision-review-outcome-claim-01",
+      "mode": "claim strength",
+      "task": "Review whether an association can be described mechanistically.",
+      "must_include": ["current evidence level", "unsupported inferential jump", "safe alternative wording", "evidence that would change the recommendation"],
+      "must_not": ["upgrade association to causality", "treat database annotation as mechanism", "rewrite the whole manuscript"]
+    },
+    {
+      "id": "decision-review-outcome-derisk-01",
+      "mode": "minimal de-risking",
+      "task": "Recommend a low-cost next step before an expensive irreversible choice.",
+      "must_include": ["key uncertainty", "minimal information-gaining action", "success and failure interpretation", "resource ceiling", "user decision required"],
+      "must_not": ["design an unbounded validation program", "execute without authorization", "claim the test resolves all uncertainty"]
+    }
+  ]
+}

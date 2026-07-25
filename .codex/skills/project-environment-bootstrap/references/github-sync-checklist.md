@@ -22,11 +22,14 @@ ssh -o BatchMode=yes -T git@github.com
 
 For HTTPS remotes, check whether `gh auth status` is available, but do not require it if SSH works.
 
+Connectivity tests can contact an external service. Run them only when the task requires live readiness and user policy permits it. Hand interactive login, device-code, OAuth, or account authorization to the user.
+
 ## Push policy
 
 - Do not commit or push automatically unless the user asks.
 - It is acceptable to suggest commit/push after changes to agent, skills, scripts, lightweight docs, tables or figures.
 - Stop before pushing if local-only files are tracked or staged.
+- Do not create or change a remote, branch protection, visibility, credentials, or upstream as part of environment bootstrap.
 
 ## Repo visibility
 

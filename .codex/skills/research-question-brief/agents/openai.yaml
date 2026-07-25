@@ -1,4 +1,4 @@
 interface:
   display_name: "Research Question Brief"
-  short_description: "Compress research ideas into briefs"
-  default_prompt: "Use $research-question-brief to compress this rough research idea into a short direction brief."
+  short_description: "Clarify rough research ideas into bounded briefs"
+  default_prompt: "Use $research-question-brief to turn this rough research idea into a one-page, assumption-aware question brief."

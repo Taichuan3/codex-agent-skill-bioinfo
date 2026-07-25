@@ -1,4 +1,4 @@
 interface:
   display_name: "Project Environment Bootstrap"
-  short_description: "Initialize local project environment checks"
-  default_prompt: "Use $project-environment-bootstrap to initialize this project environment and local-only environment record."
+  short_description: "Verify and record project environment readiness"
+  default_prompt: "Use $project-environment-bootstrap to verify this project environment and prepare a safe local-only environment record."

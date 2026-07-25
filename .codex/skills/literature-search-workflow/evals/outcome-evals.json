@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "skill_name": "literature-search-workflow",
+  "purpose": "Evaluate reproducibility, screening discipline, evidence synthesis, specialized search routing, and negative-result boundaries.",
+  "cases": [
+    {"id":"literature-outcome-strategy-01","mode":"planned search","task":"Design a search strategy without executing it.","must_include":["decision question","sources and exact planned queries","date or planned date","inclusion and exclusion criteria","planned status"],"must_not":["invent search hits","claim coverage was complete","fabricate identifiers"]},
+    {"id":"literature-outcome-screening-01","mode":"executed search","task":"Search and screen a method literature set.","must_include":["exact queries and retrieval date","hit and deduplication counts","title/abstract and full-text exclusion reasons","evidence table","coverage limitations"],"must_not":["present metadata as full-text evidence","omit negative results","silently change the date window"]},
+    {"id":"literature-outcome-map-01","mode":"decision evidence map","task":"Synthesize papers for a method adoption decision.","must_include":["consensus and controversy","dataset and method map","reusable resources","evidence gaps","user-owned decision options"],"must_not":["list abstracts without synthesis","treat preprints as validated consensus","make the final research decision"]},
+    {"id":"literature-outcome-repeat-01","mode":"repeat-locus search","task":"Connect a repeat-rich locus hypothesis to literature and public datasets.","must_include":["separate evidence layers","study-to-run accession checks","reference and mapping caveats","what negative evidence can test","claim grades"],"must_not":["use negative RNA evidence to reject DNA mechanisms","ignore multi-mapping","copy unpublished project facts into reusable output"]},
+    {"id":"literature-outcome-empty-01","mode":"bounded negative search","task":"Report no direct interaction papers found in the searched scope.","must_include":["searched sources and queries","date and screening scope","explicit not-found-within-scope wording","closest indirect evidence","next search step"],"must_not":["claim the interaction does not exist","upgrade database network evidence to direct binding","invent a supporting paper"]}
+  ]
+}

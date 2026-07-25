@@ -1,4 +1,4 @@
 interface:
   display_name: "Literature Search Workflow"
-  short_description: "Plan literature search and evidence tables"
-  default_prompt: "Use $literature-search-workflow to design a literature search strategy and evidence table."
+  short_description: "Build reproducible scientific literature evidence maps"
+  default_prompt: "Use $literature-search-workflow to build a reproducible search strategy, screened evidence table, and gap synthesis for this research question."

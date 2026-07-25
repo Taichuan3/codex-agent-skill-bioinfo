@@ -1,20 +1,22 @@
 # Bioinfo Codex Skill-System Governance
 
-Use this note when auditing or maintaining the user's bioinfo Codex/Hermes skill system.
+Use this note when auditing or maintaining a portable bioinformatics Codex capability package.
 
 ## Durable lessons
 
-- Runtime-first: `~/.hermes/skills/bioinfo/` contains the user's locally iterated working skills. Do not replace runtime `SKILL.md` bodies with older GitHub/source versions.
-- External corpus purpose: large external skill corpora are primarily used to improve existing local skills and references. New skills are secondary and require a real frequent capability gap after attempted merge.
-- Codex compatibility: standalone Codex discovers repo/global skills through `.agents/skills`; `.codex/skills` is the source layout. Use a symlink such as `.agents/skills -> ../.codex/skills` for repo scope or `~/.agents/skills -> <shared source skills>` for global scope.
-- GitHub package shape: keep installable repos lightweight: `AGENTS.md`, `README.md`, `local_config.yaml`, `.codex/skills/`, and small scripts/config. Keep long audits, migration notes, and corpus indexes local.
-- Guardian workflow: Hermes should define the task constraints and verification gates, delegate deep corpus/diff work to Codex when appropriate, then independently verify structure, counts, runtime/source parity, and Codex visibility.
+- Provenance before precedence: canonical source, installed runtime, project-local copies and upstream bundles may each contain useful differences. Compare provenance, hashes and semantic changes before promoting any one copy.
+- External corpora primarily strengthen existing Skills and references. A new Skill requires a frequent, distinct delivery object and trigger boundary after attempted merge.
+- Discovery must be verified in the intended repo/global scope using the package's supported installation mechanism; do not assume source layout alone proves runtime visibility.
+- Keep installable repositories lightweight: Agent rules, Skill source, small metadata, validators and necessary references. Keep long audits, inventories and machine overlays outside portable source.
+- Separate authoring and review for public or high-impact changes. Validate structure, counts, trigger behavior, privacy and source/runtime parity independently.
 
 ## Required checks
 
-1. Confirm source and runtime skill counts and names.
-2. Confirm every skill has frontmatter, `name`, `description`, body, and `## 核心问题`.
-3. Confirm source skills have `agents/openai.yaml`.
-4. Confirm `local_config.yaml` count/list matches source.
-5. Confirm no long `docs/` audit directory is tracked when the repo is meant to be installable.
-6. For global Codex setup, test in a neutral temporary git repo without project `AGENTS.md` or `.agents/skills` and confirm Codex sees the expected global skills.
+1. Confirm source and installed Skill counts, names and provenance.
+2. Confirm every `SKILL.md` has only `name` and `description` frontmatter, a body, a core question and direct resource routing.
+3. Confirm each source Skill has parseable `agents/openai.yaml` with only required interface metadata unless extras were explicitly supplied.
+4. Confirm package config and inventory match source names and counts.
+5. Confirm references, scripts and assets are necessary, one level deep and directly discoverable from `SKILL.md`.
+6. Confirm trigger evals cover close neighbors and outcome evals cover authority, evidence and failure modes.
+7. Confirm no long audit corpus, private path, credential, runtime database, unpublished fact or machine overlay enters portable source.
+8. Test discovery in a neutral target context when installation or parity is in scope.

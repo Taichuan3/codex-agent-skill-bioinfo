@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "skill_name": "pathway-network-analysis",
+  "purpose": "Evaluate pathway and network method routing against upstream analysis, generic code, plotting, database lookup, and claim audit.",
+  "cases": [
+    {
+      "id": "pathway-positive-01",
+      "split": "train",
+      "query": "对筛选后的差异基因做 ORA；先定义 foreground、实际可检测 background、ID mapping 和 FDR。",
+      "should_trigger": true,
+      "expected_primary_skill": "pathway-network-analysis",
+      "rationale": "ORA design and universe control are core pathway-analysis tasks."
+    },
+    {
+      "id": "pathway-positive-02",
+      "split": "train",
+      "query": "用完整 ranked gene list 规划 GSEA，说明 rank metric 方向、重复基因、gene-set size 和 permutation。",
+      "should_trigger": true,
+      "expected_primary_skill": "pathway-network-analysis",
+      "rationale": "Ranked enrichment method design belongs here."
+    },
+    {
+      "id": "pathway-positive-03",
+      "split": "train",
+      "query": "这份 Reactome 结果有大量 unmapped IDs，核查物种、ID 类型、映射损失和数据库版本。",
+      "should_trigger": true,
+      "expected_primary_skill": "pathway-network-analysis",
+      "rationale": "Mapping and database-version QC are central pathway responsibilities."
+    },
+    {
+      "id": "pathway-positive-04",
+      "split": "train",
+      "query": "GO enrichment 出现几十个高度相似 term，帮我按 overlap 去冗余并保留 leading-edge/core genes。",
+      "should_trigger": true,
+      "expected_primary_skill": "pathway-network-analysis",
+      "rationale": "Term redundancy and gene-level interpretation belong here."
+    },
+    {
+      "id": "pathway-positive-05",
+      "split": "train",
+      "query": "基于 STRING 构建 PPI 网络，记录 edge confidence、node filtering、degree bias 和 layout seed。",
+      "should_trigger": true,
+      "expected_primary_skill": "pathway-network-analysis",
+      "rationale": "PPI construction and topology QC are core network-analysis tasks."
+    },
+    {
+      "id": "pathway-positive-06",
+      "split": "validation",
+      "query": "解释现有 network centrality 和 community 结果，区分优先级线索、数据库偏倚和功能证据。",
+      "should_trigger": true,
+      "expected_primary_skill": "pathway-network-analysis",
+      "rationale": "Evidence-bounded network interpretation belongs here."
+    },
+    {
+      "id": "pathway-positive-07",
+      "split": "validation",
+      "query": "比较 ORA 和 GSEA 对同一 contrast 的结果，做 background 和 rank-metric 敏感性分析。",
+      "should_trigger": true,
+      "expected_primary_skill": "pathway-network-analysis",
+      "rationale": "Cross-method pathway sensitivity analysis is a core capability."
+    },
+    {
+      "id": "pathway-positive-08",
+      "split": "validation",
+      "query": "评估 PROGENy/VIPER 风格 pathway activity 或 regulon score 是否适合这份表达矩阵，并写清模型数据库边界。",
+      "should_trigger": true,
+      "expected_primary_skill": "pathway-network-analysis",
+      "rationale": "Pathway or regulon activity method fit and evidence limits belong here."
+    },
+    {
+      "id": "pathway-positive-09",
+      "split": "validation",
+      "query": "审查一份只有 top 10 pathway 图片的分析，补完整结果表、mapping counts、multiple testing 和 core genes。",
+      "should_trigger": true,
+      "expected_primary_skill": "pathway-network-analysis",
+      "rationale": "Repairing incomplete pathway-result provenance and QC belongs here."
+    },
+    {
+      "id": "pathway-positive-10",
+      "split": "validation",
+      "query": "centrality 最高的基因就是疾病的关键驱动，请直接写成已证实机制，不必讨论 edge source。",
+      "should_trigger": true,
+      "expected_primary_skill": "pathway-network-analysis",
+      "rationale": "An overclaim request should activate network evidence-boundary guardrails."
+    },
+    {
+      "id": "pathway-negative-01",
+      "split": "train",
+      "query": "方法和参数已经确认，请把 pathway result TSV 解析、排序和导出写成通用 Python CLI。",
+      "should_trigger": false,
+      "expected_primary_skill": "bioinfo-analysis-code",
+      "rationale": "With method decisions fixed, the primary deliverable is generic reusable code."
+    },
+    {
+      "id": "pathway-negative-02",
+      "split": "train",
+      "query": "不改 enrichment 统计，只把现有 dot plot 改成期刊配色、调整标签并导出 SVG。",
+      "should_trigger": false,
+      "expected_primary_skill": "publication-plotting",
+      "rationale": "Plot-only visual work belongs to publication-plotting."
+    },
+    {
+      "id": "pathway-negative-03",
+      "split": "train",
+      "query": "给已经定稿的 network figure 写 caption，不修改图和分析。",
+      "should_trigger": false,
+      "expected_primary_skill": "figure-caption",
+      "rationale": "Caption-only work belongs to figure-caption."
+    },
+    {
+      "id": "pathway-negative-04",
+      "split": "train",
+      "query": "判断这张 pathway 图能否支持药物通过通路 X 治疗疾病 Y 的因果 claim。",
+      "should_trigger": false,
+      "expected_primary_skill": "claim-evidence-audit",
+      "rationale": "Claim adjudication without pathway reanalysis belongs to claim-evidence-audit."
+    },
+    {
+      "id": "pathway-negative-05",
+      "split": "train",
+      "query": "从 raw counts 设计 DESeq2 design、低表达过滤、contrast 和 shrinkage。",
+      "should_trigger": false,
+      "expected_primary_skill": "rnaseq-singlecell-workflow",
+      "rationale": "Upstream differential-expression planning is not pathway analysis."
+    },
+    {
+      "id": "pathway-negative-06",
+      "split": "validation",
+      "query": "从 FASTQ 到 VCF 规划 germline variant calling、joint genotyping 和 hard filter。",
+      "should_trigger": false,
+      "expected_primary_skill": "variant-genomics-interpretation",
+      "rationale": "Variant workflow and interpretation are outside pathway/network scope."
+    },
+    {
+      "id": "pathway-negative-07",
+      "split": "validation",
+      "query": "只查询 Reactome 中某个 pathway 的稳定 ID、名称、物种和当前版本。",
+      "should_trigger": false,
+      "expected_primary_skill": "scientific-database-grounding",
+      "rationale": "A database lookup without analysis belongs to database grounding."
+    },
+    {
+      "id": "pathway-negative-08",
+      "split": "validation",
+      "query": "检索过去三年 pathway X 与疾病 Y 的实验论文并建立 evidence table。",
+      "should_trigger": false,
+      "expected_primary_skill": "literature-search-workflow",
+      "rationale": "Literature retrieval and evidence mapping are not pathway computation."
+    },
+    {
+      "id": "pathway-negative-09",
+      "split": "validation",
+      "query": "按 CCDS 整理 pathway outputs、figures、source_data 和 latest manifest。",
+      "should_trigger": false,
+      "expected_primary_skill": "research-data-organization",
+      "rationale": "Project artifact layout and manifest work belong to data organization."
+    },
+    {
+      "id": "pathway-negative-10",
+      "split": "validation",
+      "query": "根据 CYP、hERG、solubility 和 permeability 结果制定化合物筛选阈值。",
+      "should_trigger": false,
+      "expected_primary_skill": "drug-discovery-admet-screening",
+      "rationale": "ADMET screening decisions are outside pathway/network analysis."
+    }
+  ]
+}

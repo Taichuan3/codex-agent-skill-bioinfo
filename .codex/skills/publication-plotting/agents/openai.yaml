@@ -1,4 +1,4 @@
 interface:
   display_name: "Publication Plotting"
-  short_description: "Create publication figures with QA"
-  default_prompt: "Use $publication-plotting to create a manuscript-ready figure with PNG and SVG outputs."
+  short_description: "Build traceable manuscript figures and visual QA"
+  default_prompt: "Use $publication-plotting to build and visually validate this manuscript-ready figure."

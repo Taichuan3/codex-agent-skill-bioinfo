@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "skill_name": "protein-structure-docking",
+  "purpose": "Evaluate locked inputs, bounded execution, structure and pose QC, matched comparisons, handoffs and claim boundaries.",
+  "cases": [
+    {
+      "id": "structure-outcome-plan-01",
+      "mode": "docking plan",
+      "task": "Plan a known-pocket protein-ligand redocking pilot.",
+      "must_include": [
+        "locked receptor, ligand and numbering inputs",
+        "preparation and box definition",
+        "positive control and redocking criterion",
+        "versioned parameters and pilot scope",
+        "stop or escalation conditions"
+      ],
+      "must_not": [
+        "treat docking score as affinity",
+        "silently choose a protomer or tautomer",
+        "submit an external job in a read-only request"
+      ]
+    },
+    {
+      "id": "structure-outcome-model-qa-01",
+      "mode": "structure/model QA",
+      "task": "Assess a predicted structure for interface docking.",
+      "must_include": [
+        "source and model version",
+        "chain and residue mapping",
+        "coverage, missing regions and confidence",
+        "interface-context limitations",
+        "fit-for-purpose decision"
+      ],
+      "must_not": [
+        "equate confidence with interaction proof",
+        "infer function from structural similarity",
+        "hide unresolved numbering"
+      ]
+    },
+    {
+      "id": "structure-outcome-pilot-01",
+      "mode": "bounded pilot/run",
+      "task": "Run a small batch docking pilot before campaign expansion.",
+      "must_include": [
+        "exact immutable inputs and derived outputs",
+        "software version, parameters, seeds and replicates",
+        "success, failure and QC counts",
+        "runtime and disk-use inspection",
+        "scale-up decision with evidence"
+      ],
+      "must_not": [
+        "overwrite raw inputs",
+        "hide failed samples",
+        "expand a large run before inspecting the pilot"
+      ]
+    },
+    {
+      "id": "structure-outcome-interpret-01",
+      "mode": "result interpretation",
+      "task": "Interpret ranked poses from one docking method.",
+      "must_include": [
+        "score and rank definition",
+        "pose-level physical QC",
+        "controls and replicate status",
+        "exploratory evidence level",
+        "claims not supported and next validation"
+      ],
+      "must_not": [
+        "convert score to Kd or IC50",
+        "claim a stable physiological interaction",
+        "claim efficacy, safety or clinical benefit"
+      ]
+    },
+    {
+      "id": "structure-outcome-comparison-01",
+      "mode": "matched comparison",
+      "task": "Compare WT and mutant docking results.",
+      "must_include": [
+        "explicitly matched preparation and parameters",
+        "numbering and mutation verification",
+        "replicate and sensitivity evidence",
+        "alternative explanations",
+        "orthogonal binding or functional validation"
+      ],
+      "must_not": [
+        "attribute an unmatched score difference to mutation",
+        "claim functional causality",
+        "discard discordant seeds or methods"
+      ]
+    },
+    {
+      "id": "structure-outcome-handoff-01",
+      "mode": "virtual-screening handoff",
+      "task": "Hand docking evidence to a campaign-level compound screen.",
+      "must_include": [
+        "versioned docking summary and QC status",
+        "protocol-specific score definition",
+        "failed and not-assessed candidates",
+        "handoff to drug-discovery-admet-screening",
+        "separate evidence-layer requirement"
+      ],
+      "must_not": [
+        "create a combined efficacy score",
+        "perform ADMET interpretation in the docking skill",
+        "promote pose confidence to drug priority by itself"
+      ]
+    }
+  ]
+}

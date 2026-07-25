@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "skill_name": "project-directory-card-maintenance",
+  "purpose": "Evaluate evidence-linked local navigation, stale-card repair, write boundaries, and state synchronization.",
+  "cases": [
+    {
+      "id": "card-outcome-proposal-01",
+      "mode": "read-only proposal",
+      "task": "Propose a card for a result directory without writing files.",
+      "must_include": [
+        "bounded directory scope",
+        "candidate card content",
+        "evidence sources",
+        "uncertain statuses",
+        "no-file statement"
+      ],
+      "must_not": [
+        "create a README",
+        "scan the entire project",
+        "infer current status from filenames alone"
+      ]
+    },
+    {
+      "id": "card-outcome-create-01",
+      "mode": "create",
+      "task": "Create a card for reports/figures.",
+      "must_include": [
+        "purpose",
+        "current important files",
+        "producer and source-data pointers",
+        "read-first and reproduction entry",
+        "exact README path"
+      ],
+      "must_not": [
+        "copy the entire figure inventory",
+        "treat exploratory plots as final",
+        "move or rename figures"
+      ]
+    },
+    {
+      "id": "card-outcome-update-01",
+      "mode": "durable update",
+      "task": "Update a model card after a confirmed best-model change.",
+      "must_include": [
+        "old and new status",
+        "registry or evaluation evidence",
+        "replacement relationship",
+        "PLAN synchronization",
+        "GUIDE update decision"
+      ],
+      "must_not": [
+        "claim best model without baseline or split evidence",
+        "rewrite project history",
+        "copy full metrics tables"
+      ]
+    },
+    {
+      "id": "card-outcome-repair-01",
+      "mode": "stale-card repair",
+      "task": "Repair a README that conflicts with producer and consumer paths.",
+      "must_include": [
+        "stale pointer",
+        "verified producer and consumer",
+        "corrected navigation",
+        "remaining conflict",
+        "bounded verification"
+      ],
+      "must_not": [
+        "trust README over structured evidence",
+        "silently reclassify artifacts",
+        "perform a physical migration"
+      ]
+    },
+    {
+      "id": "card-outcome-handoff-01",
+      "mode": "migration handoff",
+      "task": "Handle a card request that reveals project-wide path problems.",
+      "must_include": [
+        "navigation findings",
+        "project-wide scope boundary",
+        "handoff to research-data-organization",
+        "no physical changes",
+        "suggested migration-map inputs"
+      ],
+      "must_not": [
+        "expand the card task into a migration",
+        "delete deprecated artifacts",
+        "create compatibility links without authorization"
+      ]
+    }
+  ]
+}

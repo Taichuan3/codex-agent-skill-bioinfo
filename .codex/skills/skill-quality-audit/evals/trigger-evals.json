@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "skill_name": "skill-quality-audit",
+  "purpose": "Evaluate Skill QA routing against governed self-improvement, environment work, domain review, and Git publication.",
+  "cases": [
+    {
+      "id": "skillqa-positive-01",
+      "split": "train",
+      "query": "只读审计这个 Skill 的 description、核心问题、边界、references 和安全风险。",
+      "should_trigger": true,
+      "expected_primary_skill": "skill-quality-audit",
+      "rationale": "A bounded single-Skill read-only audit is the core task."
+    },
+    {
+      "id": "skillqa-positive-02",
+      "split": "train",
+      "query": "我授权你修订这三个 Skill，补齐 metadata 和 trigger/outcome evals，但不要安装或提交。",
+      "should_trigger": true,
+      "expected_primary_skill": "skill-quality-audit",
+      "rationale": "An explicitly scoped Skill repair is a core mode."
+    },
+    {
+      "id": "skillqa-positive-03",
+      "split": "train",
+      "query": "盘点本机 Skill/Agent library，分开 canonical source、installed runtime、project copy 和 upstream。",
+      "should_trigger": true,
+      "expected_primary_skill": "skill-quality-audit",
+      "rationale": "A provenance-aware library inventory is a core mode."
+    },
+    {
+      "id": "skillqa-positive-04",
+      "split": "train",
+      "query": "同一个 Skill 在 source 和 runtime 内容不同，先做 semantic diff，不要假设哪个更新。",
+      "should_trigger": true,
+      "expected_primary_skill": "skill-quality-audit",
+      "rationale": "Source/runtime drift analysis belongs to Skill QA."
+    },
+    {
+      "id": "skillqa-positive-05",
+      "split": "train",
+      "query": "从一个大型外部 skill corpus 提取可复用机制，优先强化现有 Skill，不要整库复制。",
+      "should_trigger": true,
+      "expected_primary_skill": "skill-quality-audit",
+      "rationale": "External corpus absorption review is a core mode."
+    },
+    {
+      "id": "skillqa-positive-06",
+      "split": "validation",
+      "query": "检查所有 SKILL.md 是否只有 name 和 description frontmatter，并核验 openai.yaml 三个 interface 字段。",
+      "should_trigger": true,
+      "expected_primary_skill": "skill-quality-audit",
+      "rationale": "Structural and metadata QA is a core responsibility."
+    },
+    {
+      "id": "skillqa-positive-07",
+      "split": "validation",
+      "query": "找出 references、scripts、assets 没有从 SKILL.md 直接路由的 Skill，并给最小修复建议。",
+      "should_trigger": true,
+      "expected_primary_skill": "skill-quality-audit",
+      "rationale": "Progressive-disclosure and direct-resource routing audits belong here."
+    },
+    {
+      "id": "skillqa-positive-08",
+      "split": "validation",
+      "query": "为这个 Skill 设计 10 个正例和 10 个邻近负例，再加至少 5 个 outcome gates。",
+      "should_trigger": true,
+      "expected_primary_skill": "skill-quality-audit",
+      "rationale": "Balanced trigger and outcome evaluation design is Skill QA."
+    },
+    {
+      "id": "skillqa-positive-09",
+      "split": "validation",
+      "query": "审查 portable Skill package 中是否混入私有路径、session、memory、未发表项目事实或第三方未授权内容。",
+      "should_trigger": true,
+      "expected_primary_skill": "skill-quality-audit",
+      "rationale": "Portable-package privacy and provenance gates are core QA."
+    },
+    {
+      "id": "skillqa-positive-10",
+      "split": "validation",
+      "query": "运行 quick validator、JSON/YAML 解析、链接检查和 diff check，并区分通过与未覆盖行为。",
+      "should_trigger": true,
+      "expected_primary_skill": "skill-quality-audit",
+      "rationale": "Bounded structural validation and evidence reporting belong here."
+    },
+    {
+      "id": "skillqa-negative-01",
+      "split": "train",
+      "query": "以后都把长期偏好写入 memory；请把这条纠正转成受治理候选并安排 review。",
+      "should_trigger": false,
+      "expected_primary_skill": "controlled-self-improvement",
+      "rationale": "Durable signal routing and lifecycle governance belong to self-improvement."
+    },
+    {
+      "id": "skillqa-negative-02",
+      "split": "train",
+      "query": "把已经审查通过的 Skill commit、push、安装到两个 runtime 并监测一次使用。",
+      "should_trigger": false,
+      "expected_primary_skill": "controlled-self-improvement",
+      "rationale": "Publication, installation, and monitoring are lifecycle actions."
+    },
+    {
+      "id": "skillqa-negative-03",
+      "split": "train",
+      "query": "新服务器上检查 conda、Jupyter、Git 和 PROJECT_ENVIRONMENT.md。",
+      "should_trigger": false,
+      "expected_primary_skill": "project-environment-bootstrap",
+      "rationale": "Project environment readiness is not Skill QA."
+    },
+    {
+      "id": "skillqa-negative-04",
+      "split": "train",
+      "query": "选择并安装一个新的 variant annotation 工具，记录 license 和版本。",
+      "should_trigger": false,
+      "expected_primary_skill": "environment-and-tool-adoption",
+      "rationale": "Tool adoption belongs to environment-and-tool-adoption."
+    },
+    {
+      "id": "skillqa-negative-05",
+      "split": "train",
+      "query": "检查论文 Results 是否把模型相关性夸大成机制因果。",
+      "should_trigger": false,
+      "expected_primary_skill": "claim-evidence-audit",
+      "rationale": "Scientific claim audit is not a Skill-system QA task."
+    },
+    {
+      "id": "skillqa-negative-06",
+      "split": "validation",
+      "query": "创建一个新的图像分析 Skill，并直接发布到 main。",
+      "should_trigger": false,
+      "expected_primary_skill": "controlled-self-improvement",
+      "rationale": "A new permanent capability and publication request needs governed lifecycle handling."
+    },
+    {
+      "id": "skillqa-negative-07",
+      "split": "validation",
+      "query": "按 CCDS 重排这个研究项目的数据和结果目录。",
+      "should_trigger": false,
+      "expected_primary_skill": "research-data-organization",
+      "rationale": "Project artifact migration is unrelated to Skill QA."
+    },
+    {
+      "id": "skillqa-negative-08",
+      "split": "validation",
+      "query": "对 GitHub 上一个软件仓库做技术选型，判断 direct use 还是 wrap。",
+      "should_trigger": false,
+      "expected_primary_skill": "environment-and-tool-adoption",
+      "rationale": "Selecting software for an analysis task is tool adoption, not external Skill absorption."
+    },
+    {
+      "id": "skillqa-negative-09",
+      "split": "validation",
+      "query": "给 PROJECT_GUIDE 更新当前研究主线和 next decisions。",
+      "should_trigger": false,
+      "expected_primary_skill": "project-guide-maintainer",
+      "rationale": "Project current-state writing is not Skill QA."
+    },
+    {
+      "id": "skillqa-negative-10",
+      "split": "validation",
+      "query": "把用户的一次性格式要求直接记成全局永久规则。",
+      "should_trigger": false,
+      "expected_primary_skill": "controlled-self-improvement",
+      "rationale": "The request requires triage and likely rejection under governed self-improvement."
+    }
+  ]
+}

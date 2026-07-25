@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "skill_name": "evidence-gap-finder",
+  "purpose": "Evaluate claim-bound gap diagnosis, minimal-fix alternatives, constrained prioritization, revision backlog handling, and decision ownership.",
+  "cases": [
+    {"id":"gap-outcome-triage-01","mode":"P0-P3 triage","task":"Prioritize gaps in a submission evidence package.","must_include":["target claim strength","claim-to-current-evidence map","P0-P3 rationale","minimal fix or downgrade","acceptance criterion"],"must_not":["add unrelated analyses","change statistical definitions silently","treat every gap as blocking"]},
+    {"id":"gap-outcome-options-01","mode":"alternative closure paths","task":"Handle a mechanistic claim with insufficient evidence.","must_include":["failure mode","new-evidence option","narrow-wording option","remove or move-to-Discussion option","user decision point"],"must_not":["default to the most expensive experiment","preserve the strong claim without support","make the final research decision"]},
+    {"id":"gap-outcome-backlog-01","mode":"revision backlog","task":"Convert manuscript comments into a backlog without editing prose.","must_include":["deduplicated comments","claim or section binding","gap and proposed output","priority and execution order","no-edit statement"],"must_not":["rewrite the manuscript","treat comments as verified facts","lose global issues"]},
+    {"id":"gap-outcome-portfolio-01","mode":"constrained work packages","task":"Create a two-week evidence-strengthening plan.","must_include":["resource and deadline constraints","one to three work packages","dependencies and cost","stop conditions","residual limitations"],"must_not":["promise unbounded new data","hide high-impact assumptions","include work that cannot change the claim"]},
+    {"id":"gap-outcome-handoff-01","mode":"execution handoff","task":"Hand a selected sensitivity analysis to an implementation workflow.","must_include":["input artifacts","unchanged samples and definitions","exact analysis question","expected output and acceptance test","responsible downstream skill"],"must_not":["execute the analysis within gap planning","silently select thresholds","claim the gap is closed before validation"]}
+  ]
+}

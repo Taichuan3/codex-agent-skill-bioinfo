@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "skill_name": "manuscript-consistency-audit",
+  "purpose": "Evaluate authority control, conflict classification, minimal fixes, and coverage boundaries.",
+  "cases": [
+    {
+      "id": "consistency-outcome-number-01",
+      "mode": "number lock audit",
+      "task": "Resolve conflicting sample counts across abstract, Results, legends, and tables.",
+      "must_include": [
+        "all audited locations",
+        "declared authority hierarchy",
+        "authoritative or unresolved value",
+        "conflict status",
+        "minimal location-specific fixes"
+      ],
+      "must_not": [
+        "choose the most frequent number as truth",
+        "silently edit the sample definition",
+        "claim scientific correctness from consistency"
+      ]
+    },
+    {
+      "id": "consistency-outcome-term-01",
+      "mode": "terminology audit",
+      "task": "Audit three partially overlapping cohort labels used as if they were synonyms.",
+      "must_include": [
+        "definition for each term",
+        "locations and scopes",
+        "true synonym versus distinct cohort judgment",
+        "preferred terminology map",
+        "author-input gaps"
+      ],
+      "must_not": [
+        "collapse distinct populations",
+        "invent cohort membership",
+        "rewrite unrelated prose"
+      ]
+    },
+    {
+      "id": "consistency-outcome-method-01",
+      "mode": "methods-results consistency",
+      "task": "Audit conflicting FDR thresholds and software versions across manuscript sections.",
+      "must_include": [
+        "exact locations",
+        "analysis or config authority",
+        "threshold and version conflict types",
+        "scope-dependent alternatives",
+        "minimal corrections"
+      ],
+      "must_not": [
+        "pick a preferred threshold without evidence",
+        "rerun analysis without authorization",
+        "hide multiple analysis definitions"
+      ]
+    },
+    {
+      "id": "consistency-outcome-strength-01",
+      "mode": "claim-expression consistency",
+      "task": "Find inconsistent claim strength across abstract, Results, and Discussion.",
+      "must_include": [
+        "locations and wording direction",
+        "common claim unit",
+        "consistency finding",
+        "handoff to claim-evidence-audit",
+        "no automatic evidence-level decision"
+      ],
+      "must_not": [
+        "declare the strongest wording correct",
+        "upgrade a claim for stylistic consistency",
+        "replace scientific support review"
+      ]
+    },
+    {
+      "id": "consistency-outcome-partial-01",
+      "mode": "bounded read-only audit",
+      "task": "Audit a partial manuscript without a locked source table.",
+      "must_include": [
+        "audited version and materials",
+        "candidate conflicts",
+        "missing authority labels",
+        "AUTHOR_INPUT_NEEDED items",
+        "no-write and no-manuscript-wide-coverage statements"
+      ],
+      "must_not": [
+        "invent authority values",
+        "edit the manuscript",
+        "claim unprovided supplements are consistent"
+      ]
+    }
+  ]
+}

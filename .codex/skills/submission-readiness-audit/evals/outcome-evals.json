@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "skill_name": "submission-readiness-audit",
+  "purpose": "Evaluate package coverage, blocker prioritization, specialist synthesis, and bounded readiness advice.",
+  "cases": [
+    {
+      "id": "submission-outcome-complete-01",
+      "mode": "complete package gate",
+      "task": "Audit an assembled manuscript, figures, supplement, source data, code, and availability package.",
+      "must_include": [
+        "package inventory and versions",
+        "cross-component gate statuses",
+        "evidence-linked blocking issues",
+        "Ready Conditionally ready or Not ready recommendation",
+        "closure criteria and user decision points"
+      ],
+      "must_not": [
+        "equate file presence with correctness",
+        "claim final scientific approval",
+        "submit or authorize submission"
+      ]
+    },
+    {
+      "id": "submission-outcome-partial-01",
+      "mode": "partial package gate",
+      "task": "Assess readiness when only an abstract, main figures, and draft Methods are available.",
+      "must_include": [
+        "assessment boundary",
+        "missing package components",
+        "Not assessed statuses",
+        "conditional readiness only",
+        "minimum materials needed for re-audit"
+      ],
+      "must_not": [
+        "give an unconditional Ready result",
+        "invent supplement or code status",
+        "assume journal-specific compliance"
+      ]
+    },
+    {
+      "id": "submission-outcome-synthesis-01",
+      "mode": "specialist audit synthesis",
+      "task": "Integrate claim, source-data, and consistency audit findings into a submission plan.",
+      "must_include": [
+        "specialist findings preserved",
+        "deduplicated blocking issues",
+        "dependency-ordered fixes",
+        "owners and evidence of closure",
+        "specialist recheck handoffs"
+      ],
+      "must_not": [
+        "overwrite specialist evidence grades",
+        "hide unresolved conflicts",
+        "repeat deep audits without need"
+      ]
+    },
+    {
+      "id": "submission-outcome-recheck-01",
+      "mode": "post-fix recheck",
+      "task": "Reassess previously blocking issues after a major revision.",
+      "must_include": [
+        "prior blocker identifiers",
+        "actual repair evidence",
+        "closed open or not-assessed status",
+        "affected-gate revalidation",
+        "remaining risks"
+      ],
+      "must_not": [
+        "mark a blocker closed from a promised action",
+        "upgrade untouched gates",
+        "claim package-wide revalidation if only one area was checked"
+      ]
+    },
+    {
+      "id": "submission-outcome-journal-01",
+      "mode": "generic gate without journal policy",
+      "task": "Run a general bioinformatics submission audit when the target journal requirements are unavailable.",
+      "must_include": [
+        "general package criteria",
+        "journal-specific boundary",
+        "generic blocking issues",
+        "requirements still needed",
+        "conditional next step"
+      ],
+      "must_not": [
+        "invent target-journal rules",
+        "claim format compliance",
+        "make the final journal-fit decision"
+      ]
+    }
+  ]
+}

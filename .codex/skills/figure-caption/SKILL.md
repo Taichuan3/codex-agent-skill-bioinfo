@@ -1,6 +1,6 @@
 ---
 name: figure-caption
-description: 用于生物信息学论文图表规划、figure title、panel title、legend、caption、figure-to-claim 审查和图注中的 source data/caveat 表达。
+description: 用于依据图、panel 说明和分析信息起草、重构或审查生物信息学论文的 figure title、panel titles、legend/caption 及 figure-to-claim 契约，确保样本、编码、统计、n、source data 和 caveat 完整。仅润色既有中文或英文图注分别用 chinese-scientific-polishing 或 scientific-english-polishing，中文图注转英文用 scientific-english-translation；实际绘图与视觉排版用 publication-plotting。
 ---
 
 # Figure Caption
@@ -9,37 +9,35 @@ description: 用于生物信息学论文图表规划、figure title、panel titl
 
 如何让每个 figure title、panel title 和 caption 准确说明图中数据，同时不把解释性结论塞进图注？
 
-## 使用场景
+## 路由与边界
 
-当用户要求设计图、重排 panel、写图题、写 caption、检查图注是否支持论文 claim 或准备投稿图注时使用本 skill。
+- 主要交付物是完整 title/panel/legend/caption 或其内容完整性审查时用本 Skill，不论最终语言是中文还是英文。
+- 只改现成图注的中文语言用 `chinese-scientific-polishing`，只改现成英文语言用 `scientific-english-polishing`，中文转英文用 `scientific-english-translation`。
+- 实际绘图、panel 布局、字体、颜色和导出用 `publication-plotting`；全稿图文一致性用 `manuscript-consistency-audit`；逐 panel source-data 可追溯性审计用 `source-data-audit`。
+- 不从图像外观猜测未提供的样本、统计、过滤、机制或显著性；缺失项标记为待补。
 
-## Figure Contract
+## Figure contract
 
-写图注前先明确：
+起草前锁定主 claim、每个 panel 的证据角色、比较对象、样本范围、过滤、坐标/颜色/符号、n 或 denominator、重复、统计检验、多重校正、source data 和 caveat。无法核验的信息使用明确占位符，不自行补全。
 
-- Figure 的主 claim
-- 每个 panel 的角色
-- 输入数据、样本范围和过滤状态
-- 统计方法、n、重复或背景集合
-- source data 路径或需要生成的 source data
-- caveat 和 reviewer risk
+## 工作流程
 
-## 写作规则
+1. 读取用户提供的图、panel 顺序、分析说明和目标期刊要求；不默认扫描整个项目。
+2. 建立 panel-to-claim map，区分图中直接显示的 evidence 与正文 interpretation。
+3. 写简短 figure title；按实际 panel 顺序描述对象、比较、编码和必要方法。
+4. 补齐 n、重复、统计、显著性标记、缩写、过滤和 source-data 指针；缺失项进入 checklist。
+5. 检查图、caption、正文 claim 的术语与强度一致性；探索性结果保留限定词。
 
-- 图题概括图的结论或信息功能，不堆方法细节。
-- Panel title 要短，优先说明 panel 的证据角色。
-- Caption 必须能让读者理解数据来源、比较对象、统计和限制。
-- Caption 说明“图中显示什么”：panel、坐标轴、编码、n/denominator、统计、数据来源。
-- 结果解释说明“这意味着什么”：生物学结论、claim 强度、机制解释和下一步验证应放在正文 Results/Discussion，而不是塞进 caption。
-- 不在 caption 中写超出图表证据的机制结论。
-- 对 exploratory 图明确使用 candidate、putative、consistent with、suggests 等限定。
+## 写作契约
+
+- Caption 说明图中显示什么以及如何读取，不承载超出图证据的机制或因果结论。
+- 图题可以概括信息功能，但不得把 exploratory pattern 写成已证明机制。
+- 不把 `n` 混同为 biological replicates、technical replicates、cells、variants 或 observations；明确统计单位。
+- 统计信息只报告已提供或可验证内容；不得从星号反推检验或阈值。
 
 ## 输出格式
 
-根据任务输出：
-
-- Figure title
-- Panel order and panel titles
-- Full caption
-- Source data checklist
-- Caveat / reviewer-risk notes
+- `Figure title`
+- `Panel map` 与 `Full caption`
+- `Missing information / source-data checklist`：仅列确实缺失的内容
+- `Caveat / reviewer-risk notes`：仅在 claim 超界或图文不一致时给出

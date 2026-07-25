@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "skill_name": "controlled-self-improvement",
+  "purpose": "Evaluate durable capability-governance routing against one-off requests, Skill QA, project state, environment work, and ordinary Git delivery.",
+  "cases": [
+    {
+      "id": "selfimprove-positive-01",
+      "split": "train",
+      "query": "以后所有项目都先报告证据边界；把这条明确长期指令路由到合适的 Agent 或 Skill。",
+      "should_trigger": true,
+      "expected_primary_skill": "controlled-self-improvement",
+      "rationale": "An explicit durable cross-project instruction is a core signal."
+    },
+    {
+      "id": "selfimprove-positive-02",
+      "split": "train",
+      "query": "我已经三次纠正同一个交付格式，请整理证据并生成一个受治理的改进候选。",
+      "should_trigger": true,
+      "expected_primary_skill": "controlled-self-improvement",
+      "rationale": "A repeated correction with candidate drafting is a core workflow."
+    },
+    {
+      "id": "selfimprove-positive-03",
+      "split": "train",
+      "query": "这个流程连续两次因缺少回滚检查失败，判断应进入 checklist、Skill 还是 Agent。",
+      "should_trigger": true,
+      "expected_primary_skill": "controlled-self-improvement",
+      "rationale": "A repeated workflow failure requiring target routing is a core signal."
+    },
+    {
+      "id": "selfimprove-positive-04",
+      "split": "train",
+      "query": "source 和 installed runtime 的能力漂移了，请建立 candidate、review、approval 和 parity 修复路径。",
+      "should_trigger": true,
+      "expected_primary_skill": "controlled-self-improvement",
+      "rationale": "Capability drift requiring governed lifecycle handling belongs here."
+    },
+    {
+      "id": "selfimprove-positive-05",
+      "split": "train",
+      "query": "全局 Agent 越来越长，找出重复规则并提出可回滚的 context-bloat 改进候选。",
+      "should_trigger": true,
+      "expected_primary_skill": "controlled-self-improvement",
+      "rationale": "Context bloat is an explicit self-improvement signal type."
+    },
+    {
+      "id": "selfimprove-positive-06",
+      "split": "validation",
+      "query": "两台设备的 portable Skills 不一致，请区分 source publish、runtime install 和 machine-local overlay。",
+      "should_trigger": true,
+      "expected_primary_skill": "controlled-self-improvement",
+      "rationale": "Cross-device parity and installation boundaries are core governance concerns."
+    },
+    {
+      "id": "selfimprove-positive-07",
+      "split": "validation",
+      "query": "我批准了候选 SI-20260725-001 的 source edit，但没有批准 push 或安装；按这个边界实施并验证。",
+      "should_trigger": true,
+      "expected_primary_skill": "controlled-self-improvement",
+      "rationale": "Action-specific approved implementation is a core lifecycle mode."
+    },
+    {
+      "id": "selfimprove-positive-08",
+      "split": "validation",
+      "query": "上次安装的新规则开始误触发，请检查监测证据并给出精确 rollback 和复验方案。",
+      "should_trigger": true,
+      "expected_primary_skill": "controlled-self-improvement",
+      "rationale": "Monitoring-triggered rollback is a core lifecycle stage."
+    },
+    {
+      "id": "selfimprove-positive-09",
+      "split": "validation",
+      "query": "把项目经验提炼进公共 capability package 前，判断哪些只能留在 project-private 或 runtime-only。",
+      "should_trigger": true,
+      "expected_primary_skill": "controlled-self-improvement",
+      "rationale": "Privacy-class routing for portable publication belongs here."
+    },
+    {
+      "id": "selfimprove-positive-10",
+      "split": "validation",
+      "query": "审查通过后，我分别授权创建 review commit 和安装到一个命名 runtime；记录 backup、digest 和 parity。",
+      "should_trigger": true,
+      "expected_primary_skill": "controlled-self-improvement",
+      "rationale": "Separately authorized publication and installation are core lifecycle actions."
+    },
+    {
+      "id": "selfimprove-negative-01",
+      "split": "train",
+      "query": "这一次回答请用表格，不需要以后都这样。",
+      "should_trigger": false,
+      "expected_primary_skill": "none",
+      "rationale": "An explicit one-off formatting request is not a durable signal."
+    },
+    {
+      "id": "selfimprove-negative-02",
+      "split": "train",
+      "query": "只读审计一个 Skill 的 description、references、metadata 和 evals。",
+      "should_trigger": false,
+      "expected_primary_skill": "skill-quality-audit",
+      "rationale": "Ordinary Skill QA does not require the self-improvement lifecycle."
+    },
+    {
+      "id": "selfimprove-negative-03",
+      "split": "train",
+      "query": "安装一个缺失的 Python 包并做 smoke test。",
+      "should_trigger": false,
+      "expected_primary_skill": "environment-and-tool-adoption",
+      "rationale": "Dependency installation belongs to tool adoption."
+    },
+    {
+      "id": "selfimprove-negative-04",
+      "split": "train",
+      "query": "更新 PROJECT_GUIDE 的当前 findings 和 next decisions。",
+      "should_trigger": false,
+      "expected_primary_skill": "project-guide-maintainer",
+      "rationale": "Routine project current-state maintenance has a more specific owner."
+    },
+    {
+      "id": "selfimprove-negative-05",
+      "split": "train",
+      "query": "把今天完成的 QC 追加到 PROJECT_PLAN，不改变长期规则。",
+      "should_trigger": false,
+      "expected_primary_skill": "project-state-maintenance",
+      "rationale": "A material project log append is project state maintenance."
+    },
+    {
+      "id": "selfimprove-negative-06",
+      "split": "validation",
+      "query": "修复一个普通脚本 bug 并运行单元测试。",
+      "should_trigger": false,
+      "expected_primary_skill": "bioinfo-analysis-code",
+      "rationale": "Ordinary implementation work without a durable signal is not self-improvement."
+    },
+    {
+      "id": "selfimprove-negative-07",
+      "split": "validation",
+      "query": "在新机器上检查项目根、conda、Jupyter 和 Git readiness。",
+      "should_trigger": false,
+      "expected_primary_skill": "project-environment-bootstrap",
+      "rationale": "Environment readiness has a dedicated bootstrap owner."
+    },
+    {
+      "id": "selfimprove-negative-08",
+      "split": "validation",
+      "query": "把已完成的分析代码 commit 到当前 feature branch。",
+      "should_trigger": false,
+      "expected_primary_skill": "none",
+      "rationale": "An ordinary scoped Git delivery is not necessarily capability evolution."
+    },
+    {
+      "id": "selfimprove-negative-09",
+      "split": "validation",
+      "query": "根据一次偶然的网络超时，永久修改所有项目的下载策略。",
+      "should_trigger": false,
+      "expected_primary_skill": "none",
+      "rationale": "A transient single failure is insufficient evidence for a permanent rule."
+    },
+    {
+      "id": "selfimprove-negative-10",
+      "split": "validation",
+      "query": "把对用户性格的猜测直接写进 memory，用户没有要求记住。",
+      "should_trigger": false,
+      "expected_primary_skill": "none",
+      "rationale": "Speculative personality inference must not become memory."
+    }
+  ]
+}

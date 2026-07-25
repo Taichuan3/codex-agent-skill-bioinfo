@@ -79,6 +79,7 @@ Do not bury confirmed manuscript tables under deeply nested temporary folders.
 
 ## Overwrite versus archive
 
-- Corrected derived files may overwrite old wrong files.
+- Read-only audits never create, update, move, or overwrite files.
+- Corrected derived files may overwrite old wrong files only after the user authorizes that write and the analysis definition is unchanged.
 - Different parameters, different biological interpretations or alternative branches should be archived or named as branches.
 - Manifest must point to the current valid version.

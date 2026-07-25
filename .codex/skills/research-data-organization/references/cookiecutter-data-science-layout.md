@@ -6,7 +6,12 @@ Use this reference when starting a new project, reorganizing a messy project, or
 
 Cookiecutter Data Science provides a logical, flexible, standardized project structure for doing and sharing data science work. It reduces the common failure mode where raw data, processed data, figures, scripts, notebooks, and final reports become hard to locate or reproduce.
 
-Installed local CLI: `ccds` from `cookiecutter-data-science` via pipx.
+## Upstream provenance
+
+- Upstream: DrivenData, `drivendataorg/cookiecutter-data-science`, https://github.com/drivendataorg/cookiecutter-data-science
+- Checked: 2026-07-25
+- License: MIT
+- Adaptation note: the layout below is a bioinformatics-specific recommendation derived from the upstream concepts; it is not evidence that a local CLI is installed and is not a verbatim copy of the upstream template.
 
 ## Recommended adapted layout
 

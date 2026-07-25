@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "skill_name": "scientific-database-grounding",
+  "purpose": "Evaluate entity-level database grounding against literature, paper reading, citation, analysis, and clinical interpretation tasks.",
+  "cases": [
+    {"id":"database-positive-01","split":"train","query":"核对 rs123 在 dbSNP、ClinVar 和 gnomAD 中的 GRCh38 坐标、REF/ALT 和频率。","should_trigger":true,"expected_primary_skill":"scientific-database-grounding","rationale":"Cross-source variant identity and coordinate reconciliation is core."},
+    {"id":"database-positive-02","split":"train","query":"查 Ensembl、NCBI Gene 和 HGNC，解析这个旧 gene symbol 对应的稳定 ID 与别名。","should_trigger":true,"expected_primary_skill":"scientific-database-grounding","rationale":"Gene entity resolution across databases belongs here."},
+    {"id":"database-positive-03","split":"train","query":"比较 UniProt、PDB 和 AlphaFold DB 中这个蛋白的 isoform、链编号与结构证据。","should_trigger":true,"expected_primary_skill":"scientific-database-grounding","rationale":"Protein and structure record reconciliation is a core use."},
+    {"id":"database-positive-04","split":"train","query":"从 ChEMBL 与 BindingDB 核验这个化合物的 target、assay type、Kd 单位和物种。","should_trigger":true,"expected_primary_skill":"scientific-database-grounding","rationale":"Compound bioactivity record grounding belongs here."},
+    {"id":"database-positive-05","split":"train","query":"查询 ENCODE cCRE 与 GTEx，记录 genome build、组织和证据类型。","should_trigger":true,"expected_primary_skill":"scientific-database-grounding","rationale":"Regulatory and expression database records require explicit context."},
+    {"id":"database-positive-06","split":"validation","query":"设计一个 count-first 的 Ensembl API 查询，并记录 endpoint、fields、分页和访问日期。","should_trigger":true,"expected_primary_skill":"scientific-database-grounding","rationale":"A reproducible database query contract is within scope."},
+    {"id":"database-positive-07","split":"validation","query":"ClinVar 与 VEP 对这个变异的 transcript consequence 不一致，请列出冲突而不要静默合并。","should_trigger":true,"expected_primary_skill":"scientific-database-grounding","rationale":"Cross-database conflict handling is a core responsibility."},
+    {"id":"database-positive-08","split":"validation","query":"用 Open Targets 核验 target-disease evidence type 和 directionality，只表述数据库记录。","should_trigger":true,"expected_primary_skill":"scientific-database-grounding","rationale":"Evidence-typed target records with claim boundaries belong here."},
+    {"id":"database-positive-09","split":"validation","query":"查 PubMed 与 Crossref 核对 PMID、DOI、题名和年份，作为数据库 metadata source-data。","should_trigger":true,"expected_primary_skill":"scientific-database-grounding","rationale":"Publication metadata lookup as a database record is supported."},
+    {"id":"database-positive-10","split":"validation","query":"查询结果为空时记录 exact query、release、rate limit 和替代来源，不要断言实体不存在。","should_trigger":true,"expected_primary_skill":"scientific-database-grounding","rationale":"Bounded empty-result handling is part of reliable grounding."},
+    {"id":"database-negative-01","split":"train","query":"系统检索蛋白结构预测的 benchmark 论文并做 evidence map。","should_trigger":false,"expected_primary_skill":"literature-search-workflow","rationale":"Paper-set discovery and synthesis belong to literature search."},
+    {"id":"database-negative-02","split":"train","query":"精读这篇 ClinVar 相关论文的 Figure 2。","should_trigger":false,"expected_primary_skill":"paper-reader","rationale":"Specified-paper interpretation belongs to paper-reader."},
+    {"id":"database-negative-03","split":"train","query":"检查这条 DOI 是否支持我写的机制结论。","should_trigger":false,"expected_primary_skill":"citation-verifier","rationale":"Claim-to-citation fit belongs to citation-verifier."},
+    {"id":"database-negative-04","split":"train","query":"批量下载 gnomAD VCF 后写脚本做 burden test。","should_trigger":false,"expected_primary_skill":"bioinfo-analysis-code","rationale":"Bulk data processing and statistical analysis belong to code execution."},
+    {"id":"database-negative-05","split":"train","query":"根据数据库关联直接判断该药对患者是否有效。","should_trigger":false,"expected_primary_skill":"clinical-bioinformatics-evidence","rationale":"Patient-facing clinical inference exceeds database-record grounding."},
+    {"id":"database-negative-06","split":"validation","query":"审查稿件是否把 AlphaFold prediction 写成实验结构。","should_trigger":false,"expected_primary_skill":"claim-evidence-audit","rationale":"Textual overclaim auditing belongs to claim-evidence-audit."},
+    {"id":"database-negative-07","split":"validation","query":"对这个蛋白执行 docking 并比较 pose 与 score。","should_trigger":false,"expected_primary_skill":"protein-structure-docking","rationale":"Docking execution is outside database lookup."},
+    {"id":"database-negative-08","split":"validation","query":"为稿件统一 gene symbol 的斜体和大小写，不需要查询来源。","should_trigger":false,"expected_primary_skill":"manuscript-consistency-audit","rationale":"Manuscript notation consistency without lookup is not grounding."},
+    {"id":"database-negative-09","split":"validation","query":"帮我找最近五年关于 GTEx eQTL 的综述。","should_trigger":false,"expected_primary_skill":"literature-search-workflow","rationale":"Finding a paper set is literature discovery."},
+    {"id":"database-negative-10","split":"validation","query":"把数据库导出的 TSV 画成 publication-ready heatmap。","should_trigger":false,"expected_primary_skill":"publication-plotting","rationale":"Plot production is not database record grounding."}
+  ]
+}

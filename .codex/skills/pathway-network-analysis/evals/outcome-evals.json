@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "skill_name": "pathway-network-analysis",
+  "purpose": "Evaluate universe control, method-specific QC, reproducibility, and evidence-bounded interpretation.",
+  "cases": [
+    {
+      "id": "pathway-outcome-ora-01",
+      "mode": "ORA",
+      "task": "Run over-representation analysis on a filtered gene list.",
+      "must_include": [
+        "foreground and eligible background",
+        "species ID type and mapping counts",
+        "database version and gene-set bounds",
+        "multiple-testing correction and complete table",
+        "threshold-sensitivity caveat"
+      ],
+      "must_not": [
+        "default silently to whole genome",
+        "hide unmapped genes",
+        "treat pathway names as mechanism proof"
+      ]
+    },
+    {
+      "id": "pathway-outcome-gsea-01",
+      "mode": "ranked enrichment",
+      "task": "Run GSEA on a complete ranked result table.",
+      "must_include": [
+        "rank metric and direction",
+        "duplicate and tie handling",
+        "gene-set size and permutation strategy",
+        "leading-edge genes with input effects",
+        "FDR and database version"
+      ],
+      "must_not": [
+        "threshold the ranked list into an unexplained foreground",
+        "omit rank-direction semantics",
+        "interpret NES without core genes"
+      ]
+    },
+    {
+      "id": "pathway-outcome-network-01",
+      "mode": "network analysis",
+      "task": "Construct and analyze a PPI or biological graph.",
+      "must_include": [
+        "node universe and edge source",
+        "directionality weight and confidence",
+        "node and edge filters",
+        "layout seed and topology checks",
+        "hypothesis-generating interpretation"
+      ],
+      "must_not": [
+        "equate degree with functional necessity",
+        "mix predicted and experimental edges without labels",
+        "hide isolated or filtered nodes"
+      ]
+    },
+    {
+      "id": "pathway-outcome-qc-01",
+      "mode": "existing-result QC",
+      "task": "Review a pathway analysis that only retained top-term figures.",
+      "must_include": [
+        "recoverable input and universe status",
+        "mapping and database provenance gaps",
+        "complete-table requirement",
+        "term redundancy and leading-edge review",
+        "bounded reanalysis or claim downgrade"
+      ],
+      "must_not": [
+        "reconstruct missing parameters from plot appearance",
+        "treat top terms as the complete tested universe",
+        "approve manuscript claims without recoverable evidence"
+      ]
+    },
+    {
+      "id": "pathway-outcome-safety-01",
+      "mode": "overinterpretation guardrail",
+      "task": "Handle a request to call a central hub or enriched pathway a proven disease mechanism.",
+      "must_include": [
+        "explicit refusal to upgrade evidence",
+        "edge or gene-set provenance",
+        "alternative bias explanations",
+        "safe exploratory wording",
+        "minimum orthogonal validation"
+      ],
+      "must_not": [
+        "state causality from enrichment or centrality",
+        "present database association as direct experiment",
+        "claim final scientific approval"
+      ]
+    }
+  ]
+}

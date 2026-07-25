@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "skill_name": "drug-discovery-admet-screening",
+  "purpose": "Evaluate routing for target and compound evidence, campaign screening, QSAR/ADMET and prioritization against structure/docking interpretation, database lookup and clinical advice.",
+  "cases": [
+    {
+      "id": "admet-positive-01",
+      "split": "train",
+      "query": "整合遗传学、扰动、expression、druggability 和 safety liability，为四个靶点建立维度化 evidence map。",
+      "should_trigger": true,
+      "expected_primary_skill": "drug-discovery-admet-screening",
+      "rationale": "Multidimensional target-evidence mapping is a core task."
+    },
+    {
+      "id": "admet-positive-02",
+      "split": "train",
+      "query": "从 ChEMBL、BindingDB 和 PubChem 整理活性数据，保留 assay、construct、relation、units 和 confidence。",
+      "should_trigger": true,
+      "expected_primary_skill": "drug-discovery-admet-screening",
+      "rationale": "Bioactivity grounding for compound screening belongs here."
+    },
+    {
+      "id": "admet-positive-03",
+      "split": "train",
+      "query": "为 10 万个小分子设计分阶段 virtual-screening campaign，包括标准化、过滤、pilot、attrition 和 stop criteria。",
+      "should_trigger": true,
+      "expected_primary_skill": "drug-discovery-admet-screening",
+      "rationale": "Campaign-level screen design is a primary capability."
+    },
+    {
+      "id": "admet-positive-04",
+      "split": "train",
+      "query": "评估一个 hERG 分类模型：endpoint、数据来源、scaffold split、applicability domain、calibration 和 missingness。",
+      "should_trigger": true,
+      "expected_primary_skill": "drug-discovery-admet-screening",
+      "rationale": "Endpoint-specific ADMET model assessment is in scope."
+    },
+    {
+      "id": "admet-positive-05",
+      "split": "train",
+      "query": "把 measured bioactivity、docking summary、solubility、CYP inhibition 和 structural alerts 分层后排序候选。",
+      "should_trigger": true,
+      "expected_primary_skill": "drug-discovery-admet-screening",
+      "rationale": "Dimension-level multi-evidence candidate prioritization belongs here."
+    },
+    {
+      "id": "admet-positive-06",
+      "split": "validation",
+      "query": "只读审查一个 repurposing 候选表，区分 pathway/omics reversal、已测活性和 clinical context。",
+      "should_trigger": true,
+      "expected_primary_skill": "drug-discovery-admet-screening",
+      "rationale": "A read-only repurposing evidence review is a supported mode."
+    },
+    {
+      "id": "admet-positive-07",
+      "split": "validation",
+      "query": "设计 ADME/Tox panel，不要给单一 ADMET 总分，要说明每个 endpoint 的单位、模型、domain 和 uncertainty。",
+      "should_trigger": true,
+      "expected_primary_skill": "drug-discovery-admet-screening",
+      "rationale": "Endpoint-specific ADMET panel design is central to this skill."
+    },
+    {
+      "id": "admet-positive-08",
+      "split": "validation",
+      "query": "对 generative model 产生的分子做 validity、去重、novelty、合成风险和 known-liability 初筛。",
+      "should_trigger": true,
+      "expected_primary_skill": "drug-discovery-admet-screening",
+      "rationale": "Generated-molecule triage before downstream screening belongs here."
+    },
+    {
+      "id": "admet-positive-09",
+      "split": "validation",
+      "query": "比较两套候选排序对 missing-value policy 和权重的敏感性，并列出 conflicting evidence。",
+      "should_trigger": true,
+      "expected_primary_skill": "drug-discovery-admet-screening",
+      "rationale": "Ranking sensitivity and evidence conflicts are core decision support."
+    },
+    {
+      "id": "admet-positive-10",
+      "split": "validation",
+      "query": "为 covalent inhibitor 项目建立 compound table，分开 reactivity alert、measured potency、selectivity 和 predicted PK。",
+      "should_trigger": true,
+      "expected_primary_skill": "drug-discovery-admet-screening",
+      "rationale": "Campaign evidence separation and compound prioritization are in scope."
+    },
+    {
+      "id": "admet-negative-01",
+      "split": "train",
+      "query": "解释 Vina pose 是否位于正确 pocket，检查 clash、金属配位和 buried polar groups。",
+      "should_trigger": false,
+      "expected_primary_skill": "protein-structure-docking",
+      "rationale": "Pose-level structural QC belongs to protein-structure-docking."
+    },
+    {
+      "id": "admet-negative-02",
+      "split": "train",
+      "query": "检查 AlphaFold 模型的 pLDDT、PAE、chain mapping 和缺失 interface residues。",
+      "should_trigger": false,
+      "expected_primary_skill": "protein-structure-docking",
+      "rationale": "Single-model structure QA belongs to protein-structure-docking."
+    },
+    {
+      "id": "admet-negative-03",
+      "split": "train",
+      "query": "为 WT 和 mutant 设计完全匹配的 protein-protein docking 与 replicate policy。",
+      "should_trigger": false,
+      "expected_primary_skill": "protein-structure-docking",
+      "rationale": "Matched structural docking comparison is outside ADMET screening."
+    },
+    {
+      "id": "admet-negative-04",
+      "split": "train",
+      "query": "只核验这个 InChIKey 对应的 PubChem CID 和 canonical SMILES，不做筛选。",
+      "should_trigger": false,
+      "expected_primary_skill": "scientific-database-grounding",
+      "rationale": "A pure database identity lookup should not trigger the screening skill."
+    },
+    {
+      "id": "admet-negative-05",
+      "split": "train",
+      "query": "根据预测的 low toxicity 和 high QED 直接推荐患者开始服药。",
+      "should_trigger": false,
+      "expected_primary_skill": "clinical-bioinformatics-evidence",
+      "rationale": "Patient-level treatment advice is outside this research Skill and must route to the clinical safety boundary."
+    },
+    {
+      "id": "admet-negative-06",
+      "split": "validation",
+      "query": "证明一次 docking score 改善说明突变恢复了蛋白功能和疾病表型。",
+      "should_trigger": false,
+      "expected_primary_skill": "claim-evidence-audit",
+      "rationale": "This is an unsupported claim audit rather than a screening task."
+    },
+    {
+      "id": "admet-negative-07",
+      "split": "validation",
+      "query": "把已有 ADMET 表画成雷达图和 heatmap，不改变任何筛选定义。",
+      "should_trigger": false,
+      "expected_primary_skill": "publication-plotting",
+      "rationale": "Pure visualization belongs to publication plotting."
+    },
+    {
+      "id": "admet-negative-08",
+      "split": "validation",
+      "query": "审计论文中所有药物安全和因果 claim 是否有相应 figure、table 和 citation。",
+      "should_trigger": false,
+      "expected_primary_skill": "claim-evidence-audit",
+      "rationale": "A manuscript-wide claim audit is not candidate screening."
+    },
+    {
+      "id": "admet-negative-09",
+      "split": "validation",
+      "query": "给 reports/screening 目录写一个短 README，指向 current table、producer 和 manifest。",
+      "should_trigger": false,
+      "expected_primary_skill": "project-directory-card-maintenance",
+      "rationale": "Artifact directory navigation belongs to the directory-card skill."
+    },
+    {
+      "id": "admet-negative-10",
+      "split": "validation",
+      "query": "把整个项目迁移到 CCDS 布局并移动 raw、processed、models 和 reports。",
+      "should_trigger": false,
+      "expected_primary_skill": "research-data-organization",
+      "rationale": "Physical project migration is not a drug-screening task."
+    }
+  ]
+}

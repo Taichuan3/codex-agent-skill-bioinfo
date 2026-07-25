@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "skill_name": "task-self-check",
+  "purpose": "Evaluate lightweight final delivery gating against deep audits, decision review, validation design, and implementation.",
+  "cases": [
+    {
+      "id": "self-check-positive-01",
+      "split": "train",
+      "query": "交付前对这份分析报告做一次轻量自检，区分 Pass、Needs fix 和 Not checked。",
+      "should_trigger": true,
+      "expected_primary_skill": "task-self-check",
+      "rationale": "The user explicitly requests bounded final QA."
+    },
+    {
+      "id": "self-check-positive-02",
+      "split": "train",
+      "query": "最后检查这个脚本交付是否写清输入、输出、命令、环境和参数。",
+      "should_trigger": true,
+      "expected_primary_skill": "task-self-check",
+      "rationale": "Reproducibility fields in a concrete deliverable are a QA check."
+    },
+    {
+      "id": "self-check-positive-03",
+      "split": "train",
+      "query": "检查刚生成的图是否可读、是否能追踪到 source data，并给出最小修复。",
+      "should_trigger": true,
+      "expected_primary_skill": "task-self-check",
+      "rationale": "Figure readability and traceability are lightweight final checks."
+    },
+    {
+      "id": "self-check-positive-04",
+      "split": "train",
+      "query": "这项任务要交付了，请确认最终回复包含实际完成、文件、验证边界、风险和下一决策。",
+      "should_trigger": true,
+      "expected_primary_skill": "task-self-check",
+      "rationale": "Delivery completeness is a core self-check dimension."
+    },
+    {
+      "id": "self-check-positive-05",
+      "split": "train",
+      "query": "对当前结果表做最终 QA：探索性结果有没有被写成确认结论？",
+      "should_trigger": true,
+      "expected_primary_skill": "task-self-check",
+      "rationale": "Phase-aware wording in a concrete deliverable is a final gate."
+    },
+    {
+      "id": "self-check-positive-06",
+      "split": "validation",
+      "query": "只检查我指定的三个文件能否安全交付，看不到的证据标 Not checked。",
+      "should_trigger": true,
+      "expected_primary_skill": "task-self-check",
+      "rationale": "A bounded artifact check with honest unknowns is core."
+    },
+    {
+      "id": "self-check-positive-07",
+      "split": "validation",
+      "query": "给这个已完成的数据整理任务一个 Ready、Ready with caveats 或 Not ready 结论。",
+      "should_trigger": true,
+      "expected_primary_skill": "task-self-check",
+      "rationale": "Readiness classification after completion is core."
+    },
+    {
+      "id": "self-check-positive-08",
+      "split": "validation",
+      "query": "交付前确认 manifest 指向当前文件，报告里没有把临时日志当作主结论。",
+      "should_trigger": true,
+      "expected_primary_skill": "task-self-check",
+      "rationale": "Current pointer and delivery hygiene are lightweight QA."
+    },
+    {
+      "id": "self-check-positive-09",
+      "split": "validation",
+      "query": "对这个项目计划做最后的范围、假设、验收标准和停止条件检查，不要重写计划。",
+      "should_trigger": true,
+      "expected_primary_skill": "task-self-check",
+      "rationale": "The task is final QA of an existing plan, not planning."
+    },
+    {
+      "id": "self-check-positive-10",
+      "split": "validation",
+      "query": "完成修改后跑一个最小交付门控，列出 High、Medium、Low 问题和最小修复。",
+      "should_trigger": true,
+      "expected_primary_skill": "task-self-check",
+      "rationale": "Severity-ranked final gating is core."
+    },
+    {
+      "id": "self-check-negative-01",
+      "split": "train",
+      "query": "系统审计稿件的每个 claim 与数据、图表和引用是否匹配。",
+      "should_trigger": false,
+      "expected_primary_skill": "claim-evidence-audit",
+      "rationale": "A deep systematic claim audit exceeds lightweight QA."
+    },
+    {
+      "id": "self-check-negative-02",
+      "split": "train",
+      "query": "检查 Results、Methods、图注和补充表之间的整篇一致性。",
+      "should_trigger": false,
+      "expected_primary_skill": "manuscript-consistency-audit",
+      "rationale": "Whole-manuscript consistency belongs to a dedicated audit."
+    },
+    {
+      "id": "self-check-negative-03",
+      "split": "train",
+      "query": "这个方法值得继续用吗？比较替代方案和维护成本。",
+      "should_trigger": false,
+      "expected_primary_skill": "research-decision-review",
+      "rationale": "A high-impact method choice is decision review."
+    },
+    {
+      "id": "self-check-negative-04",
+      "split": "train",
+      "query": "为这个探索性 claim 设计三档验证路线和成功判据。",
+      "should_trigger": false,
+      "expected_primary_skill": "validation-strategy-planner",
+      "rationale": "Validation design is not final QA."
+    },
+    {
+      "id": "self-check-negative-05",
+      "split": "train",
+      "query": "实现缺失的绘图脚本并修复坐标轴标签。",
+      "should_trigger": false,
+      "expected_primary_skill": "publication-plotting",
+      "rationale": "Creating and fixing the artifact is an execution task."
+    },
+    {
+      "id": "self-check-negative-06",
+      "split": "validation",
+      "query": "逐条核验参考文献是否真实存在、DOI 是否正确、原文是否支持句子。",
+      "should_trigger": false,
+      "expected_primary_skill": "citation-verifier",
+      "rationale": "Citation verification is a specialized evidence check."
+    },
+    {
+      "id": "self-check-negative-07",
+      "split": "validation",
+      "query": "从一个模糊方向制定完整 project charter 和 figure skeleton。",
+      "should_trigger": false,
+      "expected_primary_skill": "research-project-planner",
+      "rationale": "Creating a project route is not checking a completed deliverable."
+    },
+    {
+      "id": "self-check-negative-08",
+      "split": "validation",
+      "query": "运行全部测试并修改代码直到测试通过。",
+      "should_trigger": false,
+      "expected_primary_skill": "bioinfo-analysis-code",
+      "rationale": "Implementation and test repair are not a report-only self-check."
+    },
+    {
+      "id": "self-check-negative-09",
+      "split": "validation",
+      "query": "把这份草稿润色为正式中文科学表达。",
+      "should_trigger": false,
+      "expected_primary_skill": "chinese-scientific-polishing",
+      "rationale": "Polishing creates the text rather than gating it."
+    },
+    {
+      "id": "self-check-negative-10",
+      "split": "validation",
+      "query": "查看当前 Git 分支名称。",
+      "should_trigger": false,
+      "expected_primary_skill": "none",
+      "rationale": "A trivial status query does not need research delivery QA."
+    }
+  ]
+}

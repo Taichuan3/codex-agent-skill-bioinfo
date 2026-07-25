@@ -1,4 +1,4 @@
 interface:
   display_name: "Pathway Network Analysis"
-  short_description: "Plan pathway and network analysis with evidence limits"
-  default_prompt: "Use $pathway-network-analysis for this task."
+  short_description: "Analyze pathways and networks with evidence limits"
+  default_prompt: "Use $pathway-network-analysis to plan, QC, and interpret this pathway or network analysis."

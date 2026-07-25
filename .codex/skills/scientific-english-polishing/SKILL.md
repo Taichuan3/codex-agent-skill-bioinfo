@@ -1,6 +1,6 @@
 ---
 name: scientific-english-polishing
-description: 用于已有英文科研文本的润色、压缩、段落重构、标题/摘要/图注/response letter 英文打磨和学术语气检查；必须保护证据边界，不能升级科学 claim。中文到英文翻译使用 `scientific-english-translation`。
+description: 用于润色、压缩或重构已有英文科研文本，适用于标题、摘要、正文、方法、回复信和既有英文图注，并保持术语、数字、caveat 与证据强度。中文或中英混合内容转英文用 scientific-english-translation，中文输出用 chinese-scientific-polishing；需要从图和分析信息起草或审查完整 figure title/panel legend/caption 时用 figure-caption。
 ---
 
 # Scientific English Polishing
@@ -9,49 +9,35 @@ description: 用于已有英文科研文本的润色、压缩、段落重构、�
 
 如何在不升级 claim 的前提下，把已有英文科研文本变得更清楚、更精炼、更符合学术表达？
 
-## 使用场景
+## 路由与边界
 
-当用户提供已有英文文本并要求英文润色、Nature/CNS-leaning style、摘要压缩、标题优化、response letter 改写或 figure legend 英文打磨时使用本 skill。
+- 以来源语言路由：输入已是英文且目标是更清楚、简洁或合适的学术语气时用本 Skill；中文或以中文为主的输入转英文用 `scientific-english-translation`。
+- 只改已有英文 caption 的语言时用本 Skill；需要补齐 title、panel、n、统计、编码、source data 或 caveat 时改用或组合 `figure-caption`。
+- 中文输出用 `chinese-scientific-polishing`；主要任务是判断 claim 能否成立时先用 `claim-evidence-audit`。
+- 不发明数据、文献、机制、novelty 或统计，不静默改变数字、样本、过滤和术语定义。
 
-## 不适合触发
+## 润色契约
 
-- 输入主要是中文并需要英文输出时，使用 `scientific-english-translation`。
-- 只需要中文润色时，使用 `chinese-scientific-polishing`。
-- 文本中的科学结论证据不足时，不直接强化表达；先标注风险，必要时联动 `claim-evidence-audit`。
-
-
-## 核心原则
-
-- 先确认 claim 的证据等级，再改英文。
-- 不为了语言更强而把 association 写成 causation。
-- 不把 exploratory、candidate、putative、suggestive 结果写成 demonstrated、established、required。
-- 保留项目 profile 中定义的术语和禁止性表达。
-- 保持 scientific terminology 一致性。同一概念、对象或结构层级必须使用同一英文术语；不要为了 stylistic variation 把同一对象在相邻句中改写为不同名词，例如未定义差异时不要在 `element`、`copy`、`unit`、`locus`、`sequence` 之间来回切换。
-- 只有在不同术语代表不同层级或不同对象时才并用，并应在文本中明确边界。
-- 能压缩就压缩，但不能删除关键 caveat、样本范围、数据类型和统计限定。
-- 润色完成后先自检再输出。风险说明、术语说明和替代表达只在确有必要时给出，避免把无问题文本附加过多说明。
+- 保留 scientific meaning、evidence level、关键 caveat、样本范围、数据类型和统计限定。
+- 不把 association 改为 causation，不把 exploratory、candidate、putative 或 suggestive 改为 demonstrated、established 或 required。
+- 一个概念稳定使用一个术语；科学名词不为追求 stylistic variation 而换同义词。
+- 先修正段落功能、论证顺序和歧义，再改句式；压缩不得删除改变解释范围的信息。
+- “Nature/CNS 风格”不等于更强措辞；目标期刊 author instructions 优先于通用风格。
 
 ## 工作流程
 
-1. 读取根 `AGENTS.md`、当前项目 profile 和用户给定文本。
-2. 标出文本中的核心 claim、证据等级和必须保留的 caveat。
-3. 建立或保留 terminology map，检查同一概念是否被多个英文词替换、代词是否指代不清。
-4. 先修正结构、术语歧义和过强 claim，再进行句子层面润色。
-5. 对高风险表达给出替代表述，而不是直接强化。
-6. 交付前自检：检查 claim 是否升级、terminology 是否稳定、section stance 是否正确、caveat 是否保留、英文是否引入新歧义。
-7. 如发现证据不足或表达风险，明确说明不建议使用的英文表达。
+1. 确认文本已是英文，并识别章节、读者、长度、期刊导向和必须保留的术语。
+2. 标出核心 claim、证据等级、caveat、数字和术语；疑似事实错误不自行修正。
+3. 先处理结构、控制句、指代和术语，再做句子级清晰化与压缩。
+4. 对照原文检查意义、数字、术语、claim 强度、section stance 和遗漏。
 
 ## 输出格式
 
-根据任务输出：
-
-- `Polished version`：可直接替换的英文。
-- `More concise version`：可选；仅在用户要求压缩或原文明显冗长时提供。
-- `Risk notes`：可选；仅在存在过度解释、证据不足或 section stance 风险时提供。
-- `Terms preserved`：可选；仅在项目 profile 或用户文本中有必须保留的术语时提供。
-- `Terminology notes`：可选；仅在发现术语不一致、已做术语统一或仍有歧义时提供。
+- 默认给出可直接替换的 `Polished version`。
+- 仅在用户要求时提供 `More concise version` 或替代语气。
+- 仅在存在问题时增加 `Risk notes` 或 `Terminology notes`。
 
 ## 按需读取
 
-需要检查英文过强措辞、section stance、style guardrails 或 Nature/CNS-leaning academic style 时，读取 `references/style-guardrails.md`。
-需要按高影响期刊作者指南检查英文 manuscript section function、title/abstract/results/discussion/methods/figure legend 写作职责时，读取 `references/high-impact-journal-writing.md`。
+- 局部英文需要检查术语、过强措辞或 section stance 时，读取 `references/style-guardrails.md`。
+- 用户明确要求高影响期刊导向或整段 manuscript section 重构时，读取 `references/high-impact-journal-writing.md`；目标期刊规则优先。

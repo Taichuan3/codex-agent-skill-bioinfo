@@ -1,46 +1,44 @@
 ---
 name: paper-reader
-description: 用于阅读用户指定的科研论文、PDF、全文 markdown 或网页论文，并输出中文结构化阅读笔记、关键证据、figure grounding、可借鉴方法和局限。不用于开放式文献检索；需要查找新文献时使用 literature-search-workflow。
+description: 用于精读用户指定的一篇或固定少量科研论文、PDF、全文网页、markdown、补充材料或指定图表，提取研究设计、figure/table 证据链、claim 边界、方法参数、可复用资源和局限；不用于开放式找文献、数据库实体查询、参考文献表核验或稿件全局审计。
 ---
 
 # Paper Reader
 
 ## 核心问题
 
-如何从一篇指定论文中提取可验证证据、figure grounding、方法启发和局限，而不是泛泛总结？
+如何从指定论文中提取可定位、可复核且不超出原文的证据？
 
-## 使用场景
+## 能力边界
 
-当用户指定一篇或少量论文，希望理解其研究问题、方法、证据、图表和可借鉴点时使用本 skill。目标是帮用户读懂论文，而不是替作者扩展未证明结论。
+- 本 Skill 拥有固定 paper set 的全文阅读、结构化理解和 figure/table grounding。
+- 需要发现或筛选新 paper set 时，改用 `literature-search-workflow`。
+- 只核验 DOI/PMID、题录或 claim-to-citation 匹配时，改用 `citation-verifier`。
+- 只查数据库实体记录时，改用 `scientific-database-grounding`。
+- 跨稿件检查 claim 强度或内部一致性时，分别改用 `claim-evidence-audit` 或 `manuscript-consistency-audit`。
+- 不把单篇论文结论自动迁移为用户项目事实，也不代替方法复现或独立验证。
 
-## 核心原则
+## 输入与访问边界
 
-- 只基于用户提供或明确指定的论文内容。
-- 区分作者结论、数据支持、解释假设和读者可借鉴方法。
-- figure/table 必须对应到支持的 claim。
-- 不把单篇论文结论自动泛化到用户项目。
-- 长论文优先压缩为可维护摘要，不全文翻译。
+- 优先读取用户提供的 PDF/全文/补充材料或明确指定的链接、DOI、PMID。
+- 只有 metadata/abstract 时，清楚标记 `metadata-only` 或 `abstract-only`；不得补写未见的实验细节、图表结果或局限。
+- PDF/OCR/网页抽取不完整时记录缺页、不可读 figure、supplement 缺失和访问限制。
+- 引用原文时保持短摘录并定位到 page、section、figure、table 或 supplement；其余内容用忠实释义。
 
 ## 工作流程
 
-1. 确认输入：PDF、全文、DOI、链接、用户摘录或图表。
-2. 提取 paper identity：题目、作者、年份、期刊、研究对象、数据类型。
-3. 识别 central question、main claim 和 study design。
-4. 按 figure/table 提取证据链：每张图回答什么、用了什么数据、支持什么 claim。
-5. 总结可借鉴方法、可复用工具、关键参数、局限和潜在偏差。
-6. 标记与用户项目可能相关但需要独立验证的点。
+1. 核验 paper identity、版本和可用材料，区分 preprint、accepted manuscript 与 version of record。
+2. 提取 central question、study system、design、sample/data、comparison、endpoint 和主要假设。
+3. 建立 claim–evidence 表：作者 claim、支持的 figure/table、数据、分析、结果和 caveat。
+4. 对关键 figure/table 检查 panel、axis/legend、sample size、control、statistical definition 和 supplement 依赖。
+5. 提取可复用方法、参数、software/version、data/code accession，以及复现所缺信息。
+6. 区分作者解释、数据直接支持、读者推断和未验证机制；指出外推范围。
+7. 输出与用户问题相关的 take-home、局限和 follow-up，不做无关全文翻译。
 
-## 输出格式
+## 按需读取
 
-优先输出：
+需要逐图精读、panel-to-claim 映射或 figure/table 证据表时，读取 `references/figure-grounding-template.md`。
 
-- `One-sentence take-home`
-- `Research question`
-- `Data and methods`
-- `Main claims and evidence`
-- `Figure grounding`
-- `Reusable ideas for our project`
-- `Limitations / caveats`
-- `Follow-up questions`
+## 交付契约
 
-需要精读图表时，读取 `references/figure-grounding-template.md`。
+至少交付 paper identity、access scope、research question、design/data/methods、main claims with evidence locations、limitations 和 follow-up questions。若用户要求比较固定少量论文，使用同一字段逐篇提取后再比较，避免把跨论文解释写成任一作者的结论。
