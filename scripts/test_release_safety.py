@@ -13,13 +13,20 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def source_copy_ignore(directory: str, names: list[str]) -> set[str]:
+    ignored = set(shutil.ignore_patterns(".git", "__pycache__", "*.pyc")(directory, names))
+    if Path(directory).resolve() == (ROOT / ".codex").resolve():
+        ignored.add("candidates")
+    return ignored
+
+
 def copy_source(destination: Path) -> Path:
     source = destination / "source"
     shutil.copytree(
         ROOT,
         source,
         symlinks=True,
-        ignore=shutil.ignore_patterns(".git", "__pycache__", "*.pyc"),
+        ignore=source_copy_ignore,
     )
     return source
 
