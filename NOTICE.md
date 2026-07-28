@@ -1,11 +1,11 @@
 # Provenance and third-party notice
 
-The 37 portable Skill packages and six custom Agent definitions in this
+The 38 portable Skill packages and six custom Agent definitions in this
 repository are maintained as the repository owner's cross-device Codex
 capability source. The 2026-07-25 standardization pass reorganized existing
 repository material; this pass did not import a new third-party Skill corpus.
 
-## Historical provenance gate: RECONSTRUCTED, STABLE REVIEW OPEN
+## Historical provenance: RECONSTRUCTED; OWNER-SYNC MAIN AUTHORIZED
 
 Repository history contains commits `e649474` ("expand bioinfo skill coverage
 from external corpus") and `875cb4a` ("Absorb external bioinfo skill
@@ -13,17 +13,16 @@ mechanisms"). Their upstream repository, snapshot, license and capability-level
 absorption records have now been reconstructed from earlier audit commits in
 `docs/EXTERNAL_SOURCE_PROVENANCE.md`.
 
-The reconstructed record supports candidate review but has not received the
-repository owner's stable-release license decision. The historical K-Dense
-snapshot is also no longer retrievable from its remote, although the historical
-audit and current upstream both identify MIT. Until final review closes these
-points, do not represent the package as license-cleared, create a stable
-release/tag, merge it to `main`, or redistribute it as an externally reusable
-package.
+The repository owner authorized the reviewed package as canonical `main` for
+the copyright holder's own multi-device installation and use on 2026-07-28.
+The historical K-Dense snapshot is no longer retrievable from its remote,
+although the historical audit and current upstream both identify MIT. This
+owner-sync decision does not make the package license-cleared for external
+reuse and does not authorize a stable release/tag or redistribution.
 
-The repository owner has authorized publication of the current feature branch
-for public review. That review-candidate publication is not an installable,
-reusable, stable, or license-cleared release.
+The owner-authorized canonical `main` is installable by the repository owner
+across their own terminals. It is not an open-source, externally reusable,
+redistributable, or license-cleared public release.
 
 References may name scientific tools, databases, standards, papers, or workflow
 conventions. Those names and factual citations do not vendor or relicense the

@@ -36,3 +36,4 @@ domain-13	domain-environment	只读盘点散落的 data/results/figures 并设�
 domain-14	domain-environment	只更新 PROJECT_GUIDE 的 current story。	project-guide-maintainer	project-guide-maintainer	Codex Desktop collaboration subagent; build not exposed	2026-07-25	true
 domain-15	domain-environment	在不读完整 PROJECT_PLAN 的情况下追加 material-action 记录。	project-state-maintenance	project-state-maintenance	Codex Desktop collaboration subagent; build not exposed	2026-07-25	true
 domain-16	domain-environment	为 reports/figures 建立短 README 导航卡。	project-directory-card-maintenance	project-directory-card-maintenance	Codex Desktop collaboration subagent; build not exposed	2026-07-25	true
+domain-17	discovery-orchestration	请把文献证据、可证伪假设、候选决策、计算分析和实验反馈串成有人类决策门的闭环。	research-discovery-orchestration	research-discovery-orchestration	Codex Desktop blinded routing evaluator; build not exposed	2026-07-28	true

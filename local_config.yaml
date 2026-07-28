@@ -1,7 +1,7 @@
 package:
   name: codex-agent-skill-bioinfo
-  version: 2.0-codex-multidevice-rc5
-  release_status: candidate_only_provenance_reconstructed_stable_review_required
+  version: 2.1-owner-canonical
+  release_status: stable_owner_sync_not_open_source_reuse
   scope: generic_bioinformatics_research
   runtime_scope: user_global
   default_language: zh-CN
@@ -77,6 +77,7 @@ skills:
   - publication-plotting
   - research-data-organization
   - research-decision-review
+  - research-discovery-orchestration
   - research-project-planner
   - research-question-brief
   - reviewer-response-builder
@@ -135,7 +136,7 @@ hard_constraints:
   - project_agents_declare_data_results_figures_source_data_manifest_and_environment
 
 validation:
-  expected_skill_count: 37
+  expected_skill_count: 38
   expected_root_agents: 1
   expected_custom_agent_count: 6
   expected_registered_execution_capabilities: 6
@@ -157,9 +158,10 @@ branch_integration:
     - home_PC_codex
     - lab_PC_codex
   policy: >
-    Collect candidates on short-lived branches; absorb mature Home/Lab/runtime mechanisms
-    with keep/merge/split/project-only/local-only/reject review; open a draft PR;
-    never merge or update main without explicit user approval.
+    MacBook maintains the owner-canonical main after provenance, privacy,
+    behavior and release review plus explicit user approval. Other terminals
+    and high-risk experiments use short-lived candidate branches; do not mirror
+    whole machines or update main without explicit user approval.
 
 sync_scope:
   include:

@@ -17,3 +17,4 @@ local_path	source_id	upstream_ref	upstream_path	method	shared_40_char_shingles	s
 .codex/skills/protein-structure-docking/SKILL.md	atomistic	ca695e1b89ea48613291c88bd8c73e71af2025c7	.agents/skills/drug-docking-vina/SKILL.md	normalized exact-set comparison	0	0	pass
 .codex/skills/scientific-database-grounding/SKILL.md	science-skills	33557e0f1faf0f281d255940de58935c61b2143b	skills/clinical_trials_database/SKILL.md	normalized exact-set comparison	0	0	pass
 .codex/skills/variant-genomics-interpretation/SKILL.md	science-skills	33557e0f1faf0f281d255940de58935c61b2143b	skills/clinvar_database/SKILL.md	normalized exact-set comparison	0	0	pass
+.codex/skills/research-discovery-orchestration/SKILL.md	robin	4a5cce310f3bc7663a67117db88af43b84733ffe	README.md;robin/*.py	normalized 40-character shingle and line-set comparison	0	0	pass

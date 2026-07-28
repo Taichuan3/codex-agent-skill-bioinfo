@@ -420,8 +420,11 @@ else:
     }
     if not routing_rows or set(routing_rows[0]) != required_routing_fields:
         fail("routing forward-test record has an invalid header")
-    if len(routing_rows) != 37:
-        fail(f"routing forward-test record has {len(routing_rows)} rows, expected 37")
+    if expected_skills is not None and len(routing_rows) != expected_skills:
+        fail(
+            f"routing forward-test record has {len(routing_rows)} rows, "
+            f"expected {expected_skills}"
+        )
     routing_ids = [row.get("case_id", "") for row in routing_rows]
     if len(routing_ids) != len(set(routing_ids)):
         fail("routing forward-test record contains duplicate case IDs")
@@ -623,12 +626,12 @@ else:
     notice_text = notice_file.read_text(encoding="utf-8")
     if "third-party" not in notice_text.lower():
         fail("NOTICE.md must state third-party provenance handling")
-    if "Historical provenance gate: RECONSTRUCTED, STABLE REVIEW OPEN" not in notice_text:
-        fail("NOTICE.md must preserve the reconstructed provenance and stable-review gate")
-    if "authorized publication of the current feature branch" not in notice_text:
-        fail("NOTICE.md must distinguish public review-branch publication from a stable release")
-if "release_status: candidate_only_provenance_reconstructed_stable_review_required" not in manifest_text:
-    fail("local_config.yaml must preserve the stable-release provenance review gate")
+    if "Historical provenance: RECONSTRUCTED; OWNER-SYNC MAIN AUTHORIZED" not in notice_text:
+        fail("NOTICE.md must preserve reconstructed provenance and owner-sync main scope")
+    if "owner-authorized canonical `main`" not in notice_text:
+        fail("NOTICE.md must distinguish owner installation from external reuse")
+if "release_status: stable_owner_sync_not_open_source_reuse" not in manifest_text:
+    fail("local_config.yaml must preserve the owner-sync and no-open-reuse boundary")
 external_provenance = ROOT / "docs" / "EXTERNAL_SOURCE_PROVENANCE.md"
 if not external_provenance.is_file():
     fail("docs/EXTERNAL_SOURCE_PROVENANCE.md is missing")
@@ -638,6 +641,7 @@ else:
         "ClawBio/ClawBio",
         "GPTomics/bioSkills",
         "google-deepmind/science-skills",
+        "Future-House/robin",
         "CC-BY-4.0",
         "no executable wrapper copied",
     ):
@@ -777,11 +781,11 @@ else:
     }
     if not expression_rows or set(expression_rows[0]) != required_expression_fields:
         fail("external expression review has an invalid header")
-    if len(expression_rows) != 18:
-        fail("external expression review must preserve the 18 retrieved comparison pairs")
+    if len(expression_rows) != 19:
+        fail("external expression review must preserve the 19 retrieved comparison pairs")
     expression_local_paths = {row.get("local_path", "") for row in expression_rows}
-    if len(expression_local_paths) != 7:
-        fail("external expression review must cover seven unique current Skill bodies")
+    if len(expression_local_paths) != 8:
+        fail("external expression review must cover eight unique current Skill bodies")
     for row in expression_rows:
         if not (ROOT / row.get("local_path", "")).is_file():
             fail(f"expression review local path is missing: {row.get('local_path')}")
@@ -804,6 +808,8 @@ else:
         "Apache-2.0",
         "historical short ref `0807ddb`",
         "reference-only and never a copy source",
+        "Future-House/robin",
+        "4a5cce310f3bc7663a67117db88af43b84733ffe",
     ):
         if required_text not in third_party_text:
             fail(f"third-party notices are missing: {required_text}")
@@ -821,6 +827,7 @@ if external_provenance.is_file():
         "aba7c4e9695c363e65cb59effe926c7f1d1abe3d",
         "896224c4b1879920ab573417e68fd51d2ccc9072",
         "175cee7c25b5d98d919369f53427c646cdd86d93",
+        "4a5cce310f3bc7663a67117db88af43b84733ffe",
     }
     for full_sha in full_shas:
         if full_sha not in provenance_text:
@@ -830,7 +837,8 @@ if external_provenance.is_file():
         "Reference-only because the exact audited object cannot be revalidated",
         "Skill/docs/content CC-BY-4.0; code Apache-2.0",
         "Five initially unavailable path guesses were corrected",
-        "user-authorized publication of the current public",
+        "repository owner's explicit authorization of",
+        "canonical `main`",
         "`nature-skills` is reference-only",
     ):
         if required_text not in provenance_text:

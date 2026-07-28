@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "skill_name": "research-discovery-orchestration",
+  "purpose": "Evaluate routing for iterative literature-to-hypothesis-to-experiment discovery against specialist planning, evidence, analysis, decision and project-state Skills.",
+  "cases": [
+    {
+      "id": "discovery-positive-01",
+      "split": "train",
+      "query": "围绕这个疾病建立从文献检索、机制假设、体外 assay、候选药物筛选到实验结果反馈下一轮假设的完整闭环。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-discovery-orchestration",
+      "rationale": "The request explicitly spans evidence, hypotheses, assay, candidates and feedback."
+    },
+    {
+      "id": "discovery-positive-02",
+      "split": "train",
+      "query": "把我们已有的文献、数据库、ADMET 和验证 Skills 编排成 lab-in-the-loop 流程，每轮都保留人类决策门。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-discovery-orchestration",
+      "rationale": "Cross-Skill orchestration and human gates are the primary deliverable."
+    },
+    {
+      "id": "discovery-positive-03",
+      "split": "train",
+      "query": "初筛实验已经有结果，请把结果回写到原假设，决定哪些被削弱、哪些进入下一轮候选生成。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-discovery-orchestration",
+      "rationale": "Post-experiment hypothesis updating and next-cycle handoff are core."
+    },
+    {
+      "id": "discovery-positive-04",
+      "split": "train",
+      "query": "设计一个多 Agent 科研闭环：先广搜再深审，比较 assay 假设，用户确认后分析数据并提出下一实验。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-discovery-orchestration",
+      "rationale": "The task requires several linked stages and a decision gate."
+    },
+    {
+      "id": "discovery-positive-05",
+      "split": "train",
+      "query": "每轮查文献、筛候选和分析实验后，下一个执行者都不知道上一轮否定了什么；请建立连续交接和结果回写流程。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-discovery-orchestration",
+      "rationale": "The request spans evidence, selection and experiment analysis with cross-cycle handoff."
+    },
+    {
+      "id": "discovery-positive-06",
+      "split": "validation",
+      "query": "用公开数据做一次保守 dry-run，从研究问题到结构化假设、分析分歧综合和下一轮决策，不能自动执行实验。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-discovery-orchestration",
+      "rationale": "A bounded end-to-end dry run belongs to the discovery orchestrator."
+    },
+    {
+      "id": "discovery-positive-07",
+      "split": "validation",
+      "query": "将 pilot RNA-seq 的多个合理分析路径分别执行并综合，但必须说明它们如何改变原机制假设和后续验证。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-discovery-orchestration",
+      "rationale": "Multi-trajectory analysis is explicitly connected to hypothesis feedback."
+    },
+    {
+      "id": "discovery-positive-08",
+      "split": "validation",
+      "query": "先提出可证伪机制和区分性实验，再筛选候选并设置 stop/pivot 条件，实验返回后继续下一循环。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-discovery-orchestration",
+      "rationale": "The request defines an iterative discovery cycle with falsification and stopping."
+    },
+    {
+      "id": "discovery-positive-09",
+      "split": "validation",
+      "query": "让不同执行者依次完成证据收集、机制筛选和实验数据分析，并追踪每次批准如何改变下一轮假设。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-discovery-orchestration",
+      "rationale": "The request explicitly spans three stages, approvals and next-cycle hypothesis feedback."
+    },
+    {
+      "id": "discovery-positive-10",
+      "split": "validation",
+      "query": "对三个 assay 和五个候选做稳定性审查，用户选定后接入实验分析，并把新证据用于下一轮优先级。",
+      "should_trigger": true,
+      "expected_primary_skill": "research-discovery-orchestration",
+      "rationale": "Ranking, human selection, analysis and feedback span the orchestrated loop."
+    },
+    {
+      "id": "discovery-negative-01",
+      "split": "train",
+      "query": "我只有一个模糊的基因组学想法，先压成一页研究问题简报。",
+      "should_trigger": false,
+      "expected_primary_skill": "research-question-brief",
+      "rationale": "Early question clarification does not yet require a discovery cycle."
+    },
+    {
+      "id": "discovery-negative-02",
+      "split": "train",
+      "query": "研究问题已经明确，请从零设计项目路线、figure skeleton、里程碑和风险。",
+      "should_trigger": false,
+      "expected_primary_skill": "research-project-planner",
+      "rationale": "A project plan without iterative execution or feedback belongs to planning."
+    },
+    {
+      "id": "discovery-negative-03",
+      "split": "train",
+      "query": "系统检索这个通路与疾病的文献，记录检索式、纳排标准和 evidence table。",
+      "should_trigger": false,
+      "expected_primary_skill": "literature-search-workflow",
+      "rationale": "A literature evidence set is a single specialist deliverable."
+    },
+    {
+      "id": "discovery-negative-04",
+      "split": "train",
+      "query": "先补充现有药物的文献和数据库证据，再把 potency、docking 与 ADMET 合并排序；本次不进入实验或下一轮反馈。",
+      "should_trigger": false,
+      "expected_primary_skill": "drug-discovery-admet-screening",
+      "rationale": "Evidence collection plus candidate ranking without experiment feedback remains a drug-discovery deliverable."
+    },
+    {
+      "id": "discovery-negative-05",
+      "split": "train",
+      "query": "按已确定方案执行 bulk RNA-seq 差异表达分析并输出 QC 和结果表。",
+      "should_trigger": false,
+      "expected_primary_skill": "rnaseq-singlecell-workflow",
+      "rationale": "A fixed domain analysis is not a cross-stage discovery cycle."
+    },
+    {
+      "id": "discovery-negative-06",
+      "split": "validation",
+      "query": "审查论文里关于这个候选机制的 claim 是否被现有图表和统计支持。",
+      "should_trigger": false,
+      "expected_primary_skill": "claim-evidence-audit",
+      "rationale": "Claim support review is a bounded audit deliverable."
+    },
+    {
+      "id": "discovery-negative-07",
+      "split": "validation",
+      "query": "针对一个探索性富集结果设计计算、独立数据和实验验证矩阵。",
+      "should_trigger": false,
+      "expected_primary_skill": "validation-strategy-planner",
+      "rationale": "A claim-linked validation matrix belongs to the validation planner."
+    },
+    {
+      "id": "discovery-negative-08",
+      "split": "validation",
+      "query": "比较继续采用 Robin、只吸收机制或完全重写这三个方案，给条件化建议。",
+      "should_trigger": false,
+      "expected_primary_skill": "research-decision-review",
+      "rationale": "An existing high-impact option choice belongs to decision review."
+    },
+    {
+      "id": "discovery-negative-09",
+      "split": "validation",
+      "query": "核对 Ensembl、UniProt 和 Open Targets 中基因 G 的 ID、版本、疾病关联记录和访问日期。",
+      "should_trigger": false,
+      "expected_primary_skill": "scientific-database-grounding",
+      "rationale": "Cross-database entity and record verification is database grounding, not orchestration."
+    },
+    {
+      "id": "discovery-negative-10",
+      "split": "validation",
+      "query": "把今天完成的分析和 next actions 更新到 PROJECT_GUIDE。",
+      "should_trigger": false,
+      "expected_primary_skill": "project-guide-maintainer",
+      "rationale": "Project hot-state maintenance is not discovery orchestration."
+    }
+  ]
+}

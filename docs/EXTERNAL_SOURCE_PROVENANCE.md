@@ -32,6 +32,7 @@ source is present in this package.
 | `superpowers` | [`obra/superpowers@896224c4b1879920ab573417e68fd51d2ccc9072`](https://github.com/obra/superpowers/tree/896224c4b1879920ab573417e68fd51d2ccc9072) | [MIT `LICENSE`](https://github.com/obra/superpowers/blob/896224c4b1879920ab573417e68fd51d2ccc9072/LICENSE) | Material review/workstream-concept reference; no Skill body or script copied |
 | `context-engineering` | [`muratcankoylan/Agent-Skills-for-Context-Engineering@175cee7c25b5d98d919369f53427c646cdd86d93`](https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering/tree/175cee7c25b5d98d919369f53427c646cdd86d93) | [MIT `LICENSE`](https://github.com/muratcankoylan/Agent-Skills-for-Context-Engineering/blob/175cee7c25b5d98d919369f53427c646cdd86d93/LICENSE) | Material context-management reference; no Skill body or script copied |
 | `kdense-historical` | [`K-Dense-AI/scientific-agent-skills`](https://github.com/K-Dense-AI/scientific-agent-skills) historical short ref `0807ddb` | Historical audit recorded MIT; the full historical SHA is no longer reachable. Current upstream declares [MIT in `LICENSE.md`](https://github.com/K-Dense-AI/scientific-agent-skills/blob/main/LICENSE.md). | Reference-only because the exact audited object cannot be revalidated; never a copy source |
+| `robin` | [`Future-House/robin@4a5cce310f3bc7663a67117db88af43b84733ffe`](https://github.com/Future-House/robin/tree/4a5cce310f3bc7663a67117db88af43b84733ffe) | [Apache-2.0 `LICENSE`](https://github.com/Future-House/robin/blob/4a5cce310f3bc7663a67117db88af43b84733ffe/LICENSE) | Material staged-discovery and feedback-loop mechanism reference; local Skill and contracts independently rewritten; no code, prompt or Skill body copied |
 
 The historical 20-repository inventory also listed official specifications,
 indexes, and repositories with unknown licenses. They remain reference-only or
@@ -51,6 +52,7 @@ unknown-license sources cannot be promoted to material sources.
 | `drug-discovery-admet-screening` | `bionemo`, `gptomics`, `clawbio` | campaign-stage decisions and prediction limits |
 | writing/publication Skills | none; `nature-skills` is reference-only | package-owned router/reference layering and output contracts |
 | governance/self-check Skills | `addyosmani`, `superpowers`, `context-engineering` | verification, review and context-management concepts |
+| `research-discovery-orchestration` | `robin` | stage transitions, structured handoffs, lab-in-the-loop feedback and disagreement-preserving multi-trajectory review |
 
 ## Expression review and limitations
 
@@ -66,8 +68,15 @@ documentation and then tested: two `science-skills`, two `bionemo`, and one
 exhaustive copyright determination, so the package retains conservative source
 attribution and a no-vendoring boundary.
 
-This record supports the user-authorized publication of the current public
-review branch. It does not authorize representing that branch as an installable
-or reusable release, creating a stable release or tag, or merging to `main`;
-those actions still require the repository owner's explicit release and
-licensing decision.
+On 2026-07-28, `research-discovery-orchestration/SKILL.md` was compared with
+the fixed Robin `README.md` and eight Python source files using normalized
+40-character shingles and normalized lines of at least 35 characters. Both
+shared counts were zero. The related Nature article
+[`10.1038/s41586-026-10652-y`](https://doi.org/10.1038/s41586-026-10652-y)
+was used only as method evidence; its CC BY-NC-ND 4.0 text and figures were not
+copied, adapted or redistributed.
+
+This record supports the repository owner's explicit authorization of
+canonical `main` for the copyright holder's own multi-device installation. It
+does not authorize external reuse or redistribution, describe the package as a
+license-cleared public release, or authorize a stable release/tag.

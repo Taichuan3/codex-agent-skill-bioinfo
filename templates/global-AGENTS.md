@@ -6,7 +6,7 @@
 - Agent 只采用两层：本机全局 `~/.codex/AGENTS.md` 与具体项目根 `AGENTS.md`。仅用于容纳多个项目的父目录不创建 `AGENTS.md`、`PROJECT_GUIDE.md` 或 `PROJECT_PLAN.md`。
 - 默认使用中文沟通、规划、审查和交付；正式英文稿件、代码/API 字段或用户明确要求时使用英文。
 - 生信任务优先在 `~/bioinfo` 工作并使用 `bioinfo` conda 环境；非生信任务留在用户指定或当前项目。
-- 用户级 37 个计算生物学 Skills 通过 `~/.agents/skills` 全局发现，不受当前目录限制；具体任务只读取语义匹配的最小 Skill 集。
+- 用户级 38 个计算生物学 Skills 通过 `~/.agents/skills` 全局发现，不受当前目录限制；具体任务只读取语义匹配的最小 Skill 集。
 
 ## Collaboration and decision ownership
 

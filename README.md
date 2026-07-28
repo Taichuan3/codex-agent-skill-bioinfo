@@ -18,7 +18,7 @@
 - `.codex/config.toml.example` — 经当前本机 Codex 验证的多 Agent 配置片段；按机器合并，不覆盖用户现有配置。
 - `.agents/skills` — 指向 `.codex/skills` 的 repo-scope 兼容入口，供 standalone OpenAI Codex CLI/IDE/app 自动发现 skills。
 - `scripts/install_codex_bioinfo.py` — 默认 dry-run、检查 source revision/digest 且失败时事务回滚的用户级安装器。
-- `scripts/validate_package.py` — 全部 37 个 Skills 的结构、metadata、资源路由、eval 平衡、Agent TOML、敏感路径和发现入口校验。
+- `scripts/validate_package.py` — 全部 38 个 Skills 的结构、metadata、资源路由、eval 平衡、Agent TOML、敏感路径和发现入口校验。
 - `scripts/test_release_safety.py` — privacy 拒绝项与安装器 symlink preflight 的隔离回归 fixtures。
 - `scripts/validate_capability_run.py` — 对单次后端运行记录执行版本、授权、输入、provenance、artifact 与 evidence-boundary 门控。
 - `scripts/test_capability_behavior.py` — 8 个去身份化行为 fixtures，覆盖任务不匹配、输入/运行时缺失、模型未授权、浮动版本和不完整产物的安全停止。
@@ -48,7 +48,7 @@ python3 scripts/install_codex_bioinfo.py
 python3 scripts/install_codex_bioinfo.py --apply
 ```
 
-安装器会把 `$HOME/.agents/skills` 指向当前 release，使 37 个 Skills 成为不受工作目录限制的用户级全局能力；同时使用 `templates/global-AGENTS.md` 更新全局 `AGENTS.md`，并把自定义 Agent 安装到 `$HOME/.codex/agents/`。遇到非 symlink 的现有 `$HOME/.agents/skills` 时会停止，不静默覆盖。
+安装器会把 `$HOME/.agents/skills` 指向当前 release，使 38 个 Skills 成为不受工作目录限制的用户级全局能力；同时使用 `templates/global-AGENTS.md` 更新全局 `AGENTS.md`，并把自定义 Agent 安装到 `$HOME/.codex/agents/`。遇到非 symlink 的现有 `$HOME/.agents/skills` 时会停止，不静默覆盖。
 
 `--apply` 在 Git checkout 中要求 source 工作树干净，并记录 source revision 与 package digest。安装期间任一步失败都会尝试恢复 Skill symlink、全局 guidance、旧 Skill 和 custom Agents；备份目录保留安装来源和恢复证据。
 
@@ -60,7 +60,7 @@ python3 scripts/install_codex_bioinfo.py --apply --replace-global-guidance
 
 该模式仍会先备份原文件；后续普通安装可以通过 managed markers 原位更新，不会再次追加重复 block。
 
-若旧版用户 Skills 仍位于 `$HOME/.codex/skills` 并与新 37 个 Skills 重名，可显式备份并退出这些旧目录：
+若旧版用户 Skills 仍位于 `$HOME/.codex/skills` 并与新 38 个 Skills 重名，可显式备份并退出这些旧目录：
 
 ```bash
 python3 scripts/install_codex_bioinfo.py --apply \
@@ -81,17 +81,17 @@ python3 scripts/install_codex_bioinfo.py --apply \
 
 ## 分支规则
 
-- `main`：稳定、可直接安装到 Home/Lab standalone Codex 的版本。
-- `agent/<topic>`：短生命周期的候选整理/审查分支，通过 draft PR 汇总变更。
+- `main`：由 MacBook 维护的 owner-canonical，供 Home/Lab standalone Codex 直接安装和同步。
+- `agent/<topic>`：其他终端、高风险实验或需要隔离审查时使用的短生命周期候选分支。
 - 旧机器分支只作为历史输入，不再作为可直接安装的完整镜像。
 
-MacBook Codex 可以周期性整理各终端的候选变化，但必须逐项审查来源、适用范围、隐私、license 和复现性。只有通过验证并获得用户明确批准后，才允许合并或更新 `main`。
+MacBook Codex 可以把已完成 provenance、隐私、行为和 release review 的成熟变更直接发布到 `main`，但仍需用户明确批准。其他终端的变化先作为候选输入，不得整机覆盖 canonical。
 
 ## 许可边界
 
 本仓库目前公开用于来源审阅和仓库所有者的多设备同步，但尚未授予开源复用许可；以根 `LICENSE` 为准。第三方工具、标准和知识来源仍受各自许可证或使用条款约束，仓库不因引用其名称而重新授权其内容。若未来希望允许外部人员复制、修改或分发，应由仓库所有者另行选择并提交明确的开源许可证。
 
-此外，`docs/EXTERNAL_SOURCE_PROVENANCE.md` 已从历史审计提交恢复 external-corpus 的 upstream、snapshot、license 和能力级吸收记录；`docs/EXTERNAL_FILE_LINEAGE.tsv` 保存四次历史吸收提交涉及的 62 个 current/tombstone 文件级处置，`docs/EXTERNAL_EXPRESSION_REVIEW_2026-07-25.tsv` 保存 18 组 exact-ref 表达比较，`THIRD_PARTY_NOTICES.md` 保存保守归因。其中历史 K-Dense snapshot 已无法从当前远端重新获取，只能由历史审计与当前 MIT 声明交叉支持。因此当前分支仍只能作为公开审查候选，不得描述为 license-cleared、installable/reusable release，不得创建 stable release/tag 或合并到 `main`；本次候选分支上传不代表 stable-review gate 已关闭。
+此外，`docs/EXTERNAL_SOURCE_PROVENANCE.md`、`docs/EXTERNAL_FILE_LINEAGE.tsv`、`docs/EXTERNAL_EXPRESSION_REVIEW_2026-07-25.tsv` 与 `THIRD_PARTY_NOTICES.md` 保存历史来源、处置和保守归因。仓库所有者已授权当前版本作为自己跨设备安装使用的 canonical `main`；这不等于开放复用、第三方再分发或 license-cleared public release。历史 K-Dense 精确 snapshot 仍不可重新获取，因此不创建 stable release/tag，也不向外部授予根 `LICENSE` 之外的权利。
 
 ## 维护原则
 
@@ -106,9 +106,9 @@ MacBook Codex 可以周期性整理各终端的候选变化，但必须逐项审
 
 ## 当前状态
 
-- Source skills：37 个。
+- Source skills：38 个。
 - Codex custom agents：6 个。
-- 37 个 Skills 已统一为双字段 frontmatter、按需 references、三字段 UI metadata、20 条平衡 trigger eval 和至少 5 条 outcome case；当前共有 740 条 trigger 与 200 条 outcome 定义。
+- 38 个 Skills 已统一为双字段 frontmatter、按需 references、三字段 UI metadata、20 条平衡 trigger eval 和至少 5 条 outcome case；当前共有 760 条 trigger 与 207 条 outcome 定义。
 - Package validator 检查 eval 的 schema、数量、平衡、路由所有者和冲突；另有 8 个 capability safe-stop fixtures，但它们不替代真实模型 trigger/outcome forward test 或科研结果验证。
 - 六个高频科研 owner Skill 已通过 capability registry 连接可选执行后端；registry 中的 `tool-bound` 只表示完成选路契约，不能写成安装、集成测试或科研验证已完成。
 - Runtime 成熟经验按逐项 keep/merge 审查后回流 source；项目沉积、机器路径和重复 reference 不进入 canonical。

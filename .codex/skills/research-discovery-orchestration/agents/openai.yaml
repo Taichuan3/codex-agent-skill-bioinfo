@@ -1,0 +1,4 @@
+interface:
+  display_name: "Research Discovery Orchestration"
+  short_description: "编排可审计的人机协同科研发现、实验分析与反馈闭环流程"
+  default_prompt: "Use $research-discovery-orchestration to design a bounded literature-to-hypothesis-to-experiment feedback cycle."

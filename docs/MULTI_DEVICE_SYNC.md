@@ -26,7 +26,7 @@
 
 计算生物学项目可以共享通用内核，但项目事实不能交叉污染：
 
-1. 通用 bioinfo：本仓库的 37 个 Skills 和 6 个自定义 Agents。
+1. 通用 bioinfo：本仓库的 38 个 Skills 和 6 个自定义 Agents。
 2. 基因组模型/调控预测项目：项目 API Skill 与主管 Agent 随私有项目仓库。
 3. 蛋白结构与 docking 项目：通用方法进入 `protein-structure-docking`；具体蛋白、突变、结构与结果留在项目仓库。
 4. 重复序列/基因组结构等未发表课题：通用 repeat/genomics、绘图和证据审查机制可回流；未发表假说、路径、数据和 claim 永不进入公共内核。
@@ -51,7 +51,7 @@
 3. 实现 Agent 逐项 keep/merge/split/project-only/local-only/reject。
 4. `bioinfo_reproducibility_reviewer` 与 `bioinfo_release_reviewer` 独立复核。
 5. 运行 `python3 scripts/validate_package.py`。
-6. 推送分支并创建 draft PR；未经用户明确批准不合并 `main`。
+6. 其他终端或高风险实验推送短期分支并创建 draft PR；MacBook canonical 在用户明确批准后可直接更新 `main`。
 
 不要让 Home/Lab 分支长期充当完整机器镜像，也不要把某台机器的目录整包覆盖 canonical。
 
@@ -74,7 +74,7 @@ python3 scripts/install_codex_bioinfo.py --apply
 
 `--apply` 在 Git checkout 中只接受干净 source，并记录 commit 与 package digest；安装失败时事务性恢复已触及的 Skill symlink、global guidance、legacy Skills 和 custom Agents。开发态 dirty symlink 只能用于本机迭代，不能作为已审查 release parity 证据。
 
-`$HOME/.agents/skills` 是用户级全局发现入口，因此 37 个 Skills 在任意项目目录均可用，不依赖项目是否位于 `~/bioinfo`。若历史安装在 `$HOME/.codex/skills` 留下重名用户 Skills，使用：
+`$HOME/.agents/skills` 是用户级全局发现入口，因此 38 个 Skills 在任意项目目录均可用，不依赖项目是否位于 `~/bioinfo`。若历史安装在 `$HOME/.codex/skills` 留下重名用户 Skills，使用：
 
 ```bash
 python3 scripts/install_codex_bioinfo.py --apply \
@@ -99,8 +99,8 @@ python3 scripts/install_codex_bioinfo.py --apply \
 
 1. 停在可复现 checkpoint。
 2. 运行最小验证。
-3. commit 并 push 唯一 task branch。
-4. 在 PR 或 handoff 中记录目标、commit、测试、未完成项和下一命令。
-5. 另一台机器 fetch 后创建干净 worktree；不接管未提交状态。
+3. 非 canonical 终端 commit 并 push 唯一 task branch；MacBook canonical 经批准后更新 `main`。
+4. 在 commit、PR 或 handoff 中记录目标、commit、测试、未完成项和下一命令。
+5. 另一台机器 fetch 后从 `main` 建立干净 checkout/worktree；不接管未提交状态。
 
 服务器作为执行节点：同一 release 提供规则和 Skills，原始数据、环境、凭据和大型结果留在服务器，Git 只同步代码、manifest、轻量 source data 和审查记录。

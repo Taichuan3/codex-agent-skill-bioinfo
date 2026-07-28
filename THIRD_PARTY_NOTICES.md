@@ -19,6 +19,7 @@ concepts.
 | obra/superpowers | `896224c4b1879920ab573417e68fd51d2ccc9072` | MIT; source and license linked in provenance; no Skill body or script copied |
 | muratcankoylan/Agent-Skills-for-Context-Engineering | `175cee7c25b5d98d919369f53427c646cdd86d93` | MIT; source and license linked in provenance; context-management concepts independently rewritten |
 | K-Dense-AI/scientific-agent-skills | historical short ref `0807ddb` | Historical audit recorded MIT, but the full object is unavailable; reference-only and never a copy source |
+| Future-House/robin | `4a5cce310f3bc7663a67117db88af43b84733ffe` | Apache-2.0 code; staged discovery, ranking and feedback mechanisms were independently rewritten for `research-discovery-orchestration`; no upstream code, prompt or Skill body copied. The related Nature article is method evidence only and its CC BY-NC-ND 4.0 text/figures were not adapted or redistributed |
 
 Scientific tools, databases, methods, standards, and factual constraints named
 inside local Skills remain governed by their original terms and citation
