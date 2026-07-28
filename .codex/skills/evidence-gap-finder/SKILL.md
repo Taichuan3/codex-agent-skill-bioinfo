@@ -5,6 +5,10 @@ description: 用于从已有结果、论文草稿、figure plan、claim-evidence
 
 # Evidence Gap Finder
 
+## 核心问题
+
+如何从现有结果和草稿中找出最小但关键的缺失证据，而不是盲目增加分析？
+
 ## 使用场景
 
 当用户已经有结果或草稿，但不确定哪些证据缺失、哪些 claim 过强、下一步最值得补什么分析时使用本 skill。

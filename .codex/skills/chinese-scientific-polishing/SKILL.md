@@ -5,6 +5,10 @@ description: 用于中文科研文本润色、结构优化和可读性提升，�
 
 # Chinese Scientific Polishing
 
+## 核心问题
+
+如何在不改变证据强度的前提下，让中文科研文本更清楚、更顺、更像给真实读者看的研究叙事？
+
 ## 使用场景
 
 当用户要求“中文润色”“让这段更通顺”“优化结构”“结果段更好读”“中文论文段落打磨”时使用本 skill。英文翻译使用 `scientific-english-translation`。
