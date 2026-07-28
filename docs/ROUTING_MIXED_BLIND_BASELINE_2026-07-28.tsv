@@ -1,0 +1,39 @@
+case_id	query	original_expected	observed_a	observed_b	agreement	a_match	b_match
+B01	从 TSV 计算每个样本的 median、IQR 和 missing-rate，输出机器可读 summary 并验证分组数量。	bioinfo-analysis-code	bioinfo-analysis-code	bioinfo-analysis-code	true	true	true
+B02	核对整篇稿件的 Results、Methods、图注和补充表是否一致。	manuscript-consistency-audit	manuscript-consistency-audit	manuscript-consistency-audit	true	true	true
+B03	只访问到摘要，请把 citation 标成 partial verification，不要推断全文。	citation-verifier	citation-verifier	citation-verifier	true	true	true
+B04	核验这 30 条 DOI 和 PMID 是否对应正确论文，并修正引用身份。	citation-verifier	citation-verifier	citation-verifier	true	true	true
+B05	比较标签、监管安全信息和自发不良事件信号，说明为什么不能据此直接估计发生率或因果性。	clinical-bioinformatics-evidence	clinical-bioinformatics-evidence	clinical-bioinformatics-evidence	true	true	true
+B06	修复一个普通脚本 bug 并运行单元测试。	bioinfo-analysis-code	none	none	true	false	false
+B07	只读审查一个 repurposing 候选表，区分 pathway/omics reversal、已测活性和 clinical context。	drug-discovery-admet-screening	drug-discovery-admet-screening	claim-evidence-audit	false	true	false
+B08	解释 conda environment、kernel 和 VS Code interpreter 为什么可能不一致，不要安装任何东西。	project-environment-bootstrap	environment-and-tool-adoption	environment-and-tool-adoption	true	false	false
+B09	在两周和现有数据限制下，哪些补强会真正改变 claim strength？	evidence-gap-finder	evidence-gap-finder	evidence-gap-finder	true	true	true
+B10	检查全文所有 figures、Results、Methods 和 supplements 是否一致。	manuscript-consistency-audit	manuscript-consistency-audit	manuscript-consistency-audit	true	true	true
+B11	只制定关于空间转录组去卷积的可复现 search strategy，不实际声称找到任何论文。	literature-search-workflow	literature-search-workflow	literature-search-workflow	true	true	true
+B12	根据真实 reviewer comments 起草逐条回复，并标出待补分析。	reviewer-response-builder	none	none	true	false	false
+B13	为 genetics、omics、clinical 三模态模型设计 negative controls、modality ablation 和 data-size curve。	ml-benchmarking	ml-benchmarking	ml-benchmarking	true	true	true
+B14	帮我找一篇最适合入门 AlphaFold 的综述。	literature-search-workflow	literature-search-workflow	literature-search-workflow	true	true	true
+B15	解释现有 network centrality 和 community 结果，区分优先级线索、数据库偏倚和功能证据。	pathway-network-analysis	pathway-network-analysis	pathway-network-analysis	true	true	true
+B16	核查论文每个 figure panel 的 source data、统计定义和脚本是否完整。	source-data-audit	claim-evidence-audit	claim-evidence-audit	true	false	false
+B17	只读确认这个仓库的 branch、upstream、remote protocol 和 local-only 文件是否被追踪，不要 push。	project-environment-bootstrap	none	none	true	false	false
+B18	把用户的原始研究想法整理成一个边界明确的问题简报。	research-question-brief	none	none	true	false	false
+B19	在项目 AGENTS.md 加入 GUIDE hot、PLAN cold append-only 和定向历史读取规则，并做 focused verification。	project-state-maintenance	project-guide-maintainer	project-guide-maintainer	true	false	false
+B20	根据一个较低的 docking score 直接证明这个突变导致了疾病机制。	claim-evidence-audit	protein-structure-docking	protein-structure-docking	true	false	false
+B21	把两张内部分析图整合进读者版报告，同步图片链接、alt text、编号和主图/补图位置。	publication-plotting	figure-caption	figure-caption	true	false	false
+B22	请在服务器上创建 conda 环境并配置 Slurm 作业入口，不需要整理项目数据目录。	project-environment-bootstrap	project-environment-bootstrap	project-environment-bootstrap	true	true	true
+B23	请建设性反对我的现有方案，并给出最强替代方案和最小去风险步骤。	research-decision-review	research-decision-review	research-decision-review	true	true	true
+B24	审查论文里关于这个候选机制的 claim 是否被现有图表和统计支持。	claim-evidence-audit	claim-evidence-audit	claim-evidence-audit	true	true	true
+B25	为跨队列整合项目规划数据、对照、统计、外部验证、里程碑和 go/no-go criteria。	research-project-planner	research-decision-review	research-decision-review	true	false	false
+B26	系统检索这个研究方向的综述、经典论文和近五年证据。	literature-search-workflow	literature-search-workflow	literature-search-workflow	true	true	true
+B27	Editor 有三条 instruction、Reviewer 1 有八条 comment；先做 completeness count，再排 revision dependencies。	reviewer-response-builder	manuscript-consistency-audit	none	false	false	false
+B28	请扮演这位具名领域专家并断言他会拒稿。	none	none	none	true	true	true
+B29	我只有 processed h5ad；请审查还能可靠做哪些 QC、marker 和 condition comparison，并标出不能重建的步骤。	rnaseq-singlecell-workflow	ngs-analysis:ngs-scrna-seq	ngs-analysis:ngs-scrna-seq	true	false	false
+B30	审查稿件是否把 AlphaFold prediction 写成实验结构。	claim-evidence-audit	claim-evidence-audit	claim-evidence-audit	true	true	true
+B31	Improve this English title for clarity, but keep its associative rather than causal stance.	scientific-english-polishing	none	none	true	false	false
+B32	核验英文稿中的 DOI 和参考文献是否真正支持相关结论。	citation-verifier	citation-verifier	citation-verifier	true	true	true
+B33	检查所有 SKILL.md 是否只有 name 和 description frontmatter，并核验 openai.yaml 三个 interface 字段。	skill-quality-audit	skill-creator	skill-creator	true	false	false
+B34	模拟审稿人，找出这篇论文最可能被攻击的统计和机制问题。	reviewer-simulation	evidence-gap-finder	claim-evidence-audit	false	false	false
+B35	大版本收尾后复核此前 blocking issues 是否关闭，并说明哪些 gate 仍未验证。	submission-readiness-audit	research-decision-review	project-state-maintenance	false	false	false
+B36	逐条核验参考文献是否真实存在、DOI 是否正确、原文是否支持句子。	citation-verifier	citation-verifier	citation-verifier	true	true	true
+B37	为跨队列可泛化性 claim 设计复制分析，写清什么算成功、混合或失败。	validation-strategy-planner	ml-benchmarking	ml-benchmarking	true	false	false
+B38	系统检索所有关于这个 locus 的 functional genomics 论文并制作引用矩阵。	literature-search-workflow	literature-search-workflow	literature-search-workflow	true	true	true

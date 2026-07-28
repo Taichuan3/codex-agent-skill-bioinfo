@@ -1,6 +1,6 @@
 ---
 name: research-project-planner
-description: 为尚未执行的生物信息学或计算生物学项目设计可确认的研究路线，将已具基本边界的方向转成 central question、knowledge gap、hypothesis、evidence package、figure skeleton、技术模块、风险、里程碑和 stop/pivot criteria；用于项目启动或重大重规划，不用于一页问题澄清、既有方案取舍审查、单个 claim 的验证矩阵、具体执行或 GUIDE 状态维护。
+description: 用于新项目启动或重大重规划：把已有基本边界的生物信息学方向设计成 central question、knowledge gap、hypothesis、evidence package、figure skeleton、技术模块、风险、里程碑和 stop/pivot criteria；不负责早期一页问题澄清、既有方案取舍、单个 claim 验证、具体执行或 GUIDE 状态维护。
 ---
 
 # Research Project Planner

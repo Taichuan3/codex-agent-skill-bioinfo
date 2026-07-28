@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 from typing import Any
@@ -15,6 +16,28 @@ DEFAULT_REGISTRY = ROOT / ".codex" / "capability_registry.json"
 STATUSES = {"planned", "blocked", "validated", "completed", "failed"}
 ACTIONS = {"install", "credentials", "api_quota", "data_upload"}
 FLOATING_REFS = {"latest", "main", "master", "dev", "head", "current"}
+FULL_HASH_RE = re.compile(r"^[0-9a-f]{40}(?:[0-9a-f]{24})?$", re.IGNORECASE)
+DIGEST_REF_RE = re.compile(r"^.+@sha256:[0-9a-f]{64}$", re.IGNORECASE)
+VERSIONED_REF_RE = re.compile(
+    r"^.+(?:==|@)(?:v?\d+(?:\.\d+){1,3}(?:[-+][0-9A-Za-z.-]+)?)$"
+)
+
+
+def is_immutable_or_versioned_ref(value: str) -> bool:
+    """Accept immutable hashes/digests or explicit numeric release versions."""
+    ref = value.strip()
+    if not ref:
+        return False
+    lowered = ref.lower()
+    terminal = re.split(r"==|@|/", lowered)[-1]
+    if terminal in FLOATING_REFS:
+        return False
+    if FULL_HASH_RE.fullmatch(ref) or DIGEST_REF_RE.fullmatch(ref):
+        return True
+    if VERSIONED_REF_RE.fullmatch(ref):
+        return True
+    suffix = re.split(r"==|@", ref)[-1]
+    return bool(FULL_HASH_RE.fullmatch(suffix))
 
 
 def load_json(path: Path) -> dict[str, Any]:
@@ -65,9 +88,7 @@ def validate_record(
     backend_ref = str(record.get("backend_ref", "")).strip()
     if not backend_ref:
         errors.append("backend_ref is required")
-    elif backend_ref.lower() in FLOATING_REFS or backend_ref.lower().endswith(
-        ("/latest", "@latest")
-    ):
+    elif not is_immutable_or_versioned_ref(backend_ref):
         errors.append(f"backend_ref must be immutable or versioned: {backend_ref}")
 
     status = record.get("status")
@@ -130,14 +151,32 @@ def validate_record(
     if not isinstance(checks, list) or not checks:
         errors.append("checks must be a non-empty list")
         checks = []
-    check_statuses = {
-        item.get("status")
-        for item in checks
-        if isinstance(item, dict) and item.get("name")
-    }
-    if not check_statuses.issubset({"pass", "fail", "not_run"}):
-        errors.append("check status must be pass, fail, or not_run")
-    if status in {"validated", "completed"} and check_statuses != {"pass"}:
+    check_statuses: list[str] = []
+    check_names: set[str] = set()
+    for index, item in enumerate(checks):
+        if not isinstance(item, dict):
+            errors.append(f"checks[{index}] must be an object")
+            continue
+        name = item.get("name")
+        if not isinstance(name, str) or not name.strip():
+            errors.append(f"checks[{index}].name must be a non-empty string")
+        else:
+            normalized_name = name.strip()
+            if normalized_name in check_names:
+                errors.append(f"duplicate check name: {normalized_name}")
+            else:
+                check_names.add(normalized_name)
+        check_status = item.get("status")
+        if check_status not in {"pass", "fail", "not_run"}:
+            errors.append(
+                f"checks[{index}].status must be pass, fail, or not_run"
+            )
+        else:
+            check_statuses.append(check_status)
+    if status in {"validated", "completed"} and (
+        len(check_statuses) != len(checks)
+        or any(check_status != "pass" for check_status in check_statuses)
+    ):
         errors.append("validated/completed run requires every recorded check to pass")
 
     artifacts = record.get("artifacts")

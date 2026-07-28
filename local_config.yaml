@@ -15,6 +15,9 @@ entrypoints:
   skills_dir: .codex/skills
   codex_cli_skills_dir: .agents/skills
   custom_agents_dir: .codex/agents
+  custom_agent_routing_evals: .codex/agents/evals/agent-routing-evals.json
+  custom_agent_routing_forward_test: docs/AGENT_ROUTING_FORWARD_TEST_2026-07-28.tsv
+  custom_agent_routing_forward_protocol: docs/AGENT_ROUTING_FORWARD_PROTOCOL_2026-07-28.md
   capability_registry: .codex/capability_registry.json
   global_guidance_template: templates/global-AGENTS.md
   config_example: .codex/config.toml.example
@@ -23,11 +26,15 @@ entrypoints:
   release_safety_fixtures: scripts/test_release_safety.py
   capability_run_validator: scripts/validate_capability_run.py
   capability_behavior_fixtures: scripts/test_capability_behavior.py
+  mixed_blind_routing_record: docs/ROUTING_MIXED_BLIND_TEST_2026-07-28.tsv
+  mixed_blind_routing_baseline: docs/ROUTING_MIXED_BLIND_BASELINE_2026-07-28.tsv
+  mixed_blind_routing_protocol: docs/ROUTING_MIXED_BLIND_PROTOCOL_2026-07-28.md
   license: LICENSE
   notice: NOTICE.md
   third_party_notices: THIRD_PARTY_NOTICES.md
   external_provenance: docs/EXTERNAL_SOURCE_PROVENANCE.md
   external_file_lineage: docs/EXTERNAL_FILE_LINEAGE.tsv
+  external_file_lineage_post_baseline: docs/EXTERNAL_FILE_LINEAGE_POST_BASELINE.tsv
   external_expression_review: docs/EXTERNAL_EXPRESSION_REVIEW_2026-07-25.tsv
   project_guide_file: PROJECT_GUIDE.md
   project_log_file: PROJECT_PLAN.md
@@ -140,7 +147,7 @@ validation:
   expected_root_agents: 1
   expected_custom_agent_count: 6
   expected_registered_execution_capabilities: 6
-  eval_scope: static_schema_balance_route_ownership_and_capability_safe_stop_fixtures
+  eval_scope: static_skill_and_agent_routing_schema_sandbox_ownership_and_capability_safe_stop_fixtures
   behavioral_eval_policy: representative_forward_tests_must_be_reported_separately
   required_absent_checks:
     - secrets_or_tokens

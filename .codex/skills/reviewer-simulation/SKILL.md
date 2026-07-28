@@ -1,6 +1,6 @@
 ---
 name: reviewer-simulation
-description: 用于在尚无真实审稿意见时对生物信息学稿件或摘要做 prospective reviewer red-team，生成有证据依据的假想 Critical/Major/Minor concerns、可反驳性测试和补分析优先级；不处理真实 editor/reviewer comments，不给出最终 editorial decision，也不替代投稿完整性 gate。
+description: 用于尚无真实审稿意见时对生物信息学稿件/摘要做匿名 prospective reviewer red-team，生成有证据依据的假想 Critical/Major/Minor concerns、可反驳性测试和补分析优先级；不处理真实 comments，不扮演具名专家或断言真实 editorial decision，也不替代投稿完整性 gate。
 ---
 
 # Reviewer Simulation

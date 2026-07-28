@@ -18,13 +18,20 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SKILLS = ROOT / ".codex" / "skills"
 AGENTS = ROOT / ".codex" / "agents"
+AGENT_ROUTING_EVALS = AGENTS / "evals" / "agent-routing-evals.json"
+AGENT_ROUTING_FORWARD_TEST = ROOT / "docs" / "AGENT_ROUTING_FORWARD_TEST_2026-07-28.tsv"
+AGENT_ROUTING_FORWARD_PROTOCOL = ROOT / "docs" / "AGENT_ROUTING_FORWARD_PROTOCOL_2026-07-28.md"
 MANIFEST = ROOT / "local_config.yaml"
 CAPABILITY_REGISTRY = ROOT / ".codex" / "capability_registry.json"
 CAPABILITY_RUN_VALIDATOR = ROOT / "scripts" / "validate_capability_run.py"
 CAPABILITY_BEHAVIOR_TESTS = ROOT / "scripts" / "test_capability_behavior.py"
 GLOBAL_GUIDANCE = ROOT / "templates" / "global-AGENTS.md"
 ROUTING_FORWARD_TEST = ROOT / "docs" / "ROUTING_FORWARD_TEST_2026-07-25.tsv"
+ROUTING_MIXED_BASELINE = ROOT / "docs" / "ROUTING_MIXED_BLIND_BASELINE_2026-07-28.tsv"
+ROUTING_MIXED_BLIND_TEST = ROOT / "docs" / "ROUTING_MIXED_BLIND_TEST_2026-07-28.tsv"
+ROUTING_MIXED_PROTOCOL = ROOT / "docs" / "ROUTING_MIXED_BLIND_PROTOCOL_2026-07-28.md"
 EXTERNAL_LINEAGE = ROOT / "docs" / "EXTERNAL_FILE_LINEAGE.tsv"
+POST_BASELINE_LINEAGE = ROOT / "docs" / "EXTERNAL_FILE_LINEAGE_POST_BASELINE.tsv"
 EXPRESSION_REVIEW = ROOT / "docs" / "EXTERNAL_EXPRESSION_REVIEW_2026-07-25.tsv"
 THIRD_PARTY_NOTICES = ROOT / "THIRD_PARTY_NOTICES.md"
 ABSORPTION_COMMITS = ("a2f35f4", "e4ee03a", "e649474", "875cb4a")
@@ -32,10 +39,35 @@ EXPECTED_LINEAGE_PATH_HASH = "81d474ae12dd073bbe6e22f0e61a35f4ec0833caa4a23e898b
 
 errors: list[str] = []
 warnings: list[str] = []
+REQUIRE_HISTORY = False
+for argument in sys.argv[1:]:
+    if argument == "--require-history":
+        REQUIRE_HISTORY = True
+    else:
+        errors.append(f"unknown validator argument: {argument}")
 
 
 def fail(message: str) -> None:
     errors.append(message)
+
+
+def git_repository_root() -> Path | None:
+    if shutil.which("git") is None:
+        return None
+    result = subprocess.run(
+        ["git", "rev-parse", "--show-toplevel"],
+        cwd=ROOT,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    if result.returncode != 0:
+        return None
+    resolved = Path(result.stdout.strip()).resolve()
+    return resolved if resolved == ROOT.resolve() else None
+
+
+REPOSITORY_ROOT = git_repository_root()
 
 
 def expected_count(key: str) -> int | None:
@@ -439,8 +471,127 @@ else:
         if (row.get("expected") == row.get("observed")) != (row.get("pass") == "true"):
             fail(f"routing forward-test {case_id}: pass does not match expected/observed")
 
+if not ROUTING_MIXED_BASELINE.is_file():
+    fail("docs/ROUTING_MIXED_BLIND_BASELINE_2026-07-28.tsv is missing")
+else:
+    with ROUTING_MIXED_BASELINE.open(encoding="utf-8", newline="") as handle:
+        baseline_routing_rows = list(csv.DictReader(handle, delimiter="\t"))
+    expected_baseline_fields = {
+        "case_id",
+        "query",
+        "original_expected",
+        "observed_a",
+        "observed_b",
+        "agreement",
+        "a_match",
+        "b_match",
+    }
+    if not baseline_routing_rows or set(baseline_routing_rows[0]) != expected_baseline_fields:
+        fail("mixed blind routing baseline has an invalid header")
+    if len(baseline_routing_rows) != 38:
+        fail("mixed blind routing baseline must contain exactly 38 cases")
+    baseline_ids = [row.get("case_id", "") for row in baseline_routing_rows]
+    if len(baseline_ids) != len(set(baseline_ids)):
+        fail("mixed blind routing baseline contains duplicate case IDs")
+    baseline_a_matches = 0
+    baseline_b_matches = 0
+    baseline_agreements = 0
+    stable_baseline_mismatches = 0
+    for row in baseline_routing_rows:
+        case_id = row.get("case_id", "unknown")
+        if not all(row.get(field, "").strip() for field in expected_baseline_fields):
+            fail(f"mixed blind routing baseline {case_id}: field is missing")
+        agreement = row.get("observed_a") == row.get("observed_b")
+        a_match = row.get("observed_a") == row.get("original_expected")
+        b_match = row.get("observed_b") == row.get("original_expected")
+        baseline_a_matches += int(a_match)
+        baseline_b_matches += int(b_match)
+        baseline_agreements += int(agreement)
+        stable_baseline_mismatches += int(agreement and not a_match)
+        for field, actual in (
+            ("agreement", agreement),
+            ("a_match", a_match),
+            ("b_match", b_match),
+        ):
+            if row.get(field) != str(actual).lower():
+                fail(f"mixed blind routing baseline {case_id}: {field} is inconsistent")
+    if (
+        baseline_a_matches,
+        baseline_b_matches,
+        baseline_agreements,
+        stable_baseline_mismatches,
+    ) != (21, 20, 34, 14):
+        fail(
+            "mixed blind routing baseline metrics must preserve raw "
+            "21/38, 20/38, 34/38 agreement and 14 stable mismatches"
+        )
+
+if not ROUTING_MIXED_BLIND_TEST.is_file():
+    fail("docs/ROUTING_MIXED_BLIND_TEST_2026-07-28.tsv is missing")
+else:
+    with ROUTING_MIXED_BLIND_TEST.open(encoding="utf-8", newline="") as handle:
+        mixed_routing_rows = list(csv.DictReader(handle, delimiter="\t"))
+    expected_mixed_fields = {
+        "case_id",
+        "query",
+        "expected",
+        "observed_a",
+        "observed_b",
+        "agreement",
+        "a_match",
+        "b_match",
+        "adjudication",
+    }
+    if not mixed_routing_rows or set(mixed_routing_rows[0]) != expected_mixed_fields:
+        fail("mixed blind routing record has an invalid header")
+    if len(mixed_routing_rows) != 38:
+        fail("mixed blind routing record must contain exactly 38 cases")
+    mixed_ids = [row.get("case_id", "") for row in mixed_routing_rows]
+    if len(mixed_ids) != len(set(mixed_ids)):
+        fail("mixed blind routing record contains duplicate case IDs")
+    allowed_routes = known_skill_names | {"none"}
+    for row in mixed_routing_rows:
+        case_id = row.get("case_id", "unknown")
+        if not row.get("query", "").strip() or not row.get("adjudication", "").strip():
+            fail(f"mixed blind routing {case_id}: query/adjudication is missing")
+        for field in ("expected", "observed_a", "observed_b"):
+            if row.get(field) not in allowed_routes:
+                fail(f"mixed blind routing {case_id}: invalid {field} route")
+        agreement = row.get("observed_a") == row.get("observed_b")
+        a_match = row.get("observed_a") == row.get("expected")
+        b_match = row.get("observed_b") == row.get("expected")
+        for field, actual in (
+            ("agreement", agreement),
+            ("a_match", a_match),
+            ("b_match", b_match),
+        ):
+            if row.get(field) != str(actual).lower():
+                fail(f"mixed blind routing {case_id}: {field} does not match routes")
+    mixed_a_matches = sum(row.get("a_match") == "true" for row in mixed_routing_rows)
+    mixed_b_matches = sum(row.get("b_match") == "true" for row in mixed_routing_rows)
+    mixed_agreements = sum(row.get("agreement") == "true" for row in mixed_routing_rows)
+    if (mixed_a_matches, mixed_b_matches, mixed_agreements) != (36, 38, 36):
+        fail("post-fix mixed blind routing metrics must remain 36/38, 38/38, agreement 36/38")
+
+if not ROUTING_MIXED_PROTOCOL.is_file():
+    fail("docs/ROUTING_MIXED_BLIND_PROTOCOL_2026-07-28.md is missing")
+else:
+    routing_protocol_text = ROUTING_MIXED_PROTOCOL.read_text(encoding="utf-8")
+    for required_text in (
+        "32b5e2e41a48964d8cdad08b1293d6a54f644606",
+        "21/38",
+        "20/38",
+        "14",
+        "36/38",
+        "38/38",
+        "B28",
+    ):
+        if required_text not in routing_protocol_text:
+            fail(f"mixed blind routing protocol is missing provenance: {required_text}")
+
 agent_files = sorted(AGENTS.glob("*.toml"))
 agent_names: set[str] = set()
+agent_modes: dict[str, str] = {}
 for agent_file in agent_files:
     try:
         with agent_file.open("rb") as handle:
@@ -456,6 +607,8 @@ for agent_file in agent_files:
         if name in agent_names:
             fail(f"duplicate custom Agent name: {name}")
         agent_names.add(name)
+        if data.get("sandbox_mode") in {"read-only", "workspace-write"}:
+            agent_modes[name] = data["sandbox_mode"]
     if data.get("sandbox_mode") not in {"read-only", "workspace-write"}:
         fail(f"{agent_file.relative_to(ROOT)}: sandbox_mode must be read-only or workspace-write")
 
@@ -464,6 +617,120 @@ if expected_agents is None:
     fail("local_config.yaml: expected_custom_agent_count is missing")
 elif len(agent_files) != expected_agents:
     fail(f"custom Agent count is {len(agent_files)}, expected {expected_agents}")
+
+if not AGENT_ROUTING_EVALS.is_file():
+    fail(".codex/agents/evals/agent-routing-evals.json is missing")
+else:
+    try:
+        agent_eval_data = json.loads(AGENT_ROUTING_EVALS.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        fail(f".codex/agents/evals/agent-routing-evals.json is invalid JSON: {exc}")
+        agent_eval_data = {}
+    if agent_eval_data.get("schema_version") != 1:
+        fail("Agent routing eval schema_version must be 1")
+    agent_cases = agent_eval_data.get("cases")
+    if not isinstance(agent_cases, list) or len(agent_cases) != 18:
+        fail("Agent routing evals must contain exactly 18 cases")
+        agent_cases = []
+    agent_case_ids: set[str] = set()
+    positive_agent_counts = {name: 0 for name in agent_names}
+    for index, case in enumerate(agent_cases):
+        if not isinstance(case, dict):
+            fail(f"Agent routing eval case {index} must be an object")
+            continue
+        case_id = case.get("id")
+        if not isinstance(case_id, str) or not case_id.strip():
+            fail(f"Agent routing eval case {index} is missing id")
+        elif case_id in agent_case_ids:
+            fail(f"Agent routing eval contains duplicate id: {case_id}")
+        else:
+            agent_case_ids.add(case_id)
+        for field in ("query", "expected_agent", "expected_sandbox_mode", "rationale"):
+            if not isinstance(case.get(field), str) or not case[field].strip():
+                fail(f"Agent routing eval {case_id or index} is missing {field}")
+        expected_agent = case.get("expected_agent")
+        should_delegate = case.get("should_delegate")
+        if not isinstance(should_delegate, bool):
+            fail(f"Agent routing eval {case_id or index}: should_delegate must be boolean")
+        if should_delegate:
+            if expected_agent not in agent_names:
+                fail(f"Agent routing eval {case_id or index}: unknown expected Agent")
+            else:
+                positive_agent_counts[expected_agent] += 1
+                if case.get("expected_sandbox_mode") != agent_modes.get(expected_agent):
+                    fail(
+                        f"Agent routing eval {case_id or index}: sandbox mode does not "
+                        "match the Agent definition"
+                    )
+        elif (
+            expected_agent != "none"
+            or case.get("expected_sandbox_mode") != "none"
+        ):
+            fail(
+                f"Agent routing eval {case_id or index}: non-delegated case must use none"
+            )
+    for agent_name, count in positive_agent_counts.items():
+        if count < 2:
+            fail(f"Agent routing evals need at least two positive cases for {agent_name}")
+
+if not AGENT_ROUTING_FORWARD_TEST.is_file():
+    fail("docs/AGENT_ROUTING_FORWARD_TEST_2026-07-28.tsv is missing")
+else:
+    with AGENT_ROUTING_FORWARD_TEST.open(encoding="utf-8", newline="") as handle:
+        agent_forward_rows = list(csv.DictReader(handle, delimiter="\t"))
+    expected_agent_forward_fields = {
+        "case_id",
+        "query",
+        "expected",
+        "observed_a",
+        "observed_b",
+        "agreement",
+        "a_match",
+        "b_match",
+    }
+    if not agent_forward_rows or set(agent_forward_rows[0]) != expected_agent_forward_fields:
+        fail("custom Agent routing forward-test has an invalid header")
+    if len(agent_forward_rows) != 18:
+        fail("custom Agent routing forward-test must contain exactly 18 cases")
+    forward_by_id = {row.get("case_id", ""): row for row in agent_forward_rows}
+    if len(forward_by_id) != len(agent_forward_rows):
+        fail("custom Agent routing forward-test contains duplicate case IDs")
+    eval_by_id = {
+        case.get("id"): case for case in agent_cases if isinstance(case, dict)
+    }
+    if set(forward_by_id) != set(eval_by_id):
+        fail("custom Agent routing forward-test IDs do not match the static eval set")
+    for case_id, row in forward_by_id.items():
+        static_case = eval_by_id[case_id]
+        static_expected = static_case.get("expected_agent")
+        if row.get("query") != static_case.get("query") or row.get("expected") != static_expected:
+            fail(f"custom Agent routing forward-test {case_id}: query/expected drift")
+        for field in ("observed_a", "observed_b"):
+            if row.get(field) not in agent_names | {"none"}:
+                fail(f"custom Agent routing forward-test {case_id}: invalid {field}")
+        agreement = row.get("observed_a") == row.get("observed_b")
+        a_match = row.get("observed_a") == row.get("expected")
+        b_match = row.get("observed_b") == row.get("expected")
+        for field, actual in (
+            ("agreement", agreement),
+            ("a_match", a_match),
+            ("b_match", b_match),
+        ):
+            if row.get(field) != str(actual).lower():
+                fail(f"custom Agent routing forward-test {case_id}: {field} is inconsistent")
+    if not all(
+        row.get("agreement") == row.get("a_match") == row.get("b_match") == "true"
+        for row in agent_forward_rows
+    ):
+        fail("custom Agent routing forward-test must preserve the reviewed 18/18 result")
+
+if not AGENT_ROUTING_FORWARD_PROTOCOL.is_file():
+    fail("docs/AGENT_ROUTING_FORWARD_PROTOCOL_2026-07-28.md is missing")
+else:
+    agent_forward_protocol = AGENT_ROUTING_FORWARD_PROTOCOL.read_text(encoding="utf-8")
+    for required_text in ("18/18", "workspace-write", "read-only", "`none`", "not exposed"):
+        if required_text not in agent_forward_protocol:
+            fail(f"custom Agent routing protocol is missing provenance: {required_text}")
 
 curator = AGENTS / "capability-curator.toml"
 if not curator.is_file():
@@ -540,7 +807,15 @@ secret_pattern = re.compile(
     "(?:github"
     + r"_pat_[A-Za-z0-9_]{20,}|gh"
     + r"[pousr]_[A-Za-z0-9]{20,}|sk-"
-    + r"(?:proj-)?[A-Za-z0-9_-]{20,}|AKIA[0-9A-Z]{16}|BEGIN [A-Z ]*PRIVATE KEY)"
+    + r"(?:proj-)?[A-Za-z0-9_-]{20,}|AKIA[0-9A-Z]{16}|"
+    + r"xox[baprs]-[A-Za-z0-9-]{10,}|glpat-[A-Za-z0-9_-]{16,}|"
+    + r"hf_[A-Za-z0-9]{20,}|AIza[0-9A-Za-z_-]{30,}|"
+    + r"BEGIN [A-Z ]*PRIVATE KEY)"
+)
+generic_secret_assignment = re.compile(
+    r"(?i)\b(?:api[_-]?key|access[_-]?token|auth[_-]?token|service[_-]?token|"
+    r"client[_-]?secret|password|secret)\b\s*[:=]\s*['\"]?"
+    r"[A-Za-z0-9_./+=-]{16,}"
 )
 blocked_data_suffixes = {
     ".bam",
@@ -575,11 +850,41 @@ blocked_runtime_filenames = {
     "project_environment.md",
     "project_environment.local.md",
 }
+blocked_secret_filenames = {
+    "credentials.json",
+    "secrets.json",
+    "secrets.yaml",
+    "secrets.yml",
+}
+blocked_secret_suffixes = {".key", ".pem", ".p12", ".pfx"}
 max_public_file_bytes = 5 * 1024 * 1024
+local_candidate_root = ROOT / ".codex" / "candidates"
+ignore_local_candidates = False
+if local_candidate_root.exists():
+    tracked_candidates = subprocess.run(
+        ["git", "ls-files", "--", ".codex/candidates"],
+        cwd=ROOT,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    if (
+        REPOSITORY_ROOT is not None
+        and tracked_candidates.returncode == 0
+        and not tracked_candidates.stdout.strip()
+    ):
+        ignore_local_candidates = True
+    else:
+        fail(
+            ".codex/candidates may exist only as an untracked local worktree area; "
+            "it is not part of a portable archive or release"
+        )
 for path in ROOT.rglob("*"):
     if ".git" in path.parts:
         continue
     relative = path.relative_to(ROOT)
+    if ignore_local_candidates and relative.parts[:2] == (".codex", "candidates"):
+        continue
     if path.is_symlink():
         link_target = os.readlink(path)
         if relative != Path(".agents/skills") or link_target != "../.codex/skills":
@@ -595,6 +900,14 @@ for path in ROOT.rglob("*"):
         fail(f"{relative}: runtime database/log file type is not allowed in the portable package")
     if path.name.lower() in blocked_runtime_filenames:
         fail(f"{relative}: machine-local runtime/environment record is not allowed in the portable package")
+    lower_name = path.name.lower()
+    if (
+        lower_name == ".env"
+        or lower_name.startswith(".env.")
+        or lower_name in blocked_secret_filenames
+        or path.suffix.lower() in blocked_secret_suffixes
+    ):
+        fail(f"{relative}: credential-bearing filename or file type is not allowed")
     size = path.stat().st_size
     if size > max_public_file_bytes:
         fail(f"{relative}: file exceeds the 5 MiB portable-package limit")
@@ -607,6 +920,8 @@ for path in ROOT.rglob("*"):
         fail(f"{relative}: contains a private machine path")
     if secret_pattern.search(text):
         fail(f"{relative}: contains a high-risk secret pattern")
+    if generic_secret_assignment.search(text):
+        fail(f"{relative}: contains a generic secret assignment")
 
 root_agent_text = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
 if "Hermes" in root_agent_text:
@@ -649,25 +964,25 @@ else:
             fail(f"external provenance record is missing: {required_text}")
 
 lineage_rows: list[dict[str, str]] = []
+required_lineage_fields = {
+    "target_path",
+    "local_commits",
+    "current_state",
+    "source_id",
+    "upstream_ref",
+    "upstream_path",
+    "decision",
+    "derivation",
+    "vendored",
+    "license",
+    "obligation",
+    "review_evidence",
+}
 if not EXTERNAL_LINEAGE.is_file():
     fail("docs/EXTERNAL_FILE_LINEAGE.tsv is missing")
 else:
     with EXTERNAL_LINEAGE.open(encoding="utf-8", newline="") as handle:
         lineage_rows = list(csv.DictReader(handle, delimiter="\t"))
-    required_lineage_fields = {
-        "target_path",
-        "local_commits",
-        "current_state",
-        "source_id",
-        "upstream_ref",
-        "upstream_path",
-        "decision",
-        "derivation",
-        "vendored",
-        "license",
-        "obligation",
-        "review_evidence",
-    }
     if not lineage_rows or set(lineage_rows[0]) != required_lineage_fields:
         fail("external file lineage has an invalid header")
     targets = [row.get("target_path", "") for row in lineage_rows]
@@ -738,8 +1053,9 @@ else:
             if "THIRD_PARTY_NOTICES.md" not in row.get("obligation", ""):
                 fail(f"external file lineage {target}: BioNeMo attribution/change notice is missing")
 
-    if (ROOT / ".git").exists() and shutil.which("git"):
+    if REPOSITORY_ROOT is not None:
         historical_targets: set[str] = set()
+        history_complete = True
         for commit in ABSORPTION_COMMITS:
             result = subprocess.run(
                 [
@@ -756,13 +1072,74 @@ else:
                 check=False,
             )
             if result.returncode != 0:
-                fail(f"cannot inspect historical absorption commit {commit}")
+                history_complete = False
+                message = f"cannot inspect historical absorption commit {commit}"
+                if REQUIRE_HISTORY:
+                    fail(message)
+                else:
+                    warnings.append(
+                        message
+                        + "; frozen 62-row lineage path hash remains the portable check"
+                    )
                 continue
             historical_targets.update(line for line in result.stdout.splitlines() if line)
-        if historical_targets and historical_targets != set(targets):
+        if history_complete and historical_targets != set(targets):
             missing = sorted(historical_targets - set(targets))
             extra = sorted(set(targets) - historical_targets)
             fail(f"external lineage/history mismatch; missing={missing}, extra={extra}")
+    elif REQUIRE_HISTORY:
+        fail("--require-history needs a Git worktree with the reviewed absorption commits")
+    else:
+        warnings.append(
+            "Git history unavailable; frozen 62-row lineage path hash remains the portable check"
+        )
+
+post_baseline_rows: list[dict[str, str]] = []
+expected_post_baseline_targets = {
+    path.relative_to(ROOT).as_posix()
+    for path in (SKILLS / "research-discovery-orchestration").rglob("*")
+    if path.is_file()
+}
+if not POST_BASELINE_LINEAGE.is_file():
+    fail("docs/EXTERNAL_FILE_LINEAGE_POST_BASELINE.tsv is missing")
+else:
+    with POST_BASELINE_LINEAGE.open(encoding="utf-8", newline="") as handle:
+        post_baseline_rows = list(csv.DictReader(handle, delimiter="\t"))
+    if not post_baseline_rows or set(post_baseline_rows[0]) != required_lineage_fields:
+        fail("post-baseline external file lineage has an invalid header")
+    post_targets = [row.get("target_path", "") for row in post_baseline_rows]
+    if len(post_targets) != len(set(post_targets)):
+        fail("post-baseline external file lineage has duplicate target paths")
+    if set(post_targets) != expected_post_baseline_targets:
+        missing = sorted(expected_post_baseline_targets - set(post_targets))
+        extra = sorted(set(post_targets) - expected_post_baseline_targets)
+        fail(
+            "post-baseline external lineage does not cover the complete active "
+            f"research-discovery-orchestration Skill; missing={missing}, extra={extra}"
+        )
+    for row in post_baseline_rows:
+        target = row.get("target_path", "")
+        for field in required_lineage_fields:
+            if not row.get(field, "").strip():
+                fail(f"post-baseline external lineage {target or 'unknown'}: missing {field}")
+        if row.get("current_state") != "current" or not (ROOT / target).is_file():
+            fail(f"post-baseline external lineage {target}: active file is missing")
+        if row.get("vendored") != "no":
+            fail(f"post-baseline external lineage {target}: vendored content is not allowed")
+        if row.get("source_id") == "robin":
+            if (
+                row.get("upstream_ref")
+                != "robin=4a5cce310f3bc7663a67117db88af43b84733ffe"
+            ):
+                fail(f"post-baseline external lineage {target}: Robin ref must be pinned")
+            if not row.get("upstream_path", "").startswith("robin="):
+                fail(f"post-baseline external lineage {target}: Robin path is missing")
+            if row.get("license") != "Apache-2.0":
+                fail(f"post-baseline external lineage {target}: Robin license is incorrect")
+            if "THIRD_PARTY_NOTICES.md" not in row.get("obligation", ""):
+                fail(f"post-baseline external lineage {target}: notice handling is missing")
+        elif row.get("source_id") != "project-owned":
+            fail(f"post-baseline external lineage {target}: unsupported source_id")
 
 if not EXPRESSION_REVIEW.is_file():
     fail("docs/EXTERNAL_EXPRESSION_REVIEW_2026-07-25.tsv is missing")

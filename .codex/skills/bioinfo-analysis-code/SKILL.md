@@ -41,7 +41,5 @@ description: 用于实现、调试或重构可复现的生物信息学分析代�
 - 探索、稳定、投稿级代码要求与 leakage 检查：读取 [reproducibility-levels.md](references/reproducibility-levels.md)。
 - 多步骤编号、notebook 收敛和 pipeline 层级：读取 [workflow-numbering.md](references/workflow-numbering.md)。
 - 面向外部读者的复现包、manifest 和排除项：读取 [report_reproducibility_package.md](references/report_reproducibility_package.md)。
-- 实现通用结构预测到 docking 的 QC 与结果解析时：读取 [protein_structure_docking_workflow.md](references/protein_structure_docking_workflow.md)。
-- 预测结构作为 docking 输入、需要更细的模型质量门控时：读取 [protein_structure_prediction_docking_workflow.md](references/protein_structure_prediction_docking_workflow.md)。
 
 最终回复先给已实现结果，再列精确文件、命令、输入输出、验证边界、caveat 和未解决风险。

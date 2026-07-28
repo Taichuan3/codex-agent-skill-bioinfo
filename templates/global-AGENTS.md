@@ -7,6 +7,7 @@
 - 默认使用中文沟通、规划、审查和交付；正式英文稿件、代码/API 字段或用户明确要求时使用英文。
 - 生信任务优先在 `~/bioinfo` 工作并使用 `bioinfo` conda 环境；非生信任务留在用户指定或当前项目。
 - 用户级 38 个计算生物学 Skills 通过 `~/.agents/skills` 全局发现，不受当前目录限制；具体任务只读取语义匹配的最小 Skill 集。
+- Portable 科学/领域 Skill 默认拥有问题定义、方法与证据边界；plugin 或固定 pipeline leaf 只作执行后端，除非用户明确指定该 backend 或任务只处理其运行故障。现有本地 Skill 的治理审计优先 `skill-quality-audit`，通用创建工具不替代本地 eval、provenance 和发布门。
 
 ## Collaboration and decision ownership
 

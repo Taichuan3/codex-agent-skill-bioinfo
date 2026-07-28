@@ -12,6 +12,10 @@
 
 UniProt、PDB chain、预测模型与用户坐标必须显式对齐。无法对齐时把相关 residue-level 解释标记为 `not assessed`。
 
+- 报告结构实际覆盖的 residue/chain range；外部服务返回的 fragment、domain 或缺失区模型不得静默写成 full-length structure。
+- 精确记录预测方法、实现和版本（例如 AlphaFold DB、ColabFold、本地 AlphaFold workflow）；不得把不同实现混写，也不得把 prediction 标为实验结构。
+- 若 sequence、isoform、mutation 或 numbering 被纠正，使锁定输入发生变化，旧 structure/docking 产物立即标记为 stale/invalidated，并从受影响阶段重建；不得把旧分数继续纳入 matched comparison。
+
 ## 对照与运行 QC
 
 - known binder 可用时优先 self-dock/redock 或 cross-dock；记录 RMSD 定义及 atom mapping。

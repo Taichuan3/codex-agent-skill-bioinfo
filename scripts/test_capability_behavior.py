@@ -106,6 +106,16 @@ def main() -> int:
     floating = base_record("CAP-RNA-001", "nf-core-nextflow", "latest")
     require_fail("floating backend ref is rejected", floating, "immutable or versioned")
 
+    for backend_ref in ("nf-core/rnaseq@main", "nf-core/rnaseq@dev", "floating-branch"):
+        floating_variant = base_record(
+            "CAP-RNA-001", "nf-core-nextflow", backend_ref
+        )
+        require_fail(
+            f"floating backend ref {backend_ref} is rejected",
+            floating_variant,
+            "immutable or versioned",
+        )
+
     incomplete = base_record(
         "CAP-LIT-001", "openai-life-science-research", "plugin@1.0.3"
     )
@@ -121,7 +131,31 @@ def main() -> int:
     complete["artifacts"]["source_data"] = True
     require_pass("complete bounded lookup record passes", complete)
 
-    print("PASS: 8 capability routing and safe-stop behavior fixtures")
+    malformed_check = copy.deepcopy(complete)
+    malformed_check["checks"].append({"status": "fail"})
+    require_fail(
+        "unnamed failing check cannot be ignored",
+        malformed_check,
+        "name must be a non-empty string",
+    )
+
+    non_object_check = copy.deepcopy(complete)
+    non_object_check["checks"].append("garbage")
+    require_fail(
+        "non-object check cannot be ignored",
+        non_object_check,
+        "must be an object",
+    )
+
+    named_failure = copy.deepcopy(complete)
+    named_failure["checks"].append({"name": "scientific-qc", "status": "fail"})
+    require_fail(
+        "completed record rejects a named failed check",
+        named_failure,
+        "requires every recorded check to pass",
+    )
+
+    print("PASS: 14 capability routing and safe-stop behavior fixtures")
     return 0
 
 

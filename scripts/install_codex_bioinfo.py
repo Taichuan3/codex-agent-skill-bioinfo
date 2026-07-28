@@ -13,6 +13,7 @@ import os
 import shutil
 import subprocess
 import sys
+import tempfile
 from datetime import datetime
 from pathlib import Path
 
@@ -23,6 +24,19 @@ SOURCE_AGENTS = ROOT / ".codex" / "agents"
 SOURCE_GUIDANCE = ROOT / "templates" / "global-AGENTS.md"
 BEGIN = "<!-- BEGIN TAICHUAN BIOINFO AGENT -->"
 END = "<!-- END TAICHUAN BIOINFO AGENT -->"
+
+
+def is_repository_root() -> bool:
+    result = subprocess.run(
+        ["git", "-C", str(ROOT), "rev-parse", "--show-toplevel"],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    return (
+        result.returncode == 0
+        and Path(result.stdout.strip()).resolve() == ROOT.resolve()
+    )
 
 
 def parse_args() -> argparse.Namespace:
@@ -79,6 +93,8 @@ def atomic_write(path: Path, content: str, mode: int = 0o600) -> None:
 
 def source_state() -> tuple[str, bool]:
     """Return the Git revision and dirty state, or an archive marker."""
+    if not is_repository_root():
+        return "unversioned-archive", False
     probe = subprocess.run(
         ["git", "-C", str(ROOT), "rev-parse", "HEAD"],
         check=False,
@@ -93,14 +109,36 @@ def source_state() -> tuple[str, bool]:
         capture_output=True,
         text=True,
     )
-    return probe.stdout.strip(), bool(status.stdout.strip())
+    material_changes = []
+    for line in status.stdout.splitlines():
+        if line.startswith("?? "):
+            untracked_path = line[3:].strip('"')
+            if untracked_path == ".codex/candidates/" or untracked_path.startswith(
+                ".codex/candidates/"
+            ):
+                continue
+        material_changes.append(line)
+    return probe.stdout.strip(), bool(material_changes)
 
 
 def source_digest() -> str:
-    """Hash the portable package source without Git/runtime cache state."""
+    """Hash tracked package files, or all portable files in an archive."""
     digest = hashlib.sha256()
     excluded_parts = {".git", "__pycache__"}
-    for path in sorted(ROOT.rglob("*")):
+    if is_repository_root():
+        tracked = subprocess.run(
+            ["git", "-C", str(ROOT), "ls-files", "-z"],
+            check=True,
+            capture_output=True,
+        )
+        paths = [
+            ROOT / item.decode("utf-8")
+            for item in tracked.stdout.split(b"\0")
+            if item
+        ]
+    else:
+        paths = list(ROOT.rglob("*"))
+    for path in sorted(paths):
         if (
             not path.is_file()
             or any(part in excluded_parts for part in path.parts)
@@ -115,6 +153,29 @@ def source_digest() -> str:
     return digest.hexdigest()
 
 
+def tree_digest(root: Path) -> str:
+    """Hash one installed tree so an existing snapshot can be verified."""
+    digest = hashlib.sha256()
+    for path in sorted(root.rglob("*")):
+        if not path.is_file():
+            continue
+        relative = path.relative_to(root).as_posix().encode("utf-8")
+        digest.update(relative)
+        digest.update(b"\0")
+        digest.update(path.read_bytes())
+        digest.update(b"\0")
+    return digest.hexdigest()
+
+
+def make_read_only(root: Path) -> None:
+    for path in sorted(root.rglob("*"), reverse=True):
+        if path.is_file():
+            path.chmod(0o555 if path.stat().st_mode & 0o111 else 0o444)
+        elif path.is_dir():
+            path.chmod(0o555)
+    root.chmod(0o555)
+
+
 def main() -> int:
     args = parse_args()
     target_home = args.home.expanduser().resolve()
@@ -127,11 +188,28 @@ def main() -> int:
     subprocess.run([sys.executable, str(ROOT / "scripts" / "validate_package.py")], check=True)
     revision, source_dirty = source_state()
     digest = source_digest()
+    skills_digest = tree_digest(SOURCE_SKILLS)
     if args.apply and source_dirty:
         raise RuntimeError(
             "source checkout has tracked or untracked changes; commit or use a clean release checkout "
             "before installation"
         )
+    release_id = f"{revision[:12]}-{digest[:12]}"
+    release_root = (
+        target_codex
+        / "packages"
+        / "codex-agent-skill-bioinfo"
+        / release_id
+    )
+    installed_skills = release_root / "skills"
+    if release_root.exists():
+        if not installed_skills.is_dir():
+            raise RuntimeError(f"existing release snapshot is incomplete: {release_root}")
+        installed_digest = tree_digest(installed_skills)
+        if installed_digest != skills_digest:
+            raise RuntimeError(
+                f"existing release snapshot failed digest verification: {release_root}"
+            )
 
     if target_codex.exists() and not target_codex.is_dir():
         raise RuntimeError(f"{target_codex} exists and is not a directory")
@@ -164,7 +242,7 @@ def main() -> int:
 
     skill_action: str
     skill_changed = not (
-        target_skills.is_symlink() and target_skills.resolve() == SOURCE_SKILLS.resolve()
+        target_skills.is_symlink() and target_skills.resolve() == installed_skills.resolve()
     )
     if not skill_changed:
         skill_action = "keep existing correct Skill symlink"
@@ -200,6 +278,7 @@ def main() -> int:
     print(f"Source: {ROOT}")
     print(f"Source revision: {revision}{' (dirty; apply blocked)' if source_dirty else ''}")
     print(f"Source digest: sha256:{digest}")
+    print(f"Installed Skill snapshot: {installed_skills}")
     print(f"Target home: {target_home}")
     print(f"Skills: {skill_action}")
     if not guidance_changed:
@@ -248,14 +327,46 @@ def main() -> int:
     skill_installed = False
     skill_backup_moved = False
     guidance_installed = False
+    release_created = False
+    staging: Path | None = None
 
     try:
+        if not release_root.exists():
+            release_root.parent.mkdir(parents=True, exist_ok=True)
+            staging = Path(
+                tempfile.mkdtemp(
+                    prefix=f".{release_root.name}.staging-",
+                    dir=release_root.parent,
+                )
+            )
+            shutil.copytree(SOURCE_SKILLS, staging / "skills")
+            atomic_write(
+                staging / "SOURCE.txt",
+                f"revision={revision}\npackage_digest=sha256:{digest}\n"
+                f"skills_digest=sha256:{skills_digest}\n",
+                mode=0o444,
+            )
+            try:
+                os.replace(staging, release_root)
+            except OSError:
+                if (
+                    not installed_skills.is_dir()
+                    or tree_digest(installed_skills) != skills_digest
+                ):
+                    raise
+                shutil.rmtree(staging)
+                staging = None
+            else:
+                release_created = True
+                staging = None
+                make_read_only(release_root)
+
         target_skills.parent.mkdir(parents=True, exist_ok=True)
         if skill_changed:
             if target_skills.is_symlink():
                 target_skills.rename(backup_link)
                 skill_backup_moved = True
-            target_skills.symlink_to(SOURCE_SKILLS)
+            target_skills.symlink_to(installed_skills)
             skill_installed = True
 
         target_codex.mkdir(parents=True, exist_ok=True)
@@ -312,6 +423,23 @@ def main() -> int:
                     backup_link.rename(target_skills)
             except OSError as rollback_exc:
                 rollback_errors.append(f"Skill symlink: {rollback_exc}")
+        if release_created:
+            try:
+                make_read_only(release_root)
+                for path in sorted(release_root.rglob("*"), reverse=True):
+                    if path.is_file():
+                        path.chmod(0o600)
+                    elif path.is_dir():
+                        path.chmod(0o700)
+                release_root.chmod(0o700)
+                shutil.rmtree(release_root)
+            except OSError as rollback_exc:
+                rollback_errors.append(f"release snapshot {release_root}: {rollback_exc}")
+        if staging is not None and staging.exists():
+            try:
+                shutil.rmtree(staging)
+            except OSError as rollback_exc:
+                rollback_errors.append(f"release staging {staging}: {rollback_exc}")
         detail = f"; rollback errors: {' | '.join(rollback_errors)}" if rollback_errors else ""
         raise RuntimeError(f"installation failed and rollback was attempted: {exc}{detail}") from exc
 

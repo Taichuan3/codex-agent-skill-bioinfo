@@ -1,6 +1,6 @@
 ---
 name: claim-evidence-audit
-description: 用于审查生物信息学稿件、报告、图注或回复草稿中的具体科学 claim 是否被现有数据、图表、统计、文献与 caveat 支持，并给出证据等级和安全改写；不负责 source-data inventory、跨稿件一致性、整套投稿 readiness、模拟审稿或真实审稿意见编排。
+description: 用于审查稿件、报告、图注或回复中的具体科学 claim 是否被数据、图表、统计、文献与 caveat 支持，包括把预测结构写成实验结构、把相关性写成因果等证据升级，并给出等级和安全改写；不负责 docking/模型方法解释、source-data inventory、跨稿件一致性、整套投稿 readiness、模拟审稿或真实审稿编排。
 ---
 
 # Claim Evidence Audit

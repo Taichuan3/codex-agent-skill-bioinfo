@@ -1,6 +1,6 @@
 ---
 name: project-environment-bootstrap
-description: 用于新生信项目、新机器/服务器/remote workspace 或环境状态不明时，核验项目根、conda、Python/R、Jupyter、Git 与本地 PROJECT_ENVIRONMENT.md，并安全初始化或刷新本地环境记录；不负责选择/安装新工具、日常分析或 Git 发布。
+description: 用于新生信项目、新机器/服务器/remote workspace，或当前 cwd、conda/interpreter、Jupyter kernel、Git branch/upstream 与本地环境记录不明或互相冲突时，做只读核验并安全初始化/刷新 PROJECT_ENVIRONMENT.md；不负责选择安装新工具、日常分析或 Git 发布。
 ---
 
 # Project Environment Bootstrap

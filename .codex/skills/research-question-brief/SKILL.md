@@ -1,6 +1,6 @@
 ---
 name: research-question-brief
-description: 将口头、零散或多轮讨论中的生物信息学研究想法压缩为一页以内的 research question brief，明确 working question、意义、必要证据、约束、假设、开放问题和下一项方向决策；用于尚未进入完整项目规划的早期问题澄清，不用于技术路线、验证矩阵、决策取舍审查、文献检索或执行。
+description: 用于把口头、零散、尚未成形的生物信息学想法压缩为一页以内 research question brief，明确 working question、意义、必要证据、约束、假设、开放问题和下一项方向决策；仅用于完整项目规划之前的问题澄清，不负责技术路线、验证矩阵、方案取舍、文献检索或执行。
 ---
 
 # Research Question Brief

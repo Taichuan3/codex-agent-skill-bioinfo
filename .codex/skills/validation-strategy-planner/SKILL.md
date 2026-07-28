@@ -1,6 +1,6 @@
 ---
 name: validation-strategy-planner
-description: 为一个已明确的探索性生物信息学发现、候选机制、模型结论、富集结果或 reviewer challenge 设计 claim-linked 验证策略，比较计算复核、统计敏感性、独立数据、正交实验与降级表述，并给出 minimal/balanced/submission-strength 路线和停止条件；不用于从零规划项目、执行验证、审查整体研究取舍或交付前 QA。
+description: 用于针对一个已明确 claim 设计验证策略：把探索性发现、候选机制、模型结论、富集结果或 reviewer challenge 连到计算复核、统计敏感性、独立复制、正交实验、成功/失败判据与降级表述；不设计 ML benchmark，不从零规划项目，不执行验证，也不审查整体路线或交付 QA。
 ---
 
 # Validation Strategy Planner

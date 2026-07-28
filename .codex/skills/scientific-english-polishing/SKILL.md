@@ -1,6 +1,6 @@
 ---
 name: scientific-english-polishing
-description: 用于润色、压缩或重构已有英文科研文本，适用于标题、摘要、正文、方法、回复信和既有英文图注，并保持术语、数字、caveat 与证据强度。中文或中英混合内容转英文用 scientific-english-translation，中文输出用 chinese-scientific-polishing；需要从图和分析信息起草或审查完整 figure title/panel legend/caption 时用 figure-caption。
+description: 用于润色、压缩或重构已有英文标题、摘要、正文、方法、回复信或英文图注，保持术语、数字、caveat 与证据强度。中文或混合文本转英文用 scientific-english-translation，中文输出用 chinese-scientific-polishing；从图和分析信息新写完整 title/panel legend/caption 用 figure-caption。
 ---
 
 # Scientific English Polishing

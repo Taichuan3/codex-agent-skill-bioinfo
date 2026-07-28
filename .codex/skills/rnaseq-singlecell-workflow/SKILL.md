@@ -1,6 +1,6 @@
 ---
 name: rnaseq-singlecell-workflow
-description: 规划、执行或审查 bulk RNA-seq 与 single-cell RNA-seq 工作流，包括 FASTQ/BAM/count matrix/h5ad 输入、QC、定量、差异表达、pseudo-bulk、cluster/marker、batch/integration、splicing/isoform 和 regulon 结果。用于需要锁定样本设计、reference、过滤、工具参数、可复现产物与表达证据边界的 RNA 分析；不用于通用代码、绘图、variant 解释或临床证据审查。
+description: 作为 bulk/scRNA-seq 科学与方法 owner，规划、执行或审查 FASTQ/BAM/count matrix/h5ad、QC、定量、差异表达、pseudo-bulk、cluster/marker、batch/integration、splicing/isoform 和 regulon；nf-core 或 NGS plugin 默认只是执行后端。用于锁定设计、reference、过滤、参数、产物与表达证据边界，不用于通用代码、绘图或 variant/临床解释。
 ---
 
 # RNA-seq and Single-cell Workflow

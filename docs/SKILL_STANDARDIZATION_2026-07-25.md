@@ -1,5 +1,10 @@
 # 37-Skill standardization record — 2026-07-25
 
+> Historical snapshot: this record freezes the 2026-07-25 37-Skill baseline.
+> Current counts, entrypoints, post-baseline lineage, and validation commands
+> are defined by `local_config.yaml`, `README.md`, and
+> `docs/EXTERNAL_FILE_LINEAGE_POST_BASELINE.tsv`.
+
 ## Scope and provenance
 
 - Repository: `Taichuan3/codex-agent-skill-bioinfo`

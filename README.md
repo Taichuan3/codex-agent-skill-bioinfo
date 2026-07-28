@@ -13,19 +13,23 @@
   - `evals/outcome-evals.json`
   - 可选 `references/`
 - `.codex/agents/` — Codex 自定义子 Agent；包含 capability curation、source mapping、实现、复现审查、claim-evidence 审查和发行审查角色。
+- `.codex/agents/evals/agent-routing-evals.json` — 18 条 Agent 选路、sandbox 和不可委派权限边界夹具。
+- `docs/AGENT_ROUTING_FORWARD_TEST_2026-07-28.tsv` / `docs/AGENT_ROUTING_FORWARD_PROTOCOL_2026-07-28.md` — 两次独立 Agent 选路 forward test 及 blind protocol。
 - `.codex/capability_registry.json` — 把治理型 Skill 映射到可选 plugin、MCP、标准 pipeline 或本地工具的机器可读登记表；它只负责选路，不授权安装、凭据、配额或数据上传。
 - `templates/global-AGENTS.md` — 面向所有主机任务的精简全局 guidance；安装时作为受管 block 写入，不把完整 package Agent 复制到每轮上下文。
 - `.codex/config.toml.example` — 经当前本机 Codex 验证的多 Agent 配置片段；按机器合并，不覆盖用户现有配置。
 - `.agents/skills` — 指向 `.codex/skills` 的 repo-scope 兼容入口，供 standalone OpenAI Codex CLI/IDE/app 自动发现 skills。
 - `scripts/install_codex_bioinfo.py` — 默认 dry-run、检查 source revision/digest 且失败时事务回滚的用户级安装器。
 - `scripts/validate_package.py` — 全部 38 个 Skills 的结构、metadata、资源路由、eval 平衡、Agent TOML、敏感路径和发现入口校验。
-- `scripts/test_release_safety.py` — privacy 拒绝项与安装器 symlink preflight 的隔离回归 fixtures。
+- `scripts/test_release_safety.py` — privacy/history、安装 preflight、只读 snapshot、脏源拒绝、幂等与事务回滚的隔离 fixtures。
 - `scripts/validate_capability_run.py` — 对单次后端运行记录执行版本、授权、输入、provenance、artifact 与 evidence-boundary 门控。
-- `scripts/test_capability_behavior.py` — 8 个去身份化行为 fixtures，覆盖任务不匹配、输入/运行时缺失、模型未授权、浮动版本和不完整产物的安全停止。
+- `scripts/test_capability_behavior.py` — 14 个去身份化行为 fixtures，覆盖任务不匹配、输入/运行时缺失、模型未授权、浮动版本、畸形 checks 和不完整产物的安全停止。
 - `docs/MULTI_DEVICE_SYNC.md` — 公共内核、私有项目、机器层和 Memory 晋升边界。
 - `docs/SKILL_STANDARDIZATION_2026-07-25.md` — 本轮 37-Skill 统一基线、来源、验证和发布边界。
 - `docs/EXTERNAL_SOURCE_PROVENANCE.md` — 从历史审计恢复的 external repository、snapshot、license、能力级吸收和禁止 vendoring 记录。
+- `docs/EXTERNAL_FILE_LINEAGE.tsv` / `docs/EXTERNAL_FILE_LINEAGE_POST_BASELINE.tsv` — 分别保存冻结的 62 文件历史基线与基线后新增 Skill 的逐文件来源。
 - `docs/ROUTING_FORWARD_TEST_2026-07-25.tsv` — 可重放的 frontmatter-only 路由请求、expected/observed route 与运行时边界。
+- `docs/ROUTING_MIXED_BLIND_BASELINE_2026-07-28.tsv` / `docs/ROUTING_MIXED_BLIND_TEST_2026-07-28.tsv` / `docs/ROUTING_MIXED_BLIND_PROTOCOL_2026-07-28.md` — 保存修复前原始两轮、标签裁决、修复后两轮和窄复测的完整盲路由 provenance；保留分歧而不伪造全通过。
 - `docs/RESEARCH_LIFECYCLE_SKILL_COVERAGE.md` — 从 Lab workflow audit 压缩出的研究生命周期 × skill 覆盖图，用于 skill-system 审计，不作为普通任务默认上下文。
 - `LICENSE` / `NOTICE.md` — package-wide 权限边界及第三方来源处理声明。
 
@@ -35,6 +39,7 @@
 
 ```bash
 python3 scripts/validate_package.py
+python3 scripts/validate_package.py --require-history
 python3 scripts/test_release_safety.py
 python3 scripts/test_capability_behavior.py
 python3 scripts/install_codex_bioinfo.py
@@ -48,9 +53,11 @@ python3 scripts/install_codex_bioinfo.py
 python3 scripts/install_codex_bioinfo.py --apply
 ```
 
-安装器会把 `$HOME/.agents/skills` 指向当前 release，使 38 个 Skills 成为不受工作目录限制的用户级全局能力；同时使用 `templates/global-AGENTS.md` 更新全局 `AGENTS.md`，并把自定义 Agent 安装到 `$HOME/.codex/agents/`。遇到非 symlink 的现有 `$HOME/.agents/skills` 时会停止，不静默覆盖。
+安装器会把 38 个 Skills 复制为 `$HOME/.codex/packages/codex-agent-skill-bioinfo/<revision-digest>/skills` 下的只读 release snapshot，再把 `$HOME/.agents/skills` 指向该 snapshot；因此后续修改 clone 不会静默改变正在运行的全局 Skills。同时它使用 `templates/global-AGENTS.md` 更新全局 `AGENTS.md`，并把自定义 Agent 安装到 `$HOME/.codex/agents/`。遇到非 symlink 的现有 `$HOME/.agents/skills` 时会停止，不静默覆盖。
 
-`--apply` 在 Git checkout 中要求 source 工作树干净，并记录 source revision 与 package digest。安装期间任一步失败都会尝试恢复 Skill symlink、全局 guidance、旧 Skill 和 custom Agents；备份目录保留安装来源和恢复证据。
+`--apply` 在 Git checkout 中要求 source 工作树干净，并记录 source revision 与 package digest。普通 `validate_package.py` 可在 shallow clone 或无 Git archive 中依靠冻结 lineage hash 运行；正式 release 审查使用 `--require-history` 验证四个历史吸收提交。安装期间任一步失败都会尝试恢复 Skill symlink、全局 guidance、旧 Skill、release snapshot 和 custom Agents；备份目录保留安装来源和恢复证据。
+
+未跟踪的 `.codex/candidates/` 是当前维护机的 local-only 候选区，不计入 source digest、release snapshot 或 dirty-source 阻断；一旦其中内容被 Git 跟踪，或随无 Git archive 出现，validator 会拒绝该 package。
 
 若当前全局文件已经混入旧 package Agent 或重复规则，可显式压缩为单一受管 block：
 
@@ -109,7 +116,7 @@ MacBook Codex 可以把已完成 provenance、隐私、行为和 release review 
 - Source skills：38 个。
 - Codex custom agents：6 个。
 - 38 个 Skills 已统一为双字段 frontmatter、按需 references、三字段 UI metadata、20 条平衡 trigger eval 和至少 5 条 outcome case；当前共有 760 条 trigger 与 207 条 outcome 定义。
-- Package validator 检查 eval 的 schema、数量、平衡、路由所有者和冲突；另有 8 个 capability safe-stop fixtures，但它们不替代真实模型 trigger/outcome forward test 或科研结果验证。
+- Package validator 检查 Skill/Agent eval 的 schema、数量、路由所有者和 sandbox 边界；另有 14 个 capability safe-stop fixtures，但它们不替代真实模型 trigger/outcome forward test 或科研结果验证。
 - 六个高频科研 owner Skill 已通过 capability registry 连接可选执行后端；registry 中的 `tool-bound` 只表示完成选路契约，不能写成安装、集成测试或科研验证已完成。
 - Runtime 成熟经验按逐项 keep/merge 审查后回流 source；项目沉积、机器路径和重复 reference 不进入 canonical。
 - 根 `AGENTS.md` 只保留认知/决策归属、证据、数据安全、项目状态和分支守门内核；细节由对应 skill/reference 承担。

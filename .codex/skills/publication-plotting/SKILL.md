@@ -1,6 +1,6 @@
 ---
 name: publication-plotting
-description: 用于生成、修改或整合生物信息学论文/PPT 图，包括 figure contract、panel hierarchy、Python/R 绘图、source-data 输出、PNG/SVG 导出、字体配色和 visual QA；不用于 caption-only、source-data-only 审计、claim-only 审查或无图形交付的一般分析。
+description: 用于实际生成、重画、排版或整合生物信息学论文/PPT 图，交付 figure contract、panel hierarchy、Python/R 绘图、source data、PNG/SVG、字体配色和 visual QA；只写 caption、只审 source data/claim 或无图形交付的分析不使用本 Skill。
 ---
 
 # Publication Plotting

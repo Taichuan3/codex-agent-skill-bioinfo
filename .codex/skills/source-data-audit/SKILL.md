@@ -1,6 +1,6 @@
 ---
 name: source-data-audit
-description: 用于构建或审查生物信息学论文 figure/table/panel 到 source file、producer、统计定义与 deposition/access route 的可追溯 inventory，并检查 numbers-to-lock、Data/Code Availability、FAIR-like metadata 和 repository readiness；不判定 claim 强度、稿件跨位置一致性、整套投稿 readiness 或 reviewer response。
+description: 用于 figure/table/panel → source file、producer script、统计定义和 deposition/access route 的可追溯 inventory，重点回答“来源文件和生成链在哪里”，并检查 numbers-to-lock、Data/Code Availability 与 repository readiness；不判断 claim 强度、稿件一致性、整套投稿 readiness 或 reviewer response。
 ---
 
 # Source Data Audit

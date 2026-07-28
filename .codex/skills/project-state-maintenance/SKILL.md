@@ -1,6 +1,6 @@
 ---
 name: project-state-maintenance
-description: 用于 PROJECT_GUIDE/PROJECT_PLAN 状态系统初始化修复、material-action 日志、定向历史读取和 GUIDE 更新判定；不用于 GUIDE 内容写作、单目录 README 或项目布局迁移。
+description: 用于项目状态系统规则与日志：初始化或修复 PROJECT_GUIDE hot / PROJECT_PLAN cold append-only 角色、记录 material action、定向读取历史并判定是否更新 GUIDE；不写 GUIDE 的具体研究内容，不维护目录 README 或迁移项目布局。
 ---
 
 # Project State Maintenance

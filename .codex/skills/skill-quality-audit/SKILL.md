@@ -1,6 +1,6 @@
 ---
 name: skill-quality-audit
-description: 用于按本机 portable Skill 标准设计、新建、只读审计或在明确授权范围内修订 Codex Skill：检查核心问题、触发与邻居路由、SKILL.md、resources、agents metadata、平衡 evals、安全、科研边界、provenance、source/runtime drift 和外部语料吸收；与官方 skill-creator 配合，但不负责批准、发布、安装或自动自修改。
+description: 用于审计或在明确授权下修订本机既有 portable Codex Skill，也可按本地标准设计新 Skill：检查触发/邻居路由、SKILL.md、resources、agents metadata、平衡 evals、安全、科研边界、provenance、source/runtime drift 与外部语料吸收；官方 skill-creator 仅作通用创建辅助，本 Skill 不批准、发布、安装或自动自修改。
 ---
 
 # Skill Quality Audit

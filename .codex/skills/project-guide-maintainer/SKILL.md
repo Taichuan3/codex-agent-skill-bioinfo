@@ -1,6 +1,6 @@
 ---
 name: project-guide-maintainer
-description: 用于创建/压缩 PROJECT_GUIDE 的 current state，维护研究问题、证据指针、story/figure skeleton、风险和 next decisions；不负责 PLAN、历史复盘或目录 README。
+description: 只用于创建、压缩或更新 PROJECT_GUIDE 的当前研究内容：研究问题、证据指针、story/figure skeleton、风险和 next decisions；状态系统规则、PROJECT_PLAN 日志/历史和目录 README 分别交给对应专项 Skill。
 ---
 
 # Project Guide Maintainer

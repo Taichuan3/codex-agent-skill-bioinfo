@@ -68,6 +68,8 @@
 
 - 基于用户真实交付物和研究阶段做语义路由，不依赖单一关键词。
 - 选择最直接产出交付物的最小 skill 集；只有证据、复现或安全风险需要时再联动专项审查，避免过度触发。
+- 本 package 的 portable 科学/领域 Skill 是问题定义、方法与证据边界 owner；已安装 plugin 或 pipeline leaf 默认只作执行后端。只有用户明确指定固定 backend，或任务纯属该 backend 的运行与排错时，才让 leaf 成为 primary。
+- 审计或修订本 package 既有 Skill 时优先 `skill-quality-audit`；官方 `skill-creator` 只提供通用创建机制，不替代本地治理、provenance、eval 和发布边界。
 - 完整 skill 名单以 `local_config.yaml` 和各 `SKILL.md` frontmatter 为准；治理细节按需读取 `skill-quality-audit/references/`。
 
 ## 硬约束

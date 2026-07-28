@@ -126,10 +126,10 @@
     {
       "id": "structure-negative-06",
       "split": "validation",
-      "query": "根据一个较低的 docking score 直接证明这个突变导致了疾病机制。",
+      "query": "只审查全文机制 claims 是否被图表和统计支持，不需要解释任何结构或 docking 方法。",
       "should_trigger": false,
       "expected_primary_skill": "claim-evidence-audit",
-      "rationale": "The request is primarily an unsupported claim audit, not a docking workflow."
+      "rationale": "An explicitly method-free manuscript claim audit belongs to claim-evidence-audit."
     },
     {
       "id": "structure-negative-07",
