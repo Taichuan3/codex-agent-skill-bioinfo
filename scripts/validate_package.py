@@ -885,9 +885,25 @@ if local_candidate_root.exists():
             ".codex/candidates may exist only as an untracked local worktree area; "
             "it is not part of a portable archive or release"
         )
-for path in ROOT.rglob("*"):
-    if ".git" in path.parts:
-        continue
+
+
+def portable_tree_entries(root: Path):
+    """Walk portable entries without entering Git's concurrently mutable object store."""
+    for current, directory_names, file_names in os.walk(
+        root,
+        topdown=True,
+        followlinks=False,
+    ):
+        directory_names[:] = sorted(
+            name for name in directory_names if name != ".git"
+        )
+        current_path = Path(current)
+        portable_file_names = sorted(name for name in file_names if name != ".git")
+        for name in [*directory_names, *portable_file_names]:
+            yield current_path / name
+
+
+for path in portable_tree_entries(ROOT):
     relative = path.relative_to(ROOT)
     if ignore_local_candidates and relative.parts[:2] == (".codex", "candidates"):
         continue
