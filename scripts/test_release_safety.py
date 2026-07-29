@@ -442,26 +442,54 @@ def test_untracked_local_candidates_do_not_block() -> None:
 
     with tempfile.TemporaryDirectory(prefix="codex-bioinfo-tracked-candidate-") as temporary:
         source = copy_source(Path(temporary))
-        candidate = source / ".codex" / "candidates" / "tracked-copy" / "NOTE.md"
-        candidate.parent.mkdir(parents=True)
-        candidate.write_text("tracked candidate\n", encoding="utf-8")
         for command in (
             ["git", "init"],
             ["git", "config", "user.email", "fixture@example.invalid"],
             ["git", "config", "user.name", "Fixture"],
             ["git", "add", "."],
-            ["git", "commit", "-m", "fixture with tracked candidate"],
+            ["git", "commit", "-m", "fixture baseline"],
         ):
             setup = run(["git", "-C", str(source), *command[1:]])
             require(
                 setup.returncode == 0,
                 f"tracked-candidate Git fixture setup failed: {setup.stdout}{setup.stderr}",
             )
+        baseline = run([sys.executable, str(source / "scripts" / "validate_package.py")])
+        require(
+            baseline.returncode == 0,
+            f"tracked-candidate baseline validation failed: {baseline.stdout}{baseline.stderr}",
+        )
+        candidate = source / ".codex" / "candidates" / "tracked-copy" / "NOTE.md"
+        candidate.parent.mkdir(parents=True)
+        candidate.write_text("tracked candidate\n", encoding="utf-8")
+        for command in (
+            ["git", "add", "--force", ".codex/candidates/tracked-copy/NOTE.md"],
+            ["git", "commit", "-m", "fixture with tracked candidate"],
+        ):
+            setup = run(["git", "-C", str(source), *command[1:]])
+            require(
+                setup.returncode == 0,
+                f"tracked-candidate commit setup failed: {setup.stdout}{setup.stderr}",
+            )
+        tracked = run(
+            [
+                "git",
+                "-C",
+                str(source),
+                "ls-files",
+                "--",
+                ".codex/candidates/tracked-copy/NOTE.md",
+            ]
+        )
+        require(
+            tracked.returncode == 0 and tracked.stdout.strip(),
+            f"tracked-candidate fixture is not tracked: {tracked.stdout}{tracked.stderr}",
+        )
         result = run([sys.executable, str(source / "scripts" / "validate_package.py")])
         require(result.returncode != 0, "tracked candidate unexpectedly passed")
         require(
             "only as an untracked local worktree area" in result.stdout,
-            "tracked-candidate rejection did not explain the boundary",
+            f"tracked-candidate rejection did not explain the boundary: {result.stdout}{result.stderr}",
         )
 
 

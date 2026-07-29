@@ -71,7 +71,10 @@ REPOSITORY_ROOT = git_repository_root()
 
 
 def expected_count(key: str) -> int | None:
-    match = re.search(rf"(?m)^\s*{re.escape(key)}:\s*(\d+)\s*$", MANIFEST.read_text())
+    match = re.search(
+        rf"(?m)^\s*{re.escape(key)}:\s*(\d+)\s*$",
+        MANIFEST.read_text(encoding="utf-8"),
+    )
     return int(match.group(1)) if match else None
 
 
