@@ -1,0 +1,4 @@
+interface:
+  display_name: "Project Directory Card Maintenance"
+  short_description: "project directory card maintenance"
+  default_prompt: "Use $project-directory-card-maintenance for the matching bioinformatics research task."

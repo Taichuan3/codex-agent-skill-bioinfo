@@ -1,13 +1,24 @@
 ---
 name: scientific-english-polishing
-description: 用于已有英文科研文本的润色、压缩、段落重构、Nature/CNS-leaning academic style 和学术语气检查；必须保护证据边界，不能升级科学 claim。中文到英文翻译优先使用 scientific-english-translation，中文内部润色优先使用 chinese-scientific-polishing。
+description: 用于已有英文科研文本的润色、压缩、段落重构、标题/摘要/图注/response letter 英文打磨和学术语气检查；必须保护证据边界，不能升级科学 claim。中文到英文翻译使用 `scientific-english-translation`。
 ---
 
 # Scientific English Polishing
 
+## 核心问题
+
+如何在不升级 claim 的前提下，把已有英文科研文本变得更清楚、更精炼、更符合学术表达？
+
 ## 使用场景
 
 当用户提供已有英文文本并要求英文润色、Nature/CNS-leaning style、摘要压缩、标题优化、response letter 改写或 figure legend 英文打磨时使用本 skill。
+
+## 不适合触发
+
+- 输入主要是中文并需要英文输出时，使用 `scientific-english-translation`。
+- 只需要中文润色时，使用 `chinese-scientific-polishing`。
+- 文本中的科学结论证据不足时，不直接强化表达；先标注风险，必要时联动 `claim-evidence-audit`。
+
 
 ## 核心原则
 
@@ -18,6 +29,7 @@ description: 用于已有英文科研文本的润色、压缩、段落重构、N
 - 保持 scientific terminology 一致性。同一概念、对象或结构层级必须使用同一英文术语；不要为了 stylistic variation 把同一对象在相邻句中改写为不同名词，例如未定义差异时不要在 `element`、`copy`、`unit`、`locus`、`sequence` 之间来回切换。
 - 只有在不同术语代表不同层级或不同对象时才并用，并应在文本中明确边界。
 - 能压缩就压缩，但不能删除关键 caveat、样本范围、数据类型和统计限定。
+- 保持 reader-facing manuscript hygiene。Results、Discussion 和 figure captions 中不得保留本地绝对/相对路径、repository 目录、脚本名、原始表格文件名、内部布尔字段、run ID、未解释的 pipeline label、命令行参数或作者批注；应改写为 `Source Data`、`Supplementary Table/Figure`、读者可理解的纳入标准或正式方法术语。Methods 可保留复现所必需的软件、版本、参数和阈值，但不得保留机器专属路径；精确 provenance 留在 manifest、source-data inventory 或项目记录中。
 - 润色完成后先自检再输出。风险说明、术语说明和替代表达只在确有必要时给出，避免把无问题文本附加过多说明。
 
 ## 工作流程
@@ -27,7 +39,7 @@ description: 用于已有英文科研文本的润色、压缩、段落重构、N
 3. 建立或保留 terminology map，检查同一概念是否被多个英文词替换、代词是否指代不清。
 4. 先修正结构、术语歧义和过强 claim，再进行句子层面润色。
 5. 对高风险表达给出替代表述，而不是直接强化。
-6. 交付前自检：检查 claim 是否升级、terminology 是否稳定、section stance 是否正确、caveat 是否保留、英文是否引入新歧义。
+6. 交付前自检：检查 claim 是否升级、terminology 是否稳定、section stance 是否正确、caveat 是否保留、英文是否引入新歧义；同时检索 Windows/Unix 路径、文件扩展名、`source_data`/`scripts`、内部 flag、raw command options、run IDs 和未处理批注，确保它们未进入 reader-facing Results 或 captions。
 7. 如发现证据不足或表达风险，明确说明不建议使用的英文表达。
 
 ## 输出格式

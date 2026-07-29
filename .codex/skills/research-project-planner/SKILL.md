@@ -1,13 +1,25 @@
 ---
 name: research-project-planner
-description: 用于生物信息学或计算生物学项目启动前的背景调查、研究问题澄清、知识缺口定位、可检验假设、证据包、figure skeleton、技术路线和可复现计划设计。适用于用户说“我想做一个课题/方向/项目但目标不清楚”“帮我规划研究路线”“先做背景调查和技术路线”“这个想法能不能做成论文”等场景。
+description: 用于生物信息学或计算生物学项目启动前，将模糊研究方向转成可执行研究路线：澄清 central question、knowledge gap、hypothesis、evidence package、figure skeleton、技术路线、风险和 stop/pivot criteria。不用于已明确的代码执行、单篇论文阅读或单纯文本润色。
 ---
 
 # Research Project Planner
 
+## 核心问题
+
+如何把模糊研究方向变成 central question、evidence package、figure skeleton 和可执行路线？
+
 ## 使用场景
 
 当用户还没有进入具体分析，而是需要把一个研究方向变成可执行项目时使用本 skill。它的目标是先规划路线，不是直接写代码、画图或写论文。
+
+## 不适合触发
+
+- 用户已经给出明确脚本/表格处理任务时，使用 `bioinfo-analysis-code`。
+- 用户指定阅读单篇论文时，使用 `paper-reader`。
+- 用户只需要把零散想法压缩成短 brief 时，优先使用 `research-question-brief`。
+- 用户只要求润色、翻译或改写文本时，使用对应写作 skill。
+
 
 ## 核心原则
 
@@ -28,8 +40,10 @@ description: 用于生物信息学或计算生物学项目启动前的背景调�
 5. 设计 evidence package：需要哪些数据、对照、统计、验证和替代解释排除。
 6. 画 figure skeleton：每张主图回答什么问题。
 7. 给出 technical route：数据来源、分析模块、工具选择、验证路线和风险节点。
-8. 给出 stop / pivot criteria：什么结果继续，什么结果转向，什么结果停止。
-9. 建议如何把输出压缩进 `PROJECT_GUIDE.md`，而不是写成长记录。
+8. 生成 Project Charter 级别的 artifacts：minimum viable analysis、risk register、go/no-go criteria、下一阶段 evidence map questions。
+9. 明确哪些任务属于 Hermes 科学编排，哪些可以形成 bounded Codex task contract。对于用户明确采用 Hermes/Codex 分工的生信项目，Hermes 应先定义问题、证据边界、目录/报告主线和验收标准，再把大范围代码实现、批量重构、索引生成或路径更新交给 Codex；不要把 Hermes 当作 Codex 的替代直接吞下所有工程工作。
+10. 给出 stop / pivot criteria：什么结果继续，什么结果转向，什么结果停止。
+11. 建议如何把输出压缩进 `PROJECT_GUIDE.md`，而不是写成长记录。
 
 ## 必要输出
 
@@ -47,7 +61,12 @@ description: 用于生物信息学或计算生物学项目启动前的背景调�
 - `Technical route`
 - `Risks and alternatives`
 - `Stop / pivot criteria`
-- `Immediate next actions`
+- `Project Charter`
+- `Minimum viable analysis`
+- `Risk register`
+- `Go / no-go criteria`
+- `Next evidence-map questions`
+- `Next bounded Codex tasks`
 
 如果用户提供的想法仍然模糊，先输出需要澄清的问题，但不要问太多。优先问会改变技术路线的 3 个问题。
 

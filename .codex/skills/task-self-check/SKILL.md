@@ -5,6 +5,10 @@ description: 用于任何生物信息学研究任务交付前的轻量自检，�
 
 # Task Self Check
 
+## 核心问题
+
+如何在交付前做轻量质量门控，确认没有证据、复现、图表、路径或文字越界问题？
+
 ## 使用场景
 
 当一个写作、分析、绘图、数据整理或项目规划任务即将交付时使用本 skill。它不是替代具体任务 skill，而是最后的轻量质量门控。
@@ -39,5 +43,7 @@ Self-check
 - Reproducibility risk:
 - Suggested record:
 ```
+
+For this user's long-running research/project-organization tasks, the final chat output after self-check must be self-contained and Chinese by default. Include: actual work completed, changed files/dirs, key findings or comparison results, verification status and boundary, remaining risks, and next decision. Do not make temporary verification scripts or raw tool logs the main content, and do not require the user to open audit files just to understand the conclusion.
 
 需要更细的检查表时读取 `references/self-check-rubric.md`。
