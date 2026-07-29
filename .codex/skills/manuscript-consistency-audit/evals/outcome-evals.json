@@ -87,6 +87,25 @@
         "edit the manuscript",
         "claim unprovided supplements are consistent"
       ]
+    },
+    {
+      "id": "consistency-outcome-hygiene-01",
+      "mode": "reader-facing manuscript hygiene",
+      "task": "Audit Results and figure captions that contain machine paths, script filenames, internal run labels, and unresolved author comments while Methods contains reproducibility-critical parameters.",
+      "must_include": [
+        "exact reader-facing locations",
+        "reader-facing hygiene conflict status",
+        "Methods parameters preserved",
+        "internal provenance routed to a manifest or project record",
+        "unresolved comments preserved as author actions",
+        "scientifically necessary identifiers retained and defined"
+      ],
+      "must_not": [
+        "delete provenance without preserving it elsewhere",
+        "silently discard an unresolved scientific question",
+        "remove reproducibility-critical Methods details",
+        "expose machine-specific paths in revised reader-facing text"
+      ]
     }
   ]
 }

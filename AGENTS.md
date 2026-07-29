@@ -50,7 +50,7 @@
 
 ## 最小上下文与项目状态
 
-- 只读取完成任务所需的最小上下文：触发的 `SKILL.md` → 必要的 `PROJECT_GUIDE.md` → 项目根/项目 profile `AGENTS.md` → 用户指定材料。Skill 触发以 frontmatter 的语义描述为准；`.agents/skills` 是 standalone discovery 入口。
+- 只读取完成任务所需的最小上下文：触发的 `SKILL.md` → 必要的 `PROJECT_GUIDE.md` → 项目根/项目 profile `AGENTS.md` → 用户指定材料。Skill 触发以 frontmatter 的语义描述为准；安装后的用户级 `~/.agents/skills` 是 standalone discovery 入口。
 - `PROJECT_GUIDE.md` 是 hot current context，只保留当前事实、证据指针、next actions 和风险；详细预算与压缩规则见 `project-state-maintenance`。
 - `PROJECT_PLAN.md` 是 cold append-only log，默认写入而不读取；只有 audit/history/reconstruction 等需要时才用 grep/tail/log_id/line range 定向读取。实质产物默认追加一条简短记录，durable project fact 改变时才更新 GUIDE。
 

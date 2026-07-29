@@ -9,6 +9,7 @@ from __future__ import annotations
 import argparse
 import filecmp
 import hashlib
+import json
 import os
 import shutil
 import subprocess
@@ -60,6 +61,15 @@ def parse_args() -> argparse.Namespace:
         type=Path,
         default=Path.home(),
         help="target home directory; intended for isolated validation fixtures",
+    )
+    parser.add_argument(
+        "--skills-deployment",
+        choices=("auto", "symlink", "copy"),
+        default="auto",
+        help=(
+            "global Skill deployment: auto uses a symlink on POSIX and a managed copy "
+            "on Windows"
+        ),
     )
     return parser.parse_args()
 
@@ -176,10 +186,71 @@ def make_read_only(root: Path) -> None:
     root.chmod(0o555)
 
 
+def deployment_mode(requested: str) -> str:
+    if requested == "auto":
+        return "copy" if os.name == "nt" else "symlink"
+    return requested
+
+
+def load_managed_copy(marker: Path, target: Path) -> dict[str, str]:
+    if marker.is_symlink() or (marker.exists() and not marker.is_file()):
+        raise RuntimeError(f"{marker} is not a regular managed-copy marker")
+    if not marker.is_file():
+        raise RuntimeError(
+            f"{target} is a real directory without {marker.name}; refusing to overwrite "
+            "an unmanaged Skill directory"
+        )
+    try:
+        payload = json.loads(marker.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError) as exc:
+        raise RuntimeError(f"{marker} is not a valid managed-copy marker") from exc
+    required = {
+        "schema_version": 1,
+        "managed_by": "codex-agent-skill-bioinfo",
+        "deployment_mode": "copy",
+    }
+    for key, expected in required.items():
+        if payload.get(key) != expected:
+            raise RuntimeError(f"{marker} has an unsupported {key}; refusing to overwrite")
+    if any(path.is_symlink() for path in target.rglob("*")):
+        raise RuntimeError(
+            f"managed Skill copy contains a symlink: {target}; "
+            "preserve it and resolve the local changes manually"
+        )
+    recorded_digest = payload.get("skills_digest")
+    if not isinstance(recorded_digest, str) or not recorded_digest.startswith("sha256:"):
+        raise RuntimeError(f"{marker} has no valid skills_digest")
+    actual_digest = f"sha256:{tree_digest(target)}"
+    if actual_digest != recorded_digest:
+        raise RuntimeError(
+            f"managed Skill copy failed digest verification: {target}; "
+            "preserve it and resolve the local changes manually"
+        )
+    return payload
+
+
+def remove_path(path: Path) -> None:
+    """Remove a file, symlink, or read-only tree during transactional rollback."""
+    if path.is_symlink() or path.is_file():
+        path.chmod(0o600, follow_symlinks=False)
+        path.unlink()
+        return
+    if not path.exists():
+        return
+    for child in sorted(path.rglob("*"), reverse=True):
+        if child.is_symlink() or child.is_file():
+            child.chmod(0o600, follow_symlinks=False)
+        elif child.is_dir():
+            child.chmod(0o700)
+    path.chmod(0o700)
+    shutil.rmtree(path)
+
+
 def main() -> int:
     args = parse_args()
     target_home = args.home.expanduser().resolve()
     target_skills = target_home / ".agents" / "skills"
+    skills_marker = target_home / ".agents" / "codex-bioinfo-skills.json"
     target_codex = target_home / ".codex"
     legacy_codex_skills = target_codex / "skills"
     target_agents = target_codex / "agents"
@@ -189,6 +260,7 @@ def main() -> int:
     revision, source_dirty = source_state()
     digest = source_digest()
     skills_digest = tree_digest(SOURCE_SKILLS)
+    selected_deployment = deployment_mode(args.skills_deployment)
     if args.apply and source_dirty:
         raise RuntimeError(
             "source checkout has tracked or untracked changes; commit or use a clean release checkout "
@@ -241,19 +313,61 @@ def main() -> int:
         new_guidance = managed_guidance(existing_guidance)
 
     skill_action: str
-    skill_changed = not (
-        target_skills.is_symlink() and target_skills.resolve() == installed_skills.resolve()
-    )
-    if not skill_changed:
-        skill_action = "keep existing correct Skill symlink"
-    elif target_skills.exists() or target_skills.is_symlink():
-        if not target_skills.is_symlink():
-            raise RuntimeError(
-                f"{target_skills} exists and is not a symlink; consolidate it manually before installation"
+    marker_changed = skills_marker.exists() or skills_marker.is_symlink()
+    if skills_marker.is_symlink() or (skills_marker.exists() and not skills_marker.is_file()):
+        raise RuntimeError(f"{skills_marker} is not a regular file")
+    if target_skills.is_symlink():
+        if skills_marker.exists():
+            try:
+                marker_payload = json.loads(skills_marker.read_text(encoding="utf-8"))
+            except (json.JSONDecodeError, OSError) as exc:
+                raise RuntimeError(f"{skills_marker} is not a valid managed-copy marker") from exc
+            if (
+                marker_payload.get("schema_version") != 1
+                or marker_payload.get("managed_by") != "codex-agent-skill-bioinfo"
+            ):
+                raise RuntimeError(
+                    f"{skills_marker} is not owned by this installer; refusing to overwrite"
+                )
+        correct_link = target_skills.resolve() == installed_skills.resolve()
+        skill_changed = selected_deployment != "symlink" or not correct_link
+        marker_changed = selected_deployment == "copy" or marker_changed
+        if not skill_changed:
+            skill_action = "keep existing correct Skill symlink"
+        elif selected_deployment == "copy":
+            skill_action = (
+                f"replace Skill symlink currently pointing to {os.readlink(target_skills)} "
+                "with a managed copy"
             )
-        skill_action = f"replace Skill symlink currently pointing to {os.readlink(target_skills)}"
+        else:
+            skill_action = f"replace Skill symlink currently pointing to {os.readlink(target_skills)}"
+    elif target_skills.exists():
+        if not target_skills.is_dir():
+            raise RuntimeError(f"{target_skills} exists and is not a directory or symlink")
+        managed = load_managed_copy(skills_marker, target_skills)
+        current_release = managed.get("release_id") == release_id
+        current_digest = managed.get("skills_digest") == f"sha256:{skills_digest}"
+        skill_changed = selected_deployment != "copy" or not (current_release and current_digest)
+        marker_changed = selected_deployment != "copy" or not (current_release and current_digest)
+        if not skill_changed:
+            skill_action = "keep existing verified managed Skill copy"
+        elif selected_deployment == "symlink":
+            skill_action = "replace verified managed Skill copy with a symlink"
+        else:
+            skill_action = "update verified managed Skill copy"
     else:
-        skill_action = "create global Skill symlink"
+        if skills_marker.exists():
+            raise RuntimeError(
+                f"{skills_marker} exists but {target_skills} is missing; "
+                "resolve the incomplete managed copy manually"
+            )
+        skill_changed = True
+        marker_changed = selected_deployment == "copy"
+        skill_action = (
+            "create managed global Skill copy"
+            if selected_deployment == "copy"
+            else "create global Skill symlink"
+        )
 
     changed_agents = [
         source
@@ -280,6 +394,7 @@ def main() -> int:
     print(f"Source digest: sha256:{digest}")
     print(f"Installed Skill snapshot: {installed_skills}")
     print(f"Target home: {target_home}")
+    print(f"Skill deployment: {selected_deployment}")
     print(f"Skills: {skill_action}")
     if not guidance_changed:
         guidance_action = "already current"
@@ -307,7 +422,13 @@ def main() -> int:
         return 0
 
     retire_legacy = args.retire_legacy_codex_skills and bool(legacy_skill_dirs)
-    if not skill_changed and not guidance_changed and not changed_agents and not retire_legacy:
+    if (
+        not skill_changed
+        and not marker_changed
+        and not guidance_changed
+        and not changed_agents
+        and not retire_legacy
+    ):
         print("Already current; no files changed.")
         return 0
 
@@ -319,13 +440,17 @@ def main() -> int:
         f"revision={revision}\ndigest=sha256:{digest}\nsource={ROOT}\n",
     )
 
-    backup_link = backup_root / "skills.symlink"
+    backup_skills = backup_root / "skills.previous"
+    marker_backup = backup_root / "codex-bioinfo-skills.json"
     guidance_backup = backup_root / "AGENTS.md"
     legacy_backup = backup_root / "legacy-codex-skills"
     moved_legacy: list[tuple[Path, Path]] = []
     agent_backups: list[tuple[Path, Path | None]] = []
     skill_installed = False
     skill_backup_moved = False
+    skill_backup_was_directory = False
+    marker_backup_copied = False
+    marker_installed = False
     guidance_installed = False
     release_created = False
     staging: Path | None = None
@@ -363,11 +488,45 @@ def main() -> int:
 
         target_skills.parent.mkdir(parents=True, exist_ok=True)
         if skill_changed:
-            if target_skills.is_symlink():
-                target_skills.rename(backup_link)
+            if target_skills.exists() or target_skills.is_symlink():
+                if target_skills.is_dir() and not target_skills.is_symlink():
+                    previous_root_mode = target_skills.stat().st_mode & 0o777
+                    target_skills.chmod(0o700)
+                    try:
+                        target_skills.rename(backup_skills)
+                    except OSError:
+                        target_skills.chmod(previous_root_mode)
+                        raise
+                    skill_backup_was_directory = True
+                else:
+                    target_skills.rename(backup_skills)
                 skill_backup_moved = True
-            target_skills.symlink_to(installed_skills)
+            if selected_deployment == "symlink":
+                target_skills.symlink_to(installed_skills, target_is_directory=True)
+            else:
+                shutil.copytree(installed_skills, target_skills)
             skill_installed = True
+        if marker_changed:
+            if skills_marker.exists():
+                shutil.copy2(skills_marker, marker_backup)
+                marker_backup_copied = True
+            if selected_deployment == "copy":
+                marker_payload = {
+                    "schema_version": 1,
+                    "managed_by": "codex-agent-skill-bioinfo",
+                    "deployment_mode": "copy",
+                    "release_id": release_id,
+                    "source_revision": revision,
+                    "package_digest": f"sha256:{digest}",
+                    "skills_digest": f"sha256:{skills_digest}",
+                }
+                atomic_write(
+                    skills_marker,
+                    json.dumps(marker_payload, indent=2, sort_keys=True) + "\n",
+                )
+            elif skills_marker.exists():
+                skills_marker.unlink()
+            marker_installed = True
 
         target_codex.mkdir(parents=True, exist_ok=True)
         if guidance_changed:
@@ -415,24 +574,27 @@ def main() -> int:
                     target_guidance.unlink()
             except OSError as rollback_exc:
                 rollback_errors.append(f"global guidance: {rollback_exc}")
+        if marker_installed or marker_backup_copied:
+            try:
+                if skills_marker.exists() or skills_marker.is_symlink():
+                    remove_path(skills_marker)
+                if marker_backup.exists():
+                    shutil.copy2(marker_backup, skills_marker)
+            except OSError as rollback_exc:
+                rollback_errors.append(f"Skill deployment marker: {rollback_exc}")
         if skill_installed or skill_backup_moved:
             try:
-                if target_skills.is_symlink():
-                    target_skills.unlink()
-                if backup_link.exists() or backup_link.is_symlink():
-                    backup_link.rename(target_skills)
+                if target_skills.exists() or target_skills.is_symlink():
+                    remove_path(target_skills)
+                if backup_skills.exists() or backup_skills.is_symlink():
+                    backup_skills.rename(target_skills)
+                    if skill_backup_was_directory:
+                        make_read_only(target_skills)
             except OSError as rollback_exc:
-                rollback_errors.append(f"Skill symlink: {rollback_exc}")
+                rollback_errors.append(f"Skill deployment: {rollback_exc}")
         if release_created:
             try:
-                make_read_only(release_root)
-                for path in sorted(release_root.rglob("*"), reverse=True):
-                    if path.is_file():
-                        path.chmod(0o600)
-                    elif path.is_dir():
-                        path.chmod(0o700)
-                release_root.chmod(0o700)
-                shutil.rmtree(release_root)
+                remove_path(release_root)
             except OSError as rollback_exc:
                 rollback_errors.append(f"release snapshot {release_root}: {rollback_exc}")
         if staging is not None and staging.exists():

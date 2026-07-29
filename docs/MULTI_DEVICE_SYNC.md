@@ -68,11 +68,12 @@ python3 scripts/install_codex_bioinfo.py --apply
 
 安装器管理：
 
-- `$HOME/.agents/skills` → 当前 clone 的 `.codex/skills`
+- `$HOME/.codex/packages/codex-agent-skill-bioinfo/<revision-digest>/skills` 的 release snapshot
+- `$HOME/.agents/skills`：macOS/Linux 为指向 snapshot 的符号链接，Windows 为带 SHA-256 marker 的托管副本
 - `$HOME/.codex/agents/*.toml`
 - `$HOME/.codex/AGENTS.md` 中的受管 bioinfo block
 
-`--apply` 在 Git checkout 中只接受干净 source，并记录 commit 与 package digest；安装失败时事务性恢复已触及的 Skill symlink、global guidance、legacy Skills 和 custom Agents。开发态 dirty symlink 只能用于本机迭代，不能作为已审查 release parity 证据。
+`--apply` 在 Git checkout 中只接受干净 source，并记录 commit 与 package digest；安装失败时事务性恢复已触及的 Skill deployment、Windows marker、global guidance、legacy Skills 和 custom Agents。仓库不提交 `.agents/skills` 符号链接，避免 Windows 将其检出为文本文件；运行时 parity 以 clean commit、snapshot digest 和安装 marker 为证据。
 
 `$HOME/.agents/skills` 是用户级全局发现入口，因此 38 个 Skills 在任意项目目录均可用，不依赖项目是否位于 `~/bioinfo`。若历史安装在 `$HOME/.codex/skills` 留下重名用户 Skills，使用：
 
@@ -83,6 +84,16 @@ python3 scripts/install_codex_bioinfo.py --apply \
 ```
 
 安装器会把这些旧用户 Skill 移入可恢复备份并保留 `.system`。
+
+Windows PowerShell 使用 Python 3.11+：
+
+```powershell
+py -3.11 scripts/validate_package.py
+py -3.11 scripts/install_codex_bioinfo.py
+py -3.11 scripts/install_codex_bioinfo.py --apply
+```
+
+普通的现有 `$HOME/.agents/skills` 目录不会被自动接管；先人工判断来源。只有本安装器生成、marker 有效且目录摘要未变化的托管副本才能自动升级或迁移。
 
 安装器不管理：
 

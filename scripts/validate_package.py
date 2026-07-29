@@ -777,12 +777,15 @@ else:
 installer_text = (ROOT / "scripts" / "install_codex_bioinfo.py").read_text(encoding="utf-8")
 if "--retire-legacy-codex-skills" not in installer_text:
     fail("installer is missing the explicit legacy ~/.codex/skills retirement option")
+if "--skills-deployment" not in installer_text:
+    fail("installer is missing the cross-platform Skill deployment option")
 
-skill_link = ROOT / ".agents" / "skills"
-if not skill_link.is_symlink():
-    fail(".agents/skills must be a symlink")
-elif skill_link.resolve() != SKILLS.resolve():
-    fail(".agents/skills does not resolve to .codex/skills")
+repo_skill_entry = ROOT / ".agents" / "skills"
+if repo_skill_entry.exists() or repo_skill_entry.is_symlink():
+    fail(
+        ".agents/skills must not be committed; install the user-global ~/.agents/skills "
+        "runtime with the installer"
+    )
 
 for forbidden in (
     "terminal_profiles",
@@ -886,9 +889,7 @@ for path in ROOT.rglob("*"):
     if ignore_local_candidates and relative.parts[:2] == (".codex", "candidates"):
         continue
     if path.is_symlink():
-        link_target = os.readlink(path)
-        if relative != Path(".agents/skills") or link_target != "../.codex/skills":
-            fail(f"{relative}: unexpected symlink target is not allowed in the portable package")
+        fail(f"{relative}: symlinks are not allowed in the cross-platform portable package")
         continue
     if not path.is_file():
         continue
@@ -1233,5 +1234,5 @@ if errors:
 print(
     "PASS: "
     f"{len(skill_dirs)} Skills, {len(agent_files)} custom Agents, "
-    "static eval schemas, discovery link, manifest counts, and privacy gates validated"
+    "static eval schemas, cross-platform discovery policy, manifest counts, and privacy gates validated"
 )

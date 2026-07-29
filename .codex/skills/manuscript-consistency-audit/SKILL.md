@@ -22,6 +22,8 @@ description: 用于检查生物信息学稿件各位置之间的内部一致性�
 - 先声明稿件版本、比较范围和 authority hierarchy。
 - 优先使用 verified source data、locked table、figure map、analysis config 或用户指定版本；没有 authority 时标记 `AUTHOR_INPUT_NEEDED`。
 - 区分 `consistent`、`conflict`、`missing authority`、`scope-dependent` 与 `not assessed`。
+- 将 reader-facing hygiene 作为独立状态检查：Results、Discussion 和 caption 不应暴露本机绝对路径、仓库目录、脚本或原始表格文件名、内部 flag/run ID/pipeline label、原始命令或未解决的作者/编辑批注；批注从读者正文移出时，尚未解决的科学问题必须原意保留为 author action。
+- Methods 保留复现必需的软件、版本、参数、阈值和公开 accession；机器特异路径与内部运行标签留在 manifest、source-data inventory 或项目记录中。科学上必要的标识符不得删除，但首次面向读者出现时应定义。
 - 不把“所有位置一致”误写成“科学上正确”；一致性不替代证据审查。
 - 不自动改数字、样本或统计定义，不把一种分析口径静默覆盖另一种。
 - 只提出解决冲突所需的最小修改，不重写无关段落或提升 claim 强度。
@@ -30,10 +32,10 @@ description: 用于检查生物信息学稿件各位置之间的内部一致性�
 
 1. 锁定 manuscript、supplement、figure/legend/table 的版本与审计范围。
 2. 建立 authority hierarchy；缺少 number lock 时先生成候选表，不自行定值。
-3. 抽取数字、denominator、n、术语、样本集合、过滤阈值、统计检验、软件/参考版本、图表编号和关键 claim。
+3. 抽取数字、denominator、n、术语、样本集合、过滤阈值、统计检验、软件/参考版本、图表编号和关键 claim；同时扫描 reader-facing 区域中的内部实现痕迹与未解决批注。
 4. 按概念聚合所有 locations，与 authority 对照并记录差异类型。
 5. 对 claim-strength 差异只标出位置和方向；需要科学判定时转交 `claim-evidence-audit`。
-6. 给出 exact location、权威值、最小修复和需要作者决定的冲突。
+6. 给出 exact location、权威值、最小修复和需要作者决定的冲突；内部 provenance 与未解决批注应分别迁移到可追踪记录和 author-action list，而不是直接丢失。
 7. 修改获授权时只改确认项；复查 cross-reference 和 number lock，不宣称未检查位置已一致。
 
 ## 输出合同
@@ -41,7 +43,7 @@ description: 用于检查生物信息学稿件各位置之间的内部一致性�
 | Item | Location | Current text | Authority | Status | Fix |
 |---|---|---|---|---|---|
 
-报告 coverage、authority gaps、blocking conflicts、已修位置与未审材料。
+报告 coverage、authority gaps、blocking conflicts、reader-facing hygiene conflicts、author actions、已修位置与未审材料。
 
 ## 按需读取
 

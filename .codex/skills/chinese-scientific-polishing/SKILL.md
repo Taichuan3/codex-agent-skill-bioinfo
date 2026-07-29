@@ -22,6 +22,7 @@ description: 用于把已有或目标输出为中文的科研文本做语言润�
 - 保留关键 caveat、数据类型、样本范围和统计限定；无法确认的内容标记为待核实，不替作者补全。
 - 一个概念稳定使用一个术语；只有层级或对象确实不同才并用近义术语，并先定义区别。
 - 按章节职责控制语气和数据密度：Results 陈述观察，Discussion 解释意义与边界，Methods 优先可复现性。
+- 面向读者的 Results、Discussion 和图注去除本机路径、仓库/脚本/原始表格文件名、内部 flag/run ID、原始命令和未解决批注；批注中的未决科学问题原意保留到 `待核实/风险` 或 author-action list，复现所需细节保留在 Methods，精确内部 provenance 留在 manifest 或项目记录。
 - 若草稿明确提示缺图、缺数据或 claim 未闭合，先列 revision backlog 或 claim-to-figure 缺口，不把待证实内容润色成定稿。
 
 ## 工作流程

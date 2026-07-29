@@ -87,6 +87,25 @@
         "add guessed sample details",
         "perform an English translation"
       ]
+    },
+    {
+      "id": "chinese-polish-outcome-hygiene-01",
+      "mode": "面向读者的稿件清理",
+      "task": "润色包含本机路径、脚本文件名、内部 run ID 和作者批注的中文 Results，同时保留可追溯性。",
+      "must_include": [
+        "可直接替换的中文版本",
+        "读者正文不含内部实现痕迹",
+        "未解决批注原意保留为作者待办或待核实项",
+        "科学标识符在必要时保留并定义",
+        "精确 provenance 转入 manifest 或项目记录",
+        "原有 claim 强度不变"
+      ],
+      "must_not": [
+        "直接丢弃 provenance",
+        "静默丢弃未解决的科学问题",
+        "保留未解决作者批注",
+        "把内部标签改写成科学结论"
+      ]
     }
   ]
 }

@@ -1,0 +1,34 @@
+name: cross-platform-install
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Validate package and release fixtures
+        run: |
+          python scripts/validate_package.py --require-history
+          python scripts/test_release_safety.py
+          python scripts/test_capability_behavior.py
+          python scripts/install_codex_bioinfo.py

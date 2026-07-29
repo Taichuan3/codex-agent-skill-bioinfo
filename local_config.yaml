@@ -13,7 +13,7 @@ package:
 entrypoints:
   root_agent: AGENTS.md
   skills_dir: .codex/skills
-  codex_cli_skills_dir: .agents/skills
+  codex_cli_skills_dir: ~/.agents/skills
   custom_agents_dir: .codex/agents
   custom_agent_routing_evals: .codex/agents/evals/agent-routing-evals.json
   custom_agent_routing_forward_test: docs/AGENT_ROUTING_FORWARD_TEST_2026-07-28.tsv
@@ -119,10 +119,10 @@ skill_metadata:
     - scripts
     - assets
   codex_cli_discovery:
-    repo_scope: .agents/skills
+    repo_scope: not_committed_install_user_global_runtime
     user_global_runtime: ~/.agents/skills
     source_layout: .codex/skills
-    note: ~/.agents/skills is the single user-global portable Skill source; stale user Skills under ~/.codex/skills are backed up and retired while .system is preserved.
+    note: The installer deploys ~/.agents/skills as an immutable-snapshot symlink on POSIX or a digest-verified managed copy on Windows; stale user Skills under ~/.codex/skills are backed up and retired while .system is preserved.
   trigger_source: SKILL.md frontmatter description
 
 evidence_levels:

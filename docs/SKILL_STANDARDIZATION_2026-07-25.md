@@ -72,7 +72,7 @@ Progressive disclosure is measured primarily by shorter loaded bodies and direct
   by the four absorption commits, checks source/ref/path key parity and full
   SHAs, preserves BioNeMo's mixed license and the K-Dense exception, and
   validates all 18 expression-review rows.
-- Runtime discovery currently uses the repository Skill symlink; after publication, parity must be checked against the clean reviewed commit rather than treating symlink identity as independent proof.
+- Historical note: runtime discovery originally used a repository Skill symlink. The cross-platform installer now owns the user-global discovery entry; parity is checked against the clean reviewed commit, release digest, and Windows managed-copy marker when applicable.
 
 ## Public-package exclusions
 

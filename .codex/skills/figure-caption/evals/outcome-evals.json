@@ -87,6 +87,23 @@
         "move speculative discussion into the caption",
         "claim final scientific approval"
       ]
+    },
+    {
+      "id": "figure-caption-outcome-hygiene-01",
+      "mode": "reader-facing caption hygiene",
+      "task": "Revise a complete caption that exposes a local path, script and raw-table filenames, an internal run label, and an author comment.",
+      "must_include": [
+        "reader-facing caption without internal implementation traces",
+        "stable source-data pointer",
+        "scientifically necessary identifiers retained",
+        "exact provenance routed to a manifest or project record",
+        "unresolved author comment reported"
+      ],
+      "must_not": [
+        "publish a machine-local path",
+        "discard source provenance",
+        "invent a public accession or identifier"
+      ]
     }
   ]
 }

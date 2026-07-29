@@ -22,6 +22,7 @@ description: 用于润色、压缩或重构已有英文标题、摘要、正文�
 - 不把 association 改为 causation，不把 exploratory、candidate、putative 或 suggestive 改为 demonstrated、established 或 required。
 - 一个概念稳定使用一个术语；科学名词不为追求 stylistic variation 而换同义词。
 - 先修正段落功能、论证顺序和歧义，再改句式；压缩不得删除改变解释范围的信息。
+- Remove machine-local paths, repository/script/raw-table filenames, internal flags or run IDs, raw commands, and unresolved author/editor comments from reader-facing Results, Discussion, and captions. Preserve unresolved scientific questions from those comments as `Risk notes` or explicit author actions, keep reproducibility-critical details in Methods, and retain exact internal provenance in manifests or project records.
 - “Nature/CNS 风格”不等于更强措辞；目标期刊 author instructions 优先于通用风格。
 
 ## 工作流程

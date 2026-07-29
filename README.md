@@ -18,7 +18,6 @@
 - `.codex/capability_registry.json` — 把治理型 Skill 映射到可选 plugin、MCP、标准 pipeline 或本地工具的机器可读登记表；它只负责选路，不授权安装、凭据、配额或数据上传。
 - `templates/global-AGENTS.md` — 面向所有主机任务的精简全局 guidance；安装时作为受管 block 写入，不把完整 package Agent 复制到每轮上下文。
 - `.codex/config.toml.example` — 经当前本机 Codex 验证的多 Agent 配置片段；按机器合并，不覆盖用户现有配置。
-- `.agents/skills` — 指向 `.codex/skills` 的 repo-scope 兼容入口，供 standalone OpenAI Codex CLI/IDE/app 自动发现 skills。
 - `scripts/install_codex_bioinfo.py` — 默认 dry-run、检查 source revision/digest 且失败时事务回滚的用户级安装器。
 - `scripts/validate_package.py` — 全部 38 个 Skills 的结构、metadata、资源路由、eval 平衡、Agent TOML、敏感路径和发现入口校验。
 - `scripts/test_release_safety.py` — privacy/history、安装 preflight、只读 snapshot、脏源拒绝、幂等与事务回滚的隔离 fixtures。
@@ -47,15 +46,27 @@ python3 scripts/install_codex_bioinfo.py
 
 脚本要求 Python 3.11+（使用标准库 `tomllib`）；若系统 Python 较旧，可在项目的 `bioinfo` conda 环境中运行。
 
-第二条命令只显示计划。确认没有冲突后再执行：
+Windows PowerShell 使用 Python Launcher 时，对应命令为：
+
+```powershell
+py -3.11 scripts/validate_package.py
+py -3.11 scripts/test_release_safety.py
+py -3.11 scripts/test_capability_behavior.py
+py -3.11 scripts/install_codex_bioinfo.py
+py -3.11 scripts/install_codex_bioinfo.py --apply
+```
+
+若未安装 `py`，可把 `py -3.11` 替换为指向 Python 3.11+ 的 `python`。
+
+最后一条安装器命令只显示计划。确认没有冲突后再执行：
 
 ```bash
 python3 scripts/install_codex_bioinfo.py --apply
 ```
 
-安装器会把 38 个 Skills 复制为 `$HOME/.codex/packages/codex-agent-skill-bioinfo/<revision-digest>/skills` 下的只读 release snapshot，再把 `$HOME/.agents/skills` 指向该 snapshot；因此后续修改 clone 不会静默改变正在运行的全局 Skills。同时它使用 `templates/global-AGENTS.md` 更新全局 `AGENTS.md`，并把自定义 Agent 安装到 `$HOME/.codex/agents/`。遇到非 symlink 的现有 `$HOME/.agents/skills` 时会停止，不静默覆盖。
+安装器会把 38 个 Skills 复制为 `$HOME/.codex/packages/codex-agent-skill-bioinfo/<revision-digest>/skills` 下的 release snapshot。macOS/Linux 的 `$HOME/.agents/skills` 默认是指向该 snapshot 的符号链接；Windows 默认使用内容等价的托管目录副本，并在 `$HOME/.agents/codex-bioinfo-skills.json` 保存 release 与 SHA-256 完整性标记。后续修改 clone 不会静默改变正在运行的全局 Skills。现有普通目录不会被覆盖；只有 marker 有效且目录摘要吻合的托管副本才能自动更新。
 
-`--apply` 在 Git checkout 中要求 source 工作树干净，并记录 source revision 与 package digest。普通 `validate_package.py` 可在 shallow clone 或无 Git archive 中依靠冻结 lineage hash 运行；正式 release 审查使用 `--require-history` 验证四个历史吸收提交。安装期间任一步失败都会尝试恢复 Skill symlink、全局 guidance、旧 Skill、release snapshot 和 custom Agents；备份目录保留安装来源和恢复证据。
+`--apply` 在 Git checkout 中要求 source 工作树干净，并记录 source revision 与 package digest。普通 `validate_package.py` 可在 shallow clone 或无 Git archive 中依靠冻结 lineage hash 运行；正式 release 审查使用 `--require-history` 验证四个历史吸收提交。安装期间任一步失败都会尝试恢复 Skill deployment、完整性 marker、global guidance、旧 Skill、release snapshot 和 custom Agents；备份目录保留安装来源和恢复证据。`--skills-deployment symlink|copy` 仅用于显式迁移和测试；通常使用默认 `auto`。
 
 未跟踪的 `.codex/candidates/` 是当前维护机的 local-only 候选区，不计入 source digest、release snapshot 或 dirty-source 阻断；一旦其中内容被 Git 跟踪，或随无 Git archive 出现，validator 会拒绝该 package。
 
@@ -82,7 +93,7 @@ python3 scripts/install_codex_bioinfo.py --apply \
 ## Standalone Codex CLI
 
 - 从仓库根目录启动 `codex` 或 `codex exec` 时，Codex 会读取根 `AGENTS.md`。
-- Codex 的 repo-scope Skill 自动发现路径是 `.agents/skills`；本仓库用 `.agents/skills -> ../.codex/skills` 保持一个 canonical source。
+- 本仓库不提交 `.agents/skills` 符号链接，避免 Windows checkout 把它物化为普通文本文件。安装器统一创建用户级 `$HOME/.agents/skills` discovery runtime。
 - `agents/openai.yaml` 是 Codex/OpenAI 产品侧 UI 元数据和默认提示，不替代 `SKILL.md`；触发判断仍以 `SKILL.md` frontmatter 的 `name` 和 `description` 为准。
 - `.codex/agents/*.toml` 是真正的 Codex 自定义子 Agent 定义，不等同于 Skill 内的 `agents/openai.yaml`。
 
@@ -115,7 +126,8 @@ MacBook Codex 可以把已完成 provenance、隐私、行为和 release review 
 
 - Source skills：38 个。
 - Codex custom agents：6 个。
-- 38 个 Skills 已统一为双字段 frontmatter、按需 references、三字段 UI metadata、20 条平衡 trigger eval 和至少 5 条 outcome case；当前共有 760 条 trigger 与 207 条 outcome 定义。
+- 38 个 Skills 已统一为双字段 frontmatter、按需 references、三字段 UI metadata、20 条平衡 trigger eval 和至少 5 条 outcome case；当前共有 760 条 trigger 与 211 条 outcome 定义。
+- `manuscript-consistency-audit` 统一拥有 reader-facing manuscript hygiene 门；中英文润色与图注 Skill 在执行时去除内部实现痕迹，同时把精确 provenance 保留在 manifest/source-data/project records。
 - Package validator 检查 Skill/Agent eval 的 schema、数量、路由所有者和 sandbox 边界；另有 14 个 capability safe-stop fixtures，但它们不替代真实模型 trigger/outcome forward test 或科研结果验证。
 - 六个高频科研 owner Skill 已通过 capability registry 连接可选执行后端；registry 中的 `tool-bound` 只表示完成选路契约，不能写成安装、集成测试或科研验证已完成。
 - Runtime 成熟经验按逐项 keep/merge 审查后回流 source；项目沉积、机器路径和重复 reference 不进入 canonical。

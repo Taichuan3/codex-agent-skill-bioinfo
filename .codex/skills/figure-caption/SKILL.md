@@ -32,6 +32,7 @@ description: 用于依据图、panel 说明和分析信息起草、重构或审�
 
 - Caption 说明图中显示什么以及如何读取，不承载超出图证据的机制或因果结论。
 - 图题可以概括信息功能，但不得把 exploratory pattern 写成已证明机制。
+- Caption 不暴露本机路径、仓库目录、脚本/原始表格文件名、内部 flag/run ID、原始命令或未解决批注；精确 provenance 保存在 source-data inventory、manifest 或项目记录，并在 caption 中仅保留稳定的读者指针。
 - 不把 `n` 混同为 biological replicates、technical replicates、cells、variants 或 observations；明确统计单位。
 - 统计信息只报告已提供或可验证内容；不得从星号反推检验或阈值。
 

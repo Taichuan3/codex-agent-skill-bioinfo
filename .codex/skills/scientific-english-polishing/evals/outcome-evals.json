@@ -87,6 +87,25 @@
         "add unprovided n or statistics",
         "change the scientific interpretation"
       ]
+    },
+    {
+      "id": "english-polish-outcome-hygiene-01",
+      "mode": "reader-facing manuscript hygiene",
+      "task": "Polish English Results containing machine paths, script filenames, internal run IDs, and unresolved editor comments while retaining traceability.",
+      "must_include": [
+        "directly usable reader-facing revision",
+        "internal implementation traces removed from prose",
+        "unresolved comments preserved as author actions or risk notes",
+        "scientifically necessary identifiers retained and defined",
+        "exact provenance routed to a manifest or project record",
+        "claim strength preserved"
+      ],
+      "must_not": [
+        "discard provenance",
+        "silently discard an unresolved scientific question",
+        "retain unresolved editor comments",
+        "turn internal labels into scientific claims"
+      ]
     }
   ]
 }
