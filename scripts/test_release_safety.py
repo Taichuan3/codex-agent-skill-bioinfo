@@ -539,7 +539,7 @@ def test_transaction_rollback_and_legacy_recovery() -> None:
         require(result.returncode != 0, "fault-injected install unexpectedly passed")
         require(
             "rollback was attempted" in result.stderr,
-            "fault-injected install did not report rollback",
+            f"fault-injected install did not report rollback: {result.stdout}{result.stderr}",
         )
         require(
             runtime.is_symlink() and runtime.resolve() == old_skills.resolve(),

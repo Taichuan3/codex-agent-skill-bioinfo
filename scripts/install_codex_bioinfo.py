@@ -231,15 +231,20 @@ def load_managed_copy(marker: Path, target: Path) -> dict[str, str]:
 
 def remove_path(path: Path) -> None:
     """Remove a file, symlink, or read-only tree during transactional rollback."""
-    if path.is_symlink() or path.is_file():
-        path.chmod(0o600, follow_symlinks=False)
+    if path.is_symlink():
+        path.unlink()
+        return
+    if path.is_file():
+        path.chmod(0o600)
         path.unlink()
         return
     if not path.exists():
         return
     for child in sorted(path.rglob("*"), reverse=True):
-        if child.is_symlink() or child.is_file():
-            child.chmod(0o600, follow_symlinks=False)
+        if child.is_symlink():
+            continue
+        if child.is_file():
+            child.chmod(0o600)
         elif child.is_dir():
             child.chmod(0o700)
     path.chmod(0o700)
