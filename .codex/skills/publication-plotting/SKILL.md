@@ -1,34 +1,18 @@
 ---
 name: publication-plotting
-description: 用于实际生成、重画、排版或整合生物信息学论文/PPT 图，交付 figure contract、panel hierarchy、Python/R 绘图、source data、PNG/SVG、字体配色和 visual QA；只写 caption、只审 source data/claim 或无图形交付的分析不使用本 Skill。
+description: 实际生成、重绘或组合科研图，交付 figure contract、可重跑脚本、source data、PNG/SVG 与视觉检查。撰写图注→figure-caption；仅语言润色→对应中英文polishing Skill；仅来源审计→source-data-audit；仅claim审查→claim-evidence-audit；无图分析→bioinfo-analysis-code。
 ---
-
 # Publication Plotting
-
 ## 核心问题
-
-如何把分析结果转成 manuscript-ready figure、source data 和可追踪的 panel contract？
-
-## 边界与组合
-
-- 负责图形交付：新建/重绘、panel 组合、视觉编码、导出、报告嵌入和 visual QA。
-- 只写或润色 caption/legend 且不改图时，用 `figure-caption`。
-- 只核查既有 figure 的 source data、producer、统计定义和 repository readiness 时，用 `source-data-audit`；本 Skill 在实际绘图时生成必要 source data，但不替代独立审计。
-- 只判断 figure 是否支持 claim 时，用 `claim-evidence-audit`；若审查结果要求重绘，再组合本 Skill。
-- 无图形交付的数据清洗、统计或 pipeline 实现用 `bioinfo-analysis-code`；pathway/network 的方法和解释用 `pathway-network-analysis`。
-
-Figure contract、panel hierarchy、main/supplement placement 和最终 figure logic 由用户确认。Agent 提供备选、实现、provenance、敏感性与 QA。
-
-## 工作流程
-
-1. 读取项目边界和相关 Directory Card，确认目标读者、版面、canonical 输出、已有脚本/source data 和是否允许覆盖。
-2. 绘图前定义 contract：主信息、panel 角色、数据 universe、n/denominator、过滤与统计、reference/database version、编码、尺寸、导出格式和 caveat。
-3. 优先复用兼容的生成脚本；缺少时创建可重跑脚本。不要直接修改原始数据，图形 source data 写入项目约定路径。
-4. 先验证 source-data schema、数量、分母和统计定义，再绘图；不同 panel 的 universe 不同则分别声明。
-5. 使用清晰、色盲友好且跨 panel 一致的编码。默认导出 PNG + SVG；需要时再加 PDF/TIFF，线条和文字尽量保持 vector。
-6. 重新打开导出文件，在最终插入尺寸检查字体、轴、图例、colorbar、误差、panel label、rug/interval lane、裁切和 PNG/SVG 一致性。
-7. 图已嵌入报告时，同步链接、caption、alt text、编号和 main/supplement placement；不得让裁剪或隐藏元素改变证据 universe。
-8. 交付 figure contract、精确图像/source-data/script 路径、重跑命令、QA、caveat 和版本状态；图形不得暗示未验证的机制或因果。
+如何交付可追踪、可重建且可读的论文/PPT图？
+## 边界
+拥有视觉编码、panel组合、导出、报告嵌入与 visual QA；pathway/network 方法解释归 pathway-network-analysis。用户确认 figure contract、panel hierarchy、main/supplement 和最终图形逻辑；技术通过不等于作者接受，不升级机制/因果证据。
+## 流程与交付
+1. 读项目边界/相关 Directory Card，确认读者、版面、稳定 module/asset ID、canonical 路径、候选/当前状态、脚本/source data、覆盖权限；图号只是映射，不迁移历史。
+2. contract 固定主信息、panel角色、universe、n/denominator、过滤/统计、reference/database版本、编码、尺寸、格式、caveat。各panel universe分别声明。
+3. 原始数据只读，优先复用兼容脚本，否则写可重跑脚本；先核 schema/数量/分母/统计，再绘图，source data进项目约定路径。
+4. 跨panel一致、色盲友好；默认 PNG+SVG（文字线条尽量 vector），按需PDF/TIFF。重新打开最终插入尺寸导出，核字体、轴、图例、colorbar、误差、panel、rug/interval、裁切与PNG/SVG渲染一致性；XML/schema通过不能替代视觉检查，缺少检查时QA仍为 incomplete，不得宣称完成。
+5. 已嵌入报告则同步链接/caption/alt/编号/placement；不裁剪隐藏证据universe。交 contract、图/source/script、命令、QA、caveat和版本；delta交 project-state-maintenance，验证根→稳定模块（成熟论文可Result）入口，不仅日期包。
 
 ## 按需资源
 

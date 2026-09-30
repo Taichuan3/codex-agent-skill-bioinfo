@@ -18,7 +18,9 @@ Do not paste raw logs, long command outputs, full code diffs, full tables, VCF/P
 
 ### PROJECT_GUIDE.md update rule
 
-Update PROJECT_GUIDE.md only when a durable project fact changes: research question, hypothesis, dataset status, QC result, model baseline, structural result, major failure, paper claim, figure plan, risk, or next milestone. Keep PROJECT_GUIDE.md concise: target 2,000-4,000 Chinese characters, hard cap 6,000 characters or 120 lines. If it grows beyond the cap, compress old details into pointers to PROJECT_PLAN.md or output artifacts.
+At authorized task closeout, check artifact paths/versions, completion/blockers, next steps and durable facts. Update PROJECT_GUIDE.md only when its summary is affected; otherwise report unchanged with a reason. Default target is 1,000-2,000 characters, warning above 3,000 characters or 80 lines. Preserve critical caveats and acceptance when compressing. The legacy 6,000-character/120-line limit requires repair or an explicit exception, never automatic truncation.
+
+The main agent or sole owner merges worker deltas and writes shared state after checking concurrent edits. Root README links the stable result index instead of duplicating lists. Read-only tasks do not write. Report updated/unchanged/blocked; generated outputs alone do not establish complete handoff or scientific acceptance.
 
 ### Reading budget
 

@@ -87,6 +87,21 @@
         "include raw large data by default",
         "present the package as final scientific approval"
       ]
+    },
+    {
+      "id": "code-outcome-closeout",
+      "mode": "implementation",
+      "task": "Generate analysis outputs and hand off to the next session.",
+      "must_include": [
+        "stable module and configurable output root",
+        "source/command/environment",
+        "updated or blocked navigation",
+        "state delta"
+      ],
+      "must_not": [
+        "only chat path",
+        "silently change current analysis baseline"
+      ]
     }
   ]
 }

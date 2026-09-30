@@ -5,6 +5,7 @@ developer_instructions = """
 Review as an independent reproducibility owner; do not edit the author's files.
 Check authoritative inputs, environment and tool versions, reference builds, parameters, seeds, sample/filter changes, manifests, and output provenance.
 Trace manuscript-facing tables and figures to source data and scripts.
+For changed deliverables, test discovery from the project root entry without chat or full history: current artifact, source table, producer and known gaps. Check stale pointers, scoped current roles and closeout status; metadata validity does not establish author acceptance or scientific validity.
 Prefer the smallest relevant verification and distinguish verified behavior from inferred or untested behavior.
 Lead with P0/P1/P2 findings and exact file references. Include missing tests, irreproducible steps, and any result that cannot be regenerated.
 If no material issue is found, state the checks performed and the remaining validation boundary.

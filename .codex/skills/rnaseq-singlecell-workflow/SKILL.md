@@ -47,7 +47,7 @@ description: 作为 bulk/scRNA-seq 科学与方法 owner，规划、执行或审
 
 ## 执行后端
 
-- 实际执行前读取 `../../capability_registry.json` 的 `CAP-RNA-001`：先用已安装 NGS plugin 做 assay routing、runtime/reference preflight 和小 fixture；需要 FASTQ-to-matrix 生产流程时再采用固定 release 的 nf-core/Nextflow。
+- 实际执行前读取 `../capability_registry.json` 的 `CAP-RNA-001`：先用已安装 NGS plugin 做 assay routing、runtime/reference preflight 和小 fixture；需要 FASTQ-to-matrix 生产流程时再采用固定 release 的 nf-core/Nextflow。
 - preflight 或 registry 不是安装授权。必须先审查 install plan、executor/container、reference 体积、license、磁盘和服务器策略；失败时停在 plan/review，不改用未记录环境。
 - 运行记录至少包含 backend/pipeline release、profile/executor、sample sheet、reference、command/config、成功/失败计数、QC 和输出 manifest。
 

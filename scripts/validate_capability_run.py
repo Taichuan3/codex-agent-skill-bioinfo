@@ -12,7 +12,7 @@ from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_REGISTRY = ROOT / ".codex" / "capability_registry.json"
+DEFAULT_REGISTRY = ROOT / ".codex" / "skills" / "capability_registry.json"
 STATUSES = {"planned", "blocked", "validated", "completed", "failed"}
 ACTIONS = {"install", "credentials", "api_quota", "data_upload"}
 FLOATING_REFS = {"latest", "main", "master", "dev", "head", "current"}

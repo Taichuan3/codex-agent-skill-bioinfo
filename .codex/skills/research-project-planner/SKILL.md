@@ -23,8 +23,8 @@ description: 用于新项目启动或重大重规划：把已有基本边界的�
 2. 明确 central question、已知背景、knowledge gap、范围和预期贡献；若关键边界缺失，只问最多三个会改变路线的问题。
 3. 写 tentative hypothesis 与 expected claim，同时列出竞争解释和 claim 降级条件。
 4. 设计 evidence package：数据、对照、统计、外部或实验验证、可复现性和主要排除项；区分 exploration、confirmation、validation。
-5. 用 `Known / Unknown / Question / Finding / Advance` 检查逻辑收敛，并让每张主图对应一个问题与证据门槛。
-6. 规划 minimum viable analysis、后续模块、依赖、里程碑、risk register 和 bounded implementation tasks；不执行这些任务。
+5. 用 `Known / Unknown / Question / Finding / Advance` 检查逻辑收敛；尚无结果时不强制主图/Result编号，以稳定问题/工作模块记录输入、方法、输出和状态。figure skeleton 只能是可修订的假设，不是已确定结论。
+6. 规划 minimum viable analysis、稳定 module ID、依赖、里程碑、风险和 bounded tasks；共享预处理只存一份。论文主线形成后再做模块到Result多对多映射，不为重编号迁移历史；不执行这些任务。
 7. 对陌生领域先建立最小 field/method map：权威综述、成熟 baseline、可信实现、共识/争议、复现候选和适用限制。
 8. 为关键节点定义可观测的 continue、pivot 和 stop 条件，标明哪些需要用户决定。
 9. 输出完整但精简的 project brief，并给出可压缩进 GUIDE 的 seed；不要直接接管 GUIDE 生命周期。
@@ -35,7 +35,7 @@ description: 用于新项目启动或重大重规划：把已有基本边界的�
 - Tentative hypothesis、expected claim、alternative explanations
 - Topic scorecard 与 `Known / Unknown / Question / Finding / Advance`
 - Evidence package 与 phase labels
-- Figure skeleton（每图的问题、输入和证据门槛）
+- 暂定 figure skeleton（仅有用时，每图问题/输入/证据门槛）；早期可仅列工作模块，不预设Result
 - Technical modules、minimum viable analysis、dependencies 和 milestones
 - Risk register、alternatives、stop/pivot/go-no-go criteria
 - Field/method map（仅陌生领域）与 next bounded tasks

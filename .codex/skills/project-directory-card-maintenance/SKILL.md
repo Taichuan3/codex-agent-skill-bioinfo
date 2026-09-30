@@ -24,6 +24,7 @@ description: 用于审计、创建或更新重要 artifact 目录的短 README D
 - README 与结构化记录冲突时，以可验证证据为准，报告冲突后再更新 card。
 - 不把完整文件列表、全量指标/样本/变异/候选分子表、原始日志、凭证或患者可识别信息复制进 README。
 - 不为每个 run、临时图、cache 或快速变化的 interim 目录创建 card。
+- 根导航和局部 card 链接唯一成果登记，不复制同一 current 清单；撤销已被替代的 current 表述，未核验条目标 pending。
 
 ## 工作流程
 
@@ -34,7 +35,7 @@ description: 用于审计、创建或更新重要 artifact 目录的短 README D
 5. 写最小导航：purpose、current important files、read first、reproduce/update、ignore/deprecated、last updated。
 6. 用链接或 manifest 指针替代长表；状态不确定时写 `candidate`、`provenance_pending` 或 `not assessed`。
 7. 若核验暴露项目级路径问题，停在 navigation/migration handoff，不执行物理整理。
-8. Card 写入属于 material action：调用 `project-state-maintenance` 追加 PLAN；只有项目真值或下一决策改变时才更新 GUIDE。
+8. Card 写入交回本任务的 `project-state-maintenance` 收尾 owner，合并为一条 material action；不逐目录写日志。当前路径/版本/状态变化须同步受影响入口，GUIDE 摘要未变则不重写。
 9. 交付时报告精确 README 路径、验证来源、未扫描范围、状态冲突和后续 handoff。
 
 ## 长度与内容契约

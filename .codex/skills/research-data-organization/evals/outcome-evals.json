@@ -87,6 +87,42 @@
         "run a recursive delete",
         "skip rollback or recovery assessment"
       ]
+    },
+    {
+      "id": "layout-outcome-human-route",
+      "mode": "documentation/index cleanup",
+      "task": "Make current Result figures, tables and code findable to a new researcher.",
+      "must_include": [
+        "stable module ID",
+        "single registry and relative human views",
+        "scope-specific current roles",
+        "unknown provenance pending",
+        "existing roots preserved"
+      ],
+      "must_not": [
+        "mtime selects current",
+        "duplicate source data",
+        "remote assets auto-load",
+        "physical moves without migration authority"
+      ]
+    },
+    {
+      "id": "research-data-organization-early-module-handoff",
+      "mode": "early project",
+      "task": "Start a project whose eventual Results and figure ordering are unknown.",
+      "must_include": [
+        "need-driven stable question/work modules",
+        "Result mapping optional and later many-to-many",
+        "shared preprocessing remains one dependency",
+        "candidate/blocked/stopped states",
+        "no file relocation merely for paper reordering"
+      ],
+      "must_not": [
+        "invent results to fill a template",
+        "require Result numbers before exploration",
+        "classify tool names as scientific conclusions",
+        "discard negative branches"
+      ]
     }
   ]
 }

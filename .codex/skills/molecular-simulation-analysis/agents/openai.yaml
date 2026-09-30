@@ -1,0 +1,4 @@
+interface:
+  display_name: "Molecular Simulation Analysis"
+  short_description: "Analyze molecular trajectories with evidence boundaries"
+  default_prompt: "Use $molecular-simulation-analysis to design or audit a reproducible molecular simulation trajectory analysis."

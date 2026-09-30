@@ -6,7 +6,7 @@
 - Agent 只采用两层：本机全局 `~/.codex/AGENTS.md` 与具体项目根 `AGENTS.md`。仅用于容纳多个项目的父目录不创建 `AGENTS.md`、`PROJECT_GUIDE.md` 或 `PROJECT_PLAN.md`。
 - 默认使用中文沟通、规划、审查和交付；正式英文稿件、代码/API 字段或用户明确要求时使用英文。
 - 生信任务优先在 `~/bioinfo` 工作并使用 `bioinfo` conda 环境；非生信任务留在用户指定或当前项目。
-- 用户级 38 个计算生物学 Skills 通过 `~/.agents/skills` 全局发现，不受当前目录限制；具体任务只读取语义匹配的最小 Skill 集。
+- 用户级 40 个计算生物学 Skills 通过 `~/.agents/skills` 全局发现，不受当前目录限制；具体任务只读取语义匹配的最小 Skill 集。
 - Portable 科学/领域 Skill 默认拥有问题定义、方法与证据边界；plugin 或固定 pipeline leaf 只作执行后端，除非用户明确指定该 backend 或任务只处理其运行故障。现有本地 Skill 的治理审计优先 `skill-quality-audit`，通用创建工具不替代本地 eval、provenance 和发布门。
 
 ## Collaboration and decision ownership
@@ -52,7 +52,10 @@
 
 - 重要任务采用 artifact-first；产出可复用的计划、manifest、QC/validation、source data、claim-to-figure map、脚本或审计记录。
 - 稳定跨项目偏好进入全局 guidance 或 memory；项目事实进入项目 `AGENTS.md`/`PROJECT_GUIDE.md`；多步骤流程进入 Skill；质量门槛进入 checklist/eval。
-- `PROJECT_GUIDE.md` 是项目当前事实与 next actions 的 hot context；`PROJECT_PLAN.md` 是默认只追加、不全文读取的 cold log。实质产物更新后追加简短记录，只有 durable project fact 改变时才压缩更新 GUIDE。
+- `PROJECT_GUIDE.md` 是精简 hot context，`PROJECT_PLAN.md` 是默认只追加、不全文读取的 cold log；详细结果留在所属模块，根 README 只导航，不复制状态清单。
+- 经授权的实质项目写任务包含状态收尾：当前产物路径/版本、完成状态、阻塞、关键限制或下一步改变时，由 `project-state-maintenance` 按本次 delta 更新受影响索引和必要的 GUIDE；无变化不重写，只读任务不落盘。
+- 主 Agent 是共享 GUIDE/索引的单一写入负责人；子 Agent 交回 delta。GUIDE 替换过期表述而不追加历史，更新冲突或权限受阻时报告 `blocked`，不得把产物生成当成完整交付。
+- 人工入口按稳定研究问题/工作模块展示图表、source data 和代码；新项目不预设 Result，论文成熟后再映射。日期/run ID 只作运行历史。交付前验证根入口可达，不依赖聊天或 PLAN；元数据通过不等于科学接受。
 - 不把长流程、原生 session/cache/SQLite、凭证、机器私有路径或未发表项目事实写入公共 Git。
 - 多 Agent 任务默认保持 1–3 个 workstream；写任务使用独立 branch/worktree，reviewer 独立审查，最终科研判断和 `main` 合并由用户决定。
 - 最终回复先给结果，再给关键文件、验证边界、剩余风险和需要用户决定的下一步；简单任务保持简短。

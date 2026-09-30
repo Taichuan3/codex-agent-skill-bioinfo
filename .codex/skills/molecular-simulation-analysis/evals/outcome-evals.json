@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "skill_name": "molecular-simulation-analysis",
+  "purpose": "Evaluate trajectory preflight, preprocessing, observables, sampling, source data and evidence boundaries.",
+  "cases": [
+    {
+      "id": "mdanalysis-outcome-plan-01",
+      "mode": "analysis plan",
+      "task": "Design analysis for a protein-ligand trajectory.",
+      "must_include": [
+        "decision question and trajectory provenance",
+        "topology mapping units frames and replicas",
+        "fit and analysis selections with reference",
+        "preprocessing observable and sensitivity plan",
+        "sampling stop criteria and artifacts"
+      ],
+      "must_not": [
+        "list every available metric without rationale",
+        "treat frames as biological replicates",
+        "promise a binding or mechanism conclusion"
+      ]
+    },
+    {
+      "id": "mdanalysis-outcome-preflight-01",
+      "mode": "trajectory preflight",
+      "task": "Assess whether topology and trajectories are ready for analysis.",
+      "must_include": [
+        "atom count order and residue mapping",
+        "frame count time step stride and units",
+        "periodic box restart and corruption checks",
+        "replica and system provenance",
+        "blocking versus recoverable issues"
+      ],
+      "must_not": [
+        "modify raw trajectories",
+        "guess unknown units",
+        "continue when atom mapping is unresolved"
+      ]
+    },
+    {
+      "id": "mdanalysis-outcome-bounded-01",
+      "mode": "bounded analysis",
+      "task": "Run RMSD, RMSF and contact analysis on a tutorial trajectory.",
+      "must_include": [
+        "exact selections reference and analysis window",
+        "PBC and alignment transformation order",
+        "tool versions commands or code entrypoint",
+        "tidy source data and QC",
+        "time correlation and sampling caveat"
+      ],
+      "must_not": [
+        "overwrite the source trajectory",
+        "hide failed frames or selections",
+        "call a plateau proof of equilibrium or binding"
+      ]
+    },
+    {
+      "id": "mdanalysis-outcome-replica-01",
+      "mode": "condition comparison",
+      "task": "Compare two conditions with several simulation replicas.",
+      "must_include": [
+        "matched system and analysis definitions",
+        "replica-level summaries",
+        "within-run correlation and block sensitivity",
+        "between-replica consistency and failures",
+        "exploratory claim language and next validation"
+      ],
+      "must_not": [
+        "pool frames as independent samples",
+        "drop discordant replicas",
+        "attribute differences to mechanism without orthogonal evidence"
+      ]
+    },
+    {
+      "id": "mdanalysis-outcome-audit-01",
+      "mode": "result audit",
+      "task": "Audit an MD report that claims stable ligand binding.",
+      "must_include": [
+        "trace from figures to topology trajectories and parameters",
+        "selection reference PBC and window review",
+        "replica and sampling assessment",
+        "unsupported inference and safe replacement language",
+        "minimal repair or additional analysis"
+      ],
+      "must_not": [
+        "accept RMSD plateau as binding evidence",
+        "equate contact occupancy with affinity",
+        "claim convergence without sampling evidence"
+      ]
+    },
+    {
+      "id": "mdanalysis-outcome-stop-01",
+      "mode": "insufficient sampling",
+      "task": "Handle a short single-replica trajectory that cannot answer the intended comparison.",
+      "must_include": [
+        "descriptive analyses still allowed",
+        "sampling and independence limitation",
+        "claim downgrade",
+        "stop or replica-extension criteria",
+        "what additional evidence could change the conclusion"
+      ],
+      "must_not": [
+        "manufacture uncertainty from frame count",
+        "select a favorable time window",
+        "call the result statistically validated"
+      ]
+    },
+    {
+      "id": "md-outcome-engineering-gate-01",
+      "mode": "regression gate",
+      "task": "A biased trajectory has readable frames but lacks physical time and production provenance.",
+      "must_include": [
+        "biased or nonequilibrium regime",
+        "scientific STOP retained",
+        "separate authorized engineering status",
+        "unverified time labeled"
+      ],
+      "must_not": [
+        "engineering PASS clears scientific STOP",
+        "assume reader time is physical time"
+      ]
+    }
+  ]
+}

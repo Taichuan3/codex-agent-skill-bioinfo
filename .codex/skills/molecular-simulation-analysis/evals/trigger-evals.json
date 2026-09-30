@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "skill_name": "molecular-simulation-analysis",
+  "purpose": "Evaluate routing for trajectory preflight and analysis against simulation setup, free-energy methods, docking, installation, plotting and database tasks.",
+  "cases": [
+    {
+      "id": "mdanalysis-positive-01",
+      "split": "train",
+      "query": "为一套蛋白配体 MD 轨迹设计问题驱动的 RMSD、RMSF、contact 和 sampling 分析计划。",
+      "should_trigger": true,
+      "expected_primary_skill": "molecular-simulation-analysis",
+      "rationale": "Trajectory analysis planning is the core task."
+    },
+    {
+      "id": "mdanalysis-positive-02",
+      "split": "train",
+      "query": "核对 topology 与 trajectory 的 atom count、frame、time step、units、periodic box 和 restart discontinuity。",
+      "should_trigger": true,
+      "expected_primary_skill": "molecular-simulation-analysis",
+      "rationale": "Trajectory preflight is a primary capability."
+    },
+    {
+      "id": "mdanalysis-positive-03",
+      "split": "train",
+      "query": "明确 unwrap、make-whole、center、fit selection 与 analysis selection 的顺序，并保留原始轨迹。",
+      "should_trigger": true,
+      "expected_primary_skill": "molecular-simulation-analysis",
+      "rationale": "PBC and preprocessing contract belongs here."
+    },
+    {
+      "id": "mdanalysis-positive-04",
+      "split": "train",
+      "query": "比较不同 reference、backbone fit 和 analysis window 对 RMSD 结论的影响。",
+      "should_trigger": true,
+      "expected_primary_skill": "molecular-simulation-analysis",
+      "rationale": "Reference and window sensitivity are trajectory analysis."
+    },
+    {
+      "id": "mdanalysis-positive-05",
+      "split": "train",
+      "query": "计算配体与 pocket residues 的 distance/contact occupancy，但要定义 cutoff、denominator 和 PBC。",
+      "should_trigger": true,
+      "expected_primary_skill": "molecular-simulation-analysis",
+      "rationale": "Question-linked contact analysis is in scope."
+    },
+    {
+      "id": "mdanalysis-positive-06",
+      "split": "validation",
+      "query": "三条独立 replica 的结果方向不一致，检查 block averages、autocorrelation 和 between-replica variation。",
+      "should_trigger": true,
+      "expected_primary_skill": "molecular-simulation-analysis",
+      "rationale": "Sampling and replica uncertainty are core."
+    },
+    {
+      "id": "mdanalysis-positive-07",
+      "split": "validation",
+      "query": "审查报告是否把 RMSD plateau 写成配体稳定结合，并给证据安全的降级表述。",
+      "should_trigger": true,
+      "expected_primary_skill": "molecular-simulation-analysis",
+      "rationale": "Trajectory-specific claim auditing belongs here."
+    },
+    {
+      "id": "mdanalysis-positive-08",
+      "split": "validation",
+      "query": "用 PCA 和 clustering 描述轨迹构象，但记录 features、alignment、cluster rule 和采样限制。",
+      "should_trigger": true,
+      "expected_primary_skill": "molecular-simulation-analysis",
+      "rationale": "Conformational analysis with explicit contracts is supported."
+    },
+    {
+      "id": "mdanalysis-positive-09",
+      "split": "validation",
+      "query": "为 MD 图建立逐 frame 的 tidy source data，包含 system、replica、time、selection、metric、units 和版本。",
+      "should_trigger": true,
+      "expected_primary_skill": "molecular-simulation-analysis",
+      "rationale": "Trajectory source-data provenance is part of the deliverable."
+    },
+    {
+      "id": "mdanalysis-positive-10",
+      "split": "validation",
+      "query": "只读检查现有 MDAnalysis notebook 的 selection、reference、PBC、window 和 frame independence 是否合理。",
+      "should_trigger": true,
+      "expected_primary_skill": "molecular-simulation-analysis",
+      "rationale": "A read-only trajectory analysis audit is supported."
+    },
+    {
+      "id": "mdanalysis-negative-01",
+      "split": "train",
+      "query": "从 PDB 开始决定 protonation、force field、水模型和配体参数，建立生产级 OpenMM system。",
+      "should_trigger": false,
+      "expected_primary_skill": "research-project-planner",
+      "rationale": "Production system setup needs a broader method plan and is excluded."
+    },
+    {
+      "id": "mdanalysis-negative-02",
+      "split": "train",
+      "query": "为一组 congeneric ligands 设计并执行 RBFE/FEP 计算。",
+      "should_trigger": false,
+      "expected_primary_skill": "research-project-planner",
+      "rationale": "Free-energy execution requires a distinct project and method contract."
+    },
+    {
+      "id": "mdanalysis-negative-03",
+      "split": "train",
+      "query": "检查 Vina docking pose 的 clash、box 和 docking score。",
+      "should_trigger": false,
+      "expected_primary_skill": "protein-structure-docking",
+      "rationale": "Docking pose QC belongs to protein-structure-docking."
+    },
+    {
+      "id": "mdanalysis-negative-04",
+      "split": "train",
+      "query": "安装 OpenMM 和 MDAnalysis 到新的 conda 环境并做 smoke test。",
+      "should_trigger": false,
+      "expected_primary_skill": "environment-and-tool-adoption",
+      "rationale": "Installation and availability testing belong to tool adoption."
+    },
+    {
+      "id": "mdanalysis-negative-05",
+      "split": "train",
+      "query": "按已经冻结的分析契约实现 MDAnalysis CLI 和单元测试。",
+      "should_trigger": false,
+      "expected_primary_skill": "bioinfo-analysis-code",
+      "rationale": "Frozen-contract implementation belongs primarily to analysis code."
+    },
+    {
+      "id": "mdanalysis-negative-06",
+      "split": "validation",
+      "query": "把现成的 RMSD/RMSF source data 画成投稿级多 panel 图。",
+      "should_trigger": false,
+      "expected_primary_skill": "publication-plotting",
+      "rationale": "Pure visual production is outside trajectory analysis."
+    },
+    {
+      "id": "mdanalysis-negative-07",
+      "split": "validation",
+      "query": "检查 AlphaFold 模型的 pLDDT、PAE 和缺失 pocket residues。",
+      "should_trigger": false,
+      "expected_primary_skill": "protein-structure-docking",
+      "rationale": "Static structure/model QA belongs to protein-structure-docking."
+    },
+    {
+      "id": "mdanalysis-negative-08",
+      "split": "validation",
+      "query": "查询 RCSB PDB 和 UniProt 以核验这个结构的 chain 与 residue numbering。",
+      "should_trigger": false,
+      "expected_primary_skill": "scientific-database-grounding",
+      "rationale": "Cross-database structure identity is database grounding."
+    },
+    {
+      "id": "mdanalysis-negative-09",
+      "split": "validation",
+      "query": "把 MD score、ADMET prediction 和 measured activity 合并成候选总排名。",
+      "should_trigger": false,
+      "expected_primary_skill": "drug-discovery-admet-screening",
+      "rationale": "Campaign-level evidence prioritization is outside trajectory analysis."
+    },
+    {
+      "id": "mdanalysis-negative-10",
+      "split": "validation",
+      "query": "根据一条 20 ns 轨迹直接建议患者使用这个药物。",
+      "should_trigger": false,
+      "expected_primary_skill": "clinical-bioinformatics-evidence",
+      "rationale": "Patient treatment advice is outside this research skill."
+    }
+  ]
+}

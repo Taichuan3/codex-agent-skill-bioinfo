@@ -1,48 +1,19 @@
 ---
 name: literature-search-workflow
-description: 用于生物信息学与计算生物学问题的可复现文献集合检索、检索式与纳排标准设计、筛选记录、证据表、共识/争议/知识缺口和决策性 evidence map；适用于项目启动、方法比较、背景补证和寻找公共数据，不用于精读指定单篇论文、数据库实体 lookup 或仅核验现有 citation。
+description: 检索并综合生物信息学论文集合：检索式、纳排、筛选、证据表与知识缺口。指定论文精读→paper-reader；实体查询→scientific-database-grounding；仅核验引用→citation-verifier。
 ---
-
 # Literature Search Workflow
-
 ## 核心问题
-
-如何把开放式研究问题转成可复查的 paper set、证据地图和下一步决策？
-
-## 能力边界
-
-- 本 Skill 拥有 literature discovery、query design、screening、paper-set synthesis 和检索层面的 gap map。
-- 用户指定一篇或固定少量论文并要求精读时，改用 `paper-reader`。
-- 只查 gene/variant/protein/compound 等数据库记录时，改用 `scientific-database-grounding`。
-- 只核验现有 DOI/PMID/参考文献及其 claim support 时，改用 `citation-verifier`。
-- 从现有项目结果或稿件决定最小补分析时，改用 `evidence-gap-finder`；逐句审查 overclaim 时改用 `claim-evidence-audit`。
-- 检索可提出候选数据集或实验，不执行下载、重分析、湿实验或最终 go/no-go 科研决策。
-
-## 检索与证据边界
-
-- 先定义 1–3 个可回答问题，再选择关键词、来源和时间范围。
-- 记录数据库、完整检索式、检索日期、过滤器、命中数、去重规则和纳排理由；结果过大时先抽样检查命中质量。
-- 优先使用领域数据库、期刊/预印本平台和可核验 metadata source；不编造 DOI、PMID、作者、年份或结论。
-- metadata 或摘要只能支撑题录与有限摘要信息；需要方法、结果或 claim support 时核对全文、图表或补充材料。
-- 空结果表示“在记录的范围内未检出”，不等于证据不存在。
-- 区分 primary research、review、preprint、dataset record 和 database annotation；区分 evidence、interpretation、limitation 和 speculation。
-
-## 工作流程
-
-1. 写出 decision question、PICO/PECO 或 entity–context–method 框架，并标记未知项。
-2. 构建 concept blocks、同义词、物种/组织/assay/方法变体和排除词；先运行窄查询检查相关性，再扩展。
-3. 选择最小来源集合，记录可重放 query 和检索日期；必要时采用 citation chaining。
-4. 建立去重和 screening 记录，保存 title/abstract 与 full-text 两阶段纳排理由。
-5. 对纳入文献提取 study design、dataset、method、comparison、supported claim、limitation、resource 和 relevance。
-6. 综合 consensus、controversy、method/data gap、可复用资源和证据不足处；不要按论文逐篇堆摘要。
-7. 给出 `follow`、`reproduce`、`avoid`、`cite_only`、`data_source` 或 `method_reference` 等建议，并把研究方向决策交给用户。
-8. 报告检索覆盖、访问限制、未核验全文、时间截点和下一轮最有价值的检索。
-
+如何将开放问题转成可重查的 paper set、证据地图与下一步决策？
+## 边界
+拥有 query、screening、dedup、paper-set synthesis；现有结果的补分析→evidence-gap-finder，逐句 overclaim→claim-evidence-audit。只提出候选资源/实验，不下载、重分析、实验或替用户决定 go/no-go。
+## 流程与交付
+1. 限定 1–3 个问题、entity/context/method（可用 PICO/PECO）、未知项、时间范围；构建概念块/同义词/排除词，先窄查询检查命中，再扩展，必要时 citation chaining。
+2. 选择最小权威来源集；保留来源、完整 query、日期、过滤器、命中/筛选数、去重规则和 title/abstract/full-text 两阶段纳排理由。结果过大先抽样。
+3. evidence table 保留 study design、data、method/comparison、supported claim、evidence location、limitation、resource/relevance。不得编造题录；摘要/metadata 不支撑未核验全文细节。区分 primary/review/preprint/dataset/annotation 及 evidence/interpretation/limitation/speculation。
+4. 综合共识、争议、method/data gap，给 follow/reproduce/avoid/cite_only/data_source/method_reference 建议，由用户决策。报告覆盖、访问限制、未核全文、时间截点与 next papers/actions；未运行检索标 planned，空结果仅表示本范围未检出。
 ## 执行后端
-
-- 需要实际检索时读取 `../../capability_registry.json` 的 `CAP-LIT-001`，优先使用已安装的 PubMed/PMC/bioRxiv source-specific Skill；本 Skill仍拥有 query、screening、dedup 和 evidence-map 综合。
-- 只有存在稳定的本地全文集合且需要重复问答时才试点 PaperQA2；先固定小 paper set 和已知答案，检查引用定位、unsupported statement、缺文处理、隐私和成本。
-- registry 不授权安装模型、使用 API key 或上传论文。后端不可用时交付可重放 search plan，不把未运行检索写成结果。
+实际检索读取 `../capability_registry.json` 的 `CAP-LIT-001`；优先已安装 source-specific PubMed/PMC/bioRxiv，本 Skill 保留科学与综合所有权。仅有稳定全文集且需重复问答才试 PaperQA2，小集已知答案验证引用定位、无依据陈述、缺文、隐私与成本。registry 不授权安装、API key 或上传论文；后端不可用交可重放 search plan。
 
 ## 特殊检索路由
 

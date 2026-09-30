@@ -87,6 +87,23 @@
         "take over PLAN lifecycle",
         "treat a directory README as project truth"
       ]
+    },
+    {
+      "id": "guide-outcome-bounded-delta",
+      "mode": "durable update",
+      "task": "Repeatedly update current status without losing critical caveats.",
+      "must_include": [
+        "five-block summary",
+        "replace stale state",
+        "compression warning not truncation",
+        "author acceptance preserved",
+        "details in scoped module"
+      ],
+      "must_not": [
+        "append chronology",
+        "invent stronger claims",
+        "drop caveats to satisfy budget"
+      ]
     }
   ]
 }

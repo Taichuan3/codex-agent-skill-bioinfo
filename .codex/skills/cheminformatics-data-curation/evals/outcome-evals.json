@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "skill_name": "cheminformatics-data-curation",
+  "purpose": "Evaluate structure policy, assay harmonization, lineage, attrition, modeling handoff and evidence boundaries.",
+  "cases": [
+    {
+      "id": "chemcur-outcome-structure-01",
+      "mode": "structure curation",
+      "task": "Curate mixed SMILES and SDF records into standardized molecular entities.",
+      "must_include": [
+        "immutable raw input and identifiers",
+        "explicit salt charge stereo tautomer and protomer policy",
+        "raw-to-standardized transformation events",
+        "failure and collision records",
+        "software version and attrition counts"
+      ],
+      "must_not": [
+        "overwrite raw structures",
+        "silently remove stereochemistry",
+        "call a standardized form the unique true molecule"
+      ]
+    },
+    {
+      "id": "chemcur-outcome-assay-01",
+      "mode": "assay harmonization",
+      "task": "Harmonize bioactivity records from several assays.",
+      "must_include": [
+        "target construct species and assay context",
+        "endpoint relation original value and units",
+        "traceable unit conversion",
+        "censored and conflicting measurements",
+        "comparable groups and non-comparable exclusions"
+      ],
+      "must_not": [
+        "average IC50 Ki and Kd as one endpoint",
+        "convert inequality relations to exact values",
+        "hide source or measurement-level records"
+      ]
+    },
+    {
+      "id": "chemcur-outcome-audit-01",
+      "mode": "dataset audit",
+      "task": "Audit a curated molecular property dataset before modeling.",
+      "must_include": [
+        "schema and input provenance",
+        "structure and label policy",
+        "duplicate replicate and conflict assessment",
+        "reconciled stage-level attrition",
+        "minimal repairs and unresolved risks"
+      ],
+      "must_not": [
+        "rewrite data during a read-only audit",
+        "treat parse success as chemical validity",
+        "claim leakage is solved without group keys"
+      ]
+    },
+    {
+      "id": "chemcur-outcome-handoff-01",
+      "mode": "modeling handoff",
+      "task": "Prepare a curated endpoint dataset for an ML benchmark.",
+      "must_include": [
+        "immutable curated dataset version",
+        "label and ambiguous-record policy",
+        "structure scaffold replicate source and time group keys",
+        "exclusion and failure tables",
+        "handoff to ml-benchmarking for split and model comparison"
+      ],
+      "must_not": [
+        "fit preprocessing using test labels",
+        "select a random split as final validation",
+        "claim model readiness from curation alone"
+      ]
+    },
+    {
+      "id": "chemcur-outcome-boundary-01",
+      "mode": "screening request handoff",
+      "task": "Handle a request that continues from curation into candidate ranking.",
+      "must_include": [
+        "curation deliverable boundary",
+        "separate measured and predicted evidence",
+        "handoff to drug-discovery-admet-screening",
+        "curated dataset provenance",
+        "no ranking claim before downstream review"
+      ],
+      "must_not": [
+        "invent a campaign score",
+        "treat structural alerts as safety proof",
+        "drop missing candidates to improve rank"
+      ]
+    },
+    {
+      "id": "chemcur-outcome-failure-01",
+      "mode": "unresolved identity",
+      "task": "Handle structures that cannot be parsed or reconciled.",
+      "must_include": [
+        "failure status and original record",
+        "failed stage and software version",
+        "recoverable versus excluded classification",
+        "impact on counts and coverage",
+        "stop or manual-review criteria"
+      ],
+      "must_not": [
+        "silently discard failures",
+        "guess missing stereochemistry",
+        "replace a structure from an unrecorded source"
+      ]
+    },
+    {
+      "id": "chemcur-outcome-split-gate-01",
+      "mode": "regression gate",
+      "task": "Canonical structures exist but acyclic scaffold keys are empty and tautomer groups unassessed.",
+      "must_include": [
+        "split_ready false with unresolved groups",
+        "group assessment status",
+        "assay context distinct from chemical identity"
+      ],
+      "must_not": [
+        "declare readiness from canonical SMILES",
+        "aggregate compounds solely by assay context"
+      ]
+    }
+  ]
+}

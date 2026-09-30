@@ -15,11 +15,11 @@
 - `.codex/agents/` — Codex 自定义子 Agent；包含 capability curation、source mapping、实现、复现审查、claim-evidence 审查和发行审查角色。
 - `.codex/agents/evals/agent-routing-evals.json` — 18 条 Agent 选路、sandbox 和不可委派权限边界夹具。
 - `docs/AGENT_ROUTING_FORWARD_TEST_2026-07-28.tsv` / `docs/AGENT_ROUTING_FORWARD_PROTOCOL_2026-07-28.md` — 两次独立 Agent 选路 forward test 及 blind protocol。
-- `.codex/capability_registry.json` — 把治理型 Skill 映射到可选 plugin、MCP、标准 pipeline 或本地工具的机器可读登记表；它只负责选路，不授权安装、凭据、配额或数据上传。
+- `.codex/skills/capability_registry.json` — 把治理型 Skill 映射到可选 plugin、MCP、标准 pipeline 或本地工具的机器可读登记表；它只负责选路，不授权安装、凭据、配额或数据上传。作为 Skills 安装树的一部分，它随快照/复制安装及摘要校验一起部署；各 owner 使用 `../capability_registry.json`，不依赖源仓库或用户主目录布局。
 - `templates/global-AGENTS.md` — 面向所有主机任务的精简全局 guidance；安装时作为受管 block 写入，不把完整 package Agent 复制到每轮上下文。
 - `.codex/config.toml.example` — 经当前本机 Codex 验证的多 Agent 配置片段；按机器合并，不覆盖用户现有配置。
 - `scripts/install_codex_bioinfo.py` — 默认 dry-run、检查 source revision/digest 且失败时事务回滚的用户级安装器。
-- `scripts/validate_package.py` — 全部 38 个 Skills 的结构、metadata、资源路由、eval 平衡、Agent TOML、敏感路径和发现入口校验。
+- `scripts/validate_package.py` — 全部 40 个 Skills 的结构、metadata、资源路由、eval 平衡、Agent TOML、敏感路径和发现入口校验。
 - `scripts/test_release_safety.py` — privacy/history、安装 preflight、只读 snapshot、脏源拒绝、幂等与事务回滚的隔离 fixtures。
 - `scripts/validate_capability_run.py` — 对单次后端运行记录执行版本、授权、输入、provenance、artifact 与 evidence-boundary 门控。
 - `scripts/test_capability_behavior.py` — 14 个去身份化行为 fixtures，覆盖任务不匹配、输入/运行时缺失、模型未授权、浮动版本、畸形 checks 和不完整产物的安全停止。
@@ -64,7 +64,7 @@ py -3.11 scripts/install_codex_bioinfo.py --apply
 python3 scripts/install_codex_bioinfo.py --apply
 ```
 
-安装器会把 38 个 Skills 复制为 `$HOME/.codex/packages/codex-agent-skill-bioinfo/<revision-digest>/skills` 下的 release snapshot。macOS/Linux 的 `$HOME/.agents/skills` 默认是指向该 snapshot 的符号链接；Windows 默认使用内容等价的托管目录副本，并在 `$HOME/.agents/codex-bioinfo-skills.json` 保存 release 与 SHA-256 完整性标记。后续修改 clone 不会静默改变正在运行的全局 Skills。现有普通目录不会被覆盖；只有 marker 有效且目录摘要吻合的托管副本才能自动更新。
+安装器会把 40 个 Skills 复制为 `$HOME/.codex/packages/codex-agent-skill-bioinfo/<revision-digest>/skills` 下的 release snapshot。macOS/Linux 的 `$HOME/.agents/skills` 默认是指向该 snapshot 的符号链接；Windows 默认使用内容等价的托管目录副本，并在 `$HOME/.agents/codex-bioinfo-skills.json` 保存 release 与 SHA-256 完整性标记。后续修改 clone 不会静默改变正在运行的全局 Skills。现有普通目录不会被覆盖；只有 marker 有效且目录摘要吻合的托管副本才能自动更新。
 
 `--apply` 在 Git checkout 中要求 source 工作树干净，并记录 source revision 与 package digest。普通 `validate_package.py` 可在 shallow clone 或无 Git archive 中依靠冻结 lineage hash 运行；正式 release 审查使用 `--require-history` 验证四个历史吸收提交。安装期间任一步失败都会尝试恢复 Skill deployment、完整性 marker、global guidance、旧 Skill、release snapshot 和 custom Agents；备份目录保留安装来源和恢复证据。`--skills-deployment symlink|copy` 仅用于显式迁移和测试；通常使用默认 `auto`。
 
@@ -78,7 +78,7 @@ python3 scripts/install_codex_bioinfo.py --apply --replace-global-guidance
 
 该模式仍会先备份原文件；后续普通安装可以通过 managed markers 原位更新，不会再次追加重复 block。
 
-若旧版用户 Skills 仍位于 `$HOME/.codex/skills` 并与新 38 个 Skills 重名，可显式备份并退出这些旧目录：
+若旧版用户 Skills 仍位于 `$HOME/.codex/skills` 并与新 40 个 Skills 重名，可显式备份并退出这些旧目录：
 
 ```bash
 python3 scripts/install_codex_bioinfo.py --apply \
@@ -124,9 +124,11 @@ MacBook Codex 可以把已完成 provenance、隐私、行为和 release review 
 
 ## 当前状态
 
-- Source skills：38 个。
+- Source skills：40 个。
 - Codex custom agents：6 个。
-- 38 个 Skills 已统一为双字段 frontmatter、按需 references、三字段 UI metadata、20 条平衡 trigger eval 和至少 5 条 outcome case；当前共有 760 条 trigger 与 211 条 outcome 定义。
+- 本次纳入四个精简入口（literature-search-workflow、publication-plotting、project-state-maintenance、scientific-database-grounding）与 cheminformatics-data-curation、molecular-simulation-analysis；安装完整包时全部包含，无需另外安装候选目录。
+- 精简版已修正路径、日志时间/追加和视觉 QA 边界；目前没有实测 token/成本收益。两个新增 Skill 经过小型工程 fixture 检查，不代表真实 assay 建模、平衡采样或科学结论已验证；任务中仍执行各自科学停止门。
+- 40 个 Skills 已统一为双字段 frontmatter、按需 references、三字段 UI metadata、20 条平衡 trigger eval 和至少 5 条 outcome case；当前定义数量以 validator 为准；静态定义通过不等于运行行为或科学有效性已验证。
 - `manuscript-consistency-audit` 统一拥有 reader-facing manuscript hygiene 门；中英文润色与图注 Skill 在执行时去除内部实现痕迹，同时把精确 provenance 保留在 manifest/source-data/project records。
 - Package validator 检查 Skill/Agent eval 的 schema、数量、路由所有者和 sandbox 边界；另有 14 个 capability safe-stop fixtures，但它们不替代真实模型 trigger/outcome forward test 或科研结果验证。
 - 六个高频科研 owner Skill 已通过 capability registry 连接可选执行后端；registry 中的 `tool-bound` 只表示完成选路契约，不能写成安装、集成测试或科研验证已完成。

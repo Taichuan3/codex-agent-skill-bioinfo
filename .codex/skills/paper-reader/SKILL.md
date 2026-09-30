@@ -37,7 +37,7 @@ description: 用于精读用户指定的一篇或固定少量科研论文、PDF�
 
 ## 执行后端
 
-- 固定 paper set 需要 retrieval 辅助时读取 `../../capability_registry.json` 的 `CAP-PAPER-001`：在线全文优先走可核验 PMC/metadata 来源；本地多文档重复问答才考虑 PaperQA2。
+- 固定 paper set 需要 retrieval 辅助时读取 `../capability_registry.json` 的 `CAP-PAPER-001`：在线全文优先走可核验 PMC/metadata 来源；本地多文档重复问答才考虑 PaperQA2。
 - PaperQA2 只能帮助定位候选证据，最终 claim 仍需回到原页、figure/table 或 supplement 核验；索引命中和模型回答不是来源本身。
 - registry 不授权上传私有论文、安装模型或使用凭据。记录 corpus manifest、版本、reader/parser、question、citation location、missing pages 和失败项。
 

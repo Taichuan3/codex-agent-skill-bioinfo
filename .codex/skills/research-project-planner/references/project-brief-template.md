@@ -49,15 +49,19 @@
 
 ## 9. Figure Skeleton
 
+可选、暂定。早期尚不清楚 Result 时留空，以第10节的问题/工作模块替代；不得为模板虚构发现。
+
 | Figure | Question | Input | Evidence threshold |
 |---|---|---|---|
 | Figure 1 |  |  |  |
 
 ## 10. Technical Modules and Minimum Viable Analysis
 
-| Module | Input | Output | Dependency | Milestone |
-|---|---|---|---|---|
-|  |  |  |  |  |
+| Stable module ID | Question | Input | Method/output | Dependency | Status / next decision | Result mapping (optional) |
+|---|---|---|---|---|---|---|
+|  |  |  |  |  | planned/exploring/blocked/candidate/accepted/stopped |  |
+
+共享预处理不按 Result 复制；软件作为方法属性。作者确定论文结构后再做多对多展示映射，重编号不迁移历史运行文件。
 
 ## 11. Alternative Explanations and Risk Register
 

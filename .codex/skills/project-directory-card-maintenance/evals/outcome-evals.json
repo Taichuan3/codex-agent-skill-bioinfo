@@ -87,6 +87,21 @@
         "delete deprecated artifacts",
         "create compatibility links without authorization"
       ]
+    },
+    {
+      "id": "card-outcome-closeout",
+      "mode": "durable update",
+      "task": "An accepted figure changes path without a scientific claim change.",
+      "must_include": [
+        "verify consumer",
+        "replace stale current pointer",
+        "link single registry",
+        "one parent closeout"
+      ],
+      "must_not": [
+        "duplicate full registry",
+        "per-directory recursive PLAN records"
+      ]
     }
   ]
 }

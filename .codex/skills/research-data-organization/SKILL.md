@@ -32,7 +32,7 @@ description: 用于生信项目 CCDS（Cookiecutter Data Science）整理、当�
 3. 识别主报告、当前图表、关键表格、source data、producer、consumer 和已知版本入口。
 4. 从 loader、workflow、report link 或生成脚本核验消费关系；不能仅凭 README、文件名或“文件存在”断言当前分析已使用。
 5. 区分 current snapshot、as-of/time-valid candidate、verified historical/as-of-valid、release-lag proxy、unversioned snapshot 和 not assessed；历史日期列不等于当时可见。
-6. 设计最小改进：优先补充 manifest、latest/priority 入口、source-data 映射和少量 Directory Cards，再考虑物理重排。
+6. 设计最小改进：选定现有目录根与唯一成果登记，以稳定研究模块组织人工 Result/图表/代码入口；日期仅为运行历史，先补入口再按授权重排，不新增互相竞争的 current 清单。
 7. 涉及路径变化时，先生成 migration map、consumer 兼容方案、验证项和回滚路径；除非用户已明确授权，否则停在 plan。
 8. 获得授权并完成移动后，核验目标路径、脚本和报告链接、兼容入口、Git 状态及 manifest；不要用工具日志代替业务验证。
 9. 先汇报围绕主任务完成的结构改进，再列精确路径、验证边界、剩余风险和下一项需要用户决定的动作。
@@ -56,6 +56,7 @@ description: 用于生信项目 CCDS（Cookiecutter Data Science）整理、当�
 
 ## 按需读取
 
+- 人工找图/表/代码、模块化成果交付和避免日期目录成为唯一入口时，读取 `references/result-oriented-handoff.md`。
 - 新项目、CCDS 采用、整体结构设计或“找不到文件”时，读取 `references/cookiecutter-data-science-layout.md`。
 - 设计 manifest、latest/priority 入口或投稿前材料索引时，读取 `references/layout-and-manifest.md`。
 - 多步骤产物需要阶段编号和 stage-to-output 映射时，读取 `references/numbered-output-layout.md`。

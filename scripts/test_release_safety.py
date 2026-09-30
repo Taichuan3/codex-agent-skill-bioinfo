@@ -212,8 +212,8 @@ def test_fresh_install_and_idempotence() -> None:
                 "runtime Skill link still points to the writable source checkout",
             )
         require(
-            len(list(runtime.glob("*/SKILL.md"))) == 38,
-            "fresh install did not expose all 38 Skills",
+            len(list(runtime.glob("*/SKILL.md"))) == 40,
+            "fresh install did not expose all 40 Skills",
         )
 
         second = run(command)
@@ -269,7 +269,7 @@ def test_managed_copy_install_and_tamper_refusal() -> None:
         require(runtime.is_dir() and not runtime.is_symlink(), "managed-copy runtime is not a real directory")
         payload = json.loads(marker.read_text(encoding="utf-8"))
         require(payload.get("deployment_mode") == "copy", "managed-copy marker has the wrong mode")
-        require(len(list(runtime.glob("*/SKILL.md"))) == 38, "managed-copy runtime does not expose 38 Skills")
+        require(len(list(runtime.glob("*/SKILL.md"))) == 40, "managed-copy runtime does not expose 40 Skills")
 
         second = run(command)
         require(

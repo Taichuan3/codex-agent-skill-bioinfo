@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "skill_name": "cheminformatics-data-curation",
+  "purpose": "Evaluate routing for structure and assay curation against campaign prioritization, model benchmarking, database lookup, docking and generic implementation.",
+  "cases": [
+    {
+      "id": "chemcur-positive-01",
+      "split": "train",
+      "query": "把一批原始 SDF 和 SMILES 整理成可建模表，保留每条结构从 raw 到 standardized 的转换记录。",
+      "should_trigger": true,
+      "expected_primary_skill": "cheminformatics-data-curation",
+      "rationale": "Raw-to-standardized molecular dataset curation is the core task."
+    },
+    {
+      "id": "chemcur-positive-02",
+      "split": "train",
+      "query": "制定 salt、fragment parent、charge、stereochemistry 和 tautomer 的处理政策，并输出失败与信息损失。",
+      "should_trigger": true,
+      "expected_primary_skill": "cheminformatics-data-curation",
+      "rationale": "Explicit chemical entity policy and transformation lineage are central."
+    },
+    {
+      "id": "chemcur-positive-03",
+      "split": "train",
+      "query": "整理 ChEMBL 活性记录，按 target、construct、species、assay type、endpoint、relation 和 units 区分可比组。",
+      "should_trigger": true,
+      "expected_primary_skill": "cheminformatics-data-curation",
+      "rationale": "Assay-context harmonization is a core capability."
+    },
+    {
+      "id": "chemcur-positive-04",
+      "split": "train",
+      "query": "把 nM 和 µM 统一但保留原值、转换公式以及小于号和大于号，不要把 censored value 当精确值。",
+      "should_trigger": true,
+      "expected_primary_skill": "cheminformatics-data-curation",
+      "rationale": "Traceable unit and relation handling belongs to measurement curation."
+    },
+    {
+      "id": "chemcur-positive-05",
+      "split": "train",
+      "query": "识别结构重复、stereoisomer、replicate 和冲突测量，在聚合前给出规则与 measurement-level 表。",
+      "should_trigger": true,
+      "expected_primary_skill": "cheminformatics-data-curation",
+      "rationale": "Duplicate and replicate resolution is dataset curation."
+    },
+    {
+      "id": "chemcur-positive-06",
+      "split": "validation",
+      "query": "只读审计这个 QSAR 数据集的结构标准化、标签来源、排除原因和 attrition 是否可追踪。",
+      "should_trigger": true,
+      "expected_primary_skill": "cheminformatics-data-curation",
+      "rationale": "A read-only chemical dataset audit is supported."
+    },
+    {
+      "id": "chemcur-positive-07",
+      "split": "validation",
+      "query": "为供应商化合物库建立 raw ID、原始结构、standardized ID、标准化结构和 collision 状态的映射。",
+      "should_trigger": true,
+      "expected_primary_skill": "cheminformatics-data-curation",
+      "rationale": "Registry-to-standardized lineage is a primary deliverable."
+    },
+    {
+      "id": "chemcur-positive-08",
+      "split": "validation",
+      "query": "把清洗后的分子表交给 ML benchmark，补齐 scaffold、structure family、source batch 和 replicate group keys。",
+      "should_trigger": true,
+      "expected_primary_skill": "cheminformatics-data-curation",
+      "rationale": "Split-ready entity and group keys are part of modeling handoff."
+    },
+    {
+      "id": "chemcur-positive-09",
+      "split": "validation",
+      "query": "统计每一步解析、去盐、标准化、去重和标签筛选的输入输出及失败原因，确保数量闭合。",
+      "should_trigger": true,
+      "expected_primary_skill": "cheminformatics-data-curation",
+      "rationale": "QC and attrition reconciliation are core."
+    },
+    {
+      "id": "chemcur-positive-10",
+      "split": "validation",
+      "query": "为 hERG 数据建立 endpoint 数据卡和 curated table，区分 assay system、units、threshold 与 ambiguous labels。",
+      "should_trigger": true,
+      "expected_primary_skill": "cheminformatics-data-curation",
+      "rationale": "Endpoint-specific curated dataset preparation belongs here."
+    },
+    {
+      "id": "chemcur-negative-01",
+      "split": "train",
+      "query": "只核验这个 InChIKey 对应哪个 PubChem CID。",
+      "should_trigger": false,
+      "expected_primary_skill": "scientific-database-grounding",
+      "rationale": "Single-record identity lookup is database grounding."
+    },
+    {
+      "id": "chemcur-negative-02",
+      "split": "train",
+      "query": "把 docking、ADMET、measured potency 和 safety liabilities 组合后给候选排序。",
+      "should_trigger": false,
+      "expected_primary_skill": "drug-discovery-admet-screening",
+      "rationale": "Campaign prioritization is outside dataset curation."
+    },
+    {
+      "id": "chemcur-negative-03",
+      "split": "train",
+      "query": "比较 fingerprint baseline 和 Chemprop，并审计 scaffold split 与 calibration。",
+      "should_trigger": false,
+      "expected_primary_skill": "ml-benchmarking",
+      "rationale": "Model comparison and split evaluation belong to ML benchmarking."
+    },
+    {
+      "id": "chemcur-negative-04",
+      "split": "train",
+      "query": "检查 Vina pose 的 pocket placement、clash 和金属配位。",
+      "should_trigger": false,
+      "expected_primary_skill": "protein-structure-docking",
+      "rationale": "Pose-level structural interpretation belongs to docking."
+    },
+    {
+      "id": "chemcur-negative-05",
+      "split": "train",
+      "query": "在新的 conda 环境安装 RDKit 并做 import smoke test。",
+      "should_trigger": false,
+      "expected_primary_skill": "environment-and-tool-adoption",
+      "rationale": "Installation and environment validation belong to tool adoption."
+    },
+    {
+      "id": "chemcur-negative-06",
+      "split": "validation",
+      "query": "用已经冻结的标准化规则实现 RDKit 批处理脚本和单元测试。",
+      "should_trigger": false,
+      "expected_primary_skill": "bioinfo-analysis-code",
+      "rationale": "Frozen-contract implementation belongs primarily to analysis code."
+    },
+    {
+      "id": "chemcur-negative-07",
+      "split": "validation",
+      "query": "把现有化合物表画成 publication-ready UMAP 和 property heatmap。",
+      "should_trigger": false,
+      "expected_primary_skill": "publication-plotting",
+      "rationale": "Pure figure production is not curation."
+    },
+    {
+      "id": "chemcur-negative-08",
+      "split": "validation",
+      "query": "根据预测低毒性直接告诉患者服用这个候选药物。",
+      "should_trigger": false,
+      "expected_primary_skill": "clinical-bioinformatics-evidence",
+      "rationale": "Patient advice is outside this research skill."
+    },
+    {
+      "id": "chemcur-negative-09",
+      "split": "validation",
+      "query": "把整个项目移动到 CCDS 目录并重命名 raw、processed 和 reports。",
+      "should_trigger": false,
+      "expected_primary_skill": "research-data-organization",
+      "rationale": "Project-wide physical migration is a different deliverable."
+    },
+    {
+      "id": "chemcur-negative-10",
+      "split": "validation",
+      "query": "分析 MD 轨迹的 PBC、RMSD、RMSF 和 contact occupancy。",
+      "should_trigger": false,
+      "expected_primary_skill": "molecular-simulation-analysis",
+      "rationale": "Trajectory analysis belongs to molecular simulation analysis."
+    }
+  ]
+}

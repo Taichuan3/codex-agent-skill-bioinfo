@@ -111,6 +111,11 @@ Static evals define expected behavior; they do not prove runtime behavior. For
 ambiguous or high-impact routing, run a blinded forward test that exposes only
 frontmatter and raw requests, not expected answers or the eval corpus.
 
+For artifact-producing or maintenance Skills, include outcome cases for
+path/version-only closeout, failed/blocked work, read-only/no-op behavior,
+single-owner shared state, and human discovery without chat or cold logs.
+Link existing closeout ownership instead of adding another manager Skill.
+
 ## 7. Validation ladder
 
 Run the smallest complete ladder appropriate to the change:

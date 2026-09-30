@@ -13,7 +13,7 @@ from validate_capability_run import validate_record
 
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = json.loads(
-    (ROOT / ".codex" / "capability_registry.json").read_text(encoding="utf-8")
+    (ROOT / ".codex" / "skills" / "capability_registry.json").read_text(encoding="utf-8")
 )
 
 

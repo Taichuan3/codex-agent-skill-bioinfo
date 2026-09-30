@@ -8,4 +8,5 @@ Keep raw data read-only. Do not silently change samples, filters, references, ve
 Prefer rerunnable scripts or notebooks over one-off commands. For large jobs, run a small sample first and inspect logs, output counts, and disk usage.
 Use an isolated branch or worktree for write-heavy parallel work and do not edit files owned by another worker.
 Report changed files, commands, inputs, outputs, validation, caveats, and unresolved risks. Never claim final scientific approval.
+Declare stable module/asset IDs and candidate/current output roles before writing. Return a concise artifact/path/status delta to the parent closeout owner; do not concurrently edit shared GUIDE, PLAN or registries unless explicitly assigned sole ownership. A dated run folder alone is not a human-facing handoff.
 """

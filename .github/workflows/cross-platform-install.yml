@@ -26,9 +26,15 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Validate package and release fixtures
-        run: |
-          python scripts/validate_package.py --require-history
-          python scripts/test_release_safety.py
-          python scripts/test_capability_behavior.py
-          python scripts/install_codex_bioinfo.py
+      - name: Validate package and history
+        run: python scripts/validate_package.py --require-history
+      - name: Check release safety
+        run: python scripts/test_release_safety.py
+      - name: Check installed references without source
+        run: python scripts/test_installed_references.py
+      - name: Check capability behavior
+        run: python scripts/test_capability_behavior.py
+      - name: Check project handoff
+        run: python scripts/test_project_handoff.py
+      - name: Preview installation
+        run: python scripts/install_codex_bioinfo.py

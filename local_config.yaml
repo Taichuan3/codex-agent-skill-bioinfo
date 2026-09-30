@@ -18,7 +18,7 @@ entrypoints:
   custom_agent_routing_evals: .codex/agents/evals/agent-routing-evals.json
   custom_agent_routing_forward_test: docs/AGENT_ROUTING_FORWARD_TEST_2026-07-28.tsv
   custom_agent_routing_forward_protocol: docs/AGENT_ROUTING_FORWARD_PROTOCOL_2026-07-28.md
-  capability_registry: .codex/capability_registry.json
+  capability_registry: .codex/skills/capability_registry.json
   global_guidance_template: templates/global-AGENTS.md
   config_example: .codex/config.toml.example
   installer: scripts/install_codex_bioinfo.py
@@ -62,6 +62,7 @@ context_policy:
 
 skills:
   - bioinfo-analysis-code
+  - cheminformatics-data-curation
   - chinese-scientific-polishing
   - citation-verifier
   - claim-evidence-audit
@@ -74,6 +75,7 @@ skills:
   - literature-search-workflow
   - manuscript-consistency-audit
   - ml-benchmarking
+  - molecular-simulation-analysis
   - paper-reader
   - pathway-network-analysis
   - project-directory-card-maintenance
@@ -143,7 +145,7 @@ hard_constraints:
   - project_agents_declare_data_results_figures_source_data_manifest_and_environment
 
 validation:
-  expected_skill_count: 38
+  expected_skill_count: 40
   expected_root_agents: 1
   expected_custom_agent_count: 6
   expected_registered_execution_capabilities: 6

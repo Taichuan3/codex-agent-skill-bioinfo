@@ -23,10 +23,10 @@ description: 用于实现、调试或重构可复现的生物信息学分析代�
 1. 读取适用的 `AGENTS.md`、必要的 `PROJECT_GUIDE.md` 和局部 Directory Card；锁定用户授权的文件与输出范围。
 2. 声明输入、输出、schema、样本/feature universe、过滤与统计定义、参考/数据库版本、随机种子和环境；原始数据保持只读。
 3. 先检查少量行、文件数、维度和 join key；大型或昂贵任务先跑可代表的小样本，并检查日志、输出计数和磁盘占用。
-4. 把参数放入 CLI/config，而不是隐藏在对话或 notebook state；多步骤流程让脚本、结果和日志共享稳定 stage ID。
+4. 把参数和输出根放入 CLI/config；使用稳定 module/stage ID，run ID 只表示历史。先声明候选/当前交付位置及模块入口（已有论文时为 Result），不让日期目录成为唯一成果归属。
 5. 运行与风险相称的验证：schema、行列数、唯一键、样本覆盖、缺失值、预期输出和关键不变量。不得用“命令成功”替代结果验证。
 6. 将稳定 notebook 整理为脚本或明确固定其 kernel、环境、输入和导出；反复重跑的流程提供 `run_all.sh`、Snakemake、Nextflow 或同等入口。
-7. 交付脚本、命令、输入、输出、环境、关键参数、验证、caveat 和复现级别；不得从局部指标升级功能、机制或临床 claim。
+7. 交付脚本、命令、输入输出、环境、参数、验证、caveat 和复现级别；将本次产物/完成或失败状态 delta 交给 `project-state-maintenance`，验证人工入口可达。科学接受由用户决定，不从局部指标升级 claim。
 
 ## 复现级别
 

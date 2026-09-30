@@ -34,6 +34,7 @@ description: 对即将交付的具体生物信息学产物做轻量最终 QA，�
 - `Code`：输入、输出、命令、环境、参数是否清楚。
 - `Figure`：是否有遮挡，字号是否可读，PNG/SVG 是否一致，source data 是否可追踪。
 - `Data`：关键表格和最新文件是否容易找到，manifest 是否指向当前有效版本。
+- `Handoff`：从根 README/GUIDE 的固定入口、不读聊天/PLAN，能否找到本次图/表/源数据/代码；按受影响范围检查指针、GUIDE 预算、过期 current 撤销及收尾 `updated/unchanged/blocked`，未核验来源不得假定通过。
 - `Tool`：外部工具或包是否记录版本、来源、license 和适配改动。
 - `Phase`：当前交付物属于 exploration、confirmation、validation 还是 submission-ready，表述强度是否匹配。
 - `Delivery`：实际完成内容、变更文件、验证、边界、剩余风险和下一决策是否自包含。

@@ -14,10 +14,10 @@
     {
       "id": "state-positive-02",
       "split": "train",
-      "query": "QC 已完成，请在不读取完整 PROJECT_PLAN 的情况下追加记录，并判断是否需要更新 GUIDE。",
+      "query": "图像换了路径但科学结论没变，请完成本次产物的索引、状态和日志收尾，不读取整个历史。",
       "should_trigger": true,
       "expected_primary_skill": "project-state-maintenance",
-      "rationale": "Material-action append plus GUIDE update decision is the core end-of-task policy."
+      "rationale": "Path/version-only changes require closeout even without a new scientific finding."
     },
     {
       "id": "state-positive-03",
@@ -70,10 +70,10 @@
     {
       "id": "state-positive-09",
       "split": "validation",
-      "query": "同时压缩 GUIDE 的 current state，并保留 PLAN 历史和最新 log_id 指针。",
+      "query": "两个子任务各完成了图表，请由一个负责人合并变化、更新受影响入口，并报告GUIDE是否需要改变。",
       "should_trigger": true,
       "expected_primary_skill": "project-state-maintenance",
-      "rationale": "Coordinating both files is state maintenance, with guide editing composed as needed."
+      "rationale": "Shared-state single-owner closeout with conditional guide updates."
     },
     {
       "id": "state-safety-10",

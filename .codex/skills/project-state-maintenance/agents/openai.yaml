@@ -1,4 +1,4 @@
 interface:
   display_name: "Project State Maintenance"
-  short_description: "Maintain hot and cold research project state"
-  default_prompt: "Use $project-state-maintenance to update this project state without loading the full history log."
+  short_description: "Close out artifacts and bounded project state"
+  default_prompt: "Use $project-state-maintenance to close out artifact and status changes with one state owner, without loading full history."

@@ -1,97 +1,37 @@
-# PROJECT_GUIDE Template
+# PROJECT_GUIDE minimal template
+
+默认只保留五块；按任务 delta 替换过期项，不每日追加。模板不是科学接受的授权。
 
 ```markdown
 # PROJECT_GUIDE
 
-Last updated:
+最后核验：YYYY-MM-DD；范围：本次实际核验的状态/入口。
 
-## One-line summary
+## 目标
+一句话说明研究问题和当前阶段。
 
-一句话说明项目研究对象、核心问题和预期贡献。
+## 当前状态
+- 当前主稿/分析基准：稳定入口；两者不同时分别说明。
+- Result / 模块：一行状态和证据入口，不复制完整文件清单。
+- 完成、进行中或阻塞：仅保留影响下一步的事实。
 
-## Background
+## 关键限制与接受状态
+- 影响结论理解的限制、冻结内容和执行禁止项。
+- 未确认解释/候选成果明确标记；技术检查不等于作者接受。
 
-只保留理解项目所需的最小背景。不要写完整综述。
+## 下一步
+1. 最多三项；区分已授权动作和等待作者决定的候选。
 
-## Central question
-
-本项目最终要回答的科学问题。
-
-## Known / Unknown / Question / Finding / Advance
-
-- Known:
-- Unknown:
-- Question:
-- Finding:
-- Advance:
-
-## Working hypothesis / model
-
-当前工作假说或解释模型。未确认内容必须标注为 hypothesis、model 或 assumption。
-
-## Current story chain
-
-1. 已知基础：
-2. 当前数据支持：
-3. 关键观察：
-4. 可能解释：
-5. 仍需验证：
-
-## Result / figure skeleton
-
-| Result/Figure | Role | Main claim | Evidence level | Current status | Caveat |
-|---|---|---|---|---|---|
-| R1 / Fig. 1 |  |  |  |  |  |
-
-## Evidence package
-
-| Claim | Required evidence | Current evidence | Missing evidence | Next action |
-|---|---|---|---|---|
-
-## Exploration / confirmation / validation status
-
-| Result | Stage | Locked parameters? | Independent validation? | Status note |
-|---|---|---|---|---|
-
-## Current progress
-
-- Done:
-- In progress:
-- Blocked:
-- Not started:
-
-## Key evidence and caveats
-
-| Claim | Evidence pointer | Level | Caveat |
-|---|---|---|---|
-
-## Reviewer attack list
-
-| Attack | Risk type | Current response | Needed fix |
-|---|---|---|---|
-
-## Open questions
-
-- 
-
-## Next decisions
-
-- 
-
-## Pointers
-
-- Main scripts:
-- Priority tables:
-- Priority figures:
-- Source data inventory:
-- Project operation log:
+## 稳定入口
+- 图表/源数据/代码：项目既有成果索引。
+- 模块详情/方法/环境：按任务需要读取。
+- 历史：PROJECT_PLAN.md，默认不读取，仅定向查询。
 ```
 
-## 使用建议
+## 保真压缩
 
-- 每次更新时压缩旧信息，不追加流水账。
-- 操作命令、运行日志和详细输出路径放到 `PROJECT_PLAN.md` 或对应 summary。
-- 如果某个 result 已经很成熟，可以把它写成论文结果段骨架。
-- 如果某个 result 仍是探索性，只保留为候选路线并标注证据等级。
-- 如果五句话写不清楚，优先维护研究主线，不要急着扩写正文。
-- 如果 reviewer attack list 出现 blocking risk，优先转给 `evidence-gap-finder`、`validation-strategy-planner` 或 `submission-readiness-audit`。
+- 目标 1,000–2,000 字符；3,000 字符/80 行告警。例外说明原因，不自动截断。
+- 结论、关键限制、作者接受状态及可核验入口不能因压缩丢失。
+- 背景/evidence matrix/reviewer risks/详细 skeleton 留现有模块页，按需读。新详情页须明确作用域，不制造第二个 current GUIDE。
+- 保留旧材料的 as-of 来源与 superseded 状态；日期或文件名不决定当前版本。
+- GUIDE 内容改动交给 state owner 合并记录，不因每章节更新产生额外日志。

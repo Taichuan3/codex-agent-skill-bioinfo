@@ -1,0 +1,4 @@
+interface:
+  display_name: "Cheminformatics Data Curation"
+  short_description: "Curate auditable molecular datasets for modeling"
+  default_prompt: "Use $cheminformatics-data-curation to curate chemical structures and assay records into a traceable modeling dataset."

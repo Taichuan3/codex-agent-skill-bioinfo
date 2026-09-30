@@ -103,6 +103,77 @@
         "expose credentials or patient-identifiable data",
         "summarize evidence not inspected"
       ]
+    },
+    {
+      "id": "state-outcome-closeout-path",
+      "mode": "task closeout",
+      "task": "A revised figure has a new path but unchanged scientific findings.",
+      "must_include": [
+        "path/version delta",
+        "scoped registry and affected navigation updated",
+        "GUIDE updated only if summary affected",
+        "single closeout owner"
+      ],
+      "must_not": [
+        "skip maintenance because no new claim",
+        "promote candidate without authority"
+      ]
+    },
+    {
+      "id": "state-outcome-closeout-failure",
+      "mode": "task closeout",
+      "task": "A failed run changes the blocker but produces no accepted result.",
+      "must_include": [
+        "failed or blocked state",
+        "evidence and next decision owner",
+        "bounded PLAN entry"
+      ],
+      "must_not": [
+        "mark run completed",
+        "invent scientific acceptance"
+      ]
+    },
+    {
+      "id": "state-outcome-closeout-noop",
+      "mode": "task closeout",
+      "task": "Answer a read-only project question with no changes.",
+      "must_include": [
+        "unchanged with reason",
+        "no state-file writes"
+      ],
+      "must_not": [
+        "empty PLAN entry",
+        "reload whole history"
+      ]
+    },
+    {
+      "id": "state-outcome-closeout-concurrency",
+      "mode": "task closeout",
+      "task": "Two workers finish independent figure updates.",
+      "must_include": [
+        "worker deltas",
+        "one shared-state writer",
+        "baseline hash conflict check",
+        "no recursive logging"
+      ],
+      "must_not": [
+        "concurrent GUIDE overwrites",
+        "silent stale-state overwrite"
+      ]
+    },
+    {
+      "id": "state-outcome-append-clock-01",
+      "mode": "regression gate",
+      "task": "Append a task delta without reading PLAN history.",
+      "must_include": [
+        "actual clock time and timezone",
+        "append without reading for an anchor",
+        "prepared and committed distinction"
+      ],
+      "must_not": [
+        "tail PLAN merely to locate insertion",
+        "invent an event timestamp"
+      ]
     }
   ]
 }

@@ -87,6 +87,34 @@
         "claim image embedding without checking",
         "replace the source report unless requested"
       ]
+    },
+    {
+      "id": "plot-outcome-closeout",
+      "mode": "figure delivery",
+      "task": "Deliver a revised figure stored in a run folder.",
+      "must_include": [
+        "stable module/output contract",
+        "candidate/accepted distinction",
+        "current human route",
+        "state delta to closeout"
+      ],
+      "must_not": [
+        "dated folder as sole handoff",
+        "technical pass implies author acceptance"
+      ]
+    },
+    {
+      "id": "plot-outcome-render-gate-01",
+      "mode": "regression gate",
+      "task": "PNG was viewed but SVG only parsed as XML.",
+      "must_include": [
+        "visual QA incomplete",
+        "unverified rendered SVG consistency"
+      ],
+      "must_not": [
+        "claim XML proves visual consistency",
+        "declare all QA complete"
+      ]
     }
   ]
 }
