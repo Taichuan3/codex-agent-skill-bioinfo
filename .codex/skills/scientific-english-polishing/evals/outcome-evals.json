@@ -4,6 +4,20 @@
   "purpose": "Evaluate meaning-preserving English editing, compression, terminology, reproducibility, and response tone.",
   "cases": [
     {
+      "id": "english-polish-blend-01",
+      "mode": "integrated profile",
+      "task": "Polish Results in our combined style: In 24 samples, X correlated with Y (r=0.42). The difference in a separate 18-sample cohort was not significant. Fig. 2 reports preliminary observations. Do not add subheadings.",
+      "must_include": ["24 and 18 kept as distinct cohorts", "r=0.42 preserved", "preliminary and nonsignificant observations retained", "no added subheadings", "bounded association and figure pointer"],
+      "must_not": ["causal explanation", "equivalence claim", "invented significance or mechanism", "claim this heading preference is Hashimoto policy"]
+    },
+    {
+      "id": "english-polish-override-01",
+      "mode": "explicit style override",
+      "task": "Correct spelling only in this English Methods excerpt; retain wording, headings, versions and parameters.",
+      "must_include": ["minimal spelling edit", "unchanged structure and parameters"],
+      "must_not": ["force Nature structure", "rewrite paragraph logic"]
+    },
+    {
       "id": "english-polish-outcome-results-01",
       "mode": "Results paragraph polishing",
       "task": "Polish an existing English Results paragraph containing quantitative associations.",

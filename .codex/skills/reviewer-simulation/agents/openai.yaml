@@ -1,4 +1,4 @@
 interface:
   display_name: "Reviewer Simulation"
   short_description: "Red-team a manuscript before peer review"
-  default_prompt: "Use $reviewer-simulation to generate evidence-linked hypothetical reviewer concerns and prioritize the work needed to answer them."
+  default_prompt: "Use $reviewer-simulation with three isolated read-only reviewers unless I specify otherwise; freeze their evidence-linked reports before synthesis."

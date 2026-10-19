@@ -23,6 +23,7 @@ description: 用于把中文或以中文为主的科研文本忠实翻译为英�
 - 一个中文概念稳定映射为一个英文术语；原文术语不一致时选择最保守映射并标记歧义。
 - Results 保持观察性，Discussion 可解释但保留限制，Methods 不压缩掉复现信息。
 - “Nature/高影响期刊风格”只改变选择、结构与简洁度，不授权新增 novelty 或增强 claim。
+- 英文输出共用 Nature–Hashimoto 融合原则；忠实翻译优先，明确要求直译时不强制重排结构。
 
 ## 工作流程
 
@@ -38,6 +39,8 @@ description: 用于把中文或以中文为主的科研文本忠实翻译为英�
 - 仅在存在歧义或证据风险时增加 `Risk notes`；复杂术语才给 `Terminology map`。
 
 ## 按需读取
+
+- 实质科研段落/章节的英文输出读取 `../scientific-english-polishing/references/integrated-writing-profile.md`，共享风格而不复制；纯单词翻译不加载。中文输出与已有英文改写仍按上述边界路由。
 
 - 需要选择 faithful、concise 或 journal-leaning stance，或原文术语不稳定时，读取 `references/translation-stance.md`。
 - 用户明确要求高影响期刊导向或需要维护 manuscript section function 时，读取 `references/high-impact-journal-translation.md`；目标期刊规则优先。

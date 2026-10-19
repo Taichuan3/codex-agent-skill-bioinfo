@@ -17,6 +17,24 @@ retrieved at the audited refs.
 At the implementation boundary, no executable wrapper copied from an upstream
 source is present in this package.
 
+## 2026-10-19 scoped mechanism update
+
+Nature reference-only status below describes the historical audit. At
+`233ed09957d32d8cf45dd96c495663c5c5d8e447` (Apache-2.0, root LICENSE),
+the independent-review and section-specific writing mechanisms were reviewed
+and independently rewritten into:
+
+- `.codex/skills/reviewer-simulation/references/independent-review-protocol.md`
+- `.codex/skills/scientific-english-polishing/references/integrated-writing-profile.md`
+
+The latter also generalizes the local Hashimoto-style profile (limited-source
+style observations, DOI 10.1016/j.celrep.2026.117728; not a journal policy claim).
+No paper text, private examples, upstream Skill body or executable was copied.
+The global template and translation Skill point to these owners. User overrides,
+evidence boundaries, existing artifact management and manual update approval are
+retained. Automatic update hooks and wholesale workflow replacement are rejected.
+Historical expression comparisons below do not certify these new files.
+
 ## Source registry
 
 | ID | Repository and audited snapshot | License evidence at that snapshot | Disposition |
@@ -39,7 +57,7 @@ indexes, and repositories with unknown licenses. They remain reference-only or
 rejected and are not sources for current package expression. In particular,
 unknown-license sources cannot be promoted to material sources.
 
-## Capability map
+## Historical capability map (before the scoped update above)
 
 | Local capability | Material source IDs | Independently retained mechanism |
 |---|---|---|

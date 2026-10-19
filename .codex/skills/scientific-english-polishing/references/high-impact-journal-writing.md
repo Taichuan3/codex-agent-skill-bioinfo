@@ -16,7 +16,7 @@ Sources:
 
 - Prioritize clarity, evidence boundaries, reproducibility and reader navigation over decorative prose.
 - Keep terminology stable. Do not vary technical nouns for style.
-- Each section has a job; do not move Results into the Introduction or turn Discussion into a repeated Results section.
+- Each section has a job; a brief study overview may close the Introduction, but do not preload detailed Results or turn Discussion into a repeated Results section.
 - Preserve caveats, sample scope, data type and statistical qualifiers.
 
 ## Title
@@ -52,7 +52,7 @@ Polishing rules:
 ## Results
 
 - Results should state observations under defined conditions.
-- Use subheadings to guide the reader when the manuscript has multiple result modules.
+- Use subheadings when helpful and permitted by the user/project and journal; do not impose or remove them as a universal style rule.
 - Each paragraph should have one controlling claim.
 - Mention only key values needed to support the paragraph claim.
 - Avoid mechanistic verbs unless the evidence directly tests mechanism.

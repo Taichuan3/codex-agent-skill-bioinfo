@@ -14,7 +14,7 @@ concepts.
 | NVIDIA-BioNeMo/bionemo-agent-toolkit | `54fc67cd87b240f98ffc3223268c77c5eae6e028` | Copyright NVIDIA CORPORATION & AFFILIATES; Skill/docs/content are CC-BY-4.0 and code is Apache-2.0; workflow concepts were independently rewritten and changed into package-specific Chinese evidence contracts; no upstream file copied |
 | adaptyvbio/protein-design-skills | `59dd63374314baa2fb1f9864f190775bd7466647` | MIT; source and license linked in provenance; no Skill body copied |
 | learningmatter-mit/AtomisticSkills | `ca695e1b89ea48613291c88bd8c73e71af2025c7` | MIT; source and license linked in provenance; no Skill body or code copied |
-| Yuan1z0825/nature-skills | `af29cdd0201fd9158f140adcda24bc8b2506d246` | Apache-2.0; reference-only style comparison; no current file derives from it |
+| Yuan1z0825/nature-skills | historical `af29cdd0201fd9158f140adcda24bc8b2506d246`; mechanism review `233ed09957d32d8cf45dd96c495663c5c5d8e447` | Apache-2.0; independent-review and integrated-writing mechanisms independently rewritten in the two references listed in EXTERNAL_SOURCE_PROVENANCE.md; no upstream body or code vendored |
 | addyosmani/agent-skills | `aba7c4e9695c363e65cb59effe926c7f1d1abe3d` | MIT; source and license linked in provenance; verification concepts independently rewritten |
 | obra/superpowers | `896224c4b1879920ab573417e68fd51d2ccc9072` | MIT; source and license linked in provenance; no Skill body or script copied |
 | muratcankoylan/Agent-Skills-for-Context-Engineering | `175cee7c25b5d98d919369f53427c646cdd86d93` | MIT; source and license linked in provenance; context-management concepts independently rewritten |

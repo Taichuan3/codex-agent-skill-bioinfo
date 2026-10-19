@@ -4,6 +4,41 @@
   "purpose": "Evaluate evidence-linked prospective critique, severity, response classes, and simulation boundaries.",
   "cases": [
     {
+      "id": "review-protocol-cross-domain-01",
+      "mode": "shared protocol routing, not manuscript ownership",
+      "task": "Apply the review protocol separately to: 全面审查这份生信研究方案，给出采用建议; 审查这个 Skill 是否会误触发; 认真审查这份图表的源数据对应关系。",
+      "must_include": ["three read-only reviewers for each explicit review", "research-decision-review owns the plan assessment", "skill-quality-audit owns Skill review", "source-data-audit owns traceability review"],
+      "must_not": ["route all reviews primarily to reviewer-simulation", "repair artifacts without authorization"]
+    },
+    {
+      "id": "review-protocol-negative-01",
+      "mode": "ordinary request exclusions",
+      "task": "Apply the review protocol separately to: 检查这个单词拼写; review是什么意思; 交付前轻量自检就好。",
+      "must_include": ["zero additional reviewers for all three requests", "ordinary answers or lightweight self-check"],
+      "must_not": ["trigger from the word review alone", "force three reviewers"]
+    },
+    {
+      "id": "simulation-independent-01",
+      "mode": "independent review",
+      "task": "Please review this supplied manuscript. I want a substantive assessment.",
+      "must_include": ["three isolated read-only reviewers", "same neutral versioned source packet", "no author concerns or other reports in reviewer input", "freeze before synthesis", "dissent and missing evidence", "post-review audit findings separately labelled"],
+      "must_not": ["shared-history pseudo-blind review", "retroactively edit reports to manufacture diversity", "treat majority vote as scientific proof", "repair or publish without authorization"]
+    },
+    {
+      "id": "simulation-override-01",
+      "mode": "explicit override",
+      "task": "Only give one quick reviewer assessment of this abstract.",
+      "must_include": ["one bounded report", "partial-material boundary"],
+      "must_not": ["launch three reviewers", "invent missing methods"]
+    },
+    {
+      "id": "simulation-isolation-01",
+      "mode": "isolation unavailable",
+      "task": "Review this draft with three independent reviewers, but the runtime only allows a shared context.",
+      "must_include": ["explicit independence limitation", "offer bounded single review or separate invocations"],
+      "must_not": ["claim three role-played voices are independent"]
+    },
+    {
       "id": "simulation-outcome-full-01",
       "mode": "full manuscript red-team",
       "task": "Simulate likely reviewer concerns for a complete computational biology manuscript.",

@@ -78,7 +78,7 @@
     {
       "id": "english-polish-positive-10",
       "split": "validation",
-      "query": "Give this existing English abstract a Nature-leaning concise style without adding novelty or mechanism.",
+      "query": "Polish this existing English abstract using our blended Nature and Hashimoto style, without adding novelty or mechanism.",
       "should_trigger": true,
       "expected_primary_skill": "scientific-english-polishing",
       "rationale": "Journal-leaning style on existing English text belongs here."

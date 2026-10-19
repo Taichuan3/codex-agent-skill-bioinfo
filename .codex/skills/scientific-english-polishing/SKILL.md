@@ -24,6 +24,7 @@ description: 用于润色、压缩或重构已有英文标题、摘要、正文�
 - 先修正段落功能、论证顺序和歧义，再改句式；压缩不得删除改变解释范围的信息。
 - Remove machine-local paths, repository/script/raw-table filenames, internal flags or run IDs, raw commands, and unresolved author/editor comments from reader-facing Results, Discussion, and captions. Preserve unresolved scientific questions from those comments as `Risk notes` or explicit author actions, keep reproducibility-critical details in Methods, and retain exact internal provenance in manifests or project records.
 - “Nature/CNS 风格”不等于更强措辞；目标期刊 author instructions 优先于通用风格。
+- 默认采用本地 Nature–Hashimoto 融合原则：问题驱动、图证据、必要数字、有限解释；不模仿作者原句，不强制增删标题，不替代科学审查。
 
 ## 工作流程
 
@@ -39,6 +40,8 @@ description: 用于润色、压缩或重构已有英文标题、摘要、正文�
 - 仅在存在问题时增加 `Risk notes` 或 `Terminology notes`。
 
 ## 按需读取
+
+- 英文科研段落/章节润色默认读取 `references/integrated-writing-profile.md`；仅拼写、单词或纯格式修正无需加载。用户明确风格优先，已有英文与中译英共享本文件，不重复维护两套风格。
 
 - 局部英文需要检查术语、过强措辞或 section stance 时，读取 `references/style-guardrails.md`。
 - 用户明确要求高影响期刊导向或整段 manuscript section 重构时，读取 `references/high-impact-journal-writing.md`；目标期刊规则优先。

@@ -4,6 +4,13 @@
   "purpose": "Evaluate faithful translation, terminology mapping, section function, reproducibility details, and caption preservation.",
   "cases": [
     {
+      "id": "translation-blend-fidelity-01",
+      "mode": "integrated style with literal override",
+      "task": "将以下中文结果直译成英文，保留顺序和小标题：\n### 队列一\n24个样本中X与Y相关，r=0.42。\n### 队列二\n另18个样本的差异不显著。这是初步观察。",
+      "must_include": ["24 and 18 distinct", "r=0.42 unchanged", "association only", "nonsignificant and preliminary preserved", "two headings translated while preserving count order level and paragraph membership"],
+      "must_not": ["equivalence", "causality", "force structural rewrite", "invent figure citation"]
+    },
+    {
       "id": "english-translation-outcome-faithful-01",
       "mode": "faithful Results translation",
       "task": "Translate a Chinese Results paragraph with quantitative observations and bounded wording.",
