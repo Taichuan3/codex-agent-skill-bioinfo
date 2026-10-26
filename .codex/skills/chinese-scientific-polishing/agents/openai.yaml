@@ -1,4 +1,4 @@
 interface:
-  display_name: "Chinese Scientific Polishing"
-  short_description: "Polish Chinese scientific prose without overclaiming"
-  default_prompt: "Use $chinese-scientific-polishing to improve this Chinese scientific text while preserving its meaning, terminology, and evidence strength."
+  display_name: "中文修改"
+  short_description: "从框架、证据或草稿形成完整中文科研正文，优化论证并保留科学边界"
+  default_prompt: "使用 $chinese-scientific-polishing 将我的材料修改成完整、自然的中文科研正文，保留数值、术语与证据强度，暂不翻译。"

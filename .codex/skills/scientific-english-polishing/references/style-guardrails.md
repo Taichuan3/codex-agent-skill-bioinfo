@@ -22,9 +22,9 @@ Use for existing English scientific text after the section's job is clear.
 |---|---|---|---|
 |  |  |  |  |
 
-## Overclaim words to soften
+## Evidence-sensitive verbs
 
-Flag:
+Check the evidence before using or changing:
 
 - prove
 - conclusively
@@ -34,7 +34,7 @@ Flag:
 - first
 - demonstrate a mechanism
 
-Safer options:
+Depending on the actual design, possible alternatives are:
 
 - show
 - suggest
@@ -43,6 +43,10 @@ Safer options:
 - to our knowledge
 - in this dataset
 - in this cohort
+
+This is not a banned-word list. Keep a strong verb when the supplied evidence
+directly supports it; do not blanket-weaken a validated observation. Conversely,
+adding “to our knowledge” does not make an unsupported priority claim valid.
 
 ## Section stance
 

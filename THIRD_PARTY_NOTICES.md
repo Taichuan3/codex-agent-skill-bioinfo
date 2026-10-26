@@ -25,3 +25,11 @@ Scientific tools, databases, methods, standards, and factual constraints named
 inside local Skills remain governed by their original terms and citation
 requirements. This acknowledgement does not relicense those external materials
 or replace their original notices.
+
+2026-10-26 writing update also consulted Yuan1z0825/nature-skills commit
+`07009f91f99c7108519e7657885f1a89d91099d5` (Apache-2.0) and
+blader/humanizer commit `8c307f367c91bd974002f10f2be2965d642c13df`
+(MIT, copyright Siqi Chen 2025). Local Chinese/English writing references are
+independently written mechanism adaptations; no upstream body, code or example
+is distributed. Exact source/license links and target paths are recorded in
+`docs/EXTERNAL_SOURCE_PROVENANCE.md`.

@@ -4,7 +4,7 @@ Use when a Chinese scientific report is intended for an external reader rather t
 
 ## Text cleanup
 
-- Remove internal editing notes and collaboration traces: `给自己看`, `作者内部`, `安全边界`, `不能证明/不能写成`, `TODO`, strike-through deletions, or parenthetical user-agent discussion.
+- Remove author-directed editing commands and collaboration traces such as `给自己看`, `作者内部`, `TODO`, strike-through revision marks, or user-agent discussion. Do not remove a sentence merely because it contains “不能证明” or “安全边界”: a limitation such as “未见显著差异不能证明等价” is scientific content and must remain. Preserve unresolved scientific issues from deleted annotations in author actions and retain any conclusion-changing qualification in the prose.
 - Prefer `本研究`, `本报告`, `本节`, or passive phrasing over repeated first-person `我们`.
 - Keep evidence boundaries through neutral wording, but do not repeat defensive caveats in every section.
 - Report/paper structure should improve readability; do not make prose dense or scripture-like just to sound formal.

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "skill_name": "chinese-scientific-polishing",
-  "purpose": "Evaluate Chinese-language polishing against translation, English polishing, caption construction, and evidence review.",
+  "purpose": "Chinese-first drafting and revision with independent Hashimoto, English and evidence owners.",
   "cases": [
     {
       "id": "chinese-polish-positive-01",
@@ -38,18 +38,18 @@
     {
       "id": "chinese-polish-positive-05",
       "split": "train",
-      "query": "把这封中文审稿回复改得专业、直接一些，保持对证据不足的承认。",
+      "query": "这是论文框架和已核验的图表证据，先写成完整中文结果章节，不要英文。",
       "should_trigger": true,
       "expected_primary_skill": "chinese-scientific-polishing",
-      "rationale": "Chinese response-letter polishing is supported."
+      "rationale": "中文正文为交付物，属于主修改入口。"
     },
     {
       "id": "chinese-polish-positive-06",
       "split": "validation",
-      "query": "重构这个中文结果小节的总起段、证据段和小结段，不改科学含义。",
+      "query": "这些中文结果段落顺序乱了，请按问题和证据重排成自然连贯的完整小节。",
       "should_trigger": true,
       "expected_primary_skill": "chinese-scientific-polishing",
-      "rationale": "Chinese subsection structure editing is a core workflow."
+      "rationale": "中文正文为交付物，属于主修改入口。"
     },
     {
       "id": "chinese-polish-positive-07",
@@ -70,10 +70,10 @@
     {
       "id": "chinese-polish-positive-09",
       "split": "validation",
-      "query": "这份对外中文阶段报告有很多内部批注痕迹，请润色成读者版并保留证据限定。",
+      "query": "中文稿很像模板，把无信息的铺垫和重复结尾去掉，不许改变数字与限制。",
       "should_trigger": true,
       "expected_primary_skill": "chinese-scientific-polishing",
-      "rationale": "External-facing Chinese report cleanup is supported."
+      "rationale": "中文正文为交付物，属于主修改入口。"
     },
     {
       "id": "chinese-polish-positive-10",
@@ -118,10 +118,10 @@
     {
       "id": "chinese-polish-negative-05",
       "split": "train",
-      "query": "把火山图改成色盲友好配色并重新导出 SVG。",
+      "query": "请按Hashimoto风格润色这份已确认的中文稿，不要重定研究主线。",
       "should_trigger": false,
-      "expected_primary_skill": "publication-plotting",
-      "rationale": "Figure rendering and styling are outside prose polishing."
+      "expected_primary_skill": "none",
+      "rationale": "Package外的独立 hashimoto-scientific-writing 负责；不触发本Skill。"
     },
     {
       "id": "chinese-polish-negative-06",

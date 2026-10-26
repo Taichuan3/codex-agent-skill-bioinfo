@@ -14,7 +14,7 @@
     {
       "id": "english-translation-positive-02",
       "split": "train",
-      "query": "请将中文摘要译成简洁的投稿英文，不要新增 novelty claim。",
+      "query": "中文稿已确认，现在请将摘要译成简洁英文，不要新增 novelty claim。",
       "should_trigger": true,
       "expected_primary_skill": "scientific-english-translation",
       "rationale": "Journal-facing Chinese-to-English abstract translation belongs here."
@@ -78,7 +78,7 @@
     {
       "id": "english-translation-positive-10",
       "split": "validation",
-      "query": "把这份中英混合草稿统一成英文，已有英文术语保持不变。",
+      "query": "直接将以下中英混合草稿统一成英文，不另走中文确认流程，已有英文术语保持不变。",
       "should_trigger": true,
       "expected_primary_skill": "scientific-english-translation",
       "rationale": "A Chinese-dominant mixed draft normalized into English is translation."
@@ -118,10 +118,10 @@
     {
       "id": "english-translation-negative-05",
       "split": "train",
-      "query": "重新绘制 Figure 4 并导出英文标注的 PDF。",
+      "query": "这段中文已经修改完，请按桥本风格做中文润色，暂不翻译。",
       "should_trigger": false,
-      "expected_primary_skill": "publication-plotting",
-      "rationale": "Rendering a figure is not translation."
+      "expected_primary_skill": "none",
+      "rationale": "The owner is standalone hashimoto-scientific-writing outside the portable package, not English translation."
     },
     {
       "id": "english-translation-negative-06",
@@ -142,10 +142,10 @@
     {
       "id": "english-translation-negative-08",
       "split": "validation",
-      "query": "检查英文 manuscript 的 Methods、Results 和 legends 是否一致。",
+      "query": "中文这一版没问题了，先保留这一版，暂时不要进入英文阶段。",
       "should_trigger": false,
-      "expected_primary_skill": "manuscript-consistency-audit",
-      "rationale": "Cross-section consistency auditing is a different primary task."
+      "expected_primary_skill": "none",
+      "rationale": "Approval of Chinese text alone does not request an English translation."
     },
     {
       "id": "english-translation-negative-09",

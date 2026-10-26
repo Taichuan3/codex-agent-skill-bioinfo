@@ -1,4 +1,4 @@
 interface:
-  display_name: "Scientific English Polishing"
-  short_description: "Polish existing English scientific prose safely"
-  default_prompt: "Use $scientific-english-polishing with the local Nature-Hashimoto synthesis to clarify existing English prose without changing evidence strength or overriding my requested style."
+  display_name: "英文润色"
+  short_description: "润色已有英文科研正文，去除机械套话并保留数字术语和证据限定"
+  default_prompt: "Use $scientific-english-polishing to revise this English scientific text for coherent, natural prose without changing evidence strength, numbers, terminology, or my requested scope."

@@ -57,11 +57,13 @@ Polishing rules:
 - Mention only key values needed to support the paragraph claim.
 - Avoid mechanistic verbs unless the evidence directly tests mechanism.
 
-## Result subsection structure
+## Result subsection structure (optional functions)
 
-- Opening paragraph: orient the reader to the question, dataset, analysis object and expected conclusion direction.
-- Evidence paragraphs: develop one claim at a time, with the minimum necessary quantitative support.
-- Closing paragraph: summarize what this subsection has established and provide a transition.
+- Orient the reader to the question and relevant analysis object where needed.
+- Develop the evidence and conclusion-changing exceptions in a logical order.
+- Add a synthesis or transition only if it adds information; do not append a repeated summary to every subsection.
+
+These functions may share a paragraph. They are not mandatory opening/evidence/closing paragraphs or a universal Nature template.
 
 ## Discussion
 

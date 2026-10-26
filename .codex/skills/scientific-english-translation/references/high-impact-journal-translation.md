@@ -18,10 +18,14 @@ Sources:
 - Do not import Chinese rhetorical repetition if it weakens English structure.
 - Keep one Chinese concept mapped to one English term.
 - Preserve evidence boundaries before making the English more polished.
+- Preserve all source information by default. Recommendations below about
+  selection, compression or reordered sections apply only when requested; a
+  literal translation preserves the author's section structure and details.
+  Explain a source-level problem separately rather than silently repairing it.
 
 ## Abstract translation
 
-Preferred order:
+Possible order when restructuring is authorized:
 
 1. Context.
 2. Knowledge gap.
@@ -31,7 +35,8 @@ Preferred order:
 
 Avoid:
 
-- Translating every result detail into the abstract.
+- Turning a requested condensed abstract into a full data inventory; faithful
+  translation alone must retain the source's result details.
 - Adding broad claims not present in the Chinese source.
 - Using undefined abbreviations or citation-like phrases.
 
@@ -52,7 +57,8 @@ Avoid:
 
 - Discussion English can interpret, but must signal limits.
 - Use may, suggest, support, are consistent with, raise the possibility that when evidence is indirect.
-- Do not repeat Results sentence-by-sentence.
+- Flag a Discussion that repeats Results; omit or restructure that content only
+  within an authorized compression/revision scope.
 - Separate conclusions from model, hypothesis or future work.
 
 ## Methods translation
@@ -69,4 +75,6 @@ Avoid:
 
 ## Output addition
 
-When using this reference, add a short `Section-function note` if the Chinese source needs restructuring before translation.
+Add a short `Section-function note` only if a real source-level issue affects
+the translation. Complete the requested translation where possible; do not
+turn this note into an automatic outline-approval gate.

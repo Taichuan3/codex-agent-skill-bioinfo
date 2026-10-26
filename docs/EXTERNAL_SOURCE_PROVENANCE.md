@@ -37,6 +37,36 @@ Historical expression comparisons below do not certify these new files.
 
 ## Source registry
 
+### 2026-10-26 Chinese-first writing revision
+
+The earlier Nature–Hashimoto default coupling is superseded: Hashimoto remains
+an independent optional local style extension, not an implicit English profile.
+Historical records above are retained, not rewritten as current behavior.
+
+- Nature: [Yuan1z0825/nature-skills@07009f91f99c7108519e7657885f1a89d91099d5](https://github.com/Yuan1z0825/nature-skills/tree/07009f91f99c7108519e7657885f1a89d91099d5),
+  [Apache-2.0 LICENSE](https://github.com/Yuan1z0825/nature-skills/blob/07009f91f99c7108519e7657885f1a89d91099d5/LICENSE).
+  Consulted nature-writing workflow and paragraph-flow, nature-shared
+  main-text-discipline and discussion-argument-language. Independently rewritten
+  into the Chinese SKILL and high-impact-journal-writing/section-responsibilities
+  references, and the English integrated-writing-profile. The discussion source
+  acknowledges secondary book/article input; no text from those works is copied.
+- Humanizer: [blader/humanizer@8c307f367c91bd974002f10f2be2965d642c13df](https://github.com/blader/humanizer/tree/8c307f367c91bd974002f10f2be2965d642c13df),
+  v3.1.0, [MIT LICENSE](https://github.com/blader/humanizer/blob/8c307f367c91bd974002f10f2be2965d642c13df/LICENSE),
+  copyright Siqi Chen 2025. Mechanism-level independent adaptation into
+  chinese-scientific-polishing/references/natural-chinese-editing.md and
+  scientific-english-polishing/references/research-humanizer.md.
+  Retained redundancy/inflation diagnosis and factual conservation; rejected
+  punctuation bans, automatic deletion of scientific association/hedges,
+  detector guarantees, and invented personal voice.
+
+No upstream body, code, paper excerpt or expressive example is vendored.
+Chinese remains Chinese through drafting and revision. Translation requires an
+explicit request. Existing project manifests/GUIDE/source-data ownership and
+manual installation/update approval are unchanged. The three writing Skill
+contracts, metadata and evals are package-owned; English translation shares the
+package's English profile. The new files are not certified by historical
+expression checks below.
+
 | ID | Repository and audited snapshot | License evidence at that snapshot | Disposition |
 |---|---|---|---|
 | `clawbio` | [`ClawBio/ClawBio@fbb0910761ab12a9a403060d04248e155b862437`](https://github.com/ClawBio/ClawBio/tree/fbb0910761ab12a9a403060d04248e155b862437) | [MIT `LICENSE`](https://github.com/ClawBio/ClawBio/blob/fbb0910761ab12a9a403060d04248e155b862437/LICENSE) | Material workflow-map reference; no wrapper copied |

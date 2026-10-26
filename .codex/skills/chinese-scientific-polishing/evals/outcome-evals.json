@@ -25,10 +25,9 @@
       "mode": "subsection restructuring",
       "task": "Restructure a Chinese result subsection with a weak opening and repetitive conclusion.",
       "must_include": [
-        "clear opening function",
-        "one controlling claim per evidence paragraph",
-        "bounded subsection synthesis",
-        "logical transition",
+        "complete Chinese subsection",
+        "logical evidence order",
+        "necessary caveats retained",
         "substantive changes summarized"
       ],
       "must_not": [
@@ -105,6 +104,111 @@
         "静默丢弃未解决的科学问题",
         "保留未解决作者批注",
         "把内部标签改写成科学结论"
+      ]
+    },
+    {
+      "id": "zh-hygiene-scientific-caveat",
+      "mode": "external report cleanup",
+      "task": "面向外部读者清理以下文字。正文：未见显著差异不能证明两组等价；本实验未进行功能干预，因此不能确定因果方向。作者批注：给自己看，不能写成机制；TODO核查引文。",
+      "must_include": [
+        "正文保留未显著不等价的科学限制",
+        "正文保留未干预与因果方向未定",
+        "未解决引文核查作为独立作者动作",
+        "读者正文不含作者编辑命令"
+      ],
+      "must_not": [
+        "按不能证明等词机械删除科学内容",
+        "把作者提醒改写成已证明的机制",
+        "静默丢弃未解决引文核查"
+      ]
+    },
+    {
+      "id": "zh-full-draft",
+      "mode": "evidence-to-prose",
+      "task": "根据以下虚构教学证据起草完整中文Results，不要只列提纲：24个独立样本，A/B各12，指标中位数8.1/5.4，双侧Wilcoxon P=0.03，图1；复核子集各6例P=0.21，未做干预。",
+      "must_include": [
+        "连续中文正文",
+        "24及各12的分母",
+        "8.1与5.4和P=0.03",
+        "子集各6例P=0.21及未干预边界",
+        "图1"
+      ],
+      "must_not": [
+        "只交提纲或等待无必要批准",
+        "因果机制",
+        "自动英文版",
+        "把子集当独立队列"
+      ]
+    },
+    {
+      "id": "zh-outline-missing",
+      "mode": "incomplete draft",
+      "task": "框架：A控制B的机制，拟写完整讨论；只有两组表达比较，未提供方向、数值、干预或参考文献。",
+      "must_include": [
+        "明确缺少足以支持机制的信息",
+        "仅写可支持的范围或说明无法写实质结果",
+        "最小缺口清单"
+      ],
+      "must_not": [
+        "虚构方向数值或引用",
+        "用可能掩盖无据机制",
+        "声称投稿定稿"
+      ]
+    },
+    {
+      "id": "zh-conflict",
+      "mode": "numeric conflict",
+      "task": "只改第二段：第一段保持原样。第二段写A组n=18，表1为n=20，请处理后给中文。",
+      "must_include": [
+        "保留第一段",
+        "点明18/20冲突",
+        "保守处理其余句子"
+      ],
+      "must_not": [
+        "自行选一个数字",
+        "重写全文"
+      ]
+    },
+    {
+      "id": "zh-noop",
+      "mode": "mature text",
+      "task": "去AI味：两组未见显著差异（P=0.28），但该结果不足以证明两组等价。",
+      "must_include": [
+        "P=0.28",
+        "未显著不等价的边界",
+        "允许保留原文"
+      ],
+      "must_not": [
+        "强制换句",
+        "删除科学限定",
+        "AI检测分数"
+      ]
+    },
+    {
+      "id": "zh-approval",
+      "mode": "language gate",
+      "task": "这版中文我确认了，先保留，英文以后再做。",
+      "must_include": [
+        "保持中文确认状态",
+        "不开始新写作动作"
+      ],
+      "must_not": [
+        "自动翻译",
+        "自动Hashimoto第二遍"
+      ]
+    },
+    {
+      "id": "zh-blind-scramble",
+      "mode": "degraded Chinese",
+      "task": "仅按这些打乱句重写中文：P=0.04；其升高；B组；A组；样本各10。不得查原文。",
+      "must_include": [
+        "指出升高方向与比较不明确",
+        "保留P=0.04和各10",
+        "不借外部原文补全"
+      ],
+      "must_not": [
+        "猜测A高于B",
+        "宣称完成无歧义定稿"
       ]
     }
   ]

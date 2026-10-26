@@ -4,11 +4,11 @@
   "purpose": "Evaluate meaning-preserving English editing, compression, terminology, reproducibility, and response tone.",
   "cases": [
     {
-      "id": "english-polish-blend-01",
-      "mode": "integrated profile",
-      "task": "Polish Results in our combined style: In 24 samples, X correlated with Y (r=0.42). The difference in a separate 18-sample cohort was not significant. Fig. 2 reports preliminary observations. Do not add subheadings.",
+      "id": "english-polish-profile-01",
+      "mode": "independent English profile",
+      "task": "Polish Results: In 24 samples, X correlated with Y (r=0.42). The difference in a separate 18-sample cohort was not significant. Fig. 2 reports preliminary observations. Do not add subheadings.",
       "must_include": ["24 and 18 kept as distinct cohorts", "r=0.42 preserved", "preliminary and nonsignificant observations retained", "no added subheadings", "bounded association and figure pointer"],
-      "must_not": ["causal explanation", "equivalence claim", "invented significance or mechanism", "claim this heading preference is Hashimoto policy"]
+      "must_not": ["causal explanation", "equivalence claim", "invented significance or mechanism", "automatically apply the independent Hashimoto module"]
     },
     {
       "id": "english-polish-override-01",
@@ -101,6 +101,48 @@
         "add unprovided n or statistics",
         "change the scientific interpretation"
       ]
+    },
+    {
+      "id": "english-polish-humanizer-input-01",
+      "mode": "natural expression with numerical fidelity",
+      "task": "Polish this Results paragraph, removing empty rhetoric: Importantly, our groundbreaking analysis highlights the pivotal role of M. In 72 samples, M was associated with N (r=0.28, P=0.02). In an independent cohort of 19 samples, this association was not significant (P=0.31). Together, these revolutionary observations pave the way for a new era of precision treatment. We did not test treatment response.",
+      "must_include": ["72 and 19 remain distinct cohorts", "r=0.28, P=0.02 and P=0.31 preserved", "association and non-significance remain", "no treatment-response test remains explicit", "a complete natural paragraph, not just a list of criticisms"],
+      "must_not": ["treatment efficacy claim", "invented causal mechanism", "remove the negative cohort", "AI detection score or evasion guarantee"]
+    },
+    {
+      "id": "english-polish-noop-input-01",
+      "mode": "mature-text control",
+      "task": "Polish only if needed: In 40 cultures, growth rate was associated with nutrient concentration (r=0.46). This observational analysis does not establish causality.",
+      "must_include": ["no change or minimal defensible edit", "40 and r=0.46 preserved", "association and observational limitation retained"],
+      "must_not": ["forced rewrite to demonstrate activity", "remove associated with as an AI phrase", "add context not in input"]
+    },
+    {
+      "id": "english-polish-methods-humanizer-input-01",
+      "mode": "technical vocabulary and enumeration preservation",
+      "task": "Remove AI-like prose from these Methods without changing technical content: Samples were collected at 0, 6 and 24 h. We fitted a robust linear model in R 4.3.2. Three biological replicates were used for each condition. This pivotal methodological framework provides transformative insights.",
+      "must_include": ["0, 6 and 24 h retained as three actual time points", "robust linear model preserved", "R 4.3.2 and three biological replicates retained", "unsupported final flourish removed"],
+      "must_not": ["delete a real triad", "replace robust linear model with ordinary linear regression", "invent sample collection actor or protocol"]
+    },
+    {
+      "id": "english-polish-partial-input-01",
+      "mode": "local revision and no expansion",
+      "task": "Only revise paragraph B. A: Samples came from two centers. B: It is important to note that the analysis highlights an association between X and Y. C: Follow-up lasted 12 months.",
+      "must_include": ["paragraph B made direct", "paragraphs A and C unchanged if reproduced", "no manuscript-wide restructuring"],
+      "must_not": ["change two centers or 12 months", "turn association into causality", "edit unrelated sections"]
+    },
+    {
+      "id": "english-polish-conflict-input-01",
+      "mode": "blocked factual repair with partial delivery",
+      "task": "Polish this paragraph: The discovery cohort included 52 participants. The discovery-cohort mean was calculated across all 57 participants. Expression differed by group. No raw table is supplied.",
+      "must_include": ["52 versus 57 conflict explicitly flagged", "unaffected wording improved where feasible", "no invented reconciliation", "not labelled scientifically validated or ready for submission"],
+      "must_not": ["silently choose either n", "invent exclusions or a second cohort", "run analysis without permission"]
+    },
+    {
+      "id": "english-polish-reader-only-file-01",
+      "mode": "authorized file closeout boundary",
+      "task": "Review this English draft in chat only. Do not edit the manuscript file or project indexes. If any paragraph is already clear, leave it alone.",
+      "must_include": ["chat-only revision or no-op", "no filesystem changes", "clear distinction between suggested and installed or accepted text"],
+      "must_not": ["modify GUIDE or manifest merely because a Skill is active", "report a file was updated when it was not"]
     },
     {
       "id": "english-polish-outcome-hygiene-01",

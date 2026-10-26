@@ -78,10 +78,10 @@
     {
       "id": "english-polish-positive-10",
       "split": "validation",
-      "query": "Polish this existing English abstract using our blended Nature and Hashimoto style, without adding novelty or mechanism.",
+      "query": "这份英文稿AI味重，请消除空泛意义、机械排比和重复结尾，保留关联和不确定性。",
       "should_trigger": true,
       "expected_primary_skill": "scientific-english-polishing",
-      "rationale": "Journal-leaning style on existing English text belongs here."
+      "rationale": "Natural expression editing of existing English prose belongs to English polishing, not a separate Humanizer owner."
     },
     {
       "id": "english-polish-negative-01",
@@ -118,10 +118,10 @@
     {
       "id": "english-polish-negative-05",
       "split": "train",
-      "query": "Redraw the heatmap with English labels and export a 600 dpi TIFF.",
+      "query": "请单独按Hashimoto风格润色这一段中文，保留中文输出，不要调用英文润色。",
       "should_trigger": false,
-      "expected_primary_skill": "publication-plotting",
-      "rationale": "Figure production is outside language polishing."
+      "expected_primary_skill": "none",
+      "rationale": "The owner is the standalone hashimoto-scientific-writing Skill outside this portable package; English polishing is not primary."
     },
     {
       "id": "english-polish-negative-06",

@@ -4,8 +4,8 @@
   "purpose": "Evaluate faithful translation, terminology mapping, section function, reproducibility details, and caption preservation.",
   "cases": [
     {
-      "id": "translation-blend-fidelity-01",
-      "mode": "integrated style with literal override",
+      "id": "translation-profile-fidelity-01",
+      "mode": "faithful English with literal override",
       "task": "将以下中文结果直译成英文，保留顺序和小标题：\n### 队列一\n24个样本中X与Y相关，r=0.42。\n### 队列二\n另18个样本的差异不显著。这是初步观察。",
       "must_include": ["24 and 18 distinct", "r=0.42 unchanged", "association only", "nonsignificant and preliminary preserved", "two headings translated while preserving count order level and paragraph membership"],
       "must_not": ["equivalence", "causality", "force structural rewrite", "invent figure citation"]
@@ -77,6 +77,41 @@
         "silently correct values",
         "add unprovided procedures"
       ]
+    },
+    {
+      "id": "translation-direct-request-input-01",
+      "mode": "translation request authorizes this input",
+      "task": "请翻译以下中文，不另走中文确认：在30份样本中，A与B相关（r=0.36），但该关联仅见于处理组。未检验因果关系。",
+      "must_include": ["complete English translation immediately", "30, r=0.36 and treated-group-only scope retained", "causality untested retained"],
+      "must_not": ["ask for redundant Chinese approval", "invent P value or control result", "automatically apply Hashimoto style"]
+    },
+    {
+      "id": "translation-approval-only-input-01",
+      "mode": "Chinese acceptance is not translation authorization",
+      "task": "中文稿确认没有问题，暂时停在这个版本，今天不用翻译。",
+      "must_include": ["acknowledge current Chinese stage", "no English manuscript generated"],
+      "must_not": ["advance to English translation", "generate an optional English variant anyway"]
+    },
+    {
+      "id": "translation-conflict-input-01",
+      "mode": "numerical ambiguity",
+      "task": "翻译成英文：共纳入48例患者；分析全部52例患者后发现两个亚组存在表达差异。没有更多说明。",
+      "must_include": ["48 versus 52 mismatch identified", "no silent correction of n", "unambiguous content translated", "brief author action to reconcile cohort count"],
+      "must_not": ["invent exclusions", "replace both values with a chosen count", "claim translation resolves the underlying scientific issue"]
+    },
+    {
+      "id": "translation-literal-details-input-01",
+      "mode": "literal translation preserves source detail",
+      "task": "忠实翻译，不压缩：三次实验的效应值分别为0.2、0.3和0.1。合并估计为0.2（95% CI 0.05–0.35）。这是初步结果，尚未完成外部验证。",
+      "must_include": ["0.2, 0.3, 0.1 trial values preserved", "pooled 0.2 and 95% CI 0.05–0.35 preserved", "preliminary status and incomplete external validation preserved"],
+      "must_not": ["drop details to follow abstract style", "claim external validation completed", "invent number of subjects"]
+    },
+    {
+      "id": "translation-readonly-input-01",
+      "mode": "chat-only delivery",
+      "task": "请仅在聊天里翻译：我们使用工具Q 2.4.1，以阈值0.03筛选。不要更改稿件文件或项目文档。",
+      "must_include": ["English version with Q 2.4.1 and 0.03", "no filesystem changes", "no claim of installed or saved manuscript"],
+      "must_not": ["update GUIDE or PLAN", "silently substitute another tool or cutoff"]
     },
     {
       "id": "english-translation-outcome-caption-01",

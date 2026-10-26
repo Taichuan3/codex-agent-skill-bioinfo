@@ -34,6 +34,8 @@
 
 ## 使用方式
 
+中文修改、独立Hashimoto中文润色、英文翻译和英文润色的入口与范围见 [写作模块](docs/WRITING_MODULES.md)。Hashimoto是可选的独立本机扩展，不随本portable包安装。
+
 先在 clone 中验证：
 
 ```bash
@@ -53,7 +55,6 @@ py -3.11 scripts/validate_package.py
 py -3.11 scripts/test_release_safety.py
 py -3.11 scripts/test_capability_behavior.py
 py -3.11 scripts/install_codex_bioinfo.py
-py -3.11 scripts/install_codex_bioinfo.py --apply
 ```
 
 若未安装 `py`，可把 `py -3.11` 替换为指向 Python 3.11+ 的 `python`。
@@ -62,6 +63,12 @@ py -3.11 scripts/install_codex_bioinfo.py --apply
 
 ```bash
 python3 scripts/install_codex_bioinfo.py --apply
+```
+
+Windows PowerShell 确认预检结果后，对应的正式安装命令为：
+
+```powershell
+py -3.11 scripts/install_codex_bioinfo.py --apply
 ```
 
 安装器会把 40 个 Skills 复制为 `$HOME/.codex/packages/codex-agent-skill-bioinfo/<revision-digest>/skills` 下的 release snapshot。macOS/Linux 的 `$HOME/.agents/skills` 默认是指向该 snapshot 的符号链接；Windows 默认使用内容等价的托管目录副本，并在 `$HOME/.agents/codex-bioinfo-skills.json` 保存 release 与 SHA-256 完整性标记。后续修改 clone 不会静默改变正在运行的全局 Skills。现有普通目录不会被覆盖；只有 marker 有效且目录摘要吻合的托管副本才能自动更新。
@@ -78,7 +85,7 @@ python3 scripts/install_codex_bioinfo.py --apply --replace-global-guidance
 
 该模式仍会先备份原文件；后续普通安装可以通过 managed markers 原位更新，不会再次追加重复 block。
 
-若旧版用户 Skills 仍位于 `$HOME/.codex/skills` 并与新 40 个 Skills 重名，可显式备份并退出这些旧目录：
+仅在明确希望退出 `$HOME/.codex/skills` 下全部用户 Skills 时，才使用以下迁移命令；它不限于与新 40 个 Skills 重名的目录：
 
 ```bash
 python3 scripts/install_codex_bioinfo.py --apply \
@@ -86,7 +93,7 @@ python3 scripts/install_codex_bioinfo.py --apply \
   --retire-legacy-codex-skills
 ```
 
-该选项把 `$HOME/.codex/skills` 下直接包含 `SKILL.md` 的用户 Skill 移入本次安装备份，保留 Codex 自带的 `.system`，并以 `$HOME/.agents/skills` 作为唯一 portable 全局 Skill source。
+该选项把 `$HOME/.codex/skills` 下直接包含 `SKILL.md` 的所有用户 Skill 移入本次安装备份，保留 Codex 自带的 `.system`，并以 `$HOME/.agents/skills` 作为唯一 portable 全局 Skill source。独立的 Hashimoto、codex-ppt 等也会退出发现路径，即使不与包内 Skill 重名。四模块写作安装使用普通 `--apply`，不得使用此退出选项；独立 Hashimoto 不包含在 portable 包中。
 
 运行时只采用两层 Agent：全局 `$HOME/.codex/AGENTS.md` 与具体项目根 `AGENTS.md`。仅用于容纳多个项目的父目录不放 `AGENTS.md`、`PROJECT_GUIDE.md` 或 `PROJECT_PLAN.md`。具体项目必须在项目 Agent 中声明目录、数据边界、运行命令、环境、data/results/figures/source-data/manifest 入口和项目逻辑；项目专用 Skill 随私有项目仓库同步，不复制进公共全局内核。
 

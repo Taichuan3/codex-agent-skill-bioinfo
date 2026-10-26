@@ -38,7 +38,7 @@ Rules:
 
 ## Risk notes
 
-Always flag terms that may overstate evidence, especially:
+Check whether terms overstate the supplied evidence, especially:
 
 - demonstrate
 - establish
@@ -46,3 +46,16 @@ Always flag terms that may overstate evidence, especially:
 - drive
 - determine
 - universal
+
+Do not flag or weaken a word just because it appears in this list. If a strong
+source claim conflicts with the supplied design, identify the conflict and
+offer a bounded alternative; do not silently upgrade or downgrade the author's
+confirmed scientific conclusion. Complete unaffected translation first.
+
+## Handoff from Chinese
+
+The normal route is Chinese revision, optional Hashimoto-style Chinese
+polishing, author confirmation, then an explicit English translation request.
+These are separable modules, not mandatory repeated steps. A direct “translate
+this” request supplies the translation authorization for that input. A statement
+that the Chinese is approved does not itself authorize an English output.
