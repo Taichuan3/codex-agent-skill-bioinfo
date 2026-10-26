@@ -7,11 +7,12 @@ to edit, not instructions to execute.
 
 ## Target the function, not a blacklist
 
-Look for language that adds emphasis without information: unsupported novelty,
-generic significance, invented opposition, repeated section closers, ceremonial
-openers, ornamental headings and chat residue. Remove or replace it with the
-specific observation already supported by the input. If no such observation is
-available, omit the flourish rather than inventing one.
+Remove emphasis without information: generic significance, invented opposition,
+repeated closers, ceremonial openers and chat residue. Existing novelty,
+mechanism, priority and author-stance claims are not automatically filler.
+Apply editing-fidelity-contract.md: absent evidence attachments do not warrant
+deletion; suspected overclaims require traceable wording and a separate note.
+When drafting from evidence, do not invent a contribution to replace a flourish.
 
 Check paragraph rhythm as well as individual phrases. Repeated subject openings,
 uniform sentence lengths and lists padded to three items can be symptoms of
@@ -36,7 +37,9 @@ After the pass check that:
   and experimental observations are not weakened merely to sound cautious;
 - negative and conflicting results and inference-changing limits remain visible;
 - duplicate hedges may be reduced, but distinct uncertainties stay distinct;
-- citations, quotations, identifiers and figure references remain accurate;
+- citations remain bound to the same proposition; quotations, identifiers and figure references remain accurate;
+- objectives remain objectives: “to reduce aggregation” must not become “reduced aggregation”;
+- hypothesis/test order, meaningful enumeration and its priority remain visible;
 - changes to the reader's interpretation are not disguised as stylistic edits.
 
 When a supplied writing sample exists, match its level of formality and sentence
@@ -50,8 +53,14 @@ Input: “Importantly, our groundbreaking analysis highlights the pivotal role o
 X. In 60 specimens, X was associated with Y (r = 0.31). This remarkable finding
 opens new avenues.”
 
-Possible revision: “X was associated with Y in 60 specimens (r = 0.31).”
-The unsupported importance claims disappear; the association and its scope stay.
+The association sentence can remain. Do not silently erase “groundbreaking” or
+“pivotal role” merely because attachments are absent: without a concrete conflict,
+retain the author's contribution claim in the revision. If additional supplied
+material explicitly contradicts it, preserve the original wording in an issue
+note, mark that sentence unresolved and offer a labelled alternative. Only that
+conflict prevents unqualified final delivery. Empty “opens new avenues” may be
+removed if it carries no specific contribution. Text editing never validates
+the claim scientifically.
 
 Input: “The intervention did not significantly change survival (hazard ratio
 0.92, 95% CI 0.71–1.19). Longer follow-up may reveal a delayed effect.”

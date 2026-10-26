@@ -23,7 +23,7 @@ Sources:
 
 - Keep the title concise, specific and understandable to a broad scientific audience.
 - Avoid unnecessary abbreviations, overly technical terms and active verbs when they overstate mechanism.
-- Do not use causal or mechanistic title language unless directly supported.
+- Do not introduce unsupported causal/mechanistic titles. Existing claims follow editing-fidelity-contract.md: preserve them and flag actual conflicts separately, rather than silently hedging.
 
 ## Abstract
 
@@ -55,7 +55,7 @@ Polishing rules:
 - Use subheadings when helpful and permitted by the user/project and journal; do not impose or remove them as a universal style rule.
 - Each paragraph should have one controlling claim.
 - Mention only key values needed to support the paragraph claim.
-- Avoid mechanistic verbs unless the evidence directly tests mechanism.
+- Do not introduce mechanistic verbs beyond the source. Existing mechanism claims follow the shared bidirectional-fidelity contract, not automatic downgrading.
 
 ## Result subsection structure (optional functions)
 

@@ -4,6 +4,96 @@
   "purpose": "Evaluate meaning-preserving English editing, compression, terminology, reproducibility, and response tone.",
   "cases": [
     {
+      "id": "scientific-english-polishing-fidelity-existing-claim",
+      "mode": "light",
+      "task": "Light edit: We introduce a new learning algorithm. First and foremost, it uses no manual labels; second, it shares an encoder; third, it jointly predicts two targets; fourth, it uses a new update rule.",
+      "must_include": [
+        "new algorithm retained",
+        "four conceptual distinctions and priority retained",
+        "no demand for evidence solely because new appears"
+      ],
+      "must_not": [
+        "three-item summary",
+        "new silently removed"
+      ]
+    },
+    {
+      "id": "scientific-english-polishing-fidelity-hypothesis",
+      "mode": "light",
+      "task": "Light edit: The paradoxical result led us to suspect that the mutation disrupted binding. To test this hypothesis, we measured affinity. Indeed, binding was weaker, revealing a new regulatory mechanism.",
+      "must_include": [
+        "paradox motivates hypothesis before test",
+        "indeed and new mechanism retained"
+      ],
+      "must_not": [
+        "post-hoc hypothesis",
+        "default suggest replacing reveal"
+      ]
+    },
+    {
+      "id": "scientific-english-polishing-fidelity-overclaim",
+      "mode": "light",
+      "task": "Light edit: We observed only a correlation (r=0.30), without intervention. This fully proves that X causes Y.",
+      "must_include": [
+        "original causal wording traceable",
+        "conflict flagged separately",
+        "optional alternative labelled as suggestion",
+        "unaffected text delivered"
+      ],
+      "must_not": [
+        "silently replace claim",
+        "unqualified final causal assertion",
+        "publication-ready claim"
+      ]
+    },
+    {
+      "id": "scientific-english-polishing-fidelity-citation-purpose",
+      "mode": "light",
+      "task": "Light edit, keep two paragraphs: Early studies found exponential growth of the literature[2]. Our estimate is a doubling every 17 years.\n\nWe filtered samples to reduce aggregation. Another model also predicts this trend.",
+      "must_include": [
+        "[2] remains bound to early exponential growth",
+        "17 years preserved",
+        "purpose not measured effect",
+        "another model retained",
+        "paragraph membership retained"
+      ],
+      "must_not": [
+        "citation moved to doubling estimate",
+        "therefore without input support",
+        "filtering asserted to have reduced aggregation"
+      ]
+    },
+    {
+      "id": "scientific-english-polishing-fidelity-structural",
+      "mode": "structural",
+      "task": "Structurally reorder as question, conclusion, support without additions: A. The model predicts that X is a signal of innovation. B. Lifecycle analysis supports this judgement[4]. C. The study aims to identify signals of innovation.",
+      "must_include": [
+        "question before conclusion and support",
+        "claim/evidence/citation stay linked",
+        "signal claim retained"
+      ],
+      "must_not": [
+        "may reflect replacing is a signal",
+        "invented causal explanation"
+      ]
+    },
+    {
+      "id": "scientific-english-polishing-fidelity-terms",
+      "mode": "light",
+      "task": "Light edit, UK spelling: We analyzed pseudohypoparathyroidism. The barcode collision rate was 2%. We used Monte Carlo tree search, not rollout; these are distinct.",
+      "must_include": [
+        "disease name not hybridised",
+        "barcode collision not contamination",
+        "2% retained",
+        "MCTS distinct from rollout",
+        "UK spelling where applicable"
+      ],
+      "must_not": [
+        "guess original paper",
+        "delete technical distinctions"
+      ]
+    },
+    {
       "id": "english-polish-profile-01",
       "mode": "independent English profile",
       "task": "Polish Results: In 24 samples, X correlated with Y (r=0.42). The difference in a separate 18-sample cohort was not significant. Fig. 2 reports preliminary observations. Do not add subheadings.",
@@ -106,7 +196,7 @@
       "id": "english-polish-humanizer-input-01",
       "mode": "natural expression with numerical fidelity",
       "task": "Polish this Results paragraph, removing empty rhetoric: Importantly, our groundbreaking analysis highlights the pivotal role of M. In 72 samples, M was associated with N (r=0.28, P=0.02). In an independent cohort of 19 samples, this association was not significant (P=0.31). Together, these revolutionary observations pave the way for a new era of precision treatment. We did not test treatment response.",
-      "must_include": ["72 and 19 remain distinct cohorts", "r=0.28, P=0.02 and P=0.31 preserved", "association and non-significance remain", "no treatment-response test remains explicit", "a complete natural paragraph, not just a list of criticisms"],
+      "must_include": ["72 and 19 remain distinct cohorts", "r=0.28, P=0.02 and P=0.31 preserved", "association and non-significance remain", "no treatment-response test remains explicit", "unaffected prose delivered; claims in conflict are traceable in separate notes with labelled alternatives, not silently erased"],
       "must_not": ["treatment efficacy claim", "invented causal mechanism", "remove the negative cohort", "AI detection score or evasion guarantee"]
     },
     {

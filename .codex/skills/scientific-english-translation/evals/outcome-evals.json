@@ -4,6 +4,96 @@
   "purpose": "Evaluate faithful translation, terminology mapping, section function, reproducibility details, and caption preservation.",
   "cases": [
     {
+      "id": "scientific-english-translation-fidelity-existing-claim",
+      "mode": "light",
+      "task": "忠实译成英文：我们提出一种新的学习算法。最重要的是它不用人工标签；其次它共享编码器；第三它联合预测两个目标；第四它采用新的更新规则。",
+      "must_include": [
+        "new algorithm retained",
+        "four conceptual distinctions and priority retained",
+        "no demand for evidence solely because new appears"
+      ],
+      "must_not": [
+        "three-item summary",
+        "new silently removed"
+      ]
+    },
+    {
+      "id": "scientific-english-translation-fidelity-hypothesis",
+      "mode": "light",
+      "task": "忠实译成英文：结果看起来很矛盾，因此我们怀疑突变破坏了结合。为检验这一假设，我们测量了亲和力。结果确实显示结合减弱，揭示了一种新的调节机制。",
+      "must_include": [
+        "paradox motivates hypothesis before test",
+        "indeed and new mechanism retained"
+      ],
+      "must_not": [
+        "post-hoc hypothesis",
+        "default suggest replacing reveal"
+      ]
+    },
+    {
+      "id": "scientific-english-translation-fidelity-overclaim",
+      "mode": "light",
+      "task": "忠实译成英文：我们仅观察了相关性（r=0.30），未做干预。这完全证明X导致Y。",
+      "must_include": [
+        "original causal wording traceable",
+        "conflict flagged separately",
+        "optional alternative labelled as suggestion",
+        "unaffected text delivered"
+      ],
+      "must_not": [
+        "silently replace claim",
+        "unqualified final causal assertion",
+        "publication-ready claim"
+      ]
+    },
+    {
+      "id": "scientific-english-translation-fidelity-citation-purpose",
+      "mode": "light",
+      "task": "忠实译成英文，保留两段：早期研究发现文献指数增长[2]。我们的估计为每17年翻倍。\n\n我们过滤样品以减少聚集。另一个模型也预测此趋势。",
+      "must_include": [
+        "[2] remains bound to early exponential growth",
+        "17 years preserved",
+        "purpose not measured effect",
+        "another model retained",
+        "paragraph membership retained"
+      ],
+      "must_not": [
+        "citation moved to doubling estimate",
+        "therefore without input support",
+        "filtering asserted to have reduced aggregation"
+      ]
+    },
+    {
+      "id": "scientific-english-translation-fidelity-structural",
+      "mode": "structural",
+      "task": "按指定顺序重组并译成英文：A. 模型预测X是创新的信号。B. 生命周期分析支持该判断[4]。C. 研究旨在辨识创新信号。按问题、结论、支持重组，不增加信息。",
+      "must_include": [
+        "question before conclusion and support",
+        "claim/evidence/citation stay linked",
+        "signal claim retained"
+      ],
+      "must_not": [
+        "may reflect replacing is a signal",
+        "invented causal explanation"
+      ]
+    },
+    {
+      "id": "scientific-english-translation-fidelity-terms",
+      "mode": "light",
+      "task": "忠实译成英文，采用英式拼写：我们分析假性甲状旁腺功能减退症。条形码碰撞率为2%。使用蒙特卡洛树搜索而非rollout；两者不可混用。",
+      "must_include": [
+        "disease name not hybridised",
+        "barcode collision not contamination",
+        "2% retained",
+        "MCTS distinct from rollout",
+        "UK spelling where applicable"
+      ],
+      "must_not": [
+        "guess original paper",
+        "delete technical distinctions"
+      ]
+    },
+    {
       "id": "translation-profile-fidelity-01",
       "mode": "faithful English with literal override",
       "task": "将以下中文结果直译成英文，保留顺序和小标题：\n### 队列一\n24个样本中X与Y相关，r=0.42。\n### 队列二\n另18个样本的差异不显著。这是初步观察。",
@@ -32,7 +122,7 @@
       "mode": "terminology-sensitive translation",
       "task": "Translate Chinese text whose key concept is named inconsistently in the source.",
       "must_include": [
-        "conservative preferred English term",
+        "accurate preferred English term without epistemic downgrading",
         "terminology map",
         "source ambiguity flagged",
         "consistent use in the translation",

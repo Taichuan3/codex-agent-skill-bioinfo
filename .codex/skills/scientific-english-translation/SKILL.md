@@ -21,7 +21,7 @@ description: 英文翻译模块：按用户要求把已确认或本次明确交�
 
 - 先忠实保留 scientific meaning、evidence boundary、数字、限定词和章节职责，再改善英文流畅度。
 - 不把相关性翻译成因果，不把 candidate、putative 或 exploratory 结果翻译成 demonstrated、established 或 mechanistic conclusion。
-- 一个中文概念稳定映射为一个英文术语；原文术语不一致时选择最保守映射并标记歧义。
+- 一个中文概念稳定映射为一个英文术语；不一致时采用可确定的准确映射并标记歧义，不以降低主张强度代替消歧。
 - Results 保持观察性，Discussion 可解释但保留限制，Methods 不压缩掉复现信息。
 - “Nature/高影响期刊风格”只改变选择、结构与简洁度，不授权新增 novelty 或增强 claim。
 - 使用独立的 Nature-informed 英文表达原则，不默认调用 Hashimoto；忠实翻译优先，明确要求直译时不强制重排结构。单独的英文润色是后续可选模块，不能借润色改写已确认的研究判断。
@@ -30,7 +30,7 @@ description: 英文翻译模块：按用户要求把已确认或本次明确交�
 ## 工作流程
 
 1. 从本次请求确认英文目标与翻译范围，沿用已有中文版本、章节、读者、长度和术语约定；充分信息下直接翻译，不强制新增审批步骤。
-2. 提取 claim、直接证据、caveat、数字和术语映射；遇到歧义先保守处理并标记。
+2. 提取 claim 的因果、确定、新颖与范围，以及证据、caveat、数字、术语和引用绑定；歧义单列，不猜测或降级。
 3. 先完成忠实英文版，再按用户要求压缩或调整期刊语气。
 4. 逐项回对原文，检查遗漏、增译、数字、术语、claim 强度和 section function。
 5. 记录影响翻译的歧义、数值冲突或缺句；完成不受影响部分，不靠检索原论文或猜测补回被打乱/劣译而丢失的信息，除非用户另授权核验。
@@ -43,6 +43,9 @@ description: 英文翻译模块：按用户要求把已确认或本次明确交�
 - 交付请求范围内的完整英文正文，不只给术语表或提纲。语言 QA 不代表发表级科学验证；文件修改按用户指定版本交付，必要状态收尾归 `project-state-maintenance`。
 
 ## 按需读取
+
+- 实质翻译先读取 `../scientific-english-polishing/references/editing-fidelity-contract.md`；默认 faithful/light，保留作者主张、枚举、叙事和目的/效果区别。
+- 比较版本或测试验收读取 `../scientific-english-polishing/references/writing-evaluation-rubric.md`。
 
 - 实质科研段落/章节的英文输出读取 `../scientific-english-polishing/references/integrated-writing-profile.md`，共享风格而不复制；纯单词翻译不加载。中文输出与已有英文改写仍按上述边界路由。
 

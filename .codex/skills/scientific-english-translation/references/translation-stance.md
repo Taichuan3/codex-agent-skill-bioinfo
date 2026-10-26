@@ -23,7 +23,11 @@ Rules:
 - If the Chinese source uses multiple words for the same concept, choose one preferred English term and flag the Chinese inconsistency in `Risk notes`.
 - If two English terms are both needed, define the distinction first. For example, use `element` for the repeat unit and `copy` for an occurrence only if that distinction is explicit and stable.
 
-## Do not upgrade
+## Preserve in both directions
+
+Existing claims keep causality, certainty, novelty and scope. Do not turn new
+into unspecified or causal into associated merely to sound cautious. Suspected
+overclaims are separate notes, not silent replacements. Do not introduce:
 
 - 相关性 -> 因果
 - 候选机制 -> 已证明机制
@@ -33,7 +37,7 @@ Rules:
 ## Output variants
 
 - `Faithful version`: close to the Chinese source.
-- `Concise version`: shorter, but not stronger.
+- `Concise version`: shorter, but neither stronger nor weaker.
 - `Nature-leaning version`: more polished and selective, but still bounded.
 
 ## Risk notes

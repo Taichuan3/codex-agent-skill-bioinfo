@@ -26,7 +26,7 @@ description: 中文科研修改主入口：将框架、证据包或已有草稿�
 
 ## 工作流程
 
-1. 从请求识别章节、读者、目标长度与改动深度。明确范围且材料足够就继续；只有会改变结论或交付的未知点才询问。只改某段时保护未指定段落。
+1. 从请求识别章节、读者、长度及层级：普通润色默认 light，重组/打乱文本恢复用 structural；明确范围且材料足够就继续。只改某段时保护其他段落。
 2. 新章节/重大重排：读取 `references/high-impact-journal-writing.md`，提炼一句中心问题与有据结论，建立紧凑的证据—段落映射。零散或打乱文本先恢复对象、对比和指代，不能唯一恢复的因果/时间关系保持不确定。
 3. 按读者理解顺序完成所请求范围的正文，不按分析日期、软件或日志顺序复述。Results 展开关键比较；Discussion 综合发现、定位文献、解释边界；局部改句无需先交提纲等审批。
 4. 读取 `references/natural-chinese-editing.md` 做末轮自然化：删去没有信息的铺垫、口号、重复收束，保留有意义的术语、限定和真实对比。好句可以不改。
@@ -40,6 +40,9 @@ description: 中文科研修改主入口：将框架、证据包或已有草稿�
 - 文件写入按用户授权和项目入口执行；不静默覆盖已确认中文、不提交、不上传。重要文件产出由 `project-state-maintenance` 做必要收尾。
 
 ## 按需资源
+
+- 实质修改先读取 `../scientific-english-polishing/references/editing-fidelity-contract.md`：区分起草与修改，双向保留主张、叙事和引用；疑似过强另列，不静默削弱。
+- 比较版本或测试验收读取 `../scientific-english-polishing/references/writing-evaluation-rubric.md`。
 
 - 完整章节、证据到稿件、Nature 导向或重大重排：`references/high-impact-journal-writing.md`。
 - 章节职责混淆：`references/section-responsibilities.md`。

@@ -44,19 +44,19 @@ Avoid:
 
 - Translate background as a logical narrowing sequence: field -> known problem -> unresolved gap -> current study.
 - Avoid making the introduction sound as if the results are already proven before the study is introduced.
-- The final sentence or paragraph should clarify the question, rationale or objective.
+- Preserve the source ending's question, rationale, objective or findings and contribution; do not delete novelty to force an objective-only ending.
 
 ## Results translation
 
 - Results English should be concrete and evidence-facing.
 - Keep the controlling claim at the start of a paragraph when possible.
 - Use observed, identified, detected, found, was associated with, was consistent with according to evidence strength.
-- Avoid proved, revealed the mechanism, drove, determined unless directly supported.
+- Do not introduce proved, revealed the mechanism, drove or determined beyond the source. Preserve existing strong claims; flag actual conflicts separately. Missing evidence attachments alone do not justify weakening. Apply editing-fidelity-contract.md.
 
 ## Discussion translation
 
 - Discussion English can interpret, but must signal limits.
-- Use may, suggest, support, are consistent with, raise the possibility that when evidence is indirect.
+- Preserve source uncertainty when evidence is presented as indirect; do not automatically insert may/suggest into existing definite claims.
 - Flag a Discussion that repeats Results; omit or restructure that content only
   within an authorized compression/revision scope.
 - Separate conclusions from model, hypothesis or future work.

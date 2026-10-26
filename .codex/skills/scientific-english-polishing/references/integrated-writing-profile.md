@@ -7,14 +7,20 @@ translation, not a fifth writing module. The path is retained for compatibility.
 Fidelity and research integrity come first; explicit user/project requirements
 and verified journal rules override this optional Nature-informed style.
 Hashimoto is a separate author-requested module, not the default profile.
-Do not restructure a spelling-only task or a literal translation.
+Apply editing-fidelity-contract.md before style: light edits stay paragraph-local;
+structural edits require a restructuring request. Preserve existing claims in
+both directions; missing evidence attachments do not justify hedging. Flag actual
+conflicts separately. Do not restructure spelling-only tasks or translations
+without explicit restructuring authorization.
 
 ## Argument before decoration
 
 For substantial section revision, identify the section's question, the supported
 answer, and the evidence that lets the reader accept it. Reverse-outline the
 existing paragraphs: what does each add, and how does it change the argument?
-Repair missing connections before changing individual words. This can be a
+In structural mode, repair recoverable connections; in light mode, flag cross-
+paragraph issues without moving material. Preserve hypothesis-driven narrative,
+paradoxical motivations, enumeration counts/priority and author voice. This is a
 brief internal check, not a mandatory planning document or approval loop.
 
 - Give each paragraph a discernible purpose; a question, necessary setup,
@@ -25,7 +31,7 @@ brief internal check, not a mandatory planning document or approval loop.
 - Keep the central comparison and its decisive evidence visible. Supporting
   checks can be shorter, but conflicting, negative or scope-changing results
   cannot be hidden to make a cleaner story.
-- Preserve figure pointers, units, denominators, cohorts and uncertainty.
+- Preserve citation-to-proposition binding, figure pointers, units, denominators, cohorts and uncertainty.
   A figure is an evidence anchor only when it was supplied and supports the text.
 - Replacing repetitive prose is better than appending another explanation.
   Mature text may need no change; every edit should solve an identifiable problem.
@@ -52,7 +58,7 @@ the Chinese source's information unless compression/restructuring was requested.
 
 | Section | What the reader needs |
 |---|---|
-| Title | The concrete object and supported finding, without unsupported novelty |
+| Title | The concrete object and finding; do not invent novelty or silently delete the author's existing novelty claim |
 | Abstract | The question, approach, principal answer and its meaningful boundary, within the requested length |
 | Introduction | Enough context to locate the precise gap and understand why the study addresses it |
 | Results | Observations, relevant comparisons, necessary QC and the uncertainty supporting each conclusion |

@@ -4,10 +4,10 @@ Use for existing English scientific text after the section's job is clear.
 
 ## General
 
-- Prefer precise, cautious prose over confident overstatement.
+- Prefer precise, source-faithful prose; apply the shared editing-fidelity contract, not default caution.
 - Do not invent citations, mechanisms, datasets or novelty.
 - Do not alter quantitative values unless the user explicitly asks to correct an error.
-- Keep one main proposition per sentence where possible.
+- Keep actual logical relations readable; linked propositions can share a sentence. Do not mechanically split sentences.
 - Define abbreviations on first use.
 
 ## Terminology consistency
@@ -44,9 +44,12 @@ Depending on the actual design, possible alternatives are:
 - in this dataset
 - in this cohort
 
-This is not a banned-word list. Keep a strong verb when the supplied evidence
-directly supports it; do not blanket-weaken a validated observation. Conversely,
-adding “to our knowledge” does not make an unsupported priority claim valid.
+This is not a banned-word list or a default substitution list. When editing an
+existing claim, absent evidence attachments alone do not warrant weakening it.
+Flag suspected overclaims separately with traceable original wording and an
+optional alternative; explicit contradictions cannot be unqualified final prose.
+When drafting new claims, do not invent priority or mechanisms. Adding “to our
+knowledge” does not validate an unsupported priority claim.
 
 ## Section stance
 
