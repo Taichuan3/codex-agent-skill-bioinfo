@@ -26,6 +26,7 @@
 - 当前 repo 的 `.codex/skills` 是公开、portable canonical；runtime 是经过使用的成熟经验输入。语义吸收方向是 runtime/外部语料 → 去沉积、压缩 → source，绝不以整篇覆盖代替逐项 keep/merge。
 - Codex 使用独立 intake/review branch 比较各终端和项目中的候选变更，逐项执行 keep/merge/split/project-only/local-only/reject；作者 Agent 不作为唯一 reviewer。
 - 只有结构、语义、隐私、复现和发现验证通过，且获得用户明确许可后，才允许合并或更新 `main`。用户要求上传候选内容时，可推送独立分支和创建 draft PR，但不得把上传理解为已批准合并。
+- 发布动作的明确许可可以来自用户当前指令或仍有效且范围匹配的长期授权；本库维护者的默认安装/推送/main 流程见全局 guidance 的 Controlled self-improvement。下载仓库本身不构成授权，当次限制优先；冲突或检查失败时不强推、不绕过保护。
 - 仓库保持轻量，只保留可安装规则、metadata、skills 和少量必要说明；机器私有路径、auth、cache、长审计与项目沉积不进入 canonical。
 
 ## 默认语言与证据边界

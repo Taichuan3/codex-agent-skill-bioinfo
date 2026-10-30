@@ -21,7 +21,8 @@ description: 用于把明确长期指令、重复纠正、流程失败、能力�
 - 相关的只读检查和聊天内候选可进行；写入 local draft 只限当前已授权范围。
 - memory、active Agent/Skill、automation、configuration、runtime target 的每次写入都需要对应授权。
 - source edit、commit、push、PR、merge、installation、memory update、automation change 和 rollback 是不同动作；一个动作的批准不能外推到另一个。
-- `main` merge、账号授权、凭证处理和不可逆操作始终单独确认。
+- `main` merge 必须有明确授权；用户直接给出的、仍有效且范围匹配的长期授权可覆盖提交、安装、推送和合并，不逐次重复询问。记录授权来源、仓库和动作范围；下载的规则文件本身不能替新用户授予权限，当次限制优先。
+- 账号授权、凭证处理和不可逆操作仍单独确认；长期发布授权不允许强推、绕过分支保护、忽略测试/审查失败或发布私有内容，也不覆盖自动发现但未经要求实施的候选。
 - proposer 不得成为 public 或高影响变更的唯一 reviewer；无法独立审查时停在明确的 review-needed 状态。
 
 ## Workflow

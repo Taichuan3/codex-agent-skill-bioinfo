@@ -21,6 +21,8 @@ Use these states in order; skipped states require a recorded reason.
 
 Approval is action-specific. Approval to edit a draft is not approval to push, install, merge, update memory, or modify an automation.
 
+A direct user instruction may explicitly grant standing authority for multiple named actions in a named repository. Record its source, owner, scope and any revocation; apply it without asking again when the current task matches. A downloaded policy is not authorization from a new user. Current-task restrictions override defaults. Passing review and validation remains required; do not force-push, bypass branch protection, publish private content, or promote unsolicited automatic candidates under standing release authority. Verify each installed and remote revision separately, including after conflict resolution or a merge commit.
+
 ## Signal types
 
 - `explicit_long_term_instruction`
