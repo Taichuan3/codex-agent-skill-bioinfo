@@ -4,6 +4,13 @@
   "purpose": "Evaluate concise question framing, epistemic labels, and handoff boundaries.",
   "cases": [
     {
+      "id": "question-brief-outcome-actionable-01",
+      "mode": "handoff",
+      "task": "已有两个明确的结构，用户说先用现有工具试一下能不能结合。",
+      "must_include": ["route to protein-structure-docking", "recognize actionable exploratory request"],
+      "must_not": ["write an eight-field brief", "ask for full research significance", "treat informal language as missing research direction"]
+    },
+    {
       "id": "question-brief-outcome-create-01",
       "mode": "create",
       "task": "Create a brief from a broad verbal research idea.",

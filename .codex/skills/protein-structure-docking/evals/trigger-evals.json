@@ -30,7 +30,7 @@
     {
       "id": "structure-positive-04",
       "split": "train",
-      "query": "用 HDOCK 或 ClusPro 测试两个蛋白的界面假设，给出 restraints、对照和 interface QC。",
+      "query": "这两个蛋白结构已指定，用现有本地 PPI 工具先试跑一次，看看接触面。",
       "should_trigger": true,
       "expected_primary_skill": "protein-structure-docking",
       "rationale": "Protein-protein docking workflow selection and QC are in scope."
@@ -78,7 +78,7 @@
     {
       "id": "structure-positive-10",
       "split": "validation",
-      "query": "复核一批 PPI docking 输出，生成带 receptor、partner、method、replicate、score 和 QC status 的 summary schema。",
+      "query": "已有复合物结构、界面图和分数，看看这两个蛋白的结合情况，先别重跑。",
       "should_trigger": true,
       "expected_primary_skill": "protein-structure-docking",
       "rationale": "Batch docking provenance and interface QC summaries belong here."

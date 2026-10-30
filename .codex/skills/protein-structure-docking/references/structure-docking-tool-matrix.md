@@ -1,5 +1,7 @@
 # Structure / Docking Tool Matrix
 
+本表用于确有选型或升级需求时。已有适配工具或只查看现有输出时，不重复选型。下方完整 QC/preparation 清单用于正式分析；小规模探索按 SKILL.md 的最小输入与基本几何检查执行，工具必需条件不省略。
+
 | Task | Candidate tools | Use when | Main caveat |
 |---|---|---|---|
 | Known-pocket protein-ligand pilot | AutoDock Vina, GNINA, SMINA-like tools | receptor, ligand and box are defined; controls are possible | score is protocol-specific, not affinity |

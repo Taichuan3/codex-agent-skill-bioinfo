@@ -158,10 +158,10 @@
     {
       "id": "question-brief-negative-10",
       "split": "validation",
-      "query": "初始化 PROJECT_GUIDE 和 PROJECT_PLAN，并建立 material-action 记录规则。",
+      "query": "两个结构已指定，先用现有本地工具试一下结合情况，不用展开整个课题。",
       "should_trigger": false,
-      "expected_primary_skill": "project-state-maintenance",
-      "rationale": "Project state lifecycle initialization belongs to state maintenance."
+      "expected_primary_skill": "protein-structure-docking",
+      "rationale": "An actionable exploratory docking request does not need research framing."
     }
   ]
 }

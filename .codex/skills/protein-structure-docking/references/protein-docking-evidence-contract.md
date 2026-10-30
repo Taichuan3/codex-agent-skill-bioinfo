@@ -1,5 +1,9 @@
 # Protein Docking Evidence Contract
 
+## 按任务深度使用
+
+以下是正式分析的完整契约，不是查看一个已有模型的前置门槛。快速探索保留当前输入/输出和来源、对象/链身份、基本可读性与明显几何异常检查；若运行，同步记录实际制备、派生输入、命令/版本、参数和 seed，含默认值或无法取得的项，不事后补记。未知项注明未检查，不伪称通过。匹配比较、论文结论或明确的全面 QA 才展开全部相关字段、对照和重复；局部验证只检查用户关心的疑点。专业上不可缺少的输入前提在任何模式下都不能跳过。
+
 ## 输入与 provenance
 
 | Layer | Minimum record |
@@ -10,7 +14,7 @@
 | Site/context | pocket/interface/restraints, cofactors, metals, membrane/lipid or covalent assumptions |
 | Run | software/model version, preparation protocol, parameters, seed, replicate, compute environment, output path |
 
-UniProt、PDB chain、预测模型与用户坐标必须显式对齐。无法对齐时把相关 residue-level 解释标记为 `not assessed`。
+正式分析中，涉及 UniProt、PDB chain、预测模型与用户坐标的跨来源解释必须显式对齐；快速查看可先核对文件内链身份，不要求为此补查所有数据库。无法对齐时把相关 residue-level 解释标记为 `not assessed`。
 
 - 报告结构实际覆盖的 residue/chain range；外部服务返回的 fragment、domain 或缺失区模型不得静默写成 full-length structure。
 - 精确记录预测方法、实现和版本（例如 AlphaFold DB、ColabFold、本地 AlphaFold workflow）；不得把不同实现混写，也不得把 prediction 标为实验结构。

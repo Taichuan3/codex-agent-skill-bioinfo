@@ -15,6 +15,7 @@ description: 用于生信任务需要选择、安装、升级、修复或采用 
 - 新项目或新机器的 cwd、Git、conda、Jupyter 和 local record 核验交给 `project-environment-bootstrap`。
 - 本 Skill 不替代领域方法判断：是否采用某算法、阈值或数据库版本仍需结合对应分析 Skill 和用户决策。
 - 安装成功不等于科学适用；smoke test 不等于结果有效、性能优越或方法复现完成。
+- 日常任务已有工具可用时不触发本 Skill；只检查本次命令实际需要的依赖，不顺带盘点所有 conda 环境。出现缺包或执行失败，再定向排查，不预先重建环境。
 
 ## 权限与安全
 
@@ -30,7 +31,7 @@ description: 用于生信任务需要选择、安装、升级、修复或采用 
 1. 锁定模式：`recommendation-only`、`install/upgrade`、`adopt/wrap` 或 `repair`。
 2. 明确 decision question、目标环境、平台、输入输出、规模、license/引用要求和成功标准。
 3. 只读检查已有工具、版本、包管理器、environment/lock file 和项目约束；已有方案满足时避免重复安装。
-4. 比较官方成熟工具、论文实现、社区实现和最小本地代码；记录 method fit、维护状态、license、依赖、可移植性和失败模式。
+4. 只有需要选择新工具或替代方案时才比较候选并记录适配性、来源、license 和依赖；已定位的单个依赖故障走最小修复，不额外生成工具选型矩阵。
 5. 选择最小可复现路径：优先受控环境与固定版本；仅在必要时使用 system package、源码构建或容器。
 6. 执行前展示将改变的环境、包和文件；只实施已授权范围，并保留完整命令与来源版本。
 7. 先运行 import/version/help 或合成/小样本 smoke test，检查日志、输出 schema/count 和资源占用；高成本运行另行决定。
@@ -48,4 +49,4 @@ description: 用于生信任务需要选择、安装、升级、修复或采用 
 
 比较候选、选择 direct/wrap/borrow/rewrite、评估 license/维护状态或生成 adoption record 时，读取 `references/tool-adoption-rubric.md`。
 
-最终回复先给 adoption decision，再给环境变更、精确命令/版本、验证边界、回滚和下一决策。
+最终回复先说工具能否使用、修好了什么或还缺什么；关键环境/版本与恢复入口简述，完整命令和来源留在记录中，不把日志全文当回复。

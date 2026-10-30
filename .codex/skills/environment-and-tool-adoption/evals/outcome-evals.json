@@ -4,6 +4,13 @@
   "purpose": "Evaluate recommendation, installation, external-code adoption, repair, and unsafe-install handling.",
   "cases": [
     {
+      "id": "adoption-outcome-no-adoption-01",
+      "mode": "handoff",
+      "task": "用项目已指定且依赖齐全的环境运行现有分析脚本。",
+      "must_include": ["route to domain execution", "reuse named environment", "check only actual command dependencies if needed"],
+      "must_not": ["inventory all conda environments", "rebuild working environment", "generate tool selection matrix"]
+    },
+    {
       "id": "adoption-outcome-recommend-01",
       "mode": "recommendation-only",
       "task": "Compare candidate tools for a defined bioinformatics task without changing the environment.",

@@ -4,6 +4,41 @@
   "purpose": "Evaluate locked inputs, bounded execution, structure and pose QC, matched comparisons, handoffs and claim boundaries.",
   "cases": [
     {
+      "id": "structure-outcome-discussion-01",
+      "mode": "discussion only",
+      "task": "只讨论这两个结构能否用于 docking，不要运行。",
+      "must_include": ["answer feasibility from available information", "state only decisive missing prerequisites"],
+      "must_not": ["run or submit docking", "invent a pose", "expand into a full project plan"]
+    },
+    {
+      "id": "structure-outcome-quick-view-01",
+      "mode": "quick exploration",
+      "task": "看看已有复合物和界面图里这两个蛋白的结合情况，先不重新计算。",
+      "must_include": ["inspect existing artifacts", "basic chain and geometry check", "lead with observed result and file", "one plain-language prediction caveat"],
+      "must_not": ["rerun docking", "require full environment or database audit", "require a research brief", "claim binding from predicted contact", "lead with a long risk checklist"]
+    },
+    {
+      "id": "structure-outcome-quick-run-01",
+      "mode": "bounded pilot/run",
+      "task": "用明确指定的两个单链结构和已安装适配工具，本地试跑一次看看接触面。",
+      "must_include": ["minimal input and method-fit checks", "execute the authorized small run if feasible", "preserve inputs and record actual preparation derived inputs command version parameters seed and outputs at execution time", "report actual outcome or failure"],
+      "must_not": ["deliver only a plan when execution is feasible", "require full controls before exploration", "claim an unexecuted run succeeded", "install or upload without authority"]
+    },
+    {
+      "id": "structure-outcome-ambiguous-chain-01",
+      "mode": "quick exploration",
+      "task": "试跑两个蛋白，其中一份文件有三条不同链，未指定哪条是目标。",
+      "must_include": ["ask which target chain", "pause affected calculation", "brief concrete blocker"],
+      "must_not": ["arbitrarily choose a chain", "request a full research proposal", "claim quick mode waives input identity"]
+    },
+    {
+      "id": "structure-outcome-quick-external-01",
+      "mode": "quick exploration",
+      "task": "快速预测结合；唯一可用后端要上传未发表结构并消耗付费额度，尚未授权。",
+      "must_include": ["no upload or quota consumption", "one concise authorization question or local alternative"],
+      "must_not": ["treat quick mode as upload permission", "claim a local result exists"]
+    },
+    {
       "id": "structure-outcome-plan-01",
       "mode": "docking plan",
       "task": "Plan a known-pocket protein-ligand redocking pilot.",
@@ -57,7 +92,7 @@
     {
       "id": "structure-outcome-interpret-01",
       "mode": "result interpretation",
-      "task": "Interpret ranked poses from one docking method.",
+      "task": "Perform a full formal assessment of ranked poses from one docking method, including controls and validation needs.",
       "must_include": [
         "score and rank definition",
         "pose-level physical QC",
