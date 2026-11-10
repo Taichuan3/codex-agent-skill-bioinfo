@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "skill_name": "hashimoto-scientific-writing",
+  "purpose": "Local standalone style contract tests.",
+  "cases": [
+    {
+      "id": "hashimoto-zh",
+      "mode": "style polishing",
+      "task": "桥本式润色：两组各15例，A组更高（P=0.04），未做功能验证。",
+      "must_include": [
+        "中文正文",
+        "各15与P=0.04",
+        "未做功能验证"
+      ],
+      "must_not": [
+        "机制因果",
+        "英文翻译"
+      ]
+    },
+    {
+      "id": "hashimoto-scope",
+      "mode": "style polishing",
+      "task": "按桥本风格只改第二段的语言，第一段保持不动。",
+      "must_include": [
+        "局部改动",
+        "保留作者主线"
+      ],
+      "must_not": [
+        "整稿重构"
+      ]
+    },
+    {
+      "id": "hashimoto-null",
+      "mode": "style polishing",
+      "task": "桥本风格：未见显著差异（P=0.31），不能证明等价。",
+      "must_include": [
+        "P=0.31",
+        "不等价限定"
+      ],
+      "must_not": [
+        "改成完全相同"
+      ]
+    },
+    {
+      "id": "hashimoto-conflict",
+      "mode": "style polishing",
+      "task": "桥本风格润色，但图2写12例、正文写14例。",
+      "must_include": [
+        "冲突核对项",
+        "有据部分继续"
+      ],
+      "must_not": [
+        "静默选数字"
+      ]
+    },
+    {
+      "id": "hashimoto-provenance",
+      "mode": "style polishing",
+      "task": "桥本风格：删除run_07路径，但保留尚未核验样本量的批注原意。",
+      "must_include": [
+        "正文卫生",
+        "待核对项",
+        "内部provenance保留"
+      ],
+      "must_not": [
+        "丢弃科学问题",
+        "谎称已核验"
+      ]
+    },
+    {
+      "id": "hashimoto-noop",
+      "mode": "style polishing",
+      "task": "桥本风格检查：两组未见显著差异（P=0.28），但该结果不足以证明两组等价。",
+      "must_include": [
+        "可保留成熟文本",
+        "限定"
+      ],
+      "must_not": [
+        "为风格强行重写"
+      ]
+    }
+  ]
+}

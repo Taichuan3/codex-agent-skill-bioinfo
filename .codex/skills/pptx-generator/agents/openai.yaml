@@ -1,0 +1,4 @@
+interface:
+  display_name: "可编辑科研PPT"
+  short_description: "创建或修改可编辑科研演示文稿，保留原图和来源并进行逐页检查"
+  default_prompt: "使用 $pptx-generator 把已有科研材料制作成可编辑PPTX，保留原图与来源。"

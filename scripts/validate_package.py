@@ -1163,6 +1163,49 @@ else:
         elif row.get("source_id") != "project-owned":
             fail(f"post-baseline external lineage {target}: unsupported source_id")
 
+presentation_lineage = ROOT / "docs" / "PRESENTATION_SOURCE_LINEAGE.tsv"
+presentation_sources = {
+    "codex-ppt": ("ningzimu/codex-ppt-skill", "941dcafe2f23ea4ae61de99e9b22fb0ef3d9e06c", "ningzimu"),
+    "pptx-generator": ("MiniMax-AI/skills", "60aaae52bb2af8162732751a4332f62a5fef518b", "MiniMax"),
+}
+if not presentation_lineage.is_file():
+    fail("presentation source lineage is missing")
+else:
+    with presentation_lineage.open(encoding="utf-8", newline="") as handle:
+        presentation_rows = list(csv.DictReader(handle, delimiter="\t"))
+    actual_paths = [row.get("target_path", "") for row in presentation_rows]
+    expected_paths = {
+        path.relative_to(ROOT).as_posix()
+        for name in presentation_sources
+        for path in (SKILLS / name).rglob("*") if path.is_file()
+    }
+    if len(actual_paths) != len(set(actual_paths)) or set(actual_paths) != expected_paths:
+        fail("presentation lineage must cover each distributed file exactly once")
+    for row in presentation_rows:
+        target = row.get("target_path", "")
+        parts = Path(target).parts
+        name = parts[2] if len(parts) > 3 else ""
+        if name not in presentation_sources:
+            fail(f"presentation lineage has unapproved target: {target}")
+            continue
+        repo, ref, _ = presentation_sources[name]
+        if row.get("upstream_repo") != repo or row.get("upstream_ref") != ref:
+            fail(f"presentation source must use reviewed immutable ref: {target}")
+        treatment = row.get("treatment")
+        if treatment not in {"verbatim", "adapted", "license-notice", "local-original"}:
+            fail(f"presentation lineage treatment invalid: {target}")
+        expected_license = "package-owned" if treatment == "local-original" else "MIT"
+        if row.get("license") != expected_license:
+            fail(f"presentation lineage license invalid: {target}")
+        if treatment in {"verbatim", "adapted"}:
+            if not re.fullmatch(r"[0-9a-f]{64}", row.get("intake_sha256", "")):
+                fail(f"presentation intake hash missing: {target}")
+    for name, (_, _, author) in presentation_sources.items():
+        license_path = SKILLS / name / "LICENSE"
+        license_text = license_path.read_text(encoding="utf-8") if license_path.is_file() else ""
+        if author not in license_text or "Permission is hereby granted" not in license_text or "THE SOFTWARE IS PROVIDED" not in license_text:
+            fail(f"{name}: full MIT attribution/license must accompany installed Skill")
+
 if not EXPRESSION_REVIEW.is_file():
     fail("docs/EXTERNAL_EXPRESSION_REVIEW_2026-07-25.tsv is missing")
 else:

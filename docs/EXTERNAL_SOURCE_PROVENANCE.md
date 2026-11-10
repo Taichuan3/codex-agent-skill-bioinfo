@@ -7,15 +7,36 @@ This record reconstructs the external-source review behind historical commits
 linked to the file-level disposition in `EXTERNAL_FILE_LINEAGE.tsv` and the
 expression review in `EXTERNAL_EXPRESSION_REVIEW_2026-07-25.tsv`.
 
-The package uses independently written workflow concepts and scientific facts.
-It does not vendor upstream repositories, Skill bodies, scripts, wrappers,
+The historical scientific core uses independently written workflow concepts and scientific facts.
+That core does not vendor upstream repositories, Skill bodies, scripts, wrappers,
 models, datasets, binaries, or API clients. `THIRD_PARTY_NOTICES.md` retains
 conservative attribution for the material sources even though the current
 review found no copied expressive text in the comparisons that could be
 retrieved at the audited refs.
 
-At the implementation boundary, no executable wrapper copied from an upstream
-source is present in this package.
+For that historical core, no executable wrapper copied from an upstream
+source is present. The explicit licensed presentation additions below are separate.
+
+## 2026-11-10 writing and presentation synchronization
+
+- Hashimoto is locally authored style guidance, not copied paper text. It is now
+  packaged as a separate explicitly requested style owner. Its profile's concrete
+  sample counts were generalized; no private source manuscript is distributed.
+  The historical paper citation is retained, not newly independently verified.
+- `codex-ppt` is vendored/adapted from
+  [ningzimu/codex-ppt-skill@941dcafe2f23ea4ae61de99e9b22fb0ef3d9e06c](https://github.com/ningzimu/codex-ppt-skill/tree/941dcafe2f23ea4ae61de99e9b22fb0ef3d9e06c/skills/codex-ppt),
+  [MIT license](https://github.com/ningzimu/codex-ppt-skill/blob/941dcafe2f23ea4ae61de99e9b22fb0ef3d9e06c/LICENSE).
+- `pptx-generator` is vendored/adapted from
+  [MiniMax-AI/skills@60aaae52bb2af8162732751a4332f62a5fef518b](https://github.com/MiniMax-AI/skills/tree/60aaae52bb2af8162732751a4332f62a5fef518b/skills/pptx-generator),
+  [MIT license](https://github.com/MiniMax-AI/skills/blob/60aaae52bb2af8162732751a4332f62a5fef518b/LICENSE).
+
+All 40 non-cache codex-ppt files and all six pptx-generator files in the local
+intake matched these upstream Git blob hashes before adaptation. They were not
+undocumented local forks. Full MIT notices accompany both Skills. New compact
+entrypoints, evals and Windows instructions adapt them to this package; no
+automatic upstream updater, credentials, dependencies or caches are bundled.
+File-level treatment is in `PRESENTATION_SOURCE_LINEAGE.tsv`. Existing Chinese
+editing and two English modules are unchanged from the current installed snapshot.
 
 ## 2026-10-19 scoped mechanism update
 

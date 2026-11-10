@@ -212,8 +212,8 @@ def test_fresh_install_and_idempotence() -> None:
                 "runtime Skill link still points to the writable source checkout",
             )
         require(
-            len(list(runtime.glob("*/SKILL.md"))) == 40,
-            "fresh install did not expose all 40 Skills",
+            len(list(runtime.glob("*/SKILL.md"))) == len(list((source / ".codex" / "skills").glob("*/SKILL.md"))),
+            "fresh install did not expose every source Skill",
         )
 
         second = run(command)
@@ -269,7 +269,7 @@ def test_managed_copy_install_and_tamper_refusal() -> None:
         require(runtime.is_dir() and not runtime.is_symlink(), "managed-copy runtime is not a real directory")
         payload = json.loads(marker.read_text(encoding="utf-8"))
         require(payload.get("deployment_mode") == "copy", "managed-copy marker has the wrong mode")
-        require(len(list(runtime.glob("*/SKILL.md"))) == 40, "managed-copy runtime does not expose 40 Skills")
+        require(len(list(runtime.glob("*/SKILL.md"))) == len(list((source / ".codex" / "skills").glob("*/SKILL.md"))), "managed-copy runtime does not expose every source Skill")
 
         second = run(command)
         require(
@@ -687,6 +687,44 @@ def test_bidirectional_migration_rollback() -> None:
         )
 
 
+def test_scoped_packaged_retirement() -> None:
+    for deployment in ("copy", "symlink"):
+        if deployment == "symlink" and not symlink_fixtures_supported():
+            continue
+        with tempfile.TemporaryDirectory(prefix="codex-bioinfo-scoped-retire-") as temporary:
+            base = Path(temporary)
+            source = copy_source(base)
+            home = base / "home"
+            legacy = home / ".codex" / "skills"
+            for name in ("hashimoto-scientific-writing", "unrelated-extension", ".system"):
+                path = legacy / name
+                path.mkdir(parents=True)
+                (path / "SKILL.md").write_text(f"old-{name}\n", encoding="utf-8")
+            command = [sys.executable, str(source / "scripts" / "install_codex_bioinfo.py"),
+                       "--home", str(home), "--skills-deployment", deployment,
+                       "--retire-packaged-codex-skills"]
+            preview = run(command)
+            require(preview.returncode == 0, preview.stdout + preview.stderr)
+            conflicting = run([*command, "--retire-legacy-codex-skills"])
+            require(conflicting.returncode != 0, "conflicting retirement scopes were accepted")
+            require((legacy / "hashimoto-scientific-writing").is_dir(), "dry-run moved a Skill")
+            installed = run([*command, "--apply"])
+            require(installed.returncode == 0, installed.stdout + installed.stderr)
+            require(not (legacy / "hashimoto-scientific-writing").exists(), "duplicate not retired")
+            for name in ("unrelated-extension", ".system"):
+                require((legacy / name / "SKILL.md").read_text() == f"old-{name}\n",
+                        f"unrelated entry changed: {name}")
+            backups = list((home / ".codex" / "backups").glob(
+                "*/legacy-codex-skills/hashimoto-scientific-writing/SKILL.md"))
+            require(len(backups) == 1 and backups[0].read_text() == "old-hashimoto-scientific-writing\n",
+                    "exact legacy copy not recoverable")
+            require((home / ".agents" / "skills" / "hashimoto-scientific-writing" / "SKILL.md").is_file(),
+                    "replacement missing from discovery")
+            repeat = run([*command, "--apply"])
+            require(repeat.returncode == 0 and "Already current" in repeat.stdout,
+                    "scoped retirement not idempotent")
+
+
 def main() -> int:
     test_privacy_rejections()
     test_history_modes()
@@ -700,6 +738,7 @@ def main() -> int:
     test_transaction_rollback_and_legacy_recovery()
     test_managed_copy_transaction_rollback()
     test_bidirectional_migration_rollback()
+    test_scoped_packaged_retirement()
     print(
         "PASS: release-safety privacy, history, preflight, immutable install, "
         "dirty-source, local-candidate exclusion, idempotence, and rollback fixtures"

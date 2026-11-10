@@ -67,17 +67,20 @@ skills:
   - citation-verifier
   - claim-evidence-audit
   - clinical-bioinformatics-evidence
+  - codex-ppt
   - controlled-self-improvement
   - drug-discovery-admet-screening
   - environment-and-tool-adoption
   - evidence-gap-finder
   - figure-caption
+  - hashimoto-scientific-writing
   - literature-search-workflow
   - manuscript-consistency-audit
   - ml-benchmarking
   - molecular-simulation-analysis
   - paper-reader
   - pathway-network-analysis
+  - pptx-generator
   - project-directory-card-maintenance
   - project-environment-bootstrap
   - project-guide-maintainer
@@ -145,7 +148,7 @@ hard_constraints:
   - project_agents_declare_data_results_figures_source_data_manifest_and_environment
 
 validation:
-  expected_skill_count: 40
+  expected_skill_count: 43
   expected_root_agents: 1
   expected_custom_agent_count: 6
   expected_registered_execution_capabilities: 6

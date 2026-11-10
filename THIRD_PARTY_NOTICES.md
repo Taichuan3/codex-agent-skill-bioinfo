@@ -1,10 +1,25 @@
 # Third-party source acknowledgements
 
-The current package does not vendor third-party Skill bodies, scripts, workflow
-definitions, models, datasets, binaries, or API clients. The following notices
+Except for the two explicitly MIT-licensed presentation Skills listed below,
+the package does not vendor third-party Skill bodies, scripts, workflow
+definitions, models, datasets, binaries, or API clients. The following historical notices
 are retained conservatively because historical development consulted these
 repositories for workflow maps, task taxonomies, routing patterns, and review
 concepts.
+
+## Presentation extensions (2026-11-10)
+
+- `codex-ppt`: adapted from ningzimu/codex-ppt-skill commit
+  `941dcafe2f23ea4ae61de99e9b22fb0ef3d9e06c`, `skills/codex-ppt/`;
+  Copyright (c) 2026 ningzimu, MIT. Full license accompanies the Skill.
+- `pptx-generator`: adapted from MiniMax-AI/skills commit
+  `60aaae52bb2af8162732751a4332f62a5fef518b`, `skills/pptx-generator/`;
+  Copyright (c) 2026 MiniMax, MIT. Full license accompanies the Skill.
+
+These MIT rights are not restricted by the package's root license. Local changes
+add compact entrypoints, routing/outcome evals, cross-platform instructions and
+scientific-figure provenance boundaries. See `docs/PRESENTATION_SOURCE_LINEAGE.tsv`
+for file-level treatment. No runtime caches, API configuration or credentials are included.
 
 | Source | Audited ref | License and attribution handling |
 |---|---|---|

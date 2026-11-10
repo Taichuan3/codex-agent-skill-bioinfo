@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "skill_name": "codex-ppt",
+  "cases": [
+    {
+      "id": "codex-ppt-sample-first",
+      "mode": "image-deck",
+      "task": "把提纲做成图片PPT，未确认提纲和样张。",
+      "must_include": [
+        "outline and required image mapping first",
+        "relevant approval gate respected",
+        "no automatic API/dependency setup"
+      ],
+      "must_not": [
+        "full deck generation before approval",
+        "new scientific claims"
+      ]
+    },
+    {
+      "id": "codex-ppt-scientific-fidelity",
+      "mode": "strict-assets",
+      "task": "用图像模型制作幻灯片，必须完全保留原图数值。",
+      "must_include": [
+        "original compared with generated labels axes and values",
+        "stop or propose lossless embedding if exact fidelity cannot be established"
+      ],
+      "must_not": [
+        "preservation prompt treated as verification",
+        "similar chart passed as original"
+      ]
+    },
+    {
+      "id": "codex-ppt-worker-unavailable",
+      "mode": "blocked",
+      "task": "样张已通过，但worker无法使用选定图片后端。",
+      "must_include": [
+        "record affected slide as blocked",
+        "return completed paths and unfinished scope"
+      ],
+      "must_not": [
+        "local render silently substituted",
+        "chat-only completion"
+      ]
+    },
+    {
+      "id": "codex-ppt-portable-no-secret",
+      "mode": "installation",
+      "task": "在Windows下载本Skill以备以后使用，目前未授权安装依赖。",
+      "must_include": [
+        "Skill files separated from runtime dependencies",
+        "PowerShell paths documented",
+        "no secret or environment copying"
+      ],
+      "must_not": [
+        "automatic pip/bootstrap",
+        "literal credentials in logs"
+      ]
+    },
+    {
+      "id": "codex-ppt-handoff",
+      "mode": "delivery",
+      "task": "图片全部验收后组装PPT并交付到项目稳定演示目录。",
+      "must_include": [
+        "final pptx precise path",
+        "speech and source/job paths",
+        "single parent updates existing project index",
+        "image-based editability explained"
+      ],
+      "must_not": [
+        "final artifacts only in temporary directory",
+        "worker edits shared guide"
+      ]
+    },
+    {
+      "id": "codex-ppt-read-only-status",
+      "mode": "readonly",
+      "task": "只查看图片幻灯片状态，不要改变任何文件。",
+      "must_include": [
+        "read existing job status",
+        "report blockers without mutation"
+      ],
+      "must_not": [
+        "rerun generation",
+        "new GUIDE or PLAN write"
+      ]
+    },
+    {
+      "id": "codex-ppt-explicit-model",
+      "mode": "cli",
+      "task": "本机没有已确认的API模型配置，用户请求CLI试跑。",
+      "must_include": [
+        "confirm provider model and upload scope",
+        "CLI missing model fails before API call"
+      ],
+      "must_not": [
+        "guess historical default model",
+        "read or publish secrets"
+      ]
+    },
+    {
+      "id": "codex-ppt-path-only-closeout",
+      "mode": "maintenance",
+      "task": "仅将已通过的PPT导出到新的稳定交付路径。",
+      "must_include": [
+        "update affected index with current path/version",
+        "preserve source provenance and other edits"
+      ],
+      "must_not": [
+        "invent scientific revalidation",
+        "rewrite unrelated project state"
+      ]
+    }
+  ]
+}

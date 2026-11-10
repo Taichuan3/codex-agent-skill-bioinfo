@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "skill_name": "codex-ppt",
+  "cases": [
+    {
+      "id": "codex-ppt-p1",
+      "query": "把这份论文读书会提纲做成整页图片式PPT，文字不需要单独编辑。",
+      "should_trigger": true,
+      "expected_primary_skill": "codex-ppt",
+      "split": "train",
+      "rationale": "Explicit image-based deck workflow, its status, assembly or reusable style."
+    },
+    {
+      "id": "codex-ppt-p2",
+      "query": "用codex-ppt先做一页科研答辩样张，等我确认再生成剩余页面。",
+      "should_trigger": true,
+      "expected_primary_skill": "codex-ppt",
+      "split": "train",
+      "rationale": "Explicit image-based deck workflow, its status, assembly or reusable style."
+    },
+    {
+      "id": "codex-ppt-p3",
+      "query": "继续我已确认样张的图片幻灯片项目，逐页派发并记录生成状态。",
+      "should_trigger": true,
+      "expected_primary_skill": "codex-ppt",
+      "split": "train",
+      "rationale": "Explicit image-based deck workflow, its status, assembly or reusable style."
+    },
+    {
+      "id": "codex-ppt-p4",
+      "query": "将这个报告制作成统一杂志视觉的图片演示，附中文讲稿。",
+      "should_trigger": true,
+      "expected_primary_skill": "codex-ppt",
+      "split": "train",
+      "rationale": "Explicit image-based deck workflow, its status, assembly or reusable style."
+    },
+    {
+      "id": "codex-ppt-p5",
+      "query": "保存刚完成的codex-ppt幻灯片的视觉风格供以后复用。",
+      "should_trigger": true,
+      "expected_primary_skill": "codex-ppt",
+      "split": "train",
+      "rationale": "Explicit image-based deck workflow, its status, assembly or reusable style."
+    },
+    {
+      "id": "codex-ppt-p6",
+      "query": "这套图片式幻灯片第七页中文乱码，保持原后端修复这一页。",
+      "should_trigger": true,
+      "expected_primary_skill": "codex-ppt",
+      "split": "validation",
+      "rationale": "Explicit image-based deck workflow, its status, assembly or reusable style."
+    },
+    {
+      "id": "codex-ppt-p7",
+      "query": "检查codex-ppt项目哪些页面已记录、哪些worker仍受阻，不重新生成。",
+      "should_trigger": true,
+      "expected_primary_skill": "codex-ppt",
+      "split": "validation",
+      "rationale": "Explicit image-based deck workflow, its status, assembly or reusable style."
+    },
+    {
+      "id": "codex-ppt-p8",
+      "query": "组装已验收并记录的slide图片成pptx，同时加入speech中的讲者备注。",
+      "should_trigger": true,
+      "expected_primary_skill": "codex-ppt",
+      "split": "validation",
+      "rationale": "Explicit image-based deck workflow, its status, assembly or reusable style."
+    },
+    {
+      "id": "codex-ppt-p9",
+      "query": "我要图片式PPT；内置图像工具不可用，讨论一个经确认的API后端做样张。",
+      "should_trigger": true,
+      "expected_primary_skill": "codex-ppt",
+      "split": "validation",
+      "rationale": "Explicit image-based deck workflow, its status, assembly or reusable style."
+    },
+    {
+      "id": "codex-ppt-p10",
+      "query": "根据这段概念说明制作不可逐对象编辑但视觉统一的图片式教学幻灯片。",
+      "should_trigger": true,
+      "expected_primary_skill": "codex-ppt",
+      "split": "validation",
+      "rationale": "Explicit image-based deck workflow, its status, assembly or reusable style."
+    },
+    {
+      "id": "codex-ppt-n1",
+      "query": "做一份全部文字和图表都可编辑的答辩PPT。",
+      "should_trigger": false,
+      "expected_primary_skill": "pptx-generator",
+      "split": "train",
+      "rationale": "Deliverable belongs to a neighboring owner; do not start image-based production."
+    },
+    {
+      "id": "codex-ppt-n2",
+      "query": "现有PPT只改第五页日期，不要生成图片。",
+      "should_trigger": false,
+      "expected_primary_skill": "pptx-generator",
+      "split": "train",
+      "rationale": "Deliverable belongs to a neighboring owner; do not start image-based production."
+    },
+    {
+      "id": "codex-ppt-n3",
+      "query": "把原始科研曲线图无损放进PPT，不能让图像模型改动曲线。",
+      "should_trigger": false,
+      "expected_primary_skill": "pptx-generator",
+      "split": "train",
+      "rationale": "Deliverable belongs to a neighboring owner; do not start image-based production."
+    },
+    {
+      "id": "codex-ppt-n4",
+      "query": "请将英文论文结果部分润色，保留原来的主张强度。",
+      "should_trigger": false,
+      "expected_primary_skill": "scientific-english-polishing",
+      "split": "train",
+      "rationale": "Deliverable belongs to a neighboring owner; do not start image-based production."
+    },
+    {
+      "id": "codex-ppt-n5",
+      "query": "用中文修改这段讨论的结构，暂时不做演示。",
+      "should_trigger": false,
+      "expected_primary_skill": "chinese-scientific-polishing",
+      "split": "train",
+      "rationale": "Deliverable belongs to a neighboring owner; do not start image-based production."
+    },
+    {
+      "id": "codex-ppt-n6",
+      "query": "从PPT文件提取文字做个清单，不要画新页。",
+      "should_trigger": false,
+      "expected_primary_skill": "pptx-generator",
+      "split": "validation",
+      "rationale": "Deliverable belongs to a neighboring owner; do not start image-based production."
+    },
+    {
+      "id": "codex-ppt-n7",
+      "query": "根据CSV重新绘制带统计误差条的论文图。",
+      "should_trigger": false,
+      "expected_primary_skill": "publication-plotting",
+      "split": "validation",
+      "rationale": "Deliverable belongs to a neighboring owner; do not start image-based production."
+    },
+    {
+      "id": "codex-ppt-n8",
+      "query": "评估这套结论是否被图和数据充分支持。",
+      "should_trigger": false,
+      "expected_primary_skill": "claim-evidence-audit",
+      "split": "validation",
+      "rationale": "Deliverable belongs to a neighboring owner; do not start image-based production."
+    },
+    {
+      "id": "codex-ppt-n9",
+      "query": "按Hashimoto风格润色这段中文科研稿。",
+      "should_trigger": false,
+      "expected_primary_skill": "hashimoto-scientific-writing",
+      "split": "validation",
+      "rationale": "Deliverable belongs to a neighboring owner; do not start image-based production."
+    },
+    {
+      "id": "codex-ppt-n10",
+      "query": "把已确认中文稿翻译成英文，别做幻灯片。",
+      "should_trigger": false,
+      "expected_primary_skill": "scientific-english-translation",
+      "split": "validation",
+      "rationale": "Deliverable belongs to a neighboring owner; do not start image-based production."
+    }
+  ]
+}

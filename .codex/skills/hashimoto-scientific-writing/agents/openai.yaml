@@ -1,0 +1,4 @@
+interface:
+  display_name: "中文润色（Hashimoto风格）"
+  short_description: "独立桥本风格中文科研润色，保留作者主线、图证据、数值与有限解释"
+  default_prompt: "使用 $hashimoto-scientific-writing 按桥本风格润色这份中文稿，保留已有主线和科学含义，暂不翻译。"

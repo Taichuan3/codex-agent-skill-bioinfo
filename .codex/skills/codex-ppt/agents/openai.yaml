@@ -1,0 +1,4 @@
+interface:
+  display_name: "图片式科研演示"
+  short_description: "从确认提纲生成视觉统一的图片式幻灯片，保留素材来源、样张和逐页状态"
+  default_prompt: "Use $codex-ppt to prepare an image-based scientific presentation with an approved sample and tracked slide provenance."

@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "skill_name": "pptx-generator",
+  "cases": [
+    {
+      "id": "pptx-editable",
+      "mode": "create",
+      "task": "从已确认材料制作可编辑PPTX。",
+      "must_include": [
+        "textboxes editable",
+        "original figures preserved",
+        "source and output paths"
+      ],
+      "must_not": [
+        "claim all bitmap content editable",
+        "invent data"
+      ]
+    },
+    {
+      "id": "pptx-readonly",
+      "mode": "read",
+      "task": "只提取已给PPTX文字。",
+      "must_include": [
+        "requested text",
+        "no writeback"
+      ],
+      "must_not": [
+        "regenerate deck",
+        "create management documents"
+      ]
+    },
+    {
+      "id": "pptx-missing",
+      "mode": "blocked",
+      "task": "模板路径不存在。",
+      "must_include": [
+        "specific missing file",
+        "unaffected work"
+      ],
+      "must_not": [
+        "invent template identity",
+        "mark complete"
+      ]
+    },
+    {
+      "id": "pptx-visual",
+      "mode": "qa",
+      "task": "文字回读成功但没有渲染器。",
+      "must_include": [
+        "visual QA not run",
+        "candidate status"
+      ],
+      "must_not": [
+        "claim visually verified"
+      ]
+    },
+    {
+      "id": "pptx-closeout",
+      "mode": "maintenance",
+      "task": "新PPTX输出位置变化。",
+      "must_include": [
+        "update impacted index with exact path",
+        "single owner shared guide",
+        "human reachable entry"
+      ],
+      "must_not": [
+        "daily folder only",
+        "rewrite unrelated history"
+      ]
+    },
+    {
+      "id": "pptx-source",
+      "mode": "edit",
+      "task": "保持科研原图并只修改版式。",
+      "must_include": [
+        "original data images and proportions",
+        "editable scope"
+      ],
+      "must_not": [
+        "AI redraw data",
+        "silently modify scientific claims"
+      ]
+    }
+  ]
+}

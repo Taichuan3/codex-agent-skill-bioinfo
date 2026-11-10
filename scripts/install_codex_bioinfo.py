@@ -48,12 +48,21 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="replace the complete global AGENTS.md with the compact managed block",
     )
-    parser.add_argument(
+    retirement = parser.add_mutually_exclusive_group()
+    retirement.add_argument(
         "--retire-legacy-codex-skills",
         action="store_true",
         help=(
             "move user Skill directories from ~/.codex/skills into the installation backup; "
             "preserve ~/.codex/skills/.system and use ~/.agents/skills as the single global source"
+        ),
+    )
+    retirement.add_argument(
+        "--retire-packaged-codex-skills",
+        action="store_true",
+        help=(
+            "back up and retire only ~/.codex/skills entries whose names are included "
+            "in this package; preserve unrelated user Skills and .system"
         ),
     )
     parser.add_argument(
@@ -392,6 +401,12 @@ def main() -> int:
         else []
     )
     guidance_changed = existing_guidance != new_guidance
+    if args.retire_packaged_codex_skills and not args.retire_legacy_codex_skills:
+        legacy_skill_dirs = [
+            path for path in legacy_skill_dirs
+            if (SOURCE_SKILLS / path.name / "SKILL.md").is_file()
+        ]
+    retire_requested = args.retire_legacy_codex_skills or args.retire_packaged_codex_skills
 
     print(f"Mode: {'APPLY' if args.apply else 'DRY-RUN'}")
     print(f"Source: {ROOT}")
@@ -408,7 +423,7 @@ def main() -> int:
     else:
         guidance_action = "update managed block"
     print(f"Global guidance: {guidance_action}")
-    if args.retire_legacy_codex_skills:
+    if retire_requested:
         print(f"Legacy ~/.codex/skills entries to back up and retire: {len(legacy_skill_dirs)}")
         for path in legacy_skill_dirs:
             print(f"  - {path.name}")
@@ -426,7 +441,7 @@ def main() -> int:
         print("Dry-run only. Re-run with --apply after reviewing this plan.")
         return 0
 
-    retire_legacy = args.retire_legacy_codex_skills and bool(legacy_skill_dirs)
+    retire_legacy = retire_requested and bool(legacy_skill_dirs)
     if (
         not skill_changed
         and not marker_changed

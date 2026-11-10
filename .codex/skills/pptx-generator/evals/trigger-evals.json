@@ -1,0 +1,166 @@
+{
+  "schema_version": 1,
+  "skill_name": "pptx-generator",
+  "cases": [
+    {
+      "id": "pptx-pos-1",
+      "query": "将研究提纲制成六页可编辑PPTX，保留图为独立对象。",
+      "should_trigger": true,
+      "expected_primary_skill": "pptx-generator",
+      "rationale": "PPTX content or editable deck is the deliverable",
+      "split": "train"
+    },
+    {
+      "id": "pptx-pos-2",
+      "query": "请用PptxGenJS做汇报，文字必须能在PowerPoint修改。",
+      "should_trigger": true,
+      "expected_primary_skill": "pptx-generator",
+      "rationale": "PPTX content or editable deck is the deliverable",
+      "split": "train"
+    },
+    {
+      "id": "pptx-pos-3",
+      "query": "读取现有presentation.pptx里的文字，先不要改文件。",
+      "should_trigger": true,
+      "expected_primary_skill": "pptx-generator",
+      "rationale": "PPTX content or editable deck is the deliverable",
+      "split": "train"
+    },
+    {
+      "id": "pptx-pos-4",
+      "query": "在现有PPT模板中替换标题，另存副本。",
+      "should_trigger": true,
+      "expected_primary_skill": "pptx-generator",
+      "rationale": "PPTX content or editable deck is the deliverable",
+      "split": "train"
+    },
+    {
+      "id": "pptx-pos-5",
+      "query": "修改第四页图的大小和位置，保持原图比例。",
+      "should_trigger": true,
+      "expected_primary_skill": "pptx-generator",
+      "rationale": "PPTX content or editable deck is the deliverable",
+      "split": "train"
+    },
+    {
+      "id": "pptx-pos-6",
+      "query": "需要可以逐个编辑文本框的科研幻灯片。",
+      "should_trigger": true,
+      "expected_primary_skill": "pptx-generator",
+      "rationale": "PPTX content or editable deck is the deliverable",
+      "split": "validation"
+    },
+    {
+      "id": "pptx-pos-7",
+      "query": "检查已有演示文稿的占位符，给我修订版PPTX。",
+      "should_trigger": true,
+      "expected_primary_skill": "pptx-generator",
+      "rationale": "PPTX content or editable deck is the deliverable",
+      "split": "validation"
+    },
+    {
+      "id": "pptx-pos-8",
+      "query": "把三张原始结果图排在一张可编辑的16:9幻灯片。",
+      "should_trigger": true,
+      "expected_primary_skill": "pptx-generator",
+      "rationale": "PPTX content or editable deck is the deliverable",
+      "split": "validation"
+    },
+    {
+      "id": "pptx-pos-9",
+      "query": "基于现成PowerPoint模板编排讲稿和页面。",
+      "should_trigger": true,
+      "expected_primary_skill": "pptx-generator",
+      "rationale": "PPTX content or editable deck is the deliverable",
+      "split": "validation"
+    },
+    {
+      "id": "pptx-pos-10",
+      "query": "把旧PPTX内容提取出来以便人工检查，不重新制作。",
+      "should_trigger": true,
+      "expected_primary_skill": "pptx-generator",
+      "rationale": "PPTX content or editable deck is the deliverable",
+      "split": "validation"
+    },
+    {
+      "id": "pptx-neg-1",
+      "query": "把这篇论文结果段翻译成英语，不制作幻灯片。",
+      "should_trigger": false,
+      "expected_primary_skill": "scientific-english-translation",
+      "rationale": "Different deliverable or image-only deck owner",
+      "split": "train"
+    },
+    {
+      "id": "pptx-neg-2",
+      "query": "请用Hashimoto风格润色中文讨论，不做PPT。",
+      "should_trigger": false,
+      "expected_primary_skill": "hashimoto-scientific-writing",
+      "rationale": "Different deliverable or image-only deck owner",
+      "split": "train"
+    },
+    {
+      "id": "pptx-neg-3",
+      "query": "请用统一图片生成风格制作整页位图演示文稿。",
+      "should_trigger": false,
+      "expected_primary_skill": "codex-ppt",
+      "rationale": "Different deliverable or image-only deck owner",
+      "split": "train"
+    },
+    {
+      "id": "pptx-neg-4",
+      "query": "我要根据RNA-seq表重绘火山图，暂时不排PPT。",
+      "should_trigger": false,
+      "expected_primary_skill": "publication-plotting",
+      "rationale": "Different deliverable or image-only deck owner",
+      "split": "train"
+    },
+    {
+      "id": "pptx-neg-5",
+      "query": "只帮我写论文图注，不生成演示文稿。",
+      "should_trigger": false,
+      "expected_primary_skill": "figure-caption",
+      "rationale": "Different deliverable or image-only deck owner",
+      "split": "train"
+    },
+    {
+      "id": "pptx-neg-6",
+      "query": "请使用codex-ppt制作完整图像页，不要求编辑文本框。",
+      "should_trigger": false,
+      "expected_primary_skill": "codex-ppt",
+      "rationale": "Different deliverable or image-only deck owner",
+      "split": "validation"
+    },
+    {
+      "id": "pptx-neg-7",
+      "query": "评估这项研究中三个主张的证据，不做汇报。",
+      "should_trigger": false,
+      "expected_primary_skill": "claim-evidence-audit",
+      "rationale": "Different deliverable or image-only deck owner",
+      "split": "validation"
+    },
+    {
+      "id": "pptx-neg-8",
+      "query": "请检索过去五年的抗体文献，不做幻灯片。",
+      "should_trigger": false,
+      "expected_primary_skill": "literature-search-workflow",
+      "rationale": "Different deliverable or image-only deck owner",
+      "split": "validation"
+    },
+    {
+      "id": "pptx-neg-9",
+      "query": "把这个英文摘要去套话润色，不要PPT。",
+      "should_trigger": false,
+      "expected_primary_skill": "scientific-english-polishing",
+      "rationale": "Different deliverable or image-only deck owner",
+      "split": "validation"
+    },
+    {
+      "id": "pptx-neg-10",
+      "query": "推荐明天午餐吃什么。",
+      "should_trigger": false,
+      "expected_primary_skill": "none",
+      "rationale": "Different deliverable or image-only deck owner",
+      "split": "validation"
+    }
+  ]
+}
