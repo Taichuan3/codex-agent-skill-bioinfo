@@ -7,7 +7,7 @@ Borrowed lessons from external bioinformatics skill libraries: prefer reproducib
 - Identify raw inputs and confirm they remain read-only.
 - Record file counts, sample IDs, genome/reference versions, and expected output shape.
 - Check required tools/packages and versions; if adopting an external tool, route through `environment-and-tool-adoption`.
-- Decide whether the task is exploratory, stable, or submission-ready.
+- Infer exploratory, stable, or submission-ready depth from the request; do not ask for a mode each time. These checks scale with intended use, not a universal admission checklist.
 
 ## During execution
 
@@ -18,7 +18,7 @@ Borrowed lessons from external bioinformatics skill libraries: prefer reproducib
 
 ## After execution
 
-- Verify output row/column counts, sample coverage, and key identifiers. For aggregated QC reports, compare the expected sample-by-required-module coverage with what was actually parsed; reconcile skipped inputs, warnings and documented exclusions. A generated report or zero exit status alone does not pass acceptance; unresolved missing required coverage remains incomplete.
+- Verify output row/column counts, sample coverage, and key identifiers. For aggregated QC reports, compare expected sample-by-required-module coverage with what was parsed; record skipped inputs and exclusions. Missing required coverage remains incomplete for the affected sample/module, not automatically the whole batch. Deliver interpretable partial exploration and continue independent work under partial-progress-policy.md; zero exit status does not establish complete QC.
 - Produce a machine-readable table plus a human-readable summary when possible.
 - Record caveats, failed alternatives, and whether results are safe for manuscript use.
 - If a result becomes figure/source data, make the generating script and source path traceable.
@@ -27,6 +27,8 @@ Borrowed lessons from external bioinformatics skill libraries: prefer reproducib
 ## Stable output bundle
 
 For any result that may be reused, reviewed, or promoted to a figure/report, prefer a small reproducibility bundle:
+
+This is a promotion checklist, not a prerequisite for a quick first result. Reuse existing logs/config/index rather than creating every file below for each exploratory task.
 
 - `commands.sh` or notebook cell export for exact commands.
 - `params.yaml` or equivalent config for filters, thresholds, paths, random seeds and references.

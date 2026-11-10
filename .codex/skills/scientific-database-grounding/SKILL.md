@@ -10,7 +10,7 @@ description: 查询、解析和交叉核验生物医学实体数据库记录，�
 ## 流程与交付
 1. 固定 retrieval question、实体类型、原始ID/namespace、species、assembly/transcript/isoform、disease ontology、compound ID、未知项及目标字段；最小1–4个来源并说明primary/cross-check理由，官方API/下载表优先。
 2. 先count/summary/小样本核命中和规模，再取最少字段；保留endpoint、query/body、filters、fields、pagination/limit、release/访问日期、原始ID和记录数。只检查凭据是否存在，不读/输出token/cookie/header/.env。
-3. 核别名、build/allele/strand/transcript/isoform/species/assay/unit/evidence code；不静默合并。列agreement/conflict/unresolved mapping/release lag，不用方便来源覆盖冲突。空结果不等于实体不存在；保留失败/限流与替代来源。
+3. 核别名、build/allele/strand/transcript/isoform/species/assay/unit/evidence code；不静默合并。少量冲突/未映射ID单列，先交其余已解析记录，不要求全量匹配才继续；可选字段缺失保留unknown。仅暂停依赖不明身份/build的解释。空结果不等于实体不存在，保留失败/限流。
 4. 交 question/databases、exact identifiers/query、version/date、counts/fields/records、record–claim–evidence type–caveat映射、冲突/未解映射、handoff字段；写报告/source data附可重放query/command和字段定义。未执行标 planned query，不造记录。
 ## 执行后端
 实际查询读 `../capability_registry.json` 的 `CAP-DB-001`，优先已安装source-specific curated Skill；仅跨实体能减少重复才比BioMCP。registry只选路不授权安装/凭据/配额/上传，检查条款、网络、凭据状态和项目权限。不可用保持planned/review，不用低质量摘要顶替；执行附backend/version、exact query、records/failures/replay pointer。

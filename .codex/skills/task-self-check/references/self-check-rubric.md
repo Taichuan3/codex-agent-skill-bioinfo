@@ -1,6 +1,15 @@
 # Self-check Rubric
 
-## Hard-stop issues
+## Problems scoped to the intended use
+
+The list below blocks the affected claim, computation or formal promotion, not
+all work or delivery. Exploration can be useful with unresolved rows or missing
+nonessential checks: deliver the interpretable portion with its actual denominator
+and caveat. Follow [partial-progress-policy.md](../../bioinfo-analysis-code/references/partial-progress-policy.md) for
+record-level isolation. Missing metadata is not an automatic demand to rebuild
+the environment. A readable draft need not meet submission-level polish.
+
+## Issues requiring correction for the affected use
 
 - A key claim has no visible evidence source.
 - A result is described as causal/mechanistic without direct support.
@@ -29,8 +38,8 @@ Allowed status values are `Pass`, `Needs fix`, and `Not checked`. Use `Pass` onl
 | Result | Meaning |
 |---|---|
 | Ready | No hard stop or unresolved High issue in the checked scope. |
-| Ready with caveats | Only disclosed Medium/Low issues remain and they do not invalidate the intended use. |
-| Not ready | A hard stop or unresolved High issue can mislead, break reproducibility, or invalidate delivery. |
+| Ready with caveats | Remaining issues do not invalidate the stated exploratory use; affected subsets/claims are separated and limitations disclosed. Formal promotion may still be blocked. |
+| Not ready | The affected output cannot be interpreted for its stated use; deliver unaffected outputs rather than blocking the entire task. |
 
 ## Phase-aware checks
 

@@ -100,6 +100,35 @@
         "metadata pass called scientific reproduction",
         "hide missing source coverage"
       ]
+    },
+    {
+      "id": "qa-partial-candidate",
+      "mode": "exploratory",
+      "task": "交付探索图，10,000个样本中9,999个可唯一匹配，1个非关键样本保留待核对，分母已标。尚未做完整稳健性验证。",
+      "must_include": [
+        "Ready with caveats for exploratory use",
+        "formal promotion distinct",
+        "deliver candidate with concise coverage caveat"
+      ],
+      "must_not": [
+        "require full cohort before showing plot",
+        "declare submission ready",
+        "lead with long defense report"
+      ]
+    },
+    {
+      "id": "qa-partial-mislabel",
+      "mode": "formal",
+      "task": "交付正式论文图：实际只处理9,999个，却在图注声称10,000个全部完成。",
+      "must_include": [
+        "correct denominator and completeness claim before formal acceptance",
+        "usable candidate retained",
+        "unmatched status preserved"
+      ],
+      "must_not": [
+        "accept false total because mismatch small",
+        "discard all valid results"
+      ]
     }
   ]
 }

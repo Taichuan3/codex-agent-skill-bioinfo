@@ -131,6 +131,7 @@ MacBook Codex 可以把已完成 provenance、隐私、行为和 release review 
 
 ## 当前状态
 
+- 默认先交有用的探索结果，局部未匹配或失败只影响相关记录/步骤，不要求全量完美才执行。正式结果再确认样本、排除和验证；细则见 [局部异常与继续执行](.codex/skills/bioinfo-analysis-code/references/partial-progress-policy.md)。
 - Source skills：43 个。
 - Codex custom agents：6 个。
 - 本次纳入四个精简入口（literature-search-workflow、publication-plotting、project-state-maintenance、scientific-database-grounding）与 cheminformatics-data-curation、molecular-simulation-analysis；安装完整包时全部包含，无需另外安装候选目录。

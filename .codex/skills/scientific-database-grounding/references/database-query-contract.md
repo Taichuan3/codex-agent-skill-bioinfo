@@ -19,6 +19,7 @@
 - 对 POST-only 或 GraphQL 查询，保留 query body、variables 和 response fields。
 - 对需要凭据或注册的服务，只记录凭据是否存在、服务模式和访问日期；不要把 token、cookie、Authorization header 或 `.env` 内容放入输出。
 - 记录失败请求、重试、空结果和替代来源，不把空结果解释为不存在。
+- 单个ID失败、冲突或缺字段时，保留状态并继续独立查询，先交可用记录；记录实际返回数和未解决数，不等待全部成功。疑似整体namespace/build错用只暂停受影响查询，不做强行映射或伪造记录。
 
 ## 交叉核验
 
