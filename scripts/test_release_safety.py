@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import shutil
@@ -46,6 +47,45 @@ def symlink_fixtures_supported() -> bool:
     return os.name != "nt"
 
 
+def fixture_directory(label: str) -> tempfile.TemporaryDirectory[str]:
+    """Keep isolated Windows fixture paths below the legacy MAX_PATH limit."""
+    prefix = f"cb-{label[:8]}-" if os.name == "nt" else f"codex-bioinfo-{label}-"
+    return tempfile.TemporaryDirectory(prefix=prefix)
+
+
+def tree_digest(root: Path) -> str | None:
+    if not root.exists():
+        return None
+    digest = hashlib.sha256()
+    for path in sorted(root.rglob("*")):
+        if not path.is_file():
+            continue
+        digest.update(path.relative_to(root).as_posix().encode("utf-8"))
+        digest.update(b"\0")
+        digest.update(path.read_bytes())
+        digest.update(b"\0")
+    return digest.hexdigest()
+
+
+def deployment_fingerprint(home: Path) -> dict[str, object]:
+    runtime = home / ".agents" / "skills"
+    marker = home / ".agents" / "codex-bioinfo-skills.json"
+    package_store = home / ".codex" / "packages" / "codex-agent-skill-bioinfo"
+    guidance = home / ".codex" / "AGENTS.md"
+    agents = home / ".codex" / "agents"
+    return {
+        "runtime_topology": "symlink" if runtime.is_symlink() else "copy",
+        "runtime_target": str(runtime.resolve()) if runtime.exists() else None,
+        "runtime_digest": tree_digest(runtime),
+        "marker": marker.read_bytes() if marker.exists() else None,
+        "releases": sorted(path.name for path in package_store.iterdir())
+        if package_store.exists()
+        else [],
+        "guidance": guidance.read_bytes() if guidance.exists() else None,
+        "agents_digest": tree_digest(agents),
+    }
+
+
 def test_privacy_rejections() -> None:
     fixtures = {
         "memory/MEMORY.md": "native memory fixture\n",
@@ -59,17 +99,19 @@ def test_privacy_rejections() -> None:
         "metadata/service.txt": "API_" + "KEY=fixturevalue0123456789\n",
     }
     for relative, content in fixtures.items():
-        with tempfile.TemporaryDirectory(prefix="codex-bioinfo-privacy-") as temporary:
+        with fixture_directory("privacy") as temporary:
             source = copy_source(Path(temporary))
             fixture = source / relative
             fixture.parent.mkdir(parents=True, exist_ok=True)
             fixture.write_text(content, encoding="utf-8")
             result = run([sys.executable, str(source / "scripts" / "validate_package.py")])
             require(result.returncode != 0, f"privacy fixture unexpectedly passed: {relative}")
-            require(str(relative) in result.stdout, f"privacy fixture was not reported: {relative}")
+            reported = result.stdout.replace("\\", "/")
+            expected = Path(relative).as_posix()
+            require(expected in reported, f"privacy fixture was not reported: {relative}")
 
     if symlink_fixtures_supported():
-        with tempfile.TemporaryDirectory(prefix="codex-bioinfo-private-link-") as temporary:
+        with fixture_directory("private-link") as temporary:
             source = copy_source(Path(temporary))
             fixture = source / "private-source"
             private_target = Path("/") / "Users" / "fixture-user" / "private-project"
@@ -80,7 +122,7 @@ def test_privacy_rejections() -> None:
 
 
 def test_history_modes() -> None:
-    with tempfile.TemporaryDirectory(prefix="codex-bioinfo-history-") as temporary:
+    with fixture_directory("history") as temporary:
         source = copy_source(Path(temporary))
         portable = run(
             [sys.executable, str(source / "scripts" / "validate_package.py")]
@@ -113,7 +155,7 @@ def test_history_modes() -> None:
 def test_guidance_symlink_preflight() -> None:
     if not symlink_fixtures_supported():
         return
-    with tempfile.TemporaryDirectory(prefix="codex-bioinfo-guidance-link-") as temporary:
+    with fixture_directory("guidance-link") as temporary:
         root = Path(temporary)
         source = copy_source(root)
         home = root / "home"
@@ -143,7 +185,7 @@ def test_guidance_symlink_preflight() -> None:
 def test_agent_symlink_preflight() -> None:
     if not symlink_fixtures_supported():
         return
-    with tempfile.TemporaryDirectory(prefix="codex-bioinfo-agent-link-") as temporary:
+    with fixture_directory("agent-link") as temporary:
         root = Path(temporary)
         source = copy_source(root)
         home = root / "home"
@@ -171,7 +213,7 @@ def test_agent_symlink_preflight() -> None:
 
 
 def test_fresh_install_and_idempotence() -> None:
-    with tempfile.TemporaryDirectory(prefix="codex-bioinfo-fresh-install-") as temporary:
+    with fixture_directory("fresh-install") as temporary:
         root = Path(temporary)
         source = copy_source(root)
         home = root / "home"
@@ -216,10 +258,15 @@ def test_fresh_install_and_idempotence() -> None:
             "fresh install did not expose every source Skill",
         )
 
+        before_second = deployment_fingerprint(home)
         second = run(command)
         require(
-            second.returncode == 0 and "Already current" in second.stdout,
-            f"idempotent install was not a no-op: {second.stdout}{second.stderr}",
+            second.returncode == 0,
+            f"repeated install failed: {second.stdout}{second.stderr}",
+        )
+        require(
+            deployment_fingerprint(home) == before_second,
+            "repeated install changed the deployed state",
         )
 
         installed_skill = installed / "paper-reader" / "SKILL.md"
@@ -249,7 +296,7 @@ def test_fresh_install_and_idempotence() -> None:
 
 
 def test_managed_copy_install_and_tamper_refusal() -> None:
-    with tempfile.TemporaryDirectory(prefix="codex-bioinfo-managed-copy-") as temporary:
+    with fixture_directory("managed-copy") as temporary:
         root = Path(temporary)
         source = copy_source(root)
         home = root / "home"
@@ -271,10 +318,15 @@ def test_managed_copy_install_and_tamper_refusal() -> None:
         require(payload.get("deployment_mode") == "copy", "managed-copy marker has the wrong mode")
         require(len(list(runtime.glob("*/SKILL.md"))) == len(list((source / ".codex" / "skills").glob("*/SKILL.md"))), "managed-copy runtime does not expose every source Skill")
 
+        before_second = deployment_fingerprint(home)
         second = run(command)
         require(
-            second.returncode == 0 and "Already current" in second.stdout,
-            f"managed-copy install was not idempotent: {second.stdout}{second.stderr}",
+            second.returncode == 0,
+            f"repeated managed-copy install failed: {second.stdout}{second.stderr}",
+        )
+        require(
+            deployment_fingerprint(home) == before_second,
+            "repeated managed-copy install changed the deployed state",
         )
 
         runtime_skill = runtime / "paper-reader" / "SKILL.md"
@@ -289,7 +341,7 @@ def test_managed_copy_install_and_tamper_refusal() -> None:
             "tampered managed copy was not rejected",
         )
 
-    with tempfile.TemporaryDirectory(prefix="codex-bioinfo-unmanaged-copy-") as temporary:
+    with fixture_directory("unmanaged-copy") as temporary:
         root = Path(temporary)
         source = copy_source(root)
         home = root / "home"
@@ -314,7 +366,7 @@ def test_managed_copy_install_and_tamper_refusal() -> None:
 def test_bidirectional_deployment_migration() -> None:
     if not symlink_fixtures_supported():
         return
-    with tempfile.TemporaryDirectory(prefix="codex-bioinfo-deployment-migration-") as temporary:
+    with fixture_directory("deployment-migration") as temporary:
         root = Path(temporary)
         source = copy_source(root)
         home = root / "home"
@@ -334,25 +386,35 @@ def test_bidirectional_deployment_migration() -> None:
         require(copied.returncode == 0, f"symlink-to-copy migration failed: {copied.stdout}{copied.stderr}")
         require(runtime.is_dir() and not runtime.is_symlink(), "symlink-to-copy migration did not create a real directory")
         require(marker.is_file(), "symlink-to-copy migration did not create the managed-copy marker")
+        copy_state = deployment_fingerprint(home)
         copy_noop = run([*base, "copy", "--apply"])
         require(
-            copy_noop.returncode == 0 and "Already current" in copy_noop.stdout,
-            "migrated managed copy was not idempotent",
+            copy_noop.returncode == 0,
+            f"repeated managed-copy migration failed: {copy_noop.stdout}{copy_noop.stderr}",
+        )
+        require(
+            deployment_fingerprint(home) == copy_state,
+            "repeated managed-copy migration changed the deployed state",
         )
 
         relinked = run([*base, "symlink", "--apply"])
         require(relinked.returncode == 0, f"copy-to-symlink migration failed: {relinked.stdout}{relinked.stderr}")
         require(runtime.is_symlink(), "copy-to-symlink migration did not restore a symlink")
         require(not marker.exists(), "copy-to-symlink migration left a stale managed-copy marker")
+        link_state = deployment_fingerprint(home)
         link_noop = run([*base, "symlink", "--apply"])
         require(
-            link_noop.returncode == 0 and "Already current" in link_noop.stdout,
-            "migrated symlink deployment was not idempotent",
+            link_noop.returncode == 0,
+            f"repeated symlink migration failed: {link_noop.stdout}{link_noop.stderr}",
+        )
+        require(
+            deployment_fingerprint(home) == link_state,
+            "repeated symlink migration changed the deployed state",
         )
 
 
 def test_dirty_source_refusal() -> None:
-    with tempfile.TemporaryDirectory(prefix="codex-bioinfo-dirty-source-") as temporary:
+    with fixture_directory("dirty-source") as temporary:
         root = Path(temporary)
         source = copy_source(root)
         for command in (
@@ -390,7 +452,7 @@ def test_dirty_source_refusal() -> None:
 
 
 def test_untracked_local_candidates_do_not_block() -> None:
-    with tempfile.TemporaryDirectory(prefix="codex-bioinfo-local-candidate-") as temporary:
+    with fixture_directory("local-candidate") as temporary:
         root = Path(temporary)
         source = copy_source(root)
         for command in (
@@ -428,7 +490,7 @@ def test_untracked_local_candidates_do_not_block() -> None:
             "local candidate leaked into the installed Skill snapshot",
         )
 
-    with tempfile.TemporaryDirectory(prefix="codex-bioinfo-archive-candidate-") as temporary:
+    with fixture_directory("archive-candidate") as temporary:
         source = copy_source(Path(temporary))
         candidate = source / ".codex" / "candidates" / "archive-copy" / "NOTE.md"
         candidate.parent.mkdir(parents=True)
@@ -440,7 +502,7 @@ def test_untracked_local_candidates_do_not_block() -> None:
             "candidate-bearing archive rejection did not explain the boundary",
         )
 
-    with tempfile.TemporaryDirectory(prefix="codex-bioinfo-tracked-candidate-") as temporary:
+    with fixture_directory("tracked-candidate") as temporary:
         source = copy_source(Path(temporary))
         for command in (
             ["git", "init"],
@@ -496,7 +558,7 @@ def test_untracked_local_candidates_do_not_block() -> None:
 def test_transaction_rollback_and_legacy_recovery() -> None:
     if not symlink_fixtures_supported():
         return
-    with tempfile.TemporaryDirectory(prefix="codex-bioinfo-rollback-") as temporary:
+    with fixture_directory("rollback") as temporary:
         root = Path(temporary)
         source = copy_source(root)
         installer = source / "scripts" / "install_codex_bioinfo.py"
@@ -561,7 +623,7 @@ def test_transaction_rollback_and_legacy_recovery() -> None:
 
 
 def test_managed_copy_transaction_rollback() -> None:
-    with tempfile.TemporaryDirectory(prefix="codex-bioinfo-copy-rollback-") as temporary:
+    with fixture_directory("copy-rollback") as temporary:
         root = Path(temporary)
         source = copy_source(root)
         home = root / "home"
@@ -628,7 +690,7 @@ def test_managed_copy_transaction_rollback() -> None:
 def test_bidirectional_migration_rollback() -> None:
     if not symlink_fixtures_supported():
         return
-    with tempfile.TemporaryDirectory(prefix="codex-bioinfo-migration-rollback-") as temporary:
+    with fixture_directory("migration-rollback") as temporary:
         root = Path(temporary)
         source = copy_source(root)
         home = root / "home"
@@ -691,7 +753,7 @@ def test_scoped_packaged_retirement() -> None:
     for deployment in ("copy", "symlink"):
         if deployment == "symlink" and not symlink_fixtures_supported():
             continue
-        with tempfile.TemporaryDirectory(prefix="codex-bioinfo-scoped-retire-") as temporary:
+        with fixture_directory("scoped-retire") as temporary:
             base = Path(temporary)
             source = copy_source(base)
             home = base / "home"
@@ -720,9 +782,12 @@ def test_scoped_packaged_retirement() -> None:
                     "exact legacy copy not recoverable")
             require((home / ".agents" / "skills" / "hashimoto-scientific-writing" / "SKILL.md").is_file(),
                     "replacement missing from discovery")
+            installed_state = deployment_fingerprint(home)
             repeat = run([*command, "--apply"])
-            require(repeat.returncode == 0 and "Already current" in repeat.stdout,
-                    "scoped retirement not idempotent")
+            require(repeat.returncode == 0,
+                    f"repeated scoped retirement failed: {repeat.stdout}{repeat.stderr}")
+            require(deployment_fingerprint(home) == installed_state,
+                    "repeated scoped retirement changed the deployed state")
 
 
 def main() -> int:
