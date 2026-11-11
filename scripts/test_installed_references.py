@@ -12,13 +12,12 @@ from pathlib import Path
 import re
 import subprocess
 import sys
-import tempfile
 
-from test_release_safety import copy_source, require
+from test_release_safety import copy_source, fixture_directory, require
 
 
 def run_fixture(mode: str) -> None:
-    with tempfile.TemporaryDirectory(prefix='codex-installed-refs-') as temporary:
+    with fixture_directory('installed-refs') as temporary:
         root = Path(temporary).resolve()
         source = copy_source(root)
         home = root / 'home'
@@ -49,11 +48,27 @@ def run_fixture(mode: str) -> None:
         require(checked == 6, f'{mode}: expected six owner references, got {checked}')
         require(len(registries) == 1, f'{mode}: references do not share one installed registry')
         hidden_source.rename(source)
-        second = subprocess.run(command, capture_output=True, text=True)
-        require(second.returncode == 0 and 'Already current' in second.stdout,
-                f'{mode}: install is not idempotent: {second.stdout}{second.stderr}')
         registry = next(iter(registries))
-        original = registry.read_bytes()
+        package_store = home / '.codex/packages/codex-agent-skill-bioinfo'
+        marker = home / '.agents/codex-bioinfo-skills.json'
+        old_releases = {p.name for p in package_store.iterdir()}
+        old_runtime_target = runtime.resolve()
+        old_runtime_is_symlink = runtime.is_symlink()
+        old_marker = marker.read_bytes() if marker.exists() else None
+        old_registry = registry.read_bytes()
+        second = subprocess.run(command, capture_output=True, text=True)
+        require(second.returncode == 0,
+                f'{mode}: repeated install failed: {second.stdout}{second.stderr}')
+        require(runtime.resolve() == old_runtime_target
+                and runtime.is_symlink() == old_runtime_is_symlink,
+                f'{mode}: repeated install changed deployment topology')
+        require((marker.read_bytes() if marker.exists() else None) == old_marker,
+                f'{mode}: repeated install changed the deployment marker')
+        require({p.name for p in package_store.iterdir()} == old_releases,
+                f'{mode}: repeated install created a new release snapshot')
+        require(registry.read_bytes() == old_registry,
+                f'{mode}: repeated install changed the installed registry')
+        original = old_registry
         registry.chmod(0o600)
         registry.write_bytes(original + b'\n')
         tampered = subprocess.run(command[:-1], capture_output=True, text=True)
@@ -63,11 +78,6 @@ def run_fixture(mode: str) -> None:
         registry.chmod(0o444)
         # Fail after a new registry/tree has been deployed; the old registry,
         # deployment topology, copy marker and release store must be restored.
-        package_store = home / '.codex/packages/codex-agent-skill-bioinfo'
-        old_releases = {p.name for p in package_store.iterdir()}
-        old_runtime_target = runtime.resolve()
-        marker = home / '.agents/codex-bioinfo-skills.json'
-        old_marker = marker.read_bytes() if marker.exists() else None
         source_registry = source / '.codex/skills/capability_registry.json'
         source_registry.write_bytes(source_registry.read_bytes() + b'\n')
         installer = source / 'scripts/install_codex_bioinfo.py'
